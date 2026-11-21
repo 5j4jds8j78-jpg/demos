@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>KETmade — концепт головної сторінки</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--milk:#f6f0e6;--paper:#fbf8f2;--clay:#a8462b;--clay-d:#7d311d;--earth:#4a3426;--ink:#2a1f18;--muted:#7a6a5c;--line:#e3d7c6}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;font-size:16px}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.demo{background:var(--earth);color:#f3e6d6;font-size:12.5px;text-align:center;padding:6px 12px;letter-spacing:.02em}
+header{position:sticky;top:0;z-index:10;background:rgba(251,248,242,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.logo{font-family:"Cormorant Garamond",serif;font-size:28px;font-weight:600;letter-spacing:.04em;text-decoration:none}
+.logo b{color:var(--clay);font-weight:600}
+.menu{display:flex;gap:28px;list-style:none;font-size:14.5px;font-weight:500}
+.menu a{text-decoration:none;padding:6px 0;border-bottom:1px solid transparent}
+.menu a:hover{border-color:var(--clay)}
+.right{display:flex;align-items:center;gap:18px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{border:0;background:none;font:600 12.5px Manrope;padding:5px 10px;border-radius:999px;cursor:pointer;color:var(--muted)}
+.lang button.on{background:var(--ink);color:var(--paper)}
+.burger{display:none;border:0;background:none;font-size:24px;cursor:pointer}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;min-height:calc(100vh - 110px);padding-top:48px;padding-bottom:64px}
+.eyebrow{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--clay);font-weight:600;margin-bottom:18px}
+h1{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(44px,6vw,82px);line-height:1.02;letter-spacing:-.01em;margin-bottom:24px}
+h1 em{color:var(--clay);font-style:italic}
+.lead{font-size:18px;color:var(--muted);max-width:30em;margin-bottom:34px}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:15px;padding:14px 26px;border-radius:999px;border:1px solid var(--ink);transition:.2s}
+.btn.fill{background:var(--clay);border-color:var(--clay);color:#fff}
+.btn.fill:hover{background:var(--clay-d);border-color:var(--clay-d)}
+.btn:not(.fill):hover{background:var(--ink);color:var(--paper)}
+.hero-art{position:relative;aspect-ratio:4/5}
+.hero-art .a{position:absolute;inset:0 18% 14% 0;border-radius:200px 200px 8px 8px;overflow:hidden;background:var(--milk)}
+.hero-art .b{position:absolute;right:0;bottom:0;width:46%;aspect-ratio:1;border-radius:50%;overflow:hidden;border:8px solid var(--paper);background:var(--milk)}
+.hero-art img{width:100%;height:100%;object-fit:cover}
+.orn{position:absolute;opacity:.10;pointer-events:none}
+section{padding:110px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:48px;flex-wrap:wrap}
+h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(36px,4vw,54px);line-height:1.05}
+.sec-head p{color:var(--muted);max-width:28em}
+.about{background:var(--milk)}
+.about .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:center}
+.about .ph{aspect-ratio:3/4;border-radius:8px;overflow:hidden;background:#e9dfd0}
+.about .ph img{width:100%;height:100%;object-fit:cover}
+.about p{margin-top:18px;color:#4f4136}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;border-top:1px solid var(--line);padding-top:28px}
+.facts b{display:block;font-family:"Cormorant Garamond",serif;font-size:34px;font-weight:600;color:var(--clay);line-height:1}
+.facts span{font-size:13.5px;color:var(--muted)}
+.cats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.cats button{border:1px solid var(--line);background:none;border-radius:999px;padding:8px 16px;font:500 14px Manrope;cursor:pointer}
+.cats button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{cursor:pointer}
+.card .im{aspect-ratio:4/5;overflow:hidden;border-radius:6px;background:var(--milk)}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.card:hover img{transform:scale(1.04)}
+.card h3{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:22px;margin-top:14px}
+.card small{color:var(--muted);font-size:13.5px}
+.work{background:var(--earth);color:#f3e9dc}
+.work .sec-head p{color:#cdbca9}
+.wgrid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:22px}
+.wcard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.wcard .im{aspect-ratio:16/10;overflow:hidden}
+.wcard img{width:100%;height:100%;object-fit:cover}
+.wcard .tx{padding:22px 24px 26px;display:flex;flex-direction:column;gap:8px;flex:1}
+.wcard h3{font-family:"Cormorant Garamond",serif;font-size:26px;font-weight:500;color:#fff}
+.wcard p{font-size:14.5px;color:#d5c5b3}
+.tag{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#e9a487;font-weight:600}
+.wcard a{margin-top:auto;padding-top:10px;font-weight:600;font-size:14px;color:#fff;text-decoration:none}
+.shop{text-align:center}
+.shop .box{border:1px solid var(--line);border-radius:12px;padding:64px 24px;background:var(--milk);position:relative;overflow:hidden}
+.shop p{color:var(--muted);max-width:34em;margin:16px auto 28px}
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+form{display:grid;gap:14px}
+input,textarea,select{width:100%;font:15px Manrope;padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+textarea{min-height:120px;resize:vertical}
+.cinfo p{color:var(--muted);margin:14px 0}
+.cinfo .soc{display:flex;gap:10px;margin-top:22px}
+.cinfo .soc span{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13.5px}
+footer{border-top:1px solid var(--line);padding:30px 0;font-size:13.5px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--paper);padding:12px 20px;border-radius:999px;font-size:14px;transition:.3s;z-index:50}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:960px){
+ .menu{display:none;position:absolute;top:72px;left:0;right:0;background:var(--paper);flex-direction:column;padding:16px 24px 24px;border-bottom:1px solid var(--line);gap:14px}
+ .menu.open{display:flex}
+ .burger{display:block}
+ .hero .wrap,.about .wrap,.contact .wrap{grid-template-columns:1fr;gap:40px;min-height:0}
+ .hero-art{max-width:460px}
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .wgrid{grid-template-columns:1fr}
+ section{padding:72px 0}
+}
+@media(max-width:560px){.grid{grid-template-columns:1fr 1fr;gap:14px}.card h3{font-size:18px}.facts{grid-template-columns:1fr 1fr 1fr}.facts b{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="demo" data-i="demo">Концепт головної сторінки для KETmade — підготовлено для обговорення, фото з поточного сайту художниці</div>
+<header>
+ <div class="wrap nav">
+  <a class="logo" href="#top">KET<b>made</b></a>
+  <ul class="menu" id="menu">
+   <li><a href="#about" data-i="m1">Про художницю</a></li>
+   <li><a href="#gallery" data-i="m2">Галерея</a></li>
+   <li><a href="#workshops" data-i="m3">Майстер-класи</a></li>
+   <li><a href="#shop" data-i="m4">Магазин</a></li>
+   <li><a href="#contact" data-i="m5">Контакти</a></li>
+  </ul>
+  <div class="right">
+   <div class="lang" role="group" aria-label="Language">
+    <button data-l="uk" class="on">UA</button><button data-l="nl">NL</button><button data-l="en">EN</button>
+   </div>
+   <button class="burger" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+  </div>
+ </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+ <svg class="orn" style="left:-120px;top:40px;width:520px" viewBox="0 0 200 200" fill="none" stroke="#a8462b" stroke-width="3"><path d="M100 100m-8 0a8 8 0 1 0 16 0a16 16 0 1 0-32 0a24 24 0 1 0 48 0a32 32 0 1 0-64 0a40 40 0 1 0 80 0a48 48 0 1 0-96 0a56 56 0 1 0 112 0"/></svg>
+ <div class="wrap">
+  <div class="reveal">
+   <div class="eyebrow" data-i="eb">Кераміка · Розпис по склу · Майстер-класи</div>
+   <h1 data-i="h1" data-html>Голос предків<br>у <em>глині</em> та кольорі</h1>
+   <p class="lead" data-i="lead">Авторські роботи Катрін, натхненні трипільськими символами: сонце, вода, Дерево життя. Майстерня в Нідерландах — заняття для дітей і дорослих.</p>
+   <div class="btns">
+    <a class="btn fill" href="#gallery" data-i="b1">Дивитися роботи</a>
+    <a class="btn" href="#workshops" data-i="b2">Записатися на заняття</a>
+   </div>
+  </div>
+  <div class="hero-art reveal">
+   <div class="a"><img src="https://www.cfwebforge.com/ketmade/m/art/IMG_20260913_063902.jpg" alt="Voice of the Ancestors"></div>
+   <div class="b"><img src="https://www.cfwebforge.com/ketmade/m/art/IMG_20260409_060102.jpg" alt="Ceramic Ram"></div>
+  </div>
+ </div>
+</section>
+
+<section class="about" id="about">
+ <div class="wrap">
+  <div class="ph reveal"><img src="https://www.cfwebforge.com/ketmade/m/art/IMG_20260915_063942.jpg" alt="Gift of the Earth"></div>
+  <div class="reveal">
+   <div class="eyebrow" data-i="ab_eb">Про художницю</div>
+   <h2 data-i="ab_h">Катрін — художниця, керамістка, арт-терапевтка</h2>
+   <p data-i="ab_p1">Працює з керамікою, вітражним розписом, живописом і прикрасами. У новій колекції «Голос предків» поєднує трипільські та слов’янські мотиви — щоб повернути людям відчуття коріння і зв’язку з природою.</p>
+   <p data-i="ab_p2">Ілюструє дитячі книжки, пише вірші й понад 10 років веде творчу студію для дітей і дорослих.</p>
+   <div class="facts">
+    <div><b>10+</b><span data-i="f1">років студії</span></div>
+    <div><b>5</b><span data-i="f2">технік</span></div>
+    <div><b>3</b><span data-i="f3">мови занять</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="gallery">
+ <div class="wrap">
+  <div class="sec-head reveal">
+   <h2 data-i="g_h">Галерея робіт</h2>
+   <p data-i="g_p">Нові роботи художниця додає сама — фото завантажуються з телефону за хвилину.</p>
+  </div>
+  <div class="cats reveal">
+   <button class="on" data-c="all" data-i="c0">Усі</button>
+   <button data-c="cer" data-i="c1">Кераміка</button>
+   <button data-c="glass" data-i="c2">Розпис по склу</button>
+   <button data-c="jew" data-i="c3">Прикраси</button>
+  </div>
+  <div class="grid">
+   <div class="card reveal" data-c="cer"><div class="im"><img src="https://www.cfwebforge.com/ketmade/m/art/IMG_20260913_063902.jpg" alt="" loading="lazy"></div><h3 data-i="w1">Голос предків</h3><small data-i="w1s">Кераміка, колекція 2026</small></div>
+   <div class="card reveal" data-c="cer"><div class="im"><img src="https://www.cfwebforge.com/ketmade/m/art/IMG_20260915_063942.jpg" alt="" loading="lazy"></div><h3 data-i="w2">Дар Землі</h3><small data-i="w2s">Кераміка</small></div>
+   <div class="card reveal" data-c="glass"><div class="im"><img src="https://www.cfwebforge.com/ketmade/m/art/IMG_20260915_055800.jpg" alt="" loading="lazy"></div><h3 data-i="w3">Золоте світло 01</h3><small data-i="w3s">Серія робіт</small></div>
+   <div class="card reveal" data-c="cer"><div class="im"><img src="https://www.cfwebforge.com/ketmade/m/art/IMG_20260409_060102.jpg" alt="" loading="lazy"></div><h3 data-i="w4">Керамічний баран</h3><small data-i="w4s">Скульптура</small></div>
+   <div class="card reveal" data-c="jew"><div class="im"><img src="https://www.cfwebforge.com/ketmade/m/art/IMG_20260408_093137.jpg" alt="" loading="lazy"></div><h3 data-i="w5">Браслет 1</h3><small data-i="w5s">Прикраси</small></div>
+   <div class="card reveal" data-c="jew"><div class="im"><img src="https://www.cfwebforge.com/ketmade/m/art/IMG_20260408_093221.jpg" alt="" loading="lazy"></div><h3 data-i="w6">Браслет 2</h3><small data-i="w6s">Прикраси</small></div>
+  </div>
+ </div>
+</section>
+
+<section class="work" id="workshops">
+ <div class="wrap">
+  <div class="sec-head reveal">
+   <h2 data-i="ws_h">Майстер-класи та заняття</h2>
+   <p data-i="ws_p">Українською, англійською та нідерландською. Розклад і запис — прямо на сайті.</p>
+  </div>
+  <div class="wgrid">
+   <div class="wcard reveal"><div class="im"><img src="https://www.cfwebforge.com/ketmade/m/art/workshop_kids01.jpg" alt="" loading="lazy"></div><div class="tx"><span class="tag" data-i="t1">Для дітей · 2 год</span><h3 data-i="k1">Малюємо і розписуємо</h3><p data-i="k1p">Безпечний простір для самовираження — для дітей і підлітків, зокрема тих, хто переїхав через війну.</p><a href="#contact" data-i="more">Записатися →</a></div></div>
+   <div class="wcard reveal"><div class="im"><img src="https://www.cfwebforge.com/ketmade/m/art/workshop_kids03.jpg" alt="" loading="lazy"></div><div class="tx"><span class="tag" data-i="t2">Для дорослих</span><h3 data-i="k2">Кераміка з нуля</h3><p data-i="k2p">Ліпимо, розписуємо трипільськими символами, забираєте власний виріб.</p><a href="#contact" data-i="more">Записатися →</a></div></div>
+   <div class="wcard reveal"><div class="im"><img src="https://www.cfwebforge.com/ketmade/m/art/workshop_kids04.jpg" alt="" loading="lazy"></div><div class="tx"><span class="tag" data-i="t3">На замовлення</span><h3 data-i="k3">Прикраси та групи</h3><p data-i="k3p">Майстер-клас для школи, компанії чи свята — у вашому просторі.</p><a href="#contact" data-i="more">Записатися →</a></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="shop" id="shop">
+ <div class="wrap">
+  <div class="box reveal">
+   <svg class="orn" style="right:-60px;top:-60px;width:300px" viewBox="0 0 200 200" fill="none" stroke="#a8462b" stroke-width="3"><path d="M20 100q40-60 80 0t80 0M20 130q40-60 80 0t80 0M20 70q40-60 80 0t80 0"/></svg>
+   <div class="eyebrow" data-i="sh_eb">Скоро</div>
+   <h2 data-i="sh_h">Магазин KETmade</h2>
+   <p data-i="sh_p">Кераміка, листівки та подарунки з доставкою по Нідерландах і Європі. Оплата iDEAL, картою або PayPal.</p>
+   <a class="btn" href="#contact" data-i="sh_b">Повідомити про відкриття</a>
+  </div>
+ </div>
+</section>
+
+<section class="contact" id="contact" style="padding-top:0">
+ <div class="wrap">
+  <div class="cinfo reveal">
+   <div class="eyebrow" data-i="c_eb">Контакти</div>
+   <h2 data-i="c_h">Напишіть Катрін</h2>
+   <p data-i="c_p">Запис на заняття, замовлення роботи чи співпраця — відповімо протягом доби.</p>
+   <div class="soc"><span>Instagram</span><span>Facebook</span><span>YouTube</span></div>
+  </div>
+  <form class="reveal" onsubmit="event.preventDefault();toast()">
+   <input data-ph="f_name" placeholder="Ваше ім’я" required>
+   <input type="email" data-ph="f_mail" placeholder="Email" required>
+   <select><option data-i="o1">Майстер-клас</option><option data-i="o2">Замовлення роботи</option><option data-i="o3">Інше</option></select>
+   <textarea data-ph="f_msg" placeholder="Повідомлення"></textarea>
+   <button class="btn fill" type="submit" data-i="send">Надіслати</button>
+  </form>
+ </div>
+</section>
+</main>
+<footer><div class="wrap"><span>© 2026 KETmade · Katrin</span><span data-i="foot">Концепт дизайну · не фінальний сайт</span></div></footer>
+<div class="toast" id="toast" data-i="toast">Це концепт — форма поки не надсилає повідомлення</div>
+
+<script>
+const T={
+nl:{demo:"Concept voor de homepage van KETmade — ter bespreking, foto's van de huidige site van de kunstenaar",m1:"Over de kunstenaar",m2:"Galerie",m3:"Workshops",m4:"Winkel",m5:"Contact",eb:"Keramiek · Glasschildering · Workshops",h1:"De stem van de voorouders<br>in <em>klei</em> en kleur",lead:"Origineel werk van Katrin, geïnspireerd op Trypillia-symbolen: zon, water, de Levensboom. Atelier in Nederland — lessen voor kinderen en volwassenen.",b1:"Bekijk het werk",b2:"Inschrijven voor een les",ab_eb:"Over de kunstenaar",ab_h:"Katrin — kunstenaar, keramist, kunsttherapeut",ab_p1:"Werkt met keramiek, glasschildering, schilderkunst en sieraden. In de nieuwe collectie 'Stem van de voorouders' combineert ze Trypilliaanse en Slavische motieven om mensen weer te verbinden met hun wortels en de natuur.",ab_p2:"Illustreert kinderboeken, schrijft gedichten en leidt al meer dan 10 jaar een creatieve studio voor kinderen en volwassenen.",f1:"jaar studio",f2:"technieken",f3:"lestalen",g_h:"Galerie",g_p:"Nieuw werk voegt de kunstenaar zelf toe — foto's uploaden vanaf de telefoon in een minuut.",c0:"Alles",c1:"Keramiek",c2:"Glasschildering",c3:"Sieraden",w1:"Stem van de voorouders",w1s:"Keramiek, collectie 2026",w2:"Gave van de Aarde",w2s:"Keramiek",w3:"Gouden licht 01",w3s:"Serie",w4:"Keramische ram",w4s:"Beeld",w5:"Armband 1",w5s:"Sieraden",w6:"Armband 2",w6s:"Sieraden",ws_h:"Workshops en lessen",ws_p:"In het Oekraïens, Engels en Nederlands. Rooster en inschrijving direct op de site.",t1:"Voor kinderen · 2 uur",k1:"Tekenen en schilderen",k1p:"Een veilige plek om je te uiten — voor kinderen en tieners, ook voor wie door de oorlog is verhuisd.",t2:"Voor volwassenen",k2:"Keramiek vanaf nul",k2p:"Boetseren, beschilderen met Trypillia-symbolen en je eigen werk mee naar huis.",t3:"Op aanvraag",k3:"Sieraden en groepen",k3p:"Workshop voor school, bedrijf of feest — op uw locatie.",more:"Inschrijven →",sh_eb:"Binnenkort",sh_h:"KETmade winkel",sh_p:"Keramiek, kaarten en cadeaus met verzending in Nederland en Europa. Betalen met iDEAL, kaart of PayPal.",sh_b:"Houd me op de hoogte",c_eb:"Contact",c_h:"Schrijf Katrin",c_p:"Inschrijving, opdracht of samenwerking — we antwoorden binnen een dag.",o1:"Workshop",o2:"Opdracht",o3:"Anders",send:"Versturen",foot:"Designconcept · geen definitieve site",toast:"Dit is een concept — het formulier verstuurt nog niets",f_name:"Uw naam",f_mail:"E-mail",f_msg:"Bericht"},
+en:{demo:"Homepage concept for KETmade — prepared for discussion, photos from the artist's current site",m1:"About",m2:"Gallery",m3:"Workshops",m4:"Shop",m5:"Contact",eb:"Ceramics · Glass painting · Workshops",h1:"Voice of the ancestors<br>in <em>clay</em> and colour",lead:"Original work by Katrin, inspired by Trypillian symbols: the sun, water, the Tree of Life. Studio in the Netherlands — classes for children and adults.",b1:"See the work",b2:"Book a class",ab_eb:"About the artist",ab_h:"Katrin — artist, ceramist, art therapist",ab_p1:"Works in ceramics, stained glass painting, painting and jewellery. Her new collection 'Voice of the Ancestors' blends Trypillian and Slavic motifs to reconnect people with their roots and with nature.",ab_p2:"She illustrates children's books, writes poetry and has led a creative studio for children and adults for over 10 years.",f1:"years of studio",f2:"techniques",f3:"class languages",g_h:"Gallery",g_p:"The artist adds new work herself — photos upload from a phone in a minute.",c0:"All",c1:"Ceramics",c2:"Glass painting",c3:"Jewellery",w1:"Voice of the Ancestors",w1s:"Ceramics, 2026 collection",w2:"Gift of the Earth",w2s:"Ceramics",w3:"Golden Light 01",w3s:"Series",w4:"Ceramic Ram",w4s:"Sculpture",w5:"Bracelet 1",w5s:"Jewellery",w6:"Bracelet 2",w6s:"Jewellery",ws_h:"Workshops & classes",ws_p:"In Ukrainian, English and Dutch. Schedule and booking right on the site.",t1:"For kids · 2 h",k1:"Drawing & painting",k1p:"A safe space for self-expression — for children and teens, including those displaced by the war.",t2:"For adults",k2:"Ceramics from scratch",k2p:"Sculpt, paint with Trypillian symbols and take your own piece home.",t3:"On request",k3:"Jewellery & groups",k3p:"A workshop for a school, company or celebration — at your venue.",more:"Book →",sh_eb:"Coming soon",sh_h:"KETmade shop",sh_p:"Ceramics, postcards and gifts shipped across the Netherlands and Europe. Pay with iDEAL, card or PayPal.",sh_b:"Notify me",c_eb:"Contact",c_h:"Write to Katrin",c_p:"Class booking, a commission or collaboration — we reply within a day.",o1:"Workshop",o2:"Commission",o3:"Other",send:"Send",foot:"Design concept · not the final site",toast:"This is a concept — the form doesn't send yet",f_name:"Your name",f_mail:"Email",f_msg:"Message"}};
+const UK={};document.querySelectorAll('[data-i]').forEach(e=>UK[e.dataset.i]=e.hasAttribute('data-html')?e.innerHTML:e.textContent);document.querySelectorAll('[data-ph]').forEach(e=>UK[e.dataset.ph]=e.placeholder);T.uk=UK;
+function setLang(l){document.documentElement.lang=l;const d=T[l];document.querySelectorAll('[data-i]').forEach(e=>{const v=d[e.dataset.i];if(v==null)return;e.hasAttribute('data-html')?e.innerHTML=v:e.textContent=v});document.querySelectorAll('[data-ph]').forEach(e=>{if(d[e.dataset.ph])e.placeholder=d[e.dataset.ph]});document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l==l))}
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+document.querySelectorAll('.cats button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.cats button').forEach(x=>x.classList.toggle('on',x==b));document.querySelectorAll('.card').forEach(c=>c.style.display=(b.dataset.c=='all'||c.dataset.c==b.dataset.c)?'':'none')});
+document.querySelectorAll('.menu a').forEach(a=>a.onclick=()=>document.getElementById('menu').classList.remove('open'));
+function toast(){const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+</script>
+</body>
+</html>
