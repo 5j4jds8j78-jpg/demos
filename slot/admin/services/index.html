@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Послуги — адмінка</title>
+  <link rel="icon" href="/demos/slot/static/favicon.svg">
+  <link rel="stylesheet" href="/demos/slot/static/style.css">
+<script src="/demos/slot/_demo/demo-shim.js"></script>
+<script src="/demos/slot/_demo/slot-shim.js"></script>
+</head>
+<body class="admin">
+<header class="top">
+  <a class="logo" href="/demos/slot/"><span class="dot"></span>Barber Lab</a>
+  <nav>
+    
+      <a href="/demos/slot/admin/">Записи</a>
+      <a href="/demos/slot/admin/services/">Послуги</a>
+      <a href="/demos/slot/admin/export.csv">Експорт CSV</a>
+      <form method="post" action="/demos/slot/admin/logout/" class="inline">
+        <input type="hidden" name="_csrf" value="QxmxJ5uY0NDTwx6dDHQmJcLT70-yUQKvdDIWAVPEJuo"><button class="link">Вийти</button>
+      </form>
+    
+  </nav>
+</header>
+<main class="wrap">
+  
+    
+  
+  
+<h1>Послуги</h1>
+<div class="cols">
+  <section class="card">
+    <table class="tbl">
+      <thead><tr><th>Назва</th><th>Тривалість</th><th>Ціна</th><th></th></tr></thead>
+      <tbody>
+      
+      <tr class="">
+        <td><b>Оформлення бороди</b></td><td>30 хв</td><td>300 ₴</td>
+        <td><form method="post" action="/demos/slot/admin/services/3/toggle/">
+          <input type="hidden" name="_csrf" value="QxmxJ5uY0NDTwx6dDHQmJcLT70-yUQKvdDIWAVPEJuo">
+          <button class="btn ghost sm">Приховати</button></form></td>
+      </tr>
+      
+      <tr class="">
+        <td><b>Дитяча стрижка</b></td><td>30 хв</td><td>350 ₴</td>
+        <td><form method="post" action="/demos/slot/admin/services/4/toggle/">
+          <input type="hidden" name="_csrf" value="QxmxJ5uY0NDTwx6dDHQmJcLT70-yUQKvdDIWAVPEJuo">
+          <button class="btn ghost sm">Приховати</button></form></td>
+      </tr>
+      
+      <tr class="">
+        <td><b>Чоловіча стрижка</b></td><td>45 хв</td><td>450 ₴</td>
+        <td><form method="post" action="/demos/slot/admin/services/1/toggle/">
+          <input type="hidden" name="_csrf" value="QxmxJ5uY0NDTwx6dDHQmJcLT70-yUQKvdDIWAVPEJuo">
+          <button class="btn ghost sm">Приховати</button></form></td>
+      </tr>
+      
+      <tr class="">
+        <td><b>Стрижка + борода</b></td><td>75 хв</td><td>700 ₴</td>
+        <td><form method="post" action="/demos/slot/admin/services/2/toggle/">
+          <input type="hidden" name="_csrf" value="QxmxJ5uY0NDTwx6dDHQmJcLT70-yUQKvdDIWAVPEJuo">
+          <button class="btn ghost sm">Приховати</button></form></td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </section>
+  <aside><form class="card" method="post">
+    <input type="hidden" name="_csrf" value="QxmxJ5uY0NDTwx6dDHQmJcLT70-yUQKvdDIWAVPEJuo">
+    <h3>Нова послуга</h3>
+    <label>Назва<input name="name" required maxlength="60"></label>
+    <div class="grid2">
+      <label>Хвилин<input name="minutes" type="number" min="10" max="480" step="5" value="30" required></label>
+      <label>Ціна, ₴<input name="price" type="number" min="0" value="400" required></label>
+    </div>
+    <button class="btn">Додати</button>
+  </form></aside>
+</div>
+
+</main>
+<footer class="foot">Slot · онлайн-запис · захищено CSRF, rate-limit, CSP</footer>
+
+<script>window.demoPre&&demoPre()</script></body>
+</html>

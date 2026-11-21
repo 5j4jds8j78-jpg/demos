@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кав’ярня «Мишка» — кава свіжого обсмаження та домашні десерти в Києві</title>
+  <meta name="description" content="Затишна кав’ярня «Мишка» в Києві: кава свіжого обсмаження, медівник і круасани власної випічки, сніданки щодня, тепла музика та м’які крісла.">
+  <meta name="theme-color" content="#2e1f17">
+  <meta property="og:title" content="Кав’ярня «Мишка»">
+  <meta property="og:description" content="Кава, яка обіймає. Свіже обсмаження, домашні десерти й тепла музика.">
+  <meta property="og:image" content="img/photos/hero.webp">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="img/logo/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<!-- Форма «ведмедика» для обрізання фото в першому екрані -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="bear-clip" clipPathUnits="objectBoundingBox">
+      <ellipse cx=".1838" cy=".1511" rx=".1544" ry=".1511"/>
+      <ellipse cx=".8162" cy=".1511" rx=".1544" ry=".1511"/>
+      <path d="M.5 .1367 C.8235 .1367 1 .3381 1 .5971 C1 .8417 .7941 1 .5 1 C.2059 1 0 .8417 0 .5971 C0 .3381 .1765 .1367 .5 .1367Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<header class="header" id="top">
+  <div class="wrap header__in">
+    <a class="header__logo" href="index.html" aria-label="Кав’ярня «Мишка», на головну">
+      <img src="img/logo/mishka-logo-horizontal.svg" alt="Мишка — кав’ярня" width="135" height="50">
+    </a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Відкрити меню навігації">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav" id="nav" aria-label="Головна навігація">
+      <a href="menu.html">Меню</a>
+      <a href="#about">Про нас</a>
+      <a href="#gallery">Атмосфера</a>
+      <a href="#visit">Контакти</a>
+      <!-- ЗАГЛУШКА: замініть номер телефону -->
+      <a class="btn btn--ghost" href="tel:+380000000000">Зателефонувати</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ ПЕРШИЙ ЕКРАН ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <!-- Декоративні лінійні малюнки -->
+    <svg class="deco deco--branch" viewBox="0 0 160 200" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 192 C 40 150, 62 118, 82 86 S 120 30, 142 8"/>
+        <path d="M44 146 C 22 140, 10 124, 8 104 C 28 108, 42 124, 44 146Z"/><path d="M44 146 C 30 130, 20 118, 8 104"/>
+        <path d="M60 120 C 82 120, 98 106, 104 86 C 82 88, 66 102, 60 120Z"/><path d="M60 120 C 76 108, 90 96, 104 86"/>
+        <path d="M88 76 C 66 70, 56 52, 56 32 C 76 38, 88 54, 88 76Z"/><path d="M88 76 C 76 60, 66 46, 56 32"/>
+        <path d="M112 46 C 130 48, 146 40, 154 24 C 136 22, 120 30, 112 46Z"/><path d="M112 46 C 126 38, 140 30, 154 24"/>
+        <circle cx="70" cy="140" r="7"/><circle cx="82" cy="148" r="6.5"/><circle cx="74" cy="154" r="6"/>
+      </g>
+    </svg>
+    <svg class="deco deco--beans" viewBox="0 0 120 80" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+        <ellipse cx="36" cy="40" rx="20" ry="28" transform="rotate(-28 36 40)"/><path d="M26 18 C 40 30, 28 46, 44 62"/>
+        <ellipse cx="88" cy="44" rx="16" ry="22" transform="rotate(34 88 44)"/><path d="M98 26 C 86 36, 96 50, 80 62"/>
+      </g>
+    </svg>
+    <svg class="deco deco--swirl" viewBox="0 0 80 120" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+        <path d="M30 116 C 10 96, 50 82, 30 60 C 14 42, 44 28, 34 6"/>
+        <path d="M54 110 C 40 96, 66 86, 54 68"/>
+      </g>
+    </svg>
+
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <h1 class="hero__name" id="hero-title">Мишка</h1>
+        <p class="hero__tagline">Кава, яка обіймає</p>
+        <p class="hero__lead">Невелика кав’ярня в центрі Києва, де пахне свіжозмеленою кавою й теплою випічкою. Заходьте на аромат: м’яке крісло й добра музика вже чекають.</p>
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="menu.html">Переглянути меню</a>
+          <a class="link" href="#visit">Як нас знайти</a>
+        </div>
+        <div class="hits">
+          <div class="hits__head">
+            <h2 class="hits__title">Хіти дня</h2>
+            <!-- ЗАГЛУШКА: адреса; години беруться з таблиці в блоці «Як нас знайти» -->
+            <span class="hits__status"><span class="open-dot" data-open-dot></span><span data-open-status>Пн–Пт 08:00–21:00</span></span>
+          </div>
+          <!-- Хіти дня: назви мають точно збігатися з назвами в js/menu-data.js (ціна й фото підтягуються звідти) -->
+          <ul class="hits__list" data-hits="Медовий лате «Мишка»|Капучино|Медівник"></ul>
+        </div>
+      </div>
+      <div class="hero__media">
+        <div class="bear-frame" data-px-host>
+          <div class="bear-frame__img">
+            <img data-px="0.06" data-px-scale="1.1" src="img/photos/hero.webp" width="1200" height="1200" alt="Бариста наливає молоко в капучино, на поверхні з’являється листочок" fetchpriority="high">
+          </div>
+          <svg class="steam" viewBox="0 0 200 160" aria-hidden="true" focusable="false">
+            <g fill="none" stroke="#fff" stroke-linecap="round">
+              <path class="steam__p steam__p--1" d="M60 150 C 40 120, 80 100, 60 70 C 44 46, 70 30, 62 8" stroke-width="5"/>
+              <path class="steam__p steam__p--2" d="M150 150 C 132 124, 168 104, 150 76 C 138 56, 160 40, 152 18" stroke-width="4"/>
+              <path class="steam__p steam__p--3" d="M100 150 C 86 130, 116 112, 102 90" stroke-width="3.5"/>
+            </g>
+          </svg>
+          <figure class="float-card float-card--a" data-px="-0.12">
+            <img src="img/photos/card-medivnyk.webp" width="360" height="450" alt="Шматочок медівника">
+            <figcaption>Медівник власної випічки</figcaption>
+          </figure>
+          <figure class="float-card float-card--b" data-px="-0.06">
+            <img src="img/photos/card-interior.webp" width="560" height="400" alt="Зала кав’ярні з рослинами й теплим світлом">
+          </figure>
+          <div class="bear-frame__note">
+            <img src="img/logo/mishka-icon-square.svg" alt="" width="38" height="38">
+            <span><b>Зерно щотижня</b>від українських обсмажувачів</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ПРО НАС ============ -->
+  <section class="section section--foam" id="about" aria-labelledby="about-title">
+    <div class="wrap about__grid">
+      <div class="about__photo reveal">
+        <img data-px="0.08" data-px-scale="1.14" src="img/photos/interior-1.webp" width="1400" height="933" alt="Світла зала з цегляною стіною, м’яким диваном і столиками біля вікна" loading="lazy">
+      </div>
+      <div class="about__text reveal">
+        <h2 class="h2" id="about-title">Місце, куди хочеться повертатися</h2>
+        <p>Ми обираємо зерно в українських обсмажувачів, печемо десерти самі й підбираємо музику так, щоб розмова текла легко. Тут можна неспішно поснідати, попрацювати з ноутбуком або просто сховатися від міської метушні з чашкою капучино.</p>
+        <p>Як справжній ведмедик, «Мишка» любить мед, тепло й гостей.</p>
+        <ul class="perks">
+          <li>
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><ellipse cx="16" cy="16" rx="9" ry="12" transform="rotate(25 16 16)"/><path d="M12.5 6.5c3 4 .5 8.5 3.5 10.5s1.5 6.5 3.5 9"/></svg>
+            <h3>Свіже обсмаження</h3>
+            <p>Отримуємо зерно щотижня, тому кожна чашка яскрава й ароматна.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22h22M6 22v-5h20v5M8 17v-4h16v4M10 13V9.5h12V13"/><path d="M5 26h22"/></svg>
+            <h3>Домашні десерти</h3>
+            <p>Медівник, чизкейк і круасани печемо самі, за перевіреними рецептами.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="16" cy="16" r="11"/><circle cx="16" cy="16" r="3"/><path d="M16 5a11 11 0 0 1 11 11" stroke-linecap="round" opacity=".5"/></svg>
+            <h3>Затишок і музика</h3>
+            <p>М’які крісла, тепле світло й платівки, під які хочеться ще одну чашку.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ТИЗЕР МЕНЮ (наповнюється з js/menu-data.js) ============ -->
+  <section class="section" id="menu-preview" aria-labelledby="picks-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <h2 class="h2" id="picks-title">Що замовляють найчастіше</h2>
+          <p class="sub">Кава, чай, десерти та сніданки, усе з любов’ю й без поспіху.</p>
+        </div>
+        <a class="btn btn--ghost" href="menu.html">Усе меню</a>
+      </div>
+      <ul class="picks" data-picks></ul>
+    </div>
+  </section>
+
+  <!-- ============ ГАЛЕРЕЯ ============ -->
+  <section class="section section--foam" id="gallery" aria-labelledby="gallery-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <h2 class="h2" id="gallery-title">Атмосфера «Мишки»</h2>
+          <p class="sub">Зазирніть до нас, поки варимо вам каву.</p>
+        </div>
+      </div>
+      <div class="gallery reveal">
+        <figure><img data-px="0.07" data-px-scale="1.16" src="img/photos/interior-2.webp" width="1400" height="933" alt="Затишна зала з дерев’яними панелями, живими рослинами й теплим світлом" loading="lazy"></figure>
+        <figure><img data-px="0.07" data-px-scale="1.16" src="img/photos/interior-4.webp" width="1400" height="933" alt="Дві чашки капучино й айс-кава над дерев’яним столом" loading="lazy"></figure>
+        <figure><img data-px="0.07" data-px-scale="1.16" src="img/photos/gallery-cinnamon.webp" width="800" height="600" alt="Булочка з корицею й чашка кави на дерев’яному столі біля вікна" loading="lazy"></figure>
+        <figure><img data-px="0.07" data-px-scale="1.16" src="img/photos/interior-3.webp" width="1400" height="933" alt="Зала з високою стелею, лампами та зеленню" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ГОДИНИ ТА АДРЕСА ============ -->
+  <section class="section section--dark visit" id="visit" aria-labelledby="visit-title">
+    <div class="wrap visit__grid">
+      <div class="reveal">
+        <h2 class="h2" id="visit-title">Як нас знайти</h2>
+        <p class="sub">Ми в серці старого Києва, п’ять хвилин пішки від Золотих воріт. Шукайте теплі вогники у вітрині та ведмедика на дверях.</p>
+
+        <div class="visit__block" style="margin-top:44px">
+          <h3>Години роботи</h3>
+          <table class="hours">
+            <tbody>
+              <tr data-days="1,2,3,4,5" data-open="08:00" data-close="21:00"><th scope="row">Понеділок – п’ятниця</th><td>08:00 – 21:00</td></tr>
+              <tr data-days="6,0" data-open="09:00" data-close="22:00"><th scope="row">Субота – неділя</th><td>09:00 – 22:00</td></tr>
+            </tbody>
+          </table>
+          <p class="muted">Без перерв і вихідних.</p>
+        </div>
+
+        <div class="visit__block">
+          <h3>Адреса й телефон <span class="placeholder-tag">заглушка</span></h3>
+          <!-- ЗАГЛУШКА: замініть адресу й телефон на справжні -->
+          <address>
+            м. Київ, вул. Ярославів Вал, 00<br>
+            <a href="tel:+380000000000">+380 00 000 00 00</a>
+          </address>
+          <div class="visit__actions">
+            <a class="btn btn--solid" href="tel:+380000000000">Зателефонувати</a>
+            <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=%D0%9A%D0%B8%D1%97%D0%B2%2C%20%D0%AF%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D1%96%D0%B2%20%D0%92%D0%B0%D0%BB" target="_blank" rel="noopener">Відкрити на мапі</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="map reveal">
+        <!-- Схематична мапа-заглушка (без API-ключів). Замініть на iframe Google Maps, коли буде точна адреса. -->
+        <svg viewBox="0 0 500 400" role="img" aria-label="Схема розташування кав’ярні поруч із Золотими воротами">
+          <rect width="500" height="400" fill="#3a2a20"/>
+          <g fill="#433127">
+            <rect x="20" y="20" width="130" height="90" rx="6"/><rect x="170" y="20" width="150" height="90" rx="6"/><rect x="340" y="20" width="140" height="70" rx="6"/>
+            <rect x="20" y="135" width="95" height="110" rx="6"/><rect x="340" y="110" width="140" height="120" rx="6"/>
+            <rect x="20" y="270" width="160" height="110" rx="6"/><rect x="205" y="290" width="110" height="90" rx="6"/><rect x="340" y="255" width="140" height="125" rx="6"/>
+          </g>
+          <ellipse cx="225" cy="190" rx="78" ry="58" fill="#4a5a3a" opacity=".75"/>
+          <g fill="none" stroke="#5a4335" stroke-width="16" stroke-linecap="round">
+            <path d="M-10 122 L510 98"/><path d="M-10 258 C150 262 300 240 510 244"/><path d="M160 -10 L128 410"/><path d="M330 -10 L328 410"/>
+          </g>
+          <g fill="none" stroke="#6b5040" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"><path d="M128 300 C170 280 205 240 225 205"/></g>
+          <g font-family="Manrope, sans-serif" font-size="12" font-weight="600" fill="#cdb796">
+            <text x="360" y="95" transform="rotate(-2.6 360 95)">вул. Ярославів Вал</text>
+            <text x="352" y="238">вул. Володимирська</text>
+            <text x="186" y="200">Золоті ворота</text>
+          </g>
+          <g transform="translate(128 300)">
+            <circle r="34" fill="#c68a2e" opacity=".18"/>
+            <circle r="20" fill="#c68a2e"/>
+            <g transform="translate(-11 -12) scale(.31)" fill="#2e1f17">
+              <circle cx="28.5" cy="29" r="10.5" transform="translate(-14 -17)"/><circle cx="71.5" cy="29" r="10.5" transform="translate(-14 -17)"/>
+              <path transform="translate(-14 -17)" d="M50 28 C 72 28, 84 42, 84 60 C 84 77, 70 88, 50 88 C 30 88, 16 77, 16 60 C 16 42, 28 28, 50 28 Z"/>
+            </g>
+          </g>
+          <text x="166" y="330" font-family="Literata, serif" font-size="17" fill="#f8f1e6">«Мишка»</text>
+        </svg>
+        <span class="map__cap">Схема-заглушка, не точна адреса</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="footer__logo" href="index.html"><img src="img/logo/mishka-logo-horizontal-light.svg" alt="Мишка — кав’ярня" width="121" height="45"></a>
+        <p class="footer__tag">Свіжа кава, домашні десерти й трохи ведмежого затишку.</p>
+      </div>
+      <div>
+        <h3>Сторінки</h3>
+        <ul>
+          <li><a href="menu.html">Меню</a></li>
+          <li><a href="index.html#about">Про нас</a></li>
+          <li><a href="index.html#gallery">Атмосфера</a></li>
+          <li><a href="index.html#visit">Контакти</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Зв’язок</h3>
+        <!-- ЗАГЛУШКИ: телефон, адреса, Instagram -->
+        <ul>
+          <li><a href="tel:+380000000000">+380 00 000 00 00</a></li>
+          <li>м. Київ, вул. Ярославів Вал, 00</li>
+          <li><a href="#">Instagram (додайте посилання)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Кав’ярня «Мишка»</span>
+      <a href="#top">Нагору</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/menu-data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

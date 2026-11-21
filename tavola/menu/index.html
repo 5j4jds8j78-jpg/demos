@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Меню — Охра</title>
+  <meta name="description" content="Меню Охра: страви, ціни, вага та алергени. Пошук і фільтри «без глютену», «без лактози», «вегетаріанське».">
+  <meta name="theme-color" content="#17332b">
+  <link rel="icon" href="/demos/tavola/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/tavola/static/css/tokens.css">
+  <link rel="stylesheet" href="/demos/tavola/static/css/site.css">
+<script src="/demos/tavola/_demo/demo-shim.js"></script>
+<script src="/demos/tavola/_demo/tavola-config.js"></script>
+<script src="/demos/tavola/_demo/tavola-shim.js"></script>
+</head>
+<body class="page-menu">
+<a class="skip-link" href="#main">Перейти до змісту</a>
+<header class="qm-head">
+  <div class="qm-head__inner">
+    <a href="/demos/tavola/" aria-label="Охра — на головну"><span class="wordmark wordmark--light"><svg class="wordmark__mark" aria-hidden="true"><use href="/demos/tavola/static/img/icons.svg#logo"/></svg><span class="wordmark__name">Охра</span></span>
+</a>
+    <a class="qm-head__book" href="/demos/tavola/book/">Забронювати</a>
+  </div>
+</header>
+<main id="main">
+<div class="qm" data-menu>
+  <div class="qm-intro">
+    <h1 class="qm-intro__title">Меню</h1>
+    <p class="qm-intro__sub">Сезонне меню. Ціни в гривнях, вага — на одну порцію.</p>
+  </div>
+
+  <div class="qm-tools" data-tools>
+    <label class="qm-search">
+      <svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#search"/></svg>
+      <span class="sr-only">Пошук страви</span>
+      <input type="search" placeholder="Знайти страву або інгредієнт" data-search autocomplete="off" enterkeyhint="search">
+      <button type="button" class="qm-search__clear" data-clear hidden aria-label="Очистити пошук"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#x"/></svg></button>
+    </label>
+    <nav class="qm-cats" aria-label="Категорії меню">
+<a class="qm-cat" href="#cat-1" data-cat-link="cat-1">Закуски</a><a class="qm-cat" href="#cat-2" data-cat-link="cat-2">Салати</a><a class="qm-cat" href="#cat-3" data-cat-link="cat-3">Супи</a><a class="qm-cat" href="#cat-4" data-cat-link="cat-4">Основні страви</a><a class="qm-cat" href="#cat-5" data-cat-link="cat-5">Паста та різото</a><a class="qm-cat" href="#cat-6" data-cat-link="cat-6">Десерти</a><a class="qm-cat" href="#cat-7" data-cat-link="cat-7">Напої</a>    </nav>
+    <div class="qm-filters" role="group" aria-label="Фільтри">
+      <button type="button" class="qm-filter" aria-pressed="false" data-filter-tag="veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</button>
+      <button type="button" class="qm-filter" aria-pressed="false" data-filter-free="gluten">Без глютену</button>
+      <button type="button" class="qm-filter" aria-pressed="false" data-filter-free="milk">Без молока</button>
+      <button type="button" class="qm-filter" aria-pressed="false" data-filter-free="nuts">Без горіхів</button>
+      <button type="button" class="qm-filter" aria-pressed="false" data-filter-free="fish,shellfish,molluscs">Без риби й морепродуктів</button>
+    </div>
+  </div>
+
+  <p class="qm-count" data-count aria-live="polite"></p>
+
+  <section class="qm-section" id="cat-1" data-section aria-labelledby="cat-1-t">
+    <h2 class="qm-section__title" id="cat-1-t">Закуски</h2>
+    <ul class="qm-list">
+      <li class="dish" data-dish data-text="тартар з яловичини мармурова яловичина, жовток, каперси, гірчичний крем, грінки на заквасці" data-allergens="egg,gluten,mustard" data-tags="chef">
+        <div class="dish__row">
+          <h3 class="dish__name">Тартар з яловичини</h3>
+          <span class="dish__price tnum">365&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Мармурова яловичина, жовток, каперси, гірчичний крем, грінки на заквасці</p>        <div class="dish__meta">
+<span class="dish__weight">160 г</span><span class="dtag dtag--chef"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-chef"/></svg>Вибір шефа</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-egg"/></svg>Яйця</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-mustard"/></svg>Гірчиця</span></p>
+      </li>
+      <li class="dish" data-dish data-text="буррата з томатами буррата, томати трьох сортів, базилікова олія, кримська цибуля" data-allergens="milk" data-tags="veg">
+        <div class="dish__row">
+          <h3 class="dish__name">Буррата з томатами</h3>
+          <span class="dish__price tnum">340&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Буррата, томати трьох сортів, базилікова олія, кримська цибуля</p>        <div class="dish__meta">
+<span class="dish__weight">220 г</span><span class="dtag dtag--veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span></p>
+      </li>
+      <li class="dish" data-dish data-text="паштет з курячої печінки вершковий паштет, журавлинний конфітюр, бріош" data-allergens="milk,gluten,egg" data-tags="">
+        <div class="dish__row">
+          <h3 class="dish__name">Паштет з курячої печінки</h3>
+          <span class="dish__price tnum">215&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Вершковий паштет, журавлинний конфітюр, бріош</p>        <div class="dish__meta">
+<span class="dish__weight">150 г</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-egg"/></svg>Яйця</span></p>
+      </li>
+      <li class="dish" data-dish data-text="хумус з печеним перцем нутовий хумус, копчена паприка, тахіні, лаваш" data-allergens="sesame,gluten" data-tags="veg">
+        <div class="dish__row">
+          <h3 class="dish__name">Хумус з печеним перцем</h3>
+          <span class="dish__price tnum">185&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Нутовий хумус, копчена паприка, тахіні, лаваш</p>        <div class="dish__meta">
+<span class="dish__weight">200 г</span><span class="dtag dtag--veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-sesame"/></svg>Кунжут</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span></p>
+      </li>
+      <li class="dish" data-dish data-text="устриці fine de claire шалот-мініньєт, лимон, житній хліб з маслом" data-allergens="molluscs,gluten,milk" data-tags="new">
+        <div class="dish__row">
+          <h3 class="dish__name">Устриці Fine de Claire</h3>
+          <span class="dish__price tnum">120&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Шалот-мініньєт, лимон, житній хліб з маслом</p>        <div class="dish__meta">
+<span class="dish__weight">1 шт</span><span class="dtag dtag--new"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-new"/></svg>Новинка</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-molluscs"/></svg>Молюски</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span></p>
+      </li>
+    </ul>
+  </section>
+  <section class="qm-section" id="cat-2" data-section aria-labelledby="cat-2-t">
+    <h2 class="qm-section__title" id="cat-2-t">Салати</h2>
+    <ul class="qm-list">
+      <li class="dish" data-dish data-text="салат з печеним буряком буряк, козячий сир, груша, волоський горіх, медова заправка" data-allergens="milk,nuts" data-tags="veg">
+        <div class="dish__row">
+          <h3 class="dish__name">Салат з печеним буряком</h3>
+          <span class="dish__price tnum">245&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Буряк, козячий сир, груша, волоський горіх, медова заправка</p>        <div class="dish__meta">
+<span class="dish__weight">230 г</span><span class="dtag dtag--veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-nuts"/></svg>Горіхи</span></p>
+      </li>
+      <li class="dish" data-dish data-text="цезар з куркою су-від ромен, курка, бекон, пармезан, анчоусний соус, крутони" data-allergens="egg,gluten,milk,fish" data-tags="">
+        <div class="dish__row">
+          <h3 class="dish__name">Цезар з куркою су-від</h3>
+          <span class="dish__price tnum">285&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Ромен, курка, бекон, пармезан, анчоусний соус, крутони</p>        <div class="dish__meta">
+<span class="dish__weight">260 г</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-egg"/></svg>Яйця</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-fish"/></svg>Риба</span></p>
+      </li>
+      <li class="dish" data-dish data-text="теплий салат з телятиною телятина, мікс салатів, кунжут, соус теріякі" data-allergens="soy,sesame,gluten" data-tags="spicy">
+        <div class="dish__row">
+          <h3 class="dish__name">Теплий салат з телятиною</h3>
+          <span class="dish__price tnum">315&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Телятина, мікс салатів, кунжут, соус теріякі</p>        <div class="dish__meta">
+<span class="dish__weight">240 г</span><span class="dtag dtag--spicy"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-spicy"/></svg>Гостре</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-soy"/></svg>Соя</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-sesame"/></svg>Кунжут</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span></p>
+      </li>
+    </ul>
+  </section>
+  <section class="qm-section" id="cat-3" data-section aria-labelledby="cat-3-t">
+    <h2 class="qm-section__title" id="cat-3-t">Супи</h2>
+    <ul class="qm-list">
+      <li class="dish" data-dish data-text="борщ з качкою борщ на качиному бульйоні, сметана, пампушка з часником" data-allergens="milk,gluten" data-tags="chef">
+        <div class="dish__row">
+          <h3 class="dish__name">Борщ з качкою</h3>
+          <span class="dish__price tnum">225&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Борщ на качиному бульйоні, сметана, пампушка з часником</p>        <div class="dish__meta">
+<span class="dish__weight">350 г</span><span class="dtag dtag--chef"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-chef"/></svg>Вибір шефа</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span></p>
+      </li>
+      <li class="dish" data-dish data-text="крем-суп з печериць печериці, вершки, трюфельна олія, гренки" data-allergens="milk,gluten" data-tags="veg">
+        <div class="dish__row">
+          <h3 class="dish__name">Крем-суп з печериць</h3>
+          <span class="dish__price tnum">195&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Печериці, вершки, трюфельна олія, гренки</p>        <div class="dish__meta">
+<span class="dish__weight">300 г</span><span class="dtag dtag--veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span></p>
+      </li>
+      <li class="dish" data-dish data-text="том ям з креветками кокосове молоко, креветки, гриби шиїтаке, лайм" data-allergens="shellfish,fish,soy" data-tags="spicy">
+        <div class="dish__row">
+          <h3 class="dish__name">Том ям з креветками</h3>
+          <span class="dish__price tnum">295&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Кокосове молоко, креветки, гриби шиїтаке, лайм</p>        <div class="dish__meta">
+<span class="dish__weight">350 г</span><span class="dtag dtag--spicy"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-spicy"/></svg>Гостре</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-shellfish"/></svg>Ракоподібні</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-fish"/></svg>Риба</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-soy"/></svg>Соя</span></p>
+      </li>
+    </ul>
+  </section>
+  <section class="qm-section" id="cat-4" data-section aria-labelledby="cat-4-t">
+    <h2 class="qm-section__title" id="cat-4-t">Основні страви</h2>
+    <ul class="qm-list">
+      <li class="dish" data-dish data-text="качина ніжка конфі пюре з селери, вишневий соус, мікрозелень" data-allergens="milk" data-tags="chef">
+        <div class="dish__row">
+          <h3 class="dish__name">Качина ніжка конфі</h3>
+          <span class="dish__price tnum">425&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Пюре з селери, вишневий соус, мікрозелень</p>        <div class="dish__meta">
+<span class="dish__weight">320 г</span><span class="dtag dtag--chef"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-chef"/></svg>Вибір шефа</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span></p>
+      </li>
+      <li class="dish" data-dish data-text="стейк рібай prime рібай 300 г, перцевий соус, картопля з розмарином" data-allergens="milk" data-tags="">
+        <div class="dish__row">
+          <h3 class="dish__name">Стейк рібай Prime</h3>
+          <span class="dish__price tnum">890&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Рібай 300 г, перцевий соус, картопля з розмарином</p>        <div class="dish__meta">
+<span class="dish__weight">300/150 г</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span></p>
+      </li>
+      <li class="dish" data-dish data-text="філе судака судак, різото з ячменю, соус бер-блан, спаржа" data-allergens="fish,milk" data-tags="">
+        <div class="dish__row">
+          <h3 class="dish__name">Філе судака</h3>
+          <span class="dish__price tnum">465&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Судак, різото з ячменю, соус бер-блан, спаржа</p>        <div class="dish__meta">
+<span class="dish__weight">300 г</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-fish"/></svg>Риба</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span></p>
+      </li>
+      <li class="dish" data-dish data-text="вареники з картоплею та грибами ручна ліпка, лісові гриби, карамелізована цибуля, сметана" data-allergens="gluten,milk,egg" data-tags="veg">
+        <div class="dish__row">
+          <h3 class="dish__name">Вареники з картоплею та грибами</h3>
+          <span class="dish__price tnum">235&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Ручна ліпка, лісові гриби, карамелізована цибуля, сметана</p>        <div class="dish__meta">
+<span class="dish__weight">280 г</span><span class="dtag dtag--veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-egg"/></svg>Яйця</span></p>
+      </li>
+      <li class="dish" data-dish data-text="свиняча щока bbq 8 годин у печі, соус bbq, капустяний салат" data-allergens="mustard,soy" data-tags="spicy">
+        <div class="dish__row">
+          <h3 class="dish__name">Свиняча щока BBQ</h3>
+          <span class="dish__price tnum">385&nbsp;₴</span>
+        </div>
+<p class="dish__desc">8 годин у печі, соус BBQ, капустяний салат</p>        <div class="dish__meta">
+<span class="dish__weight">330 г</span><span class="dtag dtag--spicy"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-spicy"/></svg>Гостре</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-mustard"/></svg>Гірчиця</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-soy"/></svg>Соя</span></p>
+      </li>
+    </ul>
+  </section>
+  <section class="qm-section" id="cat-5" data-section aria-labelledby="cat-5-t">
+    <h2 class="qm-section__title" id="cat-5-t">Паста та різото</h2>
+    <ul class="qm-list">
+      <li class="dish" data-dish data-text="паста з білими грибами свіжа тальятелле, білі гриби, вершки, пармезан" data-allergens="gluten,egg,milk" data-tags="veg">
+        <div class="dish__row">
+          <h3 class="dish__name">Паста з білими грибами</h3>
+          <span class="dish__price tnum">335&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Свіжа тальятелле, білі гриби, вершки, пармезан</p>        <div class="dish__meta">
+<span class="dish__weight">300 г</span><span class="dtag dtag--veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-egg"/></svg>Яйця</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span></p>
+      </li>
+      <li class="dish" data-dish data-text="різото з морепродуктами арборіо, мідії, креветки, кальмар, біле вино" data-allergens="shellfish,molluscs,milk" data-tags="">
+        <div class="dish__row">
+          <h3 class="dish__name">Різото з морепродуктами</h3>
+          <span class="dish__price tnum">445&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Арборіо, мідії, креветки, кальмар, біле вино</p>        <div class="dish__meta">
+<span class="dish__weight">320 г</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-shellfish"/></svg>Ракоподібні</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-molluscs"/></svg>Молюски</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span></p>
+      </li>
+      <li class="dish" data-dish data-text="карбонара класична спагеті, гуанчале, жовток, пекоріно романо" data-allergens="gluten,egg,milk" data-tags="">
+        <div class="dish__row">
+          <h3 class="dish__name">Карбонара класична</h3>
+          <span class="dish__price tnum">295&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Спагеті, гуанчале, жовток, пекоріно романо</p>        <div class="dish__meta">
+<span class="dish__weight">280 г</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-egg"/></svg>Яйця</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span></p>
+      </li>
+    </ul>
+  </section>
+  <section class="qm-section" id="cat-6" data-section aria-labelledby="cat-6-t">
+    <h2 class="qm-section__title" id="cat-6-t">Десерти</h2>
+    <ul class="qm-list">
+      <li class="dish" data-dish data-text="баскський чізкейк карамелізована скоринка, ягідний соус" data-allergens="milk,egg,gluten" data-tags="chef">
+        <div class="dish__row">
+          <h3 class="dish__name">Баскський чізкейк</h3>
+          <span class="dish__price tnum">175&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Карамелізована скоринка, ягідний соус</p>        <div class="dish__meta">
+<span class="dish__weight">150 г</span><span class="dtag dtag--chef"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-chef"/></svg>Вибір шефа</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-egg"/></svg>Яйця</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span></p>
+      </li>
+      <li class="dish" data-dish data-text="шоколадний фондан гарячий фондан, пломбір, сіль мальдон" data-allergens="milk,egg,gluten" data-tags="">
+        <div class="dish__row">
+          <h3 class="dish__name">Шоколадний фондан</h3>
+          <span class="dish__price tnum">195&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Гарячий фондан, пломбір, сіль Мальдон</p>        <div class="dish__meta">
+<span class="dish__weight">160 г</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-egg"/></svg>Яйця</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span></p>
+      </li>
+      <li class="dish" data-dish data-text="сорбет з обліпихи без лактози й глютену" data-allergens="" data-tags="veg,new">
+        <div class="dish__row">
+          <h3 class="dish__name">Сорбет з обліпихи</h3>
+          <span class="dish__price tnum">125&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Без лактози й глютену</p>        <div class="dish__meta">
+<span class="dish__weight">120 г</span><span class="dtag dtag--veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span><span class="dtag dtag--new"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-new"/></svg>Новинка</span>        </div>
+      </li>
+    </ul>
+  </section>
+  <section class="qm-section" id="cat-7" data-section aria-labelledby="cat-7-t">
+    <h2 class="qm-section__title" id="cat-7-t">Напої</h2>
+    <ul class="qm-list">
+      <li class="dish" data-dish data-text="лимонад обліпиха-розмарин власного приготування" data-allergens="" data-tags="veg">
+        <div class="dish__row">
+          <h3 class="dish__name">Лимонад обліпиха-розмарин</h3>
+          <span class="dish__price tnum">95&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Власного приготування</p>        <div class="dish__meta">
+<span class="dish__weight">400 мл</span><span class="dtag dtag--veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span>        </div>
+      </li>
+      <li class="dish" data-dish data-text="еспресо колумбія, обсмаження під еспресо" data-allergens="" data-tags="veg">
+        <div class="dish__row">
+          <h3 class="dish__name">Еспресо</h3>
+          <span class="dish__price tnum">55&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Колумбія, обсмаження під еспресо</p>        <div class="dish__meta">
+<span class="dish__weight">30 мл</span><span class="dtag dtag--veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span>        </div>
+      </li>
+      <li class="dish" data-dish data-text="капучино на вівсяному вівсяне молоко, подвійний шот" data-allergens="gluten" data-tags="veg">
+        <div class="dish__row">
+          <h3 class="dish__name">Капучино на вівсяному</h3>
+          <span class="dish__price tnum">85&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Вівсяне молоко, подвійний шот</p>        <div class="dish__meta">
+<span class="dish__weight">250 мл</span><span class="dtag dtag--veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span>        </div>
+        <p class="dish__al"><span class="sr-only">Алергени:</span><span class="al"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span></p>
+      </li>
+      <li class="dish" data-dish data-text="вино дня — біле / червоне запитайте сомельє про сьогоднішню пропозицію" data-allergens="" data-tags="">
+        <div class="dish__row">
+          <h3 class="dish__name">Вино дня — біле / червоне</h3>
+          <span class="dish__price tnum">140&nbsp;₴</span>
+        </div>
+<p class="dish__desc">Запитайте сомельє про сьогоднішню пропозицію</p>        <div class="dish__meta">
+<span class="dish__weight">150 мл</span>        </div>
+      </li>
+    </ul>
+  </section>
+
+  <div class="qm-empty" data-empty hidden>
+    <p class="qm-empty__title">Таких страв зараз немає</p>
+    <p>Спробуйте інше слово або приберіть частину фільтрів.</p>
+    <button type="button" class="btn btn--ghost" data-reset>Скинути фільтри</button>
+  </div>
+
+  <aside class="qm-note">
+    <p><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#alert"/></svg>Про алергени ми пишемо за рецептурою, але кухня одна: сліди можуть бути в будь-якій страві. Скажіть офіціанту про алергію — підкажемо безпечний вибір.</p>
+  </aside>
+</div>
+</main>
+<footer class="qm-foot"><p>Охра · вул. Староєврейська, 18 · <a href="tel:+380670001818">+380 67 000 18 18</a></p></footer>
+<script>window.demoPre&&demoPre()</script><script src="/demos/tavola/static/js/menu.js"></script></body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Статус ремонту · TORQ Service</title>
+  <meta name="description" content="TORQ — CRM для СТО: замовлення-наряди, канбан, склад запчастин, аналітика.">
+  <meta name="theme-color" content="#141518">
+  <link rel="icon" href="/demos/torq/static/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/demos/torq/static/fonts/Inter-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="/demos/torq/static/css/app.css">
+  <link rel="stylesheet" href="/demos/torq/static/css/public.css">
+<script src="/demos/torq/_demo/demo-shim.js"></script>
+<script src="/demos/torq/_demo/torq-shim.js"></script>
+</head>
+<body class="pub" data-csrf="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<header class="p-head">
+  <div class="wrap p-head-in">
+    <a class="p-brand" href="/demos/torq/" aria-label="TORQ Service — на головну">
+      <svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg>
+      <b>TORQ</b><span>Service</span>
+    </a>
+    <nav class="p-nav" aria-label="Розділи">
+      <a href="/demos/torq/#prices">Ціни</a>
+      <a href="/demos/torq/#how">Як працюємо</a>
+      <a href="/demos/torq/status/">Статус ремонту</a>
+    </nav>
+    <a class="p-phone" href="tel:+380670000000"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#phone"/></svg><span>+38 (067) 000-00-00</span></a>
+    <a class="btn accent sm p-cta" href="/demos/torq/#request">Записатися</a>
+  </div>
+</header>
+<main id="main">
+
+<section class="page-narrow">
+  <div class="wrap">
+    
+    <div class="lookup card">
+      <p class="eyebrow">Статус ремонту</p>
+      <h1>Де зараз ваше авто?</h1>
+      <p class="muted">Введіть код із підтвердження заявки (або із замовлення-наряду) і номер телефону, вказаний під час запису.</p>
+      
+      <form method="post" action="/demos/torq/status/" class="grid">
+        <input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+        <label class="field"><span>Код замовлення</span><input name="code" value="" placeholder="TQ-XXXXXX" required maxlength="9" autocapitalize="characters" class="code-input"></label>
+        <label class="field"><span>Телефон</span><input name="phone" type="tel" value="" placeholder="+380 67 123 45 67" required autocomplete="tel"></label>
+        <button class="btn accent lg" type="submit">Показати статус</button>
+      </form>
+    </div>
+    
+  </div>
+</section>
+
+</main>
+<footer class="p-foot">
+  <div class="wrap p-foot-in">
+    <div class="p-brand light"><svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg><b>TORQ</b><span>Service</span></div>
+    <div><span class="label">Адреса</span><p>м. Київ, вул. Промислова, 12</p></div>
+    <div><span class="label">Графік</span><p>Пн–Сб 09:00–19:00</p></div>
+    <div><span class="label">Телефон</span><p>+38 (067) 000-00-00</p></div>
+    <div class="p-foot-note">Демонстраційний проєкт TORQ CRM · дані вигадані · <a href="/demos/torq/crm/login/">Вхід для персоналу</a></div>
+  </div>
+</footer>
+
+<script>window.demoPre&&demoPre()</script><script src="/demos/torq/static/js/app.js" defer></script>
+
+</body>
+</html>

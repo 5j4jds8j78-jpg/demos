@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Бронювання столу — Охра</title>
+  <meta name="description" content="Охра — бістро &amp; вино у місті Львів. Онлайн-бронювання столу зі схемою залу.">
+  <meta name="theme-color" content="#17332b">
+  <link rel="icon" href="/demos/tavola/static/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/demos/tavola/static/fonts/Lora-Variable.woff" as="font" type="font/woff" crossorigin>  <link rel="stylesheet" href="/demos/tavola/static/css/tokens.css">
+  <link rel="stylesheet" href="/demos/tavola/static/css/site.css">
+<script src="/demos/tavola/_demo/demo-shim.js"></script>
+<script src="/demos/tavola/_demo/tavola-config.js"></script>
+<script src="/demos/tavola/_demo/tavola-shim.js"></script>
+</head>
+<body class="page-book">
+<a class="skip-link" href="#main">Перейти до змісту</a>
+<header class="site-header ">
+  <div class="wrap site-header__inner">
+    <a class="site-header__brand" href="/demos/tavola/" aria-label="Охра — на головну"><span class="wordmark wordmark--light"><svg class="wordmark__mark" aria-hidden="true"><use href="/demos/tavola/static/img/icons.svg#logo"/></svg><span class="wordmark__name">Охра</span></span>
+</a>
+    <nav class="site-nav" aria-label="Головне меню">
+      <a href="/demos/tavola/menu/">Меню</a>
+      <a href="/demos/tavola/#about">Про нас</a>
+      <a href="/demos/tavola/#visit">Як знайти</a>
+      <a class="site-nav__phone" href="tel:+380670001818">+380 67 000 18 18</a>
+    </nav>
+    <a class="btn btn--ochre site-header__cta" href="/demos/tavola/book/">Забронювати стіл</a>
+  </div>
+</header>
+<main id="main">
+<div class="book-band">
+  <div class="wrap">
+    <h1 class="book-band__title">Бронювання столу</h1>
+    <ol class="stepper" aria-label="Кроки бронювання">
+      <li class="stepper__item" data-step-link="date">
+        <button type="button" class="stepper__btn" disabled><span class="stepper__n">1</span><span class="stepper__label">Дата</span></button>
+      </li>
+      <li class="stepper__item" data-step-link="time">
+        <button type="button" class="stepper__btn" disabled><span class="stepper__n">2</span><span class="stepper__label">Час</span></button>
+      </li>
+      <li class="stepper__item" data-step-link="guests">
+        <button type="button" class="stepper__btn" disabled><span class="stepper__n">3</span><span class="stepper__label">Гості</span></button>
+      </li>
+      <li class="stepper__item" data-step-link="table">
+        <button type="button" class="stepper__btn" disabled><span class="stepper__n">4</span><span class="stepper__label">Стіл</span></button>
+      </li>
+      <li class="stepper__item" data-step-link="contacts">
+        <button type="button" class="stepper__btn" disabled><span class="stepper__n">5</span><span class="stepper__label">Контакти</span></button>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrap book" id="booking" data-prefill='{&#34;date&#34;: &#34;2026-11-21&#34;, &#34;time&#34;: &#34;&#34;, &#34;guests&#34;: &#34;&#34;}' data-max-party="8">
+  <div class="book__main">
+
+    <section class="step" data-step="date" aria-labelledby="h-date">
+      <h2 class="step__title" id="h-date">Коли до нас завітаєте?</h2>
+      <div class="days" role="group" aria-labelledby="h-date">
+<span class="days__month" aria-hidden="true">Листопад</span>        <button type="button" class="day day--weekend" aria-pressed="false"
+                data-date="2026-11-21" data-label="21 листопада, субота" aria-label="21 листопада, субота">
+          <span class="day__wd">Сб</span>
+          <span class="day__n">21</span>
+<span class="day__hint">сьогодні</span>        </button>
+        <button type="button" class="day day--weekend" aria-pressed="false"
+                data-date="2026-11-22" data-label="22 листопада, неділя" aria-label="22 листопада, неділя">
+          <span class="day__wd">Нд</span>
+          <span class="day__n">22</span>
+<span class="day__hint">завтра</span>        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-11-23" data-label="23 листопада, понеділок" aria-label="23 листопада, понеділок">
+          <span class="day__wd">Пн</span>
+          <span class="day__n">23</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-11-24" data-label="24 листопада, вівторок" aria-label="24 листопада, вівторок">
+          <span class="day__wd">Вт</span>
+          <span class="day__n">24</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-11-25" data-label="25 листопада, середа" aria-label="25 листопада, середа">
+          <span class="day__wd">Ср</span>
+          <span class="day__n">25</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-11-26" data-label="26 листопада, четвер" aria-label="26 листопада, четвер">
+          <span class="day__wd">Чт</span>
+          <span class="day__n">26</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-11-27" data-label="27 листопада, пʼятниця" aria-label="27 листопада, пʼятниця">
+          <span class="day__wd">Пт</span>
+          <span class="day__n">27</span>
+        </button>
+        <button type="button" class="day day--weekend" aria-pressed="false"
+                data-date="2026-11-28" data-label="28 листопада, субота" aria-label="28 листопада, субота">
+          <span class="day__wd">Сб</span>
+          <span class="day__n">28</span>
+        </button>
+        <button type="button" class="day day--weekend" aria-pressed="false"
+                data-date="2026-11-29" data-label="29 листопада, неділя" aria-label="29 листопада, неділя">
+          <span class="day__wd">Нд</span>
+          <span class="day__n">29</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-11-30" data-label="30 листопада, понеділок" aria-label="30 листопада, понеділок">
+          <span class="day__wd">Пн</span>
+          <span class="day__n">30</span>
+        </button>
+<span class="days__month" aria-hidden="true">Грудень</span>        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-01" data-label="1 грудня, вівторок" aria-label="1 грудня, вівторок">
+          <span class="day__wd">Вт</span>
+          <span class="day__n">1</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-02" data-label="2 грудня, середа" aria-label="2 грудня, середа">
+          <span class="day__wd">Ср</span>
+          <span class="day__n">2</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-03" data-label="3 грудня, четвер" aria-label="3 грудня, четвер">
+          <span class="day__wd">Чт</span>
+          <span class="day__n">3</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-04" data-label="4 грудня, пʼятниця" aria-label="4 грудня, пʼятниця">
+          <span class="day__wd">Пт</span>
+          <span class="day__n">4</span>
+        </button>
+        <button type="button" class="day day--weekend" aria-pressed="false"
+                data-date="2026-12-05" data-label="5 грудня, субота" aria-label="5 грудня, субота">
+          <span class="day__wd">Сб</span>
+          <span class="day__n">5</span>
+        </button>
+        <button type="button" class="day day--weekend" aria-pressed="false"
+                data-date="2026-12-06" data-label="6 грудня, неділя" aria-label="6 грудня, неділя">
+          <span class="day__wd">Нд</span>
+          <span class="day__n">6</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-07" data-label="7 грудня, понеділок" aria-label="7 грудня, понеділок">
+          <span class="day__wd">Пн</span>
+          <span class="day__n">7</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-08" data-label="8 грудня, вівторок" aria-label="8 грудня, вівторок">
+          <span class="day__wd">Вт</span>
+          <span class="day__n">8</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-09" data-label="9 грудня, середа" aria-label="9 грудня, середа">
+          <span class="day__wd">Ср</span>
+          <span class="day__n">9</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-10" data-label="10 грудня, четвер" aria-label="10 грудня, четвер">
+          <span class="day__wd">Чт</span>
+          <span class="day__n">10</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-11" data-label="11 грудня, пʼятниця" aria-label="11 грудня, пʼятниця">
+          <span class="day__wd">Пт</span>
+          <span class="day__n">11</span>
+        </button>
+        <button type="button" class="day day--weekend" aria-pressed="false"
+                data-date="2026-12-12" data-label="12 грудня, субота" aria-label="12 грудня, субота">
+          <span class="day__wd">Сб</span>
+          <span class="day__n">12</span>
+        </button>
+        <button type="button" class="day day--weekend" aria-pressed="false"
+                data-date="2026-12-13" data-label="13 грудня, неділя" aria-label="13 грудня, неділя">
+          <span class="day__wd">Нд</span>
+          <span class="day__n">13</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-14" data-label="14 грудня, понеділок" aria-label="14 грудня, понеділок">
+          <span class="day__wd">Пн</span>
+          <span class="day__n">14</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-15" data-label="15 грудня, вівторок" aria-label="15 грудня, вівторок">
+          <span class="day__wd">Вт</span>
+          <span class="day__n">15</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-16" data-label="16 грудня, середа" aria-label="16 грудня, середа">
+          <span class="day__wd">Ср</span>
+          <span class="day__n">16</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-17" data-label="17 грудня, четвер" aria-label="17 грудня, четвер">
+          <span class="day__wd">Чт</span>
+          <span class="day__n">17</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-18" data-label="18 грудня, пʼятниця" aria-label="18 грудня, пʼятниця">
+          <span class="day__wd">Пт</span>
+          <span class="day__n">18</span>
+        </button>
+        <button type="button" class="day day--weekend" aria-pressed="false"
+                data-date="2026-12-19" data-label="19 грудня, субота" aria-label="19 грудня, субота">
+          <span class="day__wd">Сб</span>
+          <span class="day__n">19</span>
+        </button>
+        <button type="button" class="day day--weekend" aria-pressed="false"
+                data-date="2026-12-20" data-label="20 грудня, неділя" aria-label="20 грудня, неділя">
+          <span class="day__wd">Нд</span>
+          <span class="day__n">20</span>
+        </button>
+        <button type="button" class="day" aria-pressed="false"
+                data-date="2026-12-21" data-label="21 грудня, понеділок" aria-label="21 грудня, понеділок">
+          <span class="day__wd">Пн</span>
+          <span class="day__n">21</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="step" data-step="time" aria-labelledby="h-time" hidden>
+      <h2 class="step__title" id="h-time">О котрій вас чекати?</h2>
+      <p class="step__sub" data-time-sub></p>
+      <div class="slots" data-slots aria-live="polite"></div>
+      <div class="step__nav"><button type="button" class="btn btn--ghost" data-back><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chevron-left"/></svg>Інша дата</button></div>
+    </section>
+
+    <section class="step" data-step="guests" aria-labelledby="h-guests" hidden>
+      <h2 class="step__title" id="h-guests">Скільки вас буде?</h2>
+      <p class="step__sub">Час, на який тримаємо стіл, залежить від компанії.</p>
+      <div class="party" data-party aria-live="polite"></div>
+      <p class="step__hint">Більше 8 гостей або потрібна вся зала? <a href="tel:+380670001818">Зателефонуйте</a> — підготуємо банкетну розсадку.</p>
+      <div class="step__nav"><button type="button" class="btn btn--ghost" data-back><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chevron-left"/></svg>Інший час</button></div>
+    </section>
+
+    <section class="step step--wide" data-step="table" aria-labelledby="h-table" hidden>
+      <div class="step__headrow">
+        <div>
+          <h2 class="step__title" id="h-table">Де вам буде зручно?</h2>
+          <p class="step__sub" data-table-sub>Натисніть на вільний стіл на схемі.</p>
+        </div>
+        <button type="button" class="btn btn--ghost" data-auto><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#sparkle"/></svg>Підібрати автоматично</button>
+      </div>
+      <div class="plan-wrap" data-plan-wrap>
+        <svg class="plan plan--book" id="book-plan" viewBox="0 0 1000 640" role="group" aria-label="Схема залу. Оберіть вільний стіл">
+  <defs>
+    <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#eef1ee"/><line x1="0" y1="0" x2="0" y2="10" stroke="#d3dbd6" stroke-width="4"/>
+    </pattern>
+    <pattern id="busy-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="7" fill="#e6eae7"/><line x1="0" y1="0" x2="0" y2="7" stroke="#d2d9d5" stroke-width="3"/>
+    </pattern>
+  </defs>
+  <g class="room" aria-hidden="true">
+    <rect class="terrace" x="22" y="22" width="206" height="596" rx="22"/>
+<line class="deck" x1="40" x2="210" y1="60" y2="60"/><line class="deck" x1="40" x2="210" y1="94" y2="94"/><line class="deck" x1="40" x2="210" y1="128" y2="128"/><line class="deck" x1="40" x2="210" y1="162" y2="162"/><line class="deck" x1="40" x2="210" y1="196" y2="196"/><line class="deck" x1="40" x2="210" y1="230" y2="230"/><line class="deck" x1="40" x2="210" y1="264" y2="264"/><line class="deck" x1="40" x2="210" y1="298" y2="298"/><line class="deck" x1="40" x2="210" y1="332" y2="332"/><line class="deck" x1="40" x2="210" y1="366" y2="366"/><line class="deck" x1="40" x2="210" y1="400" y2="400"/><line class="deck" x1="40" x2="210" y1="434" y2="434"/><line class="deck" x1="40" x2="210" y1="468" y2="468"/><line class="deck" x1="40" x2="210" y1="502" y2="502"/><line class="deck" x1="40" x2="210" y1="536" y2="536"/><line class="deck" x1="40" x2="210" y1="570" y2="570"/><circle class="plant" cx="206" cy="48" r="11"/><circle class="plant" cx="206" cy="176" r="11"/><circle class="plant" cx="206" cy="304" r="11"/><circle class="plant" cx="206" cy="440" r="11"/><circle class="plant" cx="206" cy="590" r="11"/>    <text class="room-label room-label--light" x="125" y="606" text-anchor="middle">Тераса</text>
+
+    <rect class="room-floor" x="250" y="20" width="730" height="600" rx="6"/>
+    <path class="wall" d="M250 290 V20 H980 V620 H578 M498 620 H250 V352"/>
+    <line class="window" x1="285" y1="20" x2="705" y2="20"/>
+<line class="window-frame" x1="355" y1="16" x2="355" y2="24"/><line class="window-frame" x1="425" y1="16" x2="425" y2="24"/><line class="window-frame" x1="495" y1="16" x2="495" y2="24"/><line class="window-frame" x1="565" y1="16" x2="565" y2="24"/><line class="window-frame" x1="635" y1="16" x2="635" y2="24"/>    <text class="room-label" x="495" y="50" text-anchor="middle">Вікна на площу</text>
+    <path class="door" d="M498 620 A80 80 0 0 1 578 540"/>
+    <text class="room-label" x="538" y="600" text-anchor="middle">Вхід</text>
+    <path class="door" d="M250 290 A62 62 0 0 1 312 352"/>
+    <rect class="hatch-area" x="760" y="20" width="220" height="148"/><path class="wall-thin" d="M760 20 V168 H800 M846 168 H980"/><path class="door" d="M800 168 A46 46 0 0 0 846 214"/>
+    <text class="room-label" x="870" y="102" text-anchor="middle">Кухня</text>
+    <rect class="counter" x="896" y="212" width="48" height="262" rx="14"/>
+<circle class="stool" cx="876" cy="248" r="8"/><circle class="stool" cx="876" cy="294" r="8"/><circle class="stool" cx="876" cy="340" r="8"/><circle class="stool" cx="876" cy="386" r="8"/><circle class="stool" cx="876" cy="432" r="8"/>    <text class="room-label" x="920" y="500" text-anchor="middle">Бар</text>
+    <path class="wall-thin" d="M860 620 V548 H980"/>
+    <text class="room-label" x="920" y="590" text-anchor="middle">Гардероб</text>
+    <circle class="plant" cx="272" cy="598" r="12"/><circle class="plant" cx="740" cy="44" r="12"/>
+  </g>
+  <g class="plan-tables"></g>
+</svg>
+
+        <div class="plan-loading" data-plan-loading hidden>Оновлюємо схему…</div>
+      </div>
+      <p class="plan-hint">Схема ширша за екран — проведіть пальцем, щоб побачити всю залу.</p>
+      <div class="plan-legend" aria-hidden="true">
+        <span class="legend"><i class="legend__sw legend__sw--free"></i>Вільний</span>
+        <span class="legend"><i class="legend__sw legend__sw--selected"></i>Ваш вибір</span>
+        <span class="legend"><i class="legend__sw legend__sw--rec"></i>Радимо</span>
+        <span class="legend"><i class="legend__sw legend__sw--busy"></i>Зайнятий</span>
+        <span class="legend"><i class="legend__sw legend__sw--small"></i>Не підходить за розміром</span>
+      </div>
+      <div class="table-info" data-table-info aria-live="polite"></div>
+      <details class="table-list">
+        <summary>Список вільних столів</summary>
+        <div class="table-list__items" data-table-list></div>
+      </details>
+      <div class="step__nav">
+        <button type="button" class="btn btn--ghost" data-back><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chevron-left"/></svg>Назад</button>
+        <button type="button" class="btn" data-next-contacts disabled>Далі: контакти</button>
+      </div>
+    </section>
+
+    <section class="step" data-step="contacts" aria-labelledby="h-contacts" hidden>
+      <h2 class="step__title" id="h-contacts">Залиште контакти</h2>
+      <p class="step__sub">Телефон потрібен, щоб попередити вас, якщо щось зміниться.</p>
+      <form class="contacts" method="post" action="/demos/tavola/book/" novalidate data-contacts-form>
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+        <input type="hidden" name="date" data-f="date">
+        <input type="hidden" name="time" data-f="time">
+        <input type="hidden" name="guests" data-f="guests">
+        <input type="hidden" name="table" data-f="table">
+        <div class="hp" aria-hidden="true"><label>Сайт <input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="contacts__grid">
+          <label class="field"><span>Імʼя</span>
+            <input class="input" name="name" autocomplete="name" required minlength="2" maxlength="60" value="" placeholder="Олена" aria-describedby="err-name">
+            <span class="field__err" id="err-name" aria-live="polite"></span></label>
+          <label class="field"><span>Телефон</span>
+            <input class="input" name="phone" type="tel" inputmode="tel" autocomplete="tel" required value="" placeholder="+380 67 123 45 67" aria-describedby="err-phone">
+            <span class="field__err" id="err-phone" aria-live="polite"></span></label>
+          <label class="field"><span>Email <small>— необовʼязково, для підтвердження</small></span>
+            <input class="input" name="email" type="email" autocomplete="email" maxlength="254" value="" placeholder="olena@example.com" aria-describedby="err-email">
+            <span class="field__err" id="err-email" aria-live="polite"></span></label>
+          <label class="field"><span>Привід <small>— необовʼязково</small></span>
+            <select class="select" name="occasion">
+              <option value="">Без особливого приводу</option>
+<option>День народження</option><option>Побачення</option><option>Ділова зустріч</option><option>Річниця</option><option>Сімейна вечеря</option>            </select></label>
+          <label class="field contacts__wide"><span>Побажання <small>— дитячий стілець, алергії, торт зі свічкою</small></span>
+            <textarea class="textarea" name="comment" maxlength="300" rows="3"></textarea></label>
+        </div>
+        <label class="check"><input type="checkbox" name="consent" value="1" required aria-describedby="err-consent">
+          <span>Погоджуюсь, що Охра використає мої контакти лише для цього бронювання.</span></label>
+        <span class="field__err field__err--check" id="err-consent" aria-live="polite"></span>
+        <div class="step__nav">
+          <button type="button" class="btn btn--ghost" data-back><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chevron-left"/></svg>Назад</button>
+          <button type="submit" class="btn btn--ochre btn--lg">Підтвердити бронювання</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <aside class="summary" aria-label="Ваше бронювання">
+    <h2 class="summary__title">Ваше бронювання</h2>
+    <dl class="summary__list">
+      <div data-sum="date"><dt><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#calendar"/></svg>Дата</dt><dd>—</dd></div>
+      <div data-sum="time"><dt><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#clock"/></svg>Час</dt><dd>—</dd></div>
+      <div data-sum="guests"><dt><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#users"/></svg>Гості</dt><dd>—</dd></div>
+      <div data-sum="table"><dt><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#table"/></svg>Стіл</dt><dd>—</dd></div>
+    </dl>
+    <p class="summary__note">Безкоштовне скасування онлайн — до години перед візитом.</p>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <div><span class="wordmark wordmark--light"><svg class="wordmark__mark" aria-hidden="true"><use href="/demos/tavola/static/img/icons.svg#logo"/></svg><span class="wordmark__name">Охра</span></span>
+<p class="site-footer__note">Бістро &amp; вино · вул. Староєврейська, 18, Львів</p></div>
+    <div class="site-footer__links">
+      <a href="/demos/tavola/book/">Бронювання</a>
+      <a href="/demos/tavola/menu/">Меню</a>
+      <a href="/demos/tavola/booking/find/">Моє бронювання</a>
+      <a href="tel:+380670001818">+380 67 000 18 18</a>
+    </div>
+    <p class="site-footer__made">Демо-проєкт системи бронювання Tavola. Заклад «Охра» вигаданий.</p>
+  </div>
+</footer>
+<script>window.demoPre&&demoPre()</script><script src="/demos/tavola/static/js/floorplan.js"></script>
+<script src="/demos/tavola/static/js/booking.js"></script>
+</body>
+</html>

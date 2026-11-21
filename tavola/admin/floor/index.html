@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Схема залу — Tavola · Охра</title>
+  <link rel="icon" href="/demos/tavola/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/tavola/static/css/tokens.css">
+  <link rel="stylesheet" href="/demos/tavola/static/css/admin.css">
+<script src="/demos/tavola/_demo/demo-shim.js"></script>
+<script src="/demos/tavola/_demo/tavola-config.js"></script>
+<script src="/demos/tavola/_demo/tavola-shim.js"></script>
+</head>
+<body class="adm ">
+<a class="skip-link" href="#main">Перейти до змісту</a>
+<div class="adm-shell">
+  <aside class="adm-side">
+    <a class="adm-brand" href="/demos/tavola/admin/">
+      <svg class="adm-brand__mark" aria-hidden="true"><use href="/demos/tavola/static/img/icons.svg#logo"/></svg>
+      <span><strong>Tavola</strong><small>Охра, Львів</small></span>
+    </a>
+    <nav class="adm-nav" aria-label="Розділи адмінки">
+      <a href="/demos/tavola/admin/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#timeline"/></svg><span>Сьогодні</span></a>
+      <a href="/demos/tavola/admin/bookings/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#list"/></svg><span>Бронювання</span></a>
+      <a href="/demos/tavola/admin/floor/" class="adm-nav__link is-active" aria-current="page"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#floor"/></svg><span>Схема залу</span></a>
+      <a href="/demos/tavola/admin/menu/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#book"/></svg><span>Меню</span></a>
+      <a href="/demos/tavola/admin/stats/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chart"/></svg><span>Статистика</span></a>
+      <a href="/demos/tavola/admin/qr/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#qr"/></svg><span>QR-меню</span></a>
+      <a href="/demos/tavola/admin/log/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#shield"/></svg><span>Журнал</span></a>
+    </nav>
+    <div class="adm-side__foot">
+      <a class="adm-side__site" href="/demos/tavola/"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#door"/></svg>Відкрити сайт</a>
+      <form method="post" action="/demos/tavola/admin/logout/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+        <button class="adm-side__logout" type="submit"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#logout"/></svg>Вийти<span>admin</span></button>
+      </form>
+    </div>
+  </aside>
+  <main class="adm-main" id="main">
+    <header class="adm-top">
+      <div class="adm-top__titles">
+        <h1 class="adm-top__title">Схема залу</h1>
+      </div>
+      <div class="adm-top__actions"><button class="btn btn--ghost" type="button" data-add><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#plus"/></svg>Додати стіл</button>
+<button class="btn" type="button" data-save disabled><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#save"/></svg>Зберегти схему</button>
+</div>
+    </header>
+    
+<div class="floor" data-floor data-csrf="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo" data-save-url="/demos/tavola/admin/api/floor/">
+  <section class="card card--flush floor__canvas">
+    <div class="floor__bar">
+      <p class="floor__hint floor__hint--mouse">Перетягніть стіл, щоб змінити його місце. Клавіші-стрілки зсувають вибраний стіл на 5 px.</p>
+      <p class="floor__hint floor__hint--touch">Перетягніть стіл пальцем. Щоб прогорнути схему, проведіть по вільному місцю.</p>
+      <p class="floor__status" data-status aria-live="polite"></p>
+    </div>
+    <div class="floor__plan"><svg class="plan plan--editor" id="editor-plan" viewBox="0 0 1000 640" role="group" aria-label="Редактор схеми залу">
+  <defs>
+    <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#eef1ee"/><line x1="0" y1="0" x2="0" y2="10" stroke="#d3dbd6" stroke-width="4"/>
+    </pattern>
+    <pattern id="busy-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="7" fill="#e6eae7"/><line x1="0" y1="0" x2="0" y2="7" stroke="#d2d9d5" stroke-width="3"/>
+    </pattern>
+  </defs>
+  <g class="room" aria-hidden="true">
+    <rect class="terrace" x="22" y="22" width="206" height="596" rx="22"/>
+<line class="deck" x1="40" x2="210" y1="60" y2="60"/><line class="deck" x1="40" x2="210" y1="94" y2="94"/><line class="deck" x1="40" x2="210" y1="128" y2="128"/><line class="deck" x1="40" x2="210" y1="162" y2="162"/><line class="deck" x1="40" x2="210" y1="196" y2="196"/><line class="deck" x1="40" x2="210" y1="230" y2="230"/><line class="deck" x1="40" x2="210" y1="264" y2="264"/><line class="deck" x1="40" x2="210" y1="298" y2="298"/><line class="deck" x1="40" x2="210" y1="332" y2="332"/><line class="deck" x1="40" x2="210" y1="366" y2="366"/><line class="deck" x1="40" x2="210" y1="400" y2="400"/><line class="deck" x1="40" x2="210" y1="434" y2="434"/><line class="deck" x1="40" x2="210" y1="468" y2="468"/><line class="deck" x1="40" x2="210" y1="502" y2="502"/><line class="deck" x1="40" x2="210" y1="536" y2="536"/><line class="deck" x1="40" x2="210" y1="570" y2="570"/><circle class="plant" cx="206" cy="48" r="11"/><circle class="plant" cx="206" cy="176" r="11"/><circle class="plant" cx="206" cy="304" r="11"/><circle class="plant" cx="206" cy="440" r="11"/><circle class="plant" cx="206" cy="590" r="11"/>    <text class="room-label room-label--light" x="125" y="606" text-anchor="middle">Тераса</text>
+
+    <rect class="room-floor" x="250" y="20" width="730" height="600" rx="6"/>
+    <path class="wall" d="M250 290 V20 H980 V620 H578 M498 620 H250 V352"/>
+    <line class="window" x1="285" y1="20" x2="705" y2="20"/>
+<line class="window-frame" x1="355" y1="16" x2="355" y2="24"/><line class="window-frame" x1="425" y1="16" x2="425" y2="24"/><line class="window-frame" x1="495" y1="16" x2="495" y2="24"/><line class="window-frame" x1="565" y1="16" x2="565" y2="24"/><line class="window-frame" x1="635" y1="16" x2="635" y2="24"/>    <text class="room-label" x="495" y="50" text-anchor="middle">Вікна на площу</text>
+    <path class="door" d="M498 620 A80 80 0 0 1 578 540"/>
+    <text class="room-label" x="538" y="600" text-anchor="middle">Вхід</text>
+    <path class="door" d="M250 290 A62 62 0 0 1 312 352"/>
+    <rect class="hatch-area" x="760" y="20" width="220" height="148"/><path class="wall-thin" d="M760 20 V168 H800 M846 168 H980"/><path class="door" d="M800 168 A46 46 0 0 0 846 214"/>
+    <text class="room-label" x="870" y="102" text-anchor="middle">Кухня</text>
+    <rect class="counter" x="896" y="212" width="48" height="262" rx="14"/>
+<circle class="stool" cx="876" cy="248" r="8"/><circle class="stool" cx="876" cy="294" r="8"/><circle class="stool" cx="876" cy="340" r="8"/><circle class="stool" cx="876" cy="386" r="8"/><circle class="stool" cx="876" cy="432" r="8"/>    <text class="room-label" x="920" y="500" text-anchor="middle">Бар</text>
+    <path class="wall-thin" d="M860 620 V548 H980"/>
+    <text class="room-label" x="920" y="590" text-anchor="middle">Гардероб</text>
+    <circle class="plant" cx="272" cy="598" r="12"/><circle class="plant" cx="740" cy="44" r="12"/>
+  </g>
+  <g class="plan-tables"></g>
+</svg>
+</div>
+  </section>
+  <aside class="card floor__panel" aria-labelledby="fp-title">
+    <h2 class="card__title" id="fp-title" data-panel-title>Оберіть стіл</h2>
+    <p class="card__sub" data-panel-empty>Натисніть на стіл на схемі, щоб змінити кількість місць, форму або зону.</p>
+    <form class="floor__form" data-panel hidden>
+      <div class="form-grid">
+        <label class="field form-grid__wide"><span>Номер</span><input class="input" name="label" maxlength="6" required></label>
+        <label class="field form-grid__wide"><span>Зона</span><select class="select" name="zone"><option value="hall">Основна зала</option><option value="window">Біля вікна</option><option value="terrace">Тераса</option><option value="bar">Барна стійка</option></select></label>
+        <label class="field"><span>Місць</span><input class="input" name="seats" type="number" min="1" max="16" required></label>
+        <label class="field"><span>Мінімум гостей</span><input class="input" name="min_seats" type="number" min="1" max="16" required>
+          </label>
+        <fieldset class="field form-grid__wide"><legend>Форма</legend>
+          <div class="seg seg--shapes">
+            <label><input type="radio" name="shape" value="round"><span>Круглий</span></label>
+            <label><input type="radio" name="shape" value="square"><span>Квадратний</span></label>
+            <label><input type="radio" name="shape" value="rect"><span>Довгий</span></label>
+            <label><input type="radio" name="shape" value="booth"><span>Диван-бокс</span></label>
+          </div>
+        </fieldset>
+        <label class="field form-grid__wide"><span>Примітка для гостей</span><input class="input" name="note" maxlength="60" placeholder="Напр., біля вікна"></label>
+      </div>
+      <p class="form-note">Мінімум гостей не дає посадити пару за великий стіл при онлайн-бронюванні. Персонал може обійти це правило.</p>
+      <div class="floor__tools">
+        <button class="btn btn--ghost btn--sm" type="button" data-rotate><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#rotate"/></svg>Повернути</button>
+        <label class="switch"><input type="checkbox" name="active"><span>Доступний для бронювання</span></label>
+      </div>
+    </form>
+    <div class="floor__summary" data-summary></div>
+  </aside>
+</div>
+<script>window.demoPre&&demoPre()</script><script type="application/json" id="floor-data">[{"active": 1, "id": 1, "label": "1", "min_seats": 1, "note": "\u0411\u0456\u043b\u044f \u043f\u0430\u043d\u043e\u0440\u0430\u043c\u043d\u043e\u0433\u043e \u0432\u0456\u043a\u043d\u0430", "rotation": 0, "seats": 2, "shape": "square", "x": 330.0, "y": 112.0, "zone": "window"}, {"active": 1, "id": 2, "label": "2", "min_seats": 1, "note": "\u0411\u0456\u043b\u044f \u043f\u0430\u043d\u043e\u0440\u0430\u043c\u043d\u043e\u0433\u043e \u0432\u0456\u043a\u043d\u0430", "rotation": 0, "seats": 2, "shape": "square", "x": 440.0, "y": 112.0, "zone": "window"}, {"active": 1, "id": 3, "label": "3", "min_seats": 2, "note": "\u0411\u0456\u043b\u044f \u0432\u0456\u043a\u043d\u0430, \u0432\u0438\u0434 \u043d\u0430 \u043f\u043b\u043e\u0449\u0443", "rotation": 0, "seats": 4, "shape": "rect", "x": 580.0, "y": 112.0, "zone": "window"}, {"active": 1, "id": 4, "label": "4", "min_seats": 2, "note": "", "rotation": 0, "seats": 4, "shape": "round", "x": 340.0, "y": 280.0, "zone": "hall"}, {"active": 1, "id": 5, "label": "5", "min_seats": 2, "note": "", "rotation": 0, "seats": 4, "shape": "round", "x": 480.0, "y": 280.0, "zone": "hall"}, {"active": 1, "id": 6, "label": "6", "min_seats": 3, "note": "\u0412\u0435\u043b\u0438\u043a\u0438\u0439 \u0441\u0442\u0456\u043b \u0443 \u0446\u0435\u043d\u0442\u0440\u0456 \u0437\u0430\u043b\u0438", "rotation": 90, "seats": 6, "shape": "rect", "x": 650.0, "y": 285.0, "zone": "hall"}, {"active": 1, "id": 7, "label": "7", "min_seats": 5, "note": "\u0414\u043b\u044f \u043a\u043e\u043c\u043f\u0430\u043d\u0456\u0439", "rotation": 0, "seats": 8, "shape": "rect", "x": 410.0, "y": 452.0, "zone": "hall"}, {"active": 1, "id": 8, "label": "8", "min_seats": 3, "note": "\u0417\u0430\u0442\u0438\u0448\u043d\u0438\u0439 \u0434\u0438\u0432\u0430\u043d-\u0431\u043e\u043a\u0441", "rotation": 0, "seats": 6, "shape": "booth", "x": 640.0, "y": 500.0, "zone": "hall"}, {"active": 1, "id": 9, "label": "\u04111", "min_seats": 1, "note": "\u0411\u0456\u043b\u044f \u0431\u0430\u0440\u043d\u043e\u0457 \u0441\u0442\u0456\u0439\u043a\u0438", "rotation": 0, "seats": 2, "shape": "square", "x": 820.0, "y": 250.0, "zone": "bar"}, {"active": 1, "id": 10, "label": "\u04112", "min_seats": 1, "note": "\u0411\u0456\u043b\u044f \u0431\u0430\u0440\u043d\u043e\u0457 \u0441\u0442\u0456\u0439\u043a\u0438", "rotation": 0, "seats": 2, "shape": "square", "x": 820.0, "y": 350.0, "zone": "bar"}, {"active": 1, "id": 11, "label": "\u04221", "min_seats": 1, "note": "\u0422\u0435\u0440\u0430\u0441\u0430 \u043f\u0456\u0434 \u043d\u0430\u0432\u0456\u0441\u043e\u043c, \u0454 \u043f\u043b\u0435\u0434\u0438 \u0439 \u043e\u0431\u0456\u0433\u0440\u0456\u0432\u0430\u0447\u0456", "rotation": 0, "seats": 2, "shape": "round", "x": 128.0, "y": 112.0, "zone": "terrace"}, {"active": 1, "id": 12, "label": "\u04222", "min_seats": 1, "note": "\u0422\u0435\u0440\u0430\u0441\u0430 \u043f\u0456\u0434 \u043d\u0430\u0432\u0456\u0441\u043e\u043c, \u0454 \u043f\u043b\u0435\u0434\u0438 \u0439 \u043e\u0431\u0456\u0433\u0440\u0456\u0432\u0430\u0447\u0456", "rotation": 0, "seats": 2, "shape": "round", "x": 128.0, "y": 232.0, "zone": "terrace"}, {"active": 1, "id": 13, "label": "\u04223", "min_seats": 2, "note": "\u0422\u0435\u0440\u0430\u0441\u0430 \u043f\u0456\u0434 \u043d\u0430\u0432\u0456\u0441\u043e\u043c, \u0454 \u043f\u043b\u0435\u0434\u0438 \u0439 \u043e\u0431\u0456\u0433\u0440\u0456\u0432\u0430\u0447\u0456", "rotation": 0, "seats": 4, "shape": "square", "x": 128.0, "y": 370.0, "zone": "terrace"}, {"active": 1, "id": 14, "label": "\u04224", "min_seats": 2, "note": "\u0422\u0435\u0440\u0430\u0441\u0430 \u043f\u0456\u0434 \u043d\u0430\u0432\u0456\u0441\u043e\u043c, \u0454 \u043f\u043b\u0435\u0434\u0438 \u0439 \u043e\u0431\u0456\u0433\u0440\u0456\u0432\u0430\u0447\u0456", "rotation": 0, "seats": 4, "shape": "square", "x": 128.0, "y": 515.0, "zone": "terrace"}]</script>
+  </main>
+</div>
+<div class="tip" id="tip" role="tooltip" hidden></div>
+<script src="/demos/tavola/static/js/confirm.js"></script>
+<script src="/demos/tavola/static/js/admin.js"></script>
+<script src="/demos/tavola/static/js/floorplan.js"></script>
+<script src="/demos/tavola/static/js/floor-editor.js"></script>
+</body>
+</html>

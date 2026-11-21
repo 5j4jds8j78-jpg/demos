@@ -1,0 +1,77 @@
+@font-face{font-family:"Inter";src:url(../fonts/Inter-Regular.woff) format("woff");font-weight:400}
+@font-face{font-family:"Inter";src:url(../fonts/Inter-SemiBold.woff) format("woff");font-weight:600}
+@font-face{font-family:"Inter";src:url(../fonts/Inter-Bold.woff) format("woff");font-weight:700}
+@font-face{font-family:"Inter Display";src:url(../fonts/InterDisplay-ExtraBold.woff) format("woff");font-weight:800}
+@page{size:A4;margin:14mm 13mm 14mm 13mm}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#D9D9D4;color:#121316;font:10pt/1.42 "Inter",system-ui,sans-serif;font-variant-numeric:tabular-nums;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.ico{width:15px;height:15px}
+.bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:10px 20px;background:#141518;color:#fff;font-size:14px}
+.bar .b{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:5px;border:0;background:#FF5A1F;color:#0E0F11;font:600 14px "Inter",sans-serif;cursor:pointer;text-decoration:none}
+.bar .b.ghost{background:transparent;color:#D5D6D8;border:1px solid #3A3D42}
+.bar .seg{display:flex;background:#24262A;border-radius:6px;padding:3px}
+.bar .seg a{color:#B7B9BD;text-decoration:none;padding:6px 12px;border-radius:4px;font-weight:600;font-size:13px}
+.bar .seg a.on{background:#fff;color:#0E0F11}
+.sheet{position:relative;width:210mm;min-height:297mm;margin:24px auto 40px;background:#fff;padding:14mm 13mm 12mm;box-shadow:0 12px 40px -10px rgba(0,0,0,.35);display:flex;flex-direction:column}
+.doc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:12px;border-bottom:2.5px solid #121316}
+.logo{display:flex;align-items:center;gap:8px}
+.logo svg{width:26px;height:26px;color:#FF5A1F}
+.logo b{font:800 17pt/1 "Inter Display","Inter",sans-serif;letter-spacing:.02em}
+.org p{margin:8px 0 0;color:#4A4D52;font-size:8.6pt}
+.doc-title{text-align:right}
+.doc-title .kicker{font-size:7.5pt;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7A7D82}
+.doc-title h1{margin:3px 0 2px;font:800 18pt/1.1 "Inter Display","Inter",sans-serif;letter-spacing:-.01em}
+.doc-title p{margin:0;color:#4A4D52}
+.parties{display:grid;grid-template-columns:1.1fr 1.3fr 1fr;gap:0;margin:14px 0 10px;border:1px solid #CFCFCA}
+.parties.two{grid-template-columns:1fr 1fr}
+.parties>div{padding:9px 11px;border-right:1px solid #CFCFCA}
+.parties>div:last-child{border-right:0}
+.parties h3{margin:0 0 4px;font-size:7.5pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7A7D82}
+.parties p{margin:0;font-size:9.2pt}
+.mono{font-feature-settings:"zero","tnum";letter-spacing:.04em}
+.muted{color:#7A7D82}
+.reason{margin:0 0 6px;padding:8px 11px;background:#F4F4F1;border-left:3px solid #FF5A1F;font-size:9.2pt}
+.reason span,.words span,.rec span{font-weight:600}
+h2{font:700 9pt/1 "Inter",sans-serif;letter-spacing:.1em;text-transform:uppercase;margin:16px 0 6px}
+table{width:100%;border-collapse:collapse;font-size:9.2pt;margin-top:4px}
+th{text-align:left;font-size:7.5pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4A4D52;padding:6px 7px;border-top:1px solid #121316;border-bottom:1px solid #121316;background:#F4F4F1}
+td{padding:6px 7px;border-bottom:1px solid #E1E1DC;vertical-align:top}
+tfoot td{font-weight:700;border-bottom:1.5px solid #121316;background:#FAFAF8}
+.r{text-align:right}.n{width:26px;color:#7A7D82}.nowrap{white-space:nowrap}
+.none{color:#7A7D82;font-style:italic;text-align:center}
+.sum{display:grid;grid-template-columns:1fr 230px;gap:22px;margin-top:16px;align-items:start;break-inside:avoid}
+.words p{margin:0 0 8px;font-size:9.2pt}
+.words b{font-weight:600}
+.rec{color:#33363A}
+.sum dl{margin:0;border:1px solid #CFCFCA}
+.sum dl div{display:flex;justify-content:space-between;padding:5px 10px;border-bottom:1px solid #E1E1DC}
+.sum dt{color:#4A4D52}.sum dd{margin:0;font-weight:600}
+.sum .grand{background:#121316;color:#fff;border-bottom:0;padding:9px 10px}
+.sum .grand dt{color:#C9CACD;font-weight:600;font-size:8.5pt;letter-spacing:.06em;text-transform:uppercase;align-self:center}
+.sum .grand dd{font:800 14pt/1 "Inter Display","Inter",sans-serif}
+.terms{margin:16px 0 0;font-size:8.2pt;color:#4A4D52;border-top:1px dashed #CFCFCA;padding-top:9px}
+.signs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:auto;padding-top:26px;break-inside:avoid}
+.signs.two{grid-template-columns:repeat(2,1fr)}
+.signs span{font-weight:600;font-size:9pt}
+.signs i{display:block;height:28px;border-bottom:1px solid #121316}
+.signs small{display:block;font-size:7.4pt;color:#7A7D82;margin-top:3px;line-height:1.3}
+.doc-foot{display:flex;justify-content:space-between;gap:12px;margin-top:16px;padding-top:7px;border-top:1px solid #E1E1DC;font-size:7.4pt;color:#7A7D82}
+@media print{
+  body{background:#fff}
+  .bar{display:none}
+  /* no forced page height: an exact-fit min-height pushed the footer onto an empty 2nd page */
+  .sheet{width:auto;min-height:0;margin:0;padding:0;box-shadow:none;display:block}
+  .signs{margin-top:28px}
+  .doc-head,.parties,.sum,.signs,.doc-foot,.terms,tr{break-inside:avoid}
+  thead{display:table-header-group}
+  h2{break-after:avoid}
+}
+@media screen and (max-width:860px){
+  .sheet{width:auto;min-height:0;margin:12px;padding:18px}
+  .parties{grid-template-columns:1fr}.parties>div{border-right:0;border-bottom:1px solid #CFCFCA}
+  .sum{grid-template-columns:1fr}.signs{grid-template-columns:1fr}
+  .bar{flex-wrap:wrap}
+}
+.void{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%) rotate(-24deg);font:800 74pt/1 "Inter Display","Inter",sans-serif;letter-spacing:.08em;color:rgba(194,38,28,.16);border:6px solid rgba(194,38,28,.16);padding:4mm 10mm;pointer-events:none;white-space:nowrap;z-index:2}
+@media screen and (max-width:860px){.sheet{overflow-x:auto}.sheet table{min-width:520px}}

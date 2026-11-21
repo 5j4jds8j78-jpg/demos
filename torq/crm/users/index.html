@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Персонал · TORQ</title>
+  <meta name="description" content="TORQ — CRM для СТО: замовлення-наряди, канбан, склад запчастин, аналітика.">
+  <meta name="theme-color" content="#141518">
+  <link rel="icon" href="/demos/torq/static/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/demos/torq/static/fonts/Inter-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="/demos/torq/static/css/app.css">
+  
+<script src="/demos/torq/_demo/demo-shim.js"></script>
+<script src="/demos/torq/_demo/torq-shim.js"></script>
+</head>
+<body class="crm" data-csrf="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<div class="shell">
+  <aside class="side" aria-label="Головне меню">
+    <a class="brand" href="/demos/torq/crm/board/">
+      <svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg>
+      <span><b>TORQ</b><small>CRM · TORQ Service</small></span>
+    </a>
+    <nav class="nav">
+      <span class="sect">Робота</span>
+      <a href="/demos/torq/crm/board/" class="" title="Дошка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка<span class="count hot" title="Нові заявки">4</span></a>
+      <a href="/demos/torq/crm/orders/" class="" title="Замовлення-наряди"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Замовлення-наряди</a>
+      <a href="/demos/torq/crm/clients/" class="" title="Клієнти й авто"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти й авто</a>
+      <a href="/demos/torq/crm/inventory/" class="" title="Склад"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад<span class="count" title="Закінчуються">6</span></a>
+      
+      <span class="sect">Керування</span>
+      <a href="/demos/torq/crm/dashboard/" class="" title="Аналітика"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+      <a href="/demos/torq/crm/services/" class="" title="Прайс робіт"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#tag"/></svg>Прайс робіт</a>
+      <a href="/demos/torq/crm/users/" class="on" title="Персонал"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#users"/></svg>Персонал</a>
+      
+      <span class="sect">Сайт</span>
+      <a href="/demos/torq/" target="_blank" rel="noopener" title="Публічна сторінка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#arrow"/></svg>Публічна сторінка</a>
+    </nav>
+    <div class="side-foot">
+      <span class="avatar">ІЛ</span>
+      <div><b>Ірина Литвиненко</b><small>Адміністратор</small></div>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" title="Вийти" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </aside>
+
+  <header class="mobile-top">
+    <a class="brand" href="/demos/torq/crm/board/"><svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg><b>TORQ</b></a>
+    <div class="who"><span class="avatar">ІЛ</span>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </header>
+
+  <div class="main" id="main">
+    <div class="topbar"><div><h1>Персонал</h1><p class="sub">Адміністратор бачить усе; майстер — дошку, замовлення, клієнтів і склад (без закупівельних цін і аналітики)</p></div></div>
+    
+    <div class="content">
+      
+      
+<div class="split">
+  <section class="card">
+    <div class="table-wrap"><table class="table responsive">
+      <thead><tr><th>Співробітник</th><th>Логін</th><th>Роль</th><th class="r">У роботі</th><th>Статус</th><th class="r">Дії</th></tr></thead>
+      <tbody><tr>
+        <td><span class="strong">Ірина Литвиненко</span></td>
+        <td class="vin m-hide">admin</td>
+        <td class="m-right"><span class="tag online">Адмін</span></td>
+        <td class="r m-hide">0</td>
+        <td><span class="tag ok">Активний</span></td>
+        <td class="r m-right"><span class="muted small">це ви</span></td>
+      </tr><tr>
+        <td><span class="strong">Андрій Бондар</span></td>
+        <td class="vin m-hide">bondar</td>
+        <td class="m-right"><span class="tag">Майстер</span></td>
+        <td class="r m-hide">3</td>
+        <td><span class="tag ok">Активний</span></td>
+        <td class="r m-right">
+          <details class="drawer"><summary class="btn ghost xs">Керувати</summary>
+            <div class="grid card-b">
+              <form method="post" action="/demos/torq/crm/users/3/password/" class="grid"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+                <label class="field"><span>Новий пароль</span><input type="password" name="password" minlength="8" autocomplete="new-password" required></label>
+                <button class="btn ghost xs" type="submit">Змінити пароль</button></form>
+              <form method="post" action="/demos/torq/crm/users/3/toggle/" data-confirm="Вимкнути Андрій Бондар?"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+                <button class="btn danger xs" type="submit">Вимкнути доступ</button></form>
+            </div>
+          </details></td>
+      </tr><tr>
+        <td><span class="strong">Василь Мельничук</span></td>
+        <td class="vin m-hide">melnychuk</td>
+        <td class="m-right"><span class="tag">Майстер</span></td>
+        <td class="r m-hide">2</td>
+        <td><span class="tag ok">Активний</span></td>
+        <td class="r m-right">
+          <details class="drawer"><summary class="btn ghost xs">Керувати</summary>
+            <div class="grid card-b">
+              <form method="post" action="/demos/torq/crm/users/4/password/" class="grid"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+                <label class="field"><span>Новий пароль</span><input type="password" name="password" minlength="8" autocomplete="new-password" required></label>
+                <button class="btn ghost xs" type="submit">Змінити пароль</button></form>
+              <form method="post" action="/demos/torq/crm/users/4/toggle/" data-confirm="Вимкнути Василь Мельничук?"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+                <button class="btn danger xs" type="submit">Вимкнути доступ</button></form>
+            </div>
+          </details></td>
+      </tr><tr>
+        <td><span class="strong">Олег Ткаченко</span></td>
+        <td class="vin m-hide">master</td>
+        <td class="m-right"><span class="tag">Майстер</span></td>
+        <td class="r m-hide">3</td>
+        <td><span class="tag ok">Активний</span></td>
+        <td class="r m-right">
+          <details class="drawer"><summary class="btn ghost xs">Керувати</summary>
+            <div class="grid card-b">
+              <form method="post" action="/demos/torq/crm/users/2/password/" class="grid"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+                <label class="field"><span>Новий пароль</span><input type="password" name="password" minlength="8" autocomplete="new-password" required></label>
+                <button class="btn ghost xs" type="submit">Змінити пароль</button></form>
+              <form method="post" action="/demos/torq/crm/users/2/toggle/" data-confirm="Вимкнути Олег Ткаченко?"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+                <button class="btn danger xs" type="submit">Вимкнути доступ</button></form>
+            </div>
+          </details></td>
+      </tr><tr>
+        <td><span class="strong">Сергій Кравчук</span></td>
+        <td class="vin m-hide">kravchuk</td>
+        <td class="m-right"><span class="tag">Майстер</span></td>
+        <td class="r m-hide">3</td>
+        <td><span class="tag ok">Активний</span></td>
+        <td class="r m-right">
+          <details class="drawer"><summary class="btn ghost xs">Керувати</summary>
+            <div class="grid card-b">
+              <form method="post" action="/demos/torq/crm/users/5/password/" class="grid"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+                <label class="field"><span>Новий пароль</span><input type="password" name="password" minlength="8" autocomplete="new-password" required></label>
+                <button class="btn ghost xs" type="submit">Змінити пароль</button></form>
+              <form method="post" action="/demos/torq/crm/users/5/toggle/" data-confirm="Вимкнути Сергій Кравчук?"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+                <button class="btn danger xs" type="submit">Вимкнути доступ</button></form>
+            </div>
+          </details></td>
+      </tr></tbody>
+    </table></div>
+  </section>
+  <section class="card"><div class="card-h"><h2>Новий співробітник</h2></div>
+    <form class="card-b grid" method="post"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+      <label class="field"><span>Ім'я та прізвище</span><input name="full_name" required maxlength="60"></label>
+      <label class="field"><span>Логін</span><input name="username" required maxlength="32" autocomplete="off" pattern="[A-Za-z0-9_.]{3,32}"></label>
+      <label class="field"><span>Пароль</span><input type="password" name="password" required minlength="8" autocomplete="new-password"><small>щонайменше 8 символів; зберігається лише хеш</small></label>
+      <label class="field"><span>Роль</span><select name="role"><option value="master">Майстер</option><option value="admin">Адміністратор</option></select></label>
+      <button class="btn" type="submit"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#plus"/></svg>Створити</button>
+    </form>
+  </section>
+</div>
+
+    </div>
+    
+  </div>
+
+  <nav class="tabbar" aria-label="Навігація">
+    <a href="/demos/torq/crm/board/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка</a>
+    <a href="/demos/torq/crm/orders/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Наряди</a>
+    <a href="/demos/torq/crm/clients/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти</a>
+    <a href="/demos/torq/crm/inventory/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад</a>
+    <a href="/demos/torq/crm/dashboard/" class="on"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+  </nav>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.demoPre&&demoPre()</script><script src="/demos/torq/static/js/app.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Журнал — Tavola · Охра</title>
+  <link rel="icon" href="/demos/tavola/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/tavola/static/css/tokens.css">
+  <link rel="stylesheet" href="/demos/tavola/static/css/admin.css">
+<script src="/demos/tavola/_demo/demo-shim.js"></script>
+<script src="/demos/tavola/_demo/tavola-config.js"></script>
+<script src="/demos/tavola/_demo/tavola-shim.js"></script>
+</head>
+<body class="adm ">
+<a class="skip-link" href="#main">Перейти до змісту</a>
+<div class="adm-shell">
+  <aside class="adm-side">
+    <a class="adm-brand" href="/demos/tavola/admin/">
+      <svg class="adm-brand__mark" aria-hidden="true"><use href="/demos/tavola/static/img/icons.svg#logo"/></svg>
+      <span><strong>Tavola</strong><small>Охра, Львів</small></span>
+    </a>
+    <nav class="adm-nav" aria-label="Розділи адмінки">
+      <a href="/demos/tavola/admin/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#timeline"/></svg><span>Сьогодні</span></a>
+      <a href="/demos/tavola/admin/bookings/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#list"/></svg><span>Бронювання</span></a>
+      <a href="/demos/tavola/admin/floor/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#floor"/></svg><span>Схема залу</span></a>
+      <a href="/demos/tavola/admin/menu/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#book"/></svg><span>Меню</span></a>
+      <a href="/demos/tavola/admin/stats/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chart"/></svg><span>Статистика</span></a>
+      <a href="/demos/tavola/admin/qr/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#qr"/></svg><span>QR-меню</span></a>
+      <a href="/demos/tavola/admin/log/" class="adm-nav__link is-active" aria-current="page"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#shield"/></svg><span>Журнал</span></a>
+    </nav>
+    <div class="adm-side__foot">
+      <a class="adm-side__site" href="/demos/tavola/"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#door"/></svg>Відкрити сайт</a>
+      <form method="post" action="/demos/tavola/admin/logout/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+        <button class="adm-side__logout" type="submit"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#logout"/></svg>Вийти<span>admin</span></button>
+      </form>
+    </div>
+  </aside>
+  <main class="adm-main" id="main">
+    <header class="adm-top">
+      <div class="adm-top__titles">
+        <h1 class="adm-top__title">Журнал дій</h1>
+      </div>
+      <div class="adm-top__actions"></div>
+    </header>
+    
+<p class="lead-note">Хто, коли й з якої IP-адреси входив і що змінював. Останні 200 записів.</p>
+<section class="card card--flush">
+  <div class="table-scroll"><table class="dt">
+    <thead><tr><th scope="col">Час</th><th scope="col">Користувач</th><th scope="col">IP</th><th scope="col">Дія</th></tr></thead>
+    <tbody><tr><td class="tnum">2026-11-21 14:46:05</td><td>admin</td><td class="tnum">127.0.0.1</td><td>login success</td></tr><tr><td class="tnum">2026-11-21 14:44:42</td><td>admin</td><td class="tnum">127.0.0.1</td><td>login success</td></tr><tr><td class="tnum">2026-11-21 14:44:36</td><td>admin</td><td class="tnum">127.0.0.1</td><td>login success</td></tr><tr><td class="tnum">2026-11-21 14:43:27</td><td>admin</td><td class="tnum">91.204.12.7</td><td>floor plan saved (14 tables)</td></tr><tr><td class="tnum">2026-11-21 14:43:27</td><td>admin</td><td class="tnum">91.204.12.7</td><td>login success</td></tr><tr><td class="tnum">2026-11-21 14:43:27</td><td>unknown</td><td class="tnum">91.204.12.7</td><td>login failed</td></tr><tr><td class="tnum">2026-11-21 14:43:27</td><td>unknown</td><td class="tnum">91.204.12.7</td><td>login failed</td></tr></tbody>
+  </table></div>
+</section>
+  </main>
+</div>
+<div class="tip" id="tip" role="tooltip" hidden></div>
+<script>window.demoPre&&demoPre()</script><script src="/demos/tavola/static/js/confirm.js"></script>
+<script src="/demos/tavola/static/js/admin.js"></script>
+</body>
+</html>

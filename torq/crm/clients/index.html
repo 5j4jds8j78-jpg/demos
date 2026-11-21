@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Клієнти й авто · TORQ</title>
+  <meta name="description" content="TORQ — CRM для СТО: замовлення-наряди, канбан, склад запчастин, аналітика.">
+  <meta name="theme-color" content="#141518">
+  <link rel="icon" href="/demos/torq/static/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/demos/torq/static/fonts/Inter-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="/demos/torq/static/css/app.css">
+  
+<script src="/demos/torq/_demo/demo-shim.js"></script>
+<script src="/demos/torq/_demo/torq-shim.js"></script>
+</head>
+<body class="crm" data-csrf="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<div class="shell">
+  <aside class="side" aria-label="Головне меню">
+    <a class="brand" href="/demos/torq/crm/board/">
+      <svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg>
+      <span><b>TORQ</b><small>CRM · TORQ Service</small></span>
+    </a>
+    <nav class="nav">
+      <span class="sect">Робота</span>
+      <a href="/demos/torq/crm/board/" class="" title="Дошка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка<span class="count hot" title="Нові заявки">4</span></a>
+      <a href="/demos/torq/crm/orders/" class="" title="Замовлення-наряди"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Замовлення-наряди</a>
+      <a href="/demos/torq/crm/clients/" class="on" title="Клієнти й авто"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти й авто</a>
+      <a href="/demos/torq/crm/inventory/" class="" title="Склад"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад<span class="count" title="Закінчуються">6</span></a>
+      
+      <span class="sect">Керування</span>
+      <a href="/demos/torq/crm/dashboard/" class="" title="Аналітика"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+      <a href="/demos/torq/crm/services/" class="" title="Прайс робіт"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#tag"/></svg>Прайс робіт</a>
+      <a href="/demos/torq/crm/users/" class="" title="Персонал"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#users"/></svg>Персонал</a>
+      
+      <span class="sect">Сайт</span>
+      <a href="/demos/torq/" target="_blank" rel="noopener" title="Публічна сторінка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#arrow"/></svg>Публічна сторінка</a>
+    </nav>
+    <div class="side-foot">
+      <span class="avatar">ІЛ</span>
+      <div><b>Ірина Литвиненко</b><small>Адміністратор</small></div>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" title="Вийти" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </aside>
+
+  <header class="mobile-top">
+    <a class="brand" href="/demos/torq/crm/board/"><svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg><b>TORQ</b></a>
+    <div class="who"><span class="avatar">ІЛ</span>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </header>
+
+  <div class="main" id="main">
+    
+<div class="topbar">
+  <div><h1>Клієнти й автомобілі</h1><p class="sub">48 у базі · пошук за іменем, телефоном, держномером або VIN</p></div>
+  <div class="actions"><a class="btn" href="/demos/torq/crm/orders/new/"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#plus"/></svg>Новий клієнт і замовлення</a></div>
+</div>
+
+    
+    <div class="content">
+      
+      
+<form class="toolbar" method="get" role="search">
+  <label class="search"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#search"/></svg><span class="sr-only">Пошук</span><input type="search" name="q" value="" placeholder="Коваленко, 067…, KA7788…, WVWZZZ…"></label>
+  <button class="btn ghost" type="submit">Знайти</button>
+  
+</form>
+<section class="card">
+  
+  <div class="table-wrap">
+  <table class="table hover responsive">
+    <thead><tr><th>Клієнт</th><th>Телефон</th><th>Автомобілі</th><th class="r">Візитів</th><th class="r">Сплачено</th><th>Останній візит</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/26/">Анастасія Шевченко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380738188598" class="muted">+38 (073) 818-85-98</a></td>
+        <td>Audi A6 C7</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">6 610 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/46/">Віктор Остапчук</a></td>
+        <td class="nowrap m-right"><a href="tel:+380671162711" class="muted">+38 (067) 116-27-11</a></td>
+        <td>Ford Focus III, Volkswagen Golf VII</td>
+        <td class="r m-hide">8</td>
+        <td class="r strong nowrap m-right">23 170 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/18/">Олена Петренко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380959572489" class="muted">+38 (095) 957-24-89</a></td>
+        <td>Skoda Octavia A7</td>
+        <td class="r m-hide">7</td>
+        <td class="r strong nowrap m-right">42 230 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/1/">Сергій Захарчук</a></td>
+        <td class="nowrap m-right"><a href="tel:+380632824718" class="muted">+38 (063) 282-47-18</a></td>
+        <td>Renault Duster, Mazda 6</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">22 820 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/42/">Тарас Дорошенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380686533703" class="muted">+38 (068) 653-37-03</a></td>
+        <td>Hyundai Elantra</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">29 930 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/17/">Іван Руденко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380956221932" class="muted">+38 (095) 622-19-32</a></td>
+        <td>Kia Ceed</td>
+        <td class="r m-hide">6</td>
+        <td class="r strong nowrap m-right">44 754 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/43/">Євген Поліщук</a></td>
+        <td class="nowrap m-right"><a href="tel:+380735590803" class="muted">+38 (073) 559-08-03</a></td>
+        <td>Toyota Camry</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">23 866 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/40/">Наталія Поліщук</a></td>
+        <td class="nowrap m-right"><a href="tel:+380958568430" class="muted">+38 (095) 856-84-30</a></td>
+        <td>BMW 320d F30</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">7 520 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/33/">Назар Захарчук</a></td>
+        <td class="nowrap m-right"><a href="tel:+380676902665" class="muted">+38 (067) 690-26-65</a></td>
+        <td>Nissan Qashqai</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">29 103 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/27/">Олег Литвин</a></td>
+        <td class="nowrap m-right"><a href="tel:+380689604020" class="muted">+38 (068) 960-40-20</a></td>
+        <td>Mitsubishi Outlander</td>
+        <td class="r m-hide">7</td>
+        <td class="r strong nowrap m-right">33 614 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/36/">Наталія Дорошенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380682081143" class="muted">+38 (068) 208-11-43</a></td>
+        <td>Volkswagen Golf VII</td>
+        <td class="r m-hide">7</td>
+        <td class="r strong nowrap m-right">23 422 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/19/">Олег Захарчук</a></td>
+        <td class="nowrap m-right"><a href="tel:+380933618671" class="muted">+38 (093) 361-86-71</a></td>
+        <td>Ford Focus III, Lexus RX 350</td>
+        <td class="r m-hide">11</td>
+        <td class="r strong nowrap m-right">66 208 ₴</td>
+        <td class="nowrap muted m-hide">21.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/4/">Володимир Марченко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380986768842" class="muted">+38 (098) 676-88-42</a></td>
+        <td>Mazda 6</td>
+        <td class="r m-hide">4</td>
+        <td class="r strong nowrap m-right">23 000 ₴</td>
+        <td class="nowrap muted m-hide">20.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/5/">Віктор Дорошенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380669200582" class="muted">+38 (066) 920-05-82</a></td>
+        <td>Volkswagen Golf VII</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">28 820 ₴</td>
+        <td class="nowrap muted m-hide">20.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/32/">Юрій Коваленко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380974946365" class="muted">+38 (097) 494-63-65</a></td>
+        <td>Kia Ceed</td>
+        <td class="r m-hide">9</td>
+        <td class="r strong nowrap m-right">39 669 ₴</td>
+        <td class="nowrap muted m-hide">20.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/44/">Артем Власенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380683938474" class="muted">+38 (068) 393-84-74</a></td>
+        <td>Skoda Superb</td>
+        <td class="r m-hide">7</td>
+        <td class="r strong nowrap m-right">53 550 ₴</td>
+        <td class="nowrap muted m-hide">20.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/39/">Катерина Ткачук</a></td>
+        <td class="nowrap m-right"><a href="tel:+380667840370" class="muted">+38 (066) 784-03-70</a></td>
+        <td>BMW 320d F30</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">29 560 ₴</td>
+        <td class="nowrap muted m-hide">19.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/2/">Юлія Карпенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380509537484" class="muted">+38 (050) 953-74-84</a></td>
+        <td>Toyota RAV4</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">38 994 ₴</td>
+        <td class="nowrap muted m-hide">18.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/37/">Анастасія Коваленко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380688040210" class="muted">+38 (068) 804-02-10</a></td>
+        <td>Mazda 6, Daewoo Lanos</td>
+        <td class="r m-hide">11</td>
+        <td class="r strong nowrap m-right">55 681 ₴</td>
+        <td class="nowrap muted m-hide">18.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/30/">Олег Захарчук</a></td>
+        <td class="nowrap m-right"><a href="tel:+380955226491" class="muted">+38 (095) 522-64-91</a></td>
+        <td>Daewoo Lanos</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">14 082 ₴</td>
+        <td class="nowrap muted m-hide">17.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/16/">Костянтин Грищенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380635209105" class="muted">+38 (063) 520-91-05</a></td>
+        <td>Mazda 6</td>
+        <td class="r m-hide">8</td>
+        <td class="r strong nowrap m-right">67 836 ₴</td>
+        <td class="nowrap muted m-hide">14.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/24/">Володимир Грищенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380737428150" class="muted">+38 (073) 742-81-50</a></td>
+        <td>Mercedes-Benz E 220 W212</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">30 950 ₴</td>
+        <td class="nowrap muted m-hide">14.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/35/">Тарас Федоренко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380976947468" class="muted">+38 (097) 694-74-68</a></td>
+        <td>Volkswagen Golf VII</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">26 050 ₴</td>
+        <td class="nowrap muted m-hide">13.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/7/">Павло Яковенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380688299814" class="muted">+38 (068) 829-98-14</a></td>
+        <td>Kia Sportage</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">21 770 ₴</td>
+        <td class="nowrap muted m-hide">13.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/41/">Світлана Мельник</a></td>
+        <td class="nowrap m-right"><a href="tel:+380502948463" class="muted">+38 (050) 294-84-63</a></td>
+        <td>Skoda Superb</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">24 164 ₴</td>
+        <td class="nowrap muted m-hide">13.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/25/">Олег Яковенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380675590082" class="muted">+38 (067) 559-00-82</a></td>
+        <td>Chevrolet Aveo</td>
+        <td class="r m-hide">6</td>
+        <td class="r strong nowrap m-right">43 390 ₴</td>
+        <td class="nowrap muted m-hide">12.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/10/">Микола Олійник</a></td>
+        <td class="nowrap m-right"><a href="tel:+380739275547" class="muted">+38 (073) 927-55-47</a></td>
+        <td>Mitsubishi Outlander, Audi A6 C7</td>
+        <td class="r m-hide">8</td>
+        <td class="r strong nowrap m-right">56 720 ₴</td>
+        <td class="nowrap muted m-hide">12.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/29/">Ярослав Лисенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380636457438" class="muted">+38 (063) 645-74-38</a></td>
+        <td>Lexus RX 350</td>
+        <td class="r m-hide">4</td>
+        <td class="r strong nowrap m-right">24 192 ₴</td>
+        <td class="nowrap muted m-hide">12.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/28/">Марія Яковенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380733181120" class="muted">+38 (073) 318-11-20</a></td>
+        <td>Renault Duster, Honda CR-V</td>
+        <td class="r m-hide">10</td>
+        <td class="r strong nowrap m-right">69 657 ₴</td>
+        <td class="nowrap muted m-hide">11.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/23/">Олександр Карпенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380669305105" class="muted">+38 (066) 930-51-05</a></td>
+        <td>Nissan Qashqai</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">7 170 ₴</td>
+        <td class="nowrap muted m-hide">10.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/8/">Артем Шевченко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380685195358" class="muted">+38 (068) 519-53-58</a></td>
+        <td>Skoda Octavia A7</td>
+        <td class="r m-hide">6</td>
+        <td class="r strong nowrap m-right">62 780 ₴</td>
+        <td class="nowrap muted m-hide">09.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/48/">ФОП Гнатюк Р. В.</a></td>
+        <td class="nowrap m-right"><a href="tel:+380735113308" class="muted">+38 (073) 511-33-08</a></td>
+        <td>Daewoo Lanos</td>
+        <td class="r m-hide">6</td>
+        <td class="r strong nowrap m-right">14 920 ₴</td>
+        <td class="nowrap muted m-hide">07.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/12/">Світлана Дорошенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380673979266" class="muted">+38 (067) 397-92-66</a></td>
+        <td>BMW X5 F15</td>
+        <td class="r m-hide">6</td>
+        <td class="r strong nowrap m-right">40 945 ₴</td>
+        <td class="nowrap muted m-hide">06.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/6/">Артем Литвин</a></td>
+        <td class="nowrap m-right"><a href="tel:+380959963968" class="muted">+38 (095) 996-39-68</a></td>
+        <td>Volkswagen Passat B8</td>
+        <td class="r m-hide">4</td>
+        <td class="r strong nowrap m-right">36 062 ₴</td>
+        <td class="nowrap muted m-hide">05.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/20/">Тетяна Яковенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380738850673" class="muted">+38 (073) 885-06-73</a></td>
+        <td>BMW X5 F15</td>
+        <td class="r m-hide">4</td>
+        <td class="r strong nowrap m-right">18 582 ₴</td>
+        <td class="nowrap muted m-hide">05.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/21/">Микола Литвин</a></td>
+        <td class="nowrap m-right"><a href="tel:+380935167904" class="muted">+38 (093) 516-79-04</a></td>
+        <td>Daewoo Lanos</td>
+        <td class="r m-hide">6</td>
+        <td class="r strong nowrap m-right">33 678 ₴</td>
+        <td class="nowrap muted m-hide">04.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/15/">Андрій Власенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380974557023" class="muted">+38 (097) 455-70-23</a></td>
+        <td>Volkswagen Passat B8</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">40 855 ₴</td>
+        <td class="nowrap muted m-hide">02.11.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/11/">Микола Пономаренко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380733877587" class="muted">+38 (073) 387-75-87</a></td>
+        <td>Renault Duster</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">25 406 ₴</td>
+        <td class="nowrap muted m-hide">31.10.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/13/">Світлана Олійник</a></td>
+        <td class="nowrap m-right"><a href="tel:+380733675424" class="muted">+38 (073) 367-54-24</a></td>
+        <td>BMW X5 F15</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">30 960 ₴</td>
+        <td class="nowrap muted m-hide">31.10.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/34/">Світлана Бондаренко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380505240336" class="muted">+38 (050) 524-03-36</a></td>
+        <td>Ford Focus III</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">18 490 ₴</td>
+        <td class="nowrap muted m-hide">30.10.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/22/">Олег Мельник</a></td>
+        <td class="nowrap m-right"><a href="tel:+380682784851" class="muted">+38 (068) 278-48-51</a></td>
+        <td>Skoda Superb</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">16 504 ₴</td>
+        <td class="nowrap muted m-hide">23.10.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/47/">ТОВ Агроленд</a></td>
+        <td class="nowrap m-right"><a href="tel:+380937961458" class="muted">+38 (093) 796-14-58</a></td>
+        <td>Kia Sportage, Skoda Octavia A7</td>
+        <td class="r m-hide">2</td>
+        <td class="r strong nowrap m-right">10 214 ₴</td>
+        <td class="nowrap muted m-hide">20.10.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/3/">Світлана Гончаренко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380954256770" class="muted">+38 (095) 425-67-70</a></td>
+        <td>Mitsubishi Outlander</td>
+        <td class="r m-hide">5</td>
+        <td class="r strong nowrap m-right">29 620 ₴</td>
+        <td class="nowrap muted m-hide">17.10.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/45/">Марія Поліщук</a></td>
+        <td class="nowrap m-right"><a href="tel:+380676169529" class="muted">+38 (067) 616-95-29</a></td>
+        <td>Nissan Qashqai</td>
+        <td class="r m-hide">4</td>
+        <td class="r strong nowrap m-right">24 976 ₴</td>
+        <td class="nowrap muted m-hide">16.10.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/38/">Юлія Білик</a></td>
+        <td class="nowrap m-right"><a href="tel:+380985841779" class="muted">+38 (098) 584-17-79</a></td>
+        <td>Mitsubishi Outlander</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">16 948 ₴</td>
+        <td class="nowrap muted m-hide">12.10.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/14/">Артем Лисенко</a></td>
+        <td class="nowrap m-right"><a href="tel:+380737442059" class="muted">+38 (073) 744-20-59</a></td>
+        <td>BMW X5 F15</td>
+        <td class="r m-hide">3</td>
+        <td class="r strong nowrap m-right">14 540 ₴</td>
+        <td class="nowrap muted m-hide">07.10.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/9/">Марія Остапчук</a></td>
+        <td class="nowrap m-right"><a href="tel:+380506313933" class="muted">+38 (050) 631-39-33</a></td>
+        <td>Daewoo Lanos</td>
+        <td class="r m-hide">7</td>
+        <td class="r strong nowrap m-right">36 285 ₴</td>
+        <td class="nowrap muted m-hide">30.09.2026</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/clients/31/">Роман Козак</a></td>
+        <td class="nowrap m-right"><a href="tel:+380672664675" class="muted">+38 (067) 266-46-75</a></td>
+        <td>BMW 320d F30</td>
+        <td class="r m-hide">1</td>
+        <td class="r strong nowrap m-right">4 190 ₴</td>
+        <td class="nowrap muted m-hide">05.09.2026</td>
+      </tr>
+    
+    </tbody>
+  </table>
+  </div>
+  
+</section>
+
+    </div>
+    
+  </div>
+
+  <nav class="tabbar" aria-label="Навігація">
+    <a href="/demos/torq/crm/board/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка</a>
+    <a href="/demos/torq/crm/orders/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Наряди</a>
+    <a href="/demos/torq/crm/clients/" class="on"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти</a>
+    <a href="/demos/torq/crm/inventory/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад</a>
+    <a href="/demos/torq/crm/dashboard/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+  </nav>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.demoPre&&demoPre()</script><script src="/demos/torq/static/js/app.js" defer></script>
+
+</body>
+</html>

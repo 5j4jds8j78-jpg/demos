@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>19 листопада, четвер — Tavola · Охра</title>
+  <link rel="icon" href="/demos/tavola/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/tavola/static/css/tokens.css">
+  <link rel="stylesheet" href="/demos/tavola/static/css/admin.css">
+<script src="/demos/tavola/_demo/demo-shim.js"></script>
+<script src="/demos/tavola/_demo/tavola-config.js"></script>
+<script src="/demos/tavola/_demo/tavola-shim.js"></script>
+</head>
+<body class="adm ">
+<a class="skip-link" href="#main">Перейти до змісту</a>
+<div class="adm-shell">
+  <aside class="adm-side">
+    <a class="adm-brand" href="/demos/tavola/admin/">
+      <svg class="adm-brand__mark" aria-hidden="true"><use href="/demos/tavola/static/img/icons.svg#logo"/></svg>
+      <span><strong>Tavola</strong><small>Охра, Львів</small></span>
+    </a>
+    <nav class="adm-nav" aria-label="Розділи адмінки">
+      <a href="/demos/tavola/admin/" class="adm-nav__link is-active" aria-current="page"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#timeline"/></svg><span>Сьогодні</span></a>
+      <a href="/demos/tavola/admin/bookings/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#list"/></svg><span>Бронювання</span></a>
+      <a href="/demos/tavola/admin/floor/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#floor"/></svg><span>Схема залу</span></a>
+      <a href="/demos/tavola/admin/menu/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#book"/></svg><span>Меню</span></a>
+      <a href="/demos/tavola/admin/stats/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chart"/></svg><span>Статистика</span></a>
+      <a href="/demos/tavola/admin/qr/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#qr"/></svg><span>QR-меню</span></a>
+      <a href="/demos/tavola/admin/log/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#shield"/></svg><span>Журнал</span></a>
+    </nav>
+    <div class="adm-side__foot">
+      <a class="adm-side__site" href="/demos/tavola/"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#door"/></svg>Відкрити сайт</a>
+      <form method="post" action="/demos/tavola/admin/logout/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+        <button class="adm-side__logout" type="submit"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#logout"/></svg>Вийти<span>admin</span></button>
+      </form>
+    </div>
+  </aside>
+  <main class="adm-main" id="main">
+    <header class="adm-top">
+      <div class="adm-top__titles">
+<p class="adm-top__eyebrow">19 листопада, четвер</p>        <h1 class="adm-top__title">Зала на 19 листопада</h1>
+      </div>
+      <div class="adm-top__actions"><nav class="daynav" aria-label="Вибір дня">
+  <a class="btn btn--ghost btn--icon" href="/demos/tavola/admin/_q/date=2026-11-18/" aria-label="Попередній день"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chevron-left"/></svg></a>
+  <a class="btn btn--ghost btn--sm" href="/demos/tavola/admin/">Сьогодні</a>
+  <a class="btn btn--ghost btn--icon" href="/demos/tavola/admin/_q/date=2026-11-20/" aria-label="Наступний день"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chevron-right"/></svg></a>
+  <form method="get" class="daynav__pick">
+    <label class="sr-only" for="pick-day">Обрати дату</label>
+    <input class="daynav__native" type="date" id="pick-day" name="date" value="2026-11-19" data-autosubmit>
+    <button class="btn btn--ghost btn--icon" type="button" data-picker="pick-day" aria-label="Обрати дату в календарі"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#calendar"/></svg></button>
+  </form>
+</nav>
+</div>
+    </header>
+    
+<section class="kpis" aria-label="Показники дня">
+  <div class="kpi"><p class="kpi__label">Бронювань</p><p class="kpi__value">16</p></div>
+  <div class="kpi"><p class="kpi__label">Гостей за день</p><p class="kpi__value">72</p></div>
+  <div class="kpi"><p class="kpi__label">Не підтверджені</p><p class="kpi__value">0</p></div>
+</section>
+
+<section class="card card--flush" aria-labelledby="tl-title">
+  <div class="card__head">
+    <h2 class="card__title" id="tl-title">Таймлайн по столах</h2>
+    <div class="gantt-legend" aria-hidden="true">
+<span><i class="gl gl--new"></i>Нове</span><span><i class="gl gl--confirmed"></i>Підтверджене</span><span><i class="gl gl--seated"></i>За столом</span><span><i class="gl gl--completed"></i>Завершене</span><span><i class="gl gl--no_show"></i>Не прийшли</span>    </div>
+  </div>
+  <div class="gantt-wrap"><svg class="gantt" viewBox="0 0 1120 628" role="img" aria-label="Таймлайн бронювань по столах"><rect class="g-zebra" x="0" y="34" width="1120" height="42"/><text class="g-table" x="14" y="53">1</text><text class="g-seats" x="14" y="67">2 міс. · Вікно</text><text class="g-table" x="14" y="95">2</text><text class="g-seats" x="14" y="109">2 міс. · Вікно</text><rect class="g-zebra" x="0" y="118" width="1120" height="42"/><text class="g-table" x="14" y="137">3</text><text class="g-seats" x="14" y="151">4 міс. · Вікно</text><line class="g-zone" x1="0" x2="1120" y1="160" y2="160"/><text class="g-table" x="14" y="179">4</text><text class="g-seats" x="14" y="193">4 міс. · Зала</text><rect class="g-zebra" x="0" y="202" width="1120" height="42"/><text class="g-table" x="14" y="221">5</text><text class="g-seats" x="14" y="235">4 міс. · Зала</text><text class="g-table" x="14" y="263">6</text><text class="g-seats" x="14" y="277">6 міс. · Зала</text><rect class="g-zebra" x="0" y="286" width="1120" height="42"/><text class="g-table" x="14" y="305">7</text><text class="g-seats" x="14" y="319">8 міс. · Зала</text><text class="g-table" x="14" y="347">8</text><text class="g-seats" x="14" y="361">6 міс. · Зала</text><rect class="g-zebra" x="0" y="370" width="1120" height="42"/><line class="g-zone" x1="0" x2="1120" y1="370" y2="370"/><text class="g-table" x="14" y="389">Б1</text><text class="g-seats" x="14" y="403">2 міс. · Бар</text><text class="g-table" x="14" y="431">Б2</text><text class="g-seats" x="14" y="445">2 міс. · Бар</text><rect class="g-zebra" x="0" y="454" width="1120" height="42"/><line class="g-zone" x1="0" x2="1120" y1="454" y2="454"/><text class="g-table" x="14" y="473">Т1</text><text class="g-seats" x="14" y="487">2 міс. · Тераса</text><text class="g-table" x="14" y="515">Т2</text><text class="g-seats" x="14" y="529">2 міс. · Тераса</text><rect class="g-zebra" x="0" y="538" width="1120" height="42"/><text class="g-table" x="14" y="557">Т3</text><text class="g-seats" x="14" y="571">4 міс. · Тераса</text><text class="g-table" x="14" y="599">Т4</text><text class="g-seats" x="14" y="613">4 міс. · Тераса</text><line class="g-hour" x1="96.0" x2="96.0" y1="28" y2="628"/><text class="g-hlabel" x="96.0" y="18" text-anchor="middle">12:00</text><line class="g-half" x1="141.4" x2="141.4" y1="34" y2="628"/><line class="g-hour" x1="186.7" x2="186.7" y1="28" y2="628"/><text class="g-hlabel" x="186.7" y="18" text-anchor="middle">13:00</text><line class="g-half" x1="232.1" x2="232.1" y1="34" y2="628"/><line class="g-hour" x1="277.5" x2="277.5" y1="28" y2="628"/><text class="g-hlabel" x="277.5" y="18" text-anchor="middle">14:00</text><line class="g-half" x1="322.8" x2="322.8" y1="34" y2="628"/><line class="g-hour" x1="368.2" x2="368.2" y1="28" y2="628"/><text class="g-hlabel" x="368.2" y="18" text-anchor="middle">15:00</text><line class="g-half" x1="413.5" x2="413.5" y1="34" y2="628"/><line class="g-hour" x1="458.9" x2="458.9" y1="28" y2="628"/><text class="g-hlabel" x="458.9" y="18" text-anchor="middle">16:00</text><line class="g-half" x1="504.3" x2="504.3" y1="34" y2="628"/><line class="g-hour" x1="549.6" x2="549.6" y1="28" y2="628"/><text class="g-hlabel" x="549.6" y="18" text-anchor="middle">17:00</text><line class="g-half" x1="595.0" x2="595.0" y1="34" y2="628"/><line class="g-hour" x1="640.4" x2="640.4" y1="28" y2="628"/><text class="g-hlabel" x="640.4" y="18" text-anchor="middle">18:00</text><line class="g-half" x1="685.7" x2="685.7" y1="34" y2="628"/><line class="g-hour" x1="731.1" x2="731.1" y1="28" y2="628"/><text class="g-hlabel" x="731.1" y="18" text-anchor="middle">19:00</text><line class="g-half" x1="776.5" x2="776.5" y1="34" y2="628"/><line class="g-hour" x1="821.8" x2="821.8" y1="28" y2="628"/><text class="g-hlabel" x="821.8" y="18" text-anchor="middle">20:00</text><line class="g-half" x1="867.2" x2="867.2" y1="34" y2="628"/><line class="g-hour" x1="912.5" x2="912.5" y1="28" y2="628"/><text class="g-hlabel" x="912.5" y="18" text-anchor="middle">21:00</text><line class="g-half" x1="957.9" x2="957.9" y1="34" y2="628"/><line class="g-hour" x1="1003.3" x2="1003.3" y1="28" y2="628"/><text class="g-hlabel" x="1003.3" y="18" text-anchor="middle">22:00</text><line class="g-half" x1="1048.6" x2="1048.6" y1="34" y2="628"/><line class="g-hour" x1="1094.0" x2="1094.0" y1="28" y2="628"/><text class="g-hlabel" x="1094.0" y="18" text-anchor="middle">23:00</text><a href="/demos/tavola/admin/bookings/1583/" class="g-bar s-completed" data-tip="12:30–14:00 · Оксана Руденко · 2 гост. · Завершене"><title>12:30–14:00 · Оксана Руденко · 2 гост. · Завершене</title><rect x="142.9" y="39" width="133.1" height="32" rx="8"/><text class="g-guests" x="153.4" y="60">2</text><text class="g-name" x="171.4" y="60">Оксана Руде…</text></a><a href="/demos/tavola/admin/bookings/1589/" class="g-bar s-completed" data-tip="12:30–14:30 · Ірина Левченко · 3 гост. · Завершене"><title>12:30–14:30 · Ірина Левченко · 3 гост. · Завершене</title><rect x="142.9" y="123" width="178.5" height="32" rx="8"/><text class="g-guests" x="153.4" y="144">3</text><text class="g-name" x="171.4" y="144">Ірина Левченко</text></a><a href="/demos/tavola/admin/bookings/1595/" class="g-bar s-completed" data-tip="12:50–15:30 · Гість без броні · 6 гост. · Завершене"><title>12:50–15:30 · Гість без броні · 6 гост. · Завершене</title><rect x="173.1" y="333" width="238.9" height="32" rx="8"/><text class="g-guests" x="183.6" y="354">6</text><text class="g-name" x="201.6" y="354">Гість без броні</text></a><a href="/demos/tavola/admin/bookings/1598/" class="g-bar s-completed" data-tip="13:25–15:05 · Гість без броні · 4 гост. · Завершене"><title>13:25–15:05 · Гість без броні · 4 гост. · Завершене</title><rect x="226.0" y="165" width="148.2" height="32" rx="8"/><text class="g-guests" x="236.5" y="186">4</text><text class="g-name" x="254.5" y="186">Гість без бро…</text></a><a href="/demos/tavola/admin/bookings/1585/" class="g-bar s-completed" data-tip="13:30–16:00 · Катерина Левченко · 5 гост. · Завершене"><title>13:30–16:00 · Катерина Левченко · 5 гост. · Завершене</title><rect x="233.6" y="249" width="223.8" height="32" rx="8"/><text class="g-guests" x="244.1" y="270">5</text><text class="g-name" x="262.1" y="270">Катерина Левченко</text></a><a href="/demos/tavola/admin/bookings/1593/" class="g-bar s-completed" data-tip="15:00–17:00 · Олена Петрук · 4 гост. · Завершене"><title>15:00–17:00 · Олена Петрук · 4 гост. · Завершене</title><rect x="369.7" y="207" width="178.5" height="32" rx="8"/><text class="g-guests" x="380.2" y="228">4</text><text class="g-name" x="398.2" y="228">Олена Петрук</text></a><a href="/demos/tavola/admin/bookings/1587/" class="g-bar s-completed" data-tip="16:35–18:55 · Гість без броні · 6 гост. · Завершене"><title>16:35–18:55 · Гість без броні · 6 гост. · Завершене</title><rect x="513.3" y="333" width="208.7" height="32" rx="8"/><text class="g-guests" x="523.8" y="354">6</text><text class="g-name" x="541.8" y="354">Гість без броні</text></a><a href="/demos/tavola/admin/bookings/1591/" class="g-bar s-completed" data-tip="17:30–19:30 · Тарас Ткачук · 4 гост. · Завершене"><title>17:30–19:30 · Тарас Ткачук · 4 гост. · Завершене</title><rect x="596.5" y="165" width="178.5" height="32" rx="8"/><text class="g-guests" x="607.0" y="186">4</text><text class="g-name" x="625.0" y="186">Тарас Ткачук</text></a><a href="/demos/tavola/admin/bookings/1584/" class="g-bar s-completed" data-tip="18:00–20:30 · Дарина Коваль · 8 гост. · Завершене"><title>18:00–20:30 · Дарина Коваль · 8 гост. · Завершене</title><rect x="641.9" y="291" width="223.8" height="32" rx="8"/><text class="g-guests" x="652.4" y="312">8</text><text class="g-name" x="670.4" y="312">Дарина Коваль</text></a><a href="/demos/tavola/admin/bookings/1594/" class="g-bar s-completed" data-tip="18:30–20:00 · Оксана Кравець · 2 гост. · Завершене"><title>18:30–20:00 · Оксана Кравець · 2 гост. · Завершене</title><rect x="687.2" y="501" width="133.1" height="32" rx="8"/><text class="g-guests" x="697.7" y="522">2</text><text class="g-name" x="715.7" y="522">Оксана Крав…</text></a><a href="/demos/tavola/admin/bookings/1576/" class="g-bar s-completed" data-tip="19:00–20:30 · Христина Марченко · 2 гост. · Завершене"><title>19:00–20:30 · Христина Марченко · 2 гост. · Завершене</title><rect x="732.6" y="39" width="133.1" height="32" rx="8"/><text class="g-guests" x="743.1" y="60">2</text><text class="g-name" x="761.1" y="60">Христина Ма…</text></a><a href="/demos/tavola/admin/bookings/1586/" class="g-bar s-no_show" data-tip="19:00–20:30 · Олег Шевчук · 2 гост. · Не прийшли"><title>19:00–20:30 · Олег Шевчук · 2 гост. · Не прийшли</title><rect x="732.6" y="81" width="133.1" height="32" rx="8"/><text class="g-guests" x="743.1" y="102">2</text><text class="g-name" x="761.1" y="102">Олег Шевчук</text></a><a href="/demos/tavola/admin/bookings/1597/" class="g-bar s-completed" data-tip="19:30–22:00 · Катерина Марченко · 6 гост. · Завершене"><title>19:30–22:00 · Катерина Марченко · 6 гост. · Завершене</title><rect x="778.0" y="333" width="223.8" height="32" rx="8"/><text class="g-guests" x="788.5" y="354">6</text><text class="g-name" x="806.5" y="354">Катерина Марченко</text></a><a href="/demos/tavola/admin/bookings/1599/" class="g-bar s-completed" data-tip="20:00–22:00 · Віктор Бойко · 3 гост. · Завершене"><title>20:00–22:00 · Віктор Бойко · 3 гост. · Завершене</title><rect x="823.3" y="207" width="178.5" height="32" rx="8"/><text class="g-guests" x="833.8" y="228">3</text><text class="g-name" x="851.8" y="228">Віктор Бойко</text></a><a href="/demos/tavola/admin/bookings/1592/" class="g-bar s-completed" data-tip="20:00–22:30 · Роман Савчук · 5 гост. · Завершене"><title>20:00–22:30 · Роман Савчук · 5 гост. · Завершене</title><rect x="823.3" y="249" width="223.8" height="32" rx="8"/><text class="g-guests" x="833.8" y="270">5</text><text class="g-name" x="851.8" y="270">Роман Савчук</text></a><a href="/demos/tavola/admin/bookings/1581/" class="g-bar s-completed" data-tip="20:30–22:00 · Софія Савчук · 2 гост. · Завершене"><title>20:30–22:00 · Софія Савчук · 2 гост. · Завершене</title><rect x="868.7" y="39" width="133.1" height="32" rx="8"/><text class="g-guests" x="879.2" y="60">2</text><text class="g-name" x="897.2" y="60">Софія Савчук</text></a><a href="/demos/tavola/admin/bookings/1588/" class="g-bar s-completed" data-tip="20:30–22:00 · Олег Кравець · 2 гост. · Завершене"><title>20:30–22:00 · Олег Кравець · 2 гост. · Завершене</title><rect x="868.7" y="81" width="133.1" height="32" rx="8"/><text class="g-guests" x="879.2" y="102">2</text><text class="g-name" x="897.2" y="102">Олег Кравець</text></a><a href="/demos/tavola/admin/bookings/1577/" class="g-bar s-completed" data-tip="20:30–22:30 · Юлія Савчук · 4 гост. · Завершене"><title>20:30–22:30 · Юлія Савчук · 4 гост. · Завершене</title><rect x="868.7" y="123" width="178.5" height="32" rx="8"/><text class="g-guests" x="879.2" y="144">4</text><text class="g-name" x="897.2" y="144">Юлія Савчук</text></a><a href="/demos/tavola/admin/bookings/1590/" class="g-bar s-completed" data-tip="20:35–21:55 · Гість без броні · 2 гост. · Завершене"><title>20:35–21:55 · Гість без броні · 2 гост. · Завершене</title><rect x="876.2" y="459" width="118.0" height="32" rx="8"/><text class="g-guests" x="886.7" y="480">2</text><text class="g-name" x="904.7" y="480">Гість без…</text></a><a href="/demos/tavola/admin/bookings/1596/" class="g-bar s-completed" data-tip="21:30–23:00 · Анна Ткачук · 2 гост. · Завершене"><title>21:30–23:00 · Анна Ткачук · 2 гост. · Завершене</title><rect x="959.4" y="501" width="133.1" height="32" rx="8"/><text class="g-guests" x="969.9" y="522">2</text><text class="g-name" x="987.9" y="522">Анна Ткачук</text></a></svg></div>
+</section>
+
+<div class="today-grid">
+  <section class="card" aria-labelledby="up-title">
+    <div class="card__head">
+      <h2 class="card__title" id="up-title">Бронювання на день</h2>
+      <a class="card__link" href="/demos/tavola/admin/bookings/_q/date=2026-11-19/">Список за день</a>
+    </div>
+    <p class="empty-state">На цей день бронювань ще немає.</p>
+  </section>
+
+</div>
+  </main>
+</div>
+<div class="tip" id="tip" role="tooltip" hidden></div>
+<script>window.demoPre&&demoPre()</script><script src="/demos/tavola/static/js/confirm.js"></script>
+<script src="/demos/tavola/static/js/admin.js"></script>
+</body>
+</html>

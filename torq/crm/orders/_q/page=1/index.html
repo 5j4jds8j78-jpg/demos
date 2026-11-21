@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Замовлення-наряди · TORQ</title>
+  <meta name="description" content="TORQ — CRM для СТО: замовлення-наряди, канбан, склад запчастин, аналітика.">
+  <meta name="theme-color" content="#141518">
+  <link rel="icon" href="/demos/torq/static/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/demos/torq/static/fonts/Inter-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="/demos/torq/static/css/app.css">
+  
+<script src="/demos/torq/_demo/demo-shim.js"></script>
+<script src="/demos/torq/_demo/torq-shim.js"></script>
+</head>
+<body class="crm" data-csrf="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<div class="shell">
+  <aside class="side" aria-label="Головне меню">
+    <a class="brand" href="/demos/torq/crm/board/">
+      <svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg>
+      <span><b>TORQ</b><small>CRM · TORQ Service</small></span>
+    </a>
+    <nav class="nav">
+      <span class="sect">Робота</span>
+      <a href="/demos/torq/crm/board/" class="" title="Дошка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка<span class="count hot" title="Нові заявки">4</span></a>
+      <a href="/demos/torq/crm/orders/" class="on" title="Замовлення-наряди"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Замовлення-наряди</a>
+      <a href="/demos/torq/crm/clients/" class="" title="Клієнти й авто"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти й авто</a>
+      <a href="/demos/torq/crm/inventory/" class="" title="Склад"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад<span class="count" title="Закінчуються">6</span></a>
+      
+      <span class="sect">Керування</span>
+      <a href="/demos/torq/crm/dashboard/" class="" title="Аналітика"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+      <a href="/demos/torq/crm/services/" class="" title="Прайс робіт"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#tag"/></svg>Прайс робіт</a>
+      <a href="/demos/torq/crm/users/" class="" title="Персонал"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#users"/></svg>Персонал</a>
+      
+      <span class="sect">Сайт</span>
+      <a href="/demos/torq/" target="_blank" rel="noopener" title="Публічна сторінка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#arrow"/></svg>Публічна сторінка</a>
+    </nav>
+    <div class="side-foot">
+      <span class="avatar">ІЛ</span>
+      <div><b>Ірина Литвиненко</b><small>Адміністратор</small></div>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" title="Вийти" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </aside>
+
+  <header class="mobile-top">
+    <a class="brand" href="/demos/torq/crm/board/"><svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg><b>TORQ</b></a>
+    <div class="who"><span class="avatar">ІЛ</span>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </header>
+
+  <div class="main" id="main">
+    
+<div class="topbar">
+  <div><h1>Замовлення-наряди</h1><p class="sub">Пошук за номером, кодом, держномером, VIN, телефоном або іменем</p></div>
+  <div class="actions">
+    <a class="btn ghost" href="/demos/torq/crm/orders.csv?page=1"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#download"/></svg>CSV</a>
+    <a class="btn" href="/demos/torq/crm/orders/new/"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#plus"/></svg>Нове замовлення</a>
+  </div>
+</div>
+
+    
+    <div class="content">
+      
+      
+<form class="toolbar" method="get" role="search">
+  <label class="search"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#search"/></svg><span class="sr-only">Пошук</span><input type="search" name="q" value="" placeholder="№ 1042, AA1234BB, Шевченко…"></label>
+  <label><span class="sr-only">Статус</span><select name="status">
+    <option value="">Усі статуси</option>
+    <option value="new">Нова заявка</option><option value="diagnostics">Діагностика</option><option value="approval">Очікує погодження</option><option value="in_progress">У роботі</option><option value="ready">Готово</option><option value="done">Видано клієнту</option>
+    <option value="cancelled">Скасовано</option>
+  </select></label>
+  <label><span class="sr-only">Майстер</span><select name="master"><option value="">Усі майстри</option><option value="3">Андрій Бондар</option><option value="4">Василь Мельничук</option><option value="2">Олег Ткаченко</option><option value="5">Сергій Кравчук</option></select></label>
+  <label><span class="sr-only">Від</span><input type="date" name="from" value="" aria-label="Створено від"></label>
+  <label><span class="sr-only">До</span><input type="date" name="to" value="" aria-label="Створено до"></label>
+  <button class="btn ghost" type="submit">Знайти</button>
+  <a class="btn quiet" href="/demos/torq/crm/orders/">Скинути</a>
+</form>
+<section class="card">
+  <div class="summary-strip"><div><span>Знайдено</span><b>250</b></div><div><span>На суму (без скасованих)</span><b>1 526 692 ₴</b></div></div>
+  
+  <div class="table-wrap">
+  <table class="table hover responsive">
+    <thead><tr><th>№</th><th>Автомобіль</th><th>Клієнт</th><th>Майстер</th><th>Статус</th><th>Створено</th><th class="r">Сума</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/250/">№1250</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Toyota RAV4</span><span class="sub"><span class="plate " title="Держномер"><span>AA 4371 PT</span></span></span></td>
+        <td>Юлія Карпенко<span class="sub">+38 (050) 953-74-84</span></td>
+        <td class="m-hide">—</td>
+        <td><span class="pill s-cancelled">Скасовано</span></td>
+        <td class="m-hide nowrap muted">18.11.2026</td>
+        <td class="r strong nowrap m-right">0,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/249/">№1249</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Audi A6 C7</span><span class="sub"><span class="plate " title="Держномер"><span>BH 1996 IO</span></span></span></td>
+        <td>Анастасія Шевченко<span class="sub">+38 (073) 818-85-98</span></td>
+        <td class="m-hide">—</td>
+        <td><span class="pill s-new">Нова заявка</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">0,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/248/">№1248</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Renault Duster</span><span class="sub"><span class="plate " title="Держномер"><span>BI 8072 AE</span></span></span></td>
+        <td>Сергій Захарчук<span class="sub">+38 (063) 282-47-18</span></td>
+        <td class="m-hide">—</td>
+        <td><span class="pill s-new">Нова заявка</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">0,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/247/">№1247</a></td>
+        <td class="m-right"><span class="strong">Skoda Octavia A7</span><span class="sub"><span class="plate " title="Держномер"><span>AI 3790 MP</span></span></span></td>
+        <td>Олена Петренко<span class="sub">+38 (095) 957-24-89</span></td>
+        <td class="m-hide">—</td>
+        <td><span class="pill s-new">Нова заявка</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">0,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/246/">№1246</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Volkswagen Golf VII</span><span class="sub"><span class="plate " title="Держномер"><span>AI 5438 PT</span></span></span></td>
+        <td>Віктор Остапчук<span class="sub">+38 (067) 116-27-11</span></td>
+        <td class="m-hide">—</td>
+        <td><span class="pill s-new">Нова заявка</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">0,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/245/">№1245</a></td>
+        <td class="m-right"><span class="strong">Hyundai Elantra</span><span class="sub"><span class="plate " title="Держномер"><span>KA 1672 IB</span></span></span></td>
+        <td>Тарас Дорошенко<span class="sub">+38 (068) 653-37-03</span></td>
+        <td class="m-hide">Андрій Бондар</td>
+        <td><span class="pill s-diagnostics">Діагностика</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">0,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/244/">№1244</a></td>
+        <td class="m-right"><span class="strong">Kia Ceed</span><span class="sub"><span class="plate " title="Держномер"><span>BH 6303 AB</span></span></span></td>
+        <td>Іван Руденко<span class="sub">+38 (095) 622-19-32</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-diagnostics">Діагностика</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">0,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/243/">№1243</a></td>
+        <td class="m-right"><span class="strong">Volkswagen Golf VII</span><span class="sub"><span class="plate " title="Держномер"><span>AA 2691 HC</span></span></span></td>
+        <td>Наталія Дорошенко<span class="sub">+38 (068) 208-11-43</span></td>
+        <td class="m-hide">Сергій Кравчук</td>
+        <td><span class="pill s-diagnostics">Діагностика</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">0,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/242/">№1242</a></td>
+        <td class="m-right"><span class="strong">BMW 320d F30</span><span class="sub"><span class="plate " title="Держномер"><span>AI 9658 XC</span></span></span></td>
+        <td>Наталія Поліщук<span class="sub">+38 (095) 856-84-30</span></td>
+        <td class="m-hide">Василь Мельничук</td>
+        <td><span class="pill s-approval">Очікує погодження</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">2 260,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/241/">№1241</a></td>
+        <td class="m-right"><span class="strong">Kia Ceed</span><span class="sub"><span class="plate " title="Держномер"><span>KA 8899 XB</span></span></span></td>
+        <td>Юрій Коваленко<span class="sub">+38 (097) 494-63-65</span></td>
+        <td class="m-hide">Андрій Бондар</td>
+        <td><span class="pill s-approval">Очікує погодження</span></td>
+        <td class="m-hide nowrap muted">20.11.2026</td>
+        <td class="r strong nowrap m-right">1 350,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/240/">№1240</a></td>
+        <td class="m-right"><span class="strong">Toyota Camry</span><span class="sub"><span class="plate " title="Держномер"><span>AA 6773 TX</span></span></span></td>
+        <td>Євген Поліщук<span class="sub">+38 (073) 559-08-03</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-in_progress">У роботі</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">4 410,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/239/">№1239</a></td>
+        <td class="m-right"><span class="strong">Nissan Qashqai</span><span class="sub"><span class="plate " title="Держномер"><span>AI 1090 OB</span></span></span></td>
+        <td>Назар Захарчук<span class="sub">+38 (067) 690-26-65</span></td>
+        <td class="m-hide">Сергій Кравчук</td>
+        <td><span class="pill s-in_progress">У роботі</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">13 500,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/238/">№1238</a></td>
+        <td class="m-right"><span class="strong">Mitsubishi Outlander</span><span class="sub"><span class="plate " title="Держномер"><span>AA 3074 OA</span></span></span></td>
+        <td>Олег Литвин<span class="sub">+38 (068) 960-40-20</span></td>
+        <td class="m-hide">Василь Мельничук</td>
+        <td><span class="pill s-in_progress">У роботі</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">9 620,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/237/">№1237</a></td>
+        <td class="m-right"><span class="strong">Mazda 6</span><span class="sub"><span class="plate " title="Держномер"><span>BH 4844 BX</span></span></span></td>
+        <td>Володимир Марченко<span class="sub">+38 (098) 676-88-42</span></td>
+        <td class="m-hide">Андрій Бондар</td>
+        <td><span class="pill s-in_progress">У роботі</span></td>
+        <td class="m-hide nowrap muted">20.11.2026</td>
+        <td class="r strong nowrap m-right">1 410,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/236/">№1236</a></td>
+        <td class="m-right"><span class="strong">Ford Focus III</span><span class="sub"><span class="plate " title="Держномер"><span>KA 2202 PA</span></span></span></td>
+        <td>Олег Захарчук<span class="sub">+38 (093) 361-86-71</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-ready">Готово</span></td>
+        <td class="m-hide nowrap muted">21.11.2026</td>
+        <td class="r strong nowrap m-right">4 920,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/235/">№1235</a></td>
+        <td class="m-right"><span class="strong">Ford Focus III</span><span class="sub"><span class="plate " title="Держномер"><span>BH 2657 MA</span></span></span></td>
+        <td>Віктор Остапчук<span class="sub">+38 (067) 116-27-11</span></td>
+        <td class="m-hide">Сергій Кравчук</td>
+        <td><span class="pill s-ready">Готово</span></td>
+        <td class="m-hide nowrap muted">20.11.2026</td>
+        <td class="r strong nowrap m-right">4 766,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/234/">№1234</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Skoda Superb</span><span class="sub"><span class="plate " title="Держномер"><span>BH 1327 HO</span></span></span></td>
+        <td>Артем Власенко<span class="sub">+38 (068) 393-84-74</span></td>
+        <td class="m-hide">Василь Мельничук</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">20.11.2026</td>
+        <td class="r strong nowrap m-right">15 200,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/233/">№1233</a></td>
+        <td class="m-right"><span class="strong">Volkswagen Golf VII</span><span class="sub"><span class="plate " title="Держномер"><span>AA 6254 AK</span></span></span></td>
+        <td>Віктор Дорошенко<span class="sub">+38 (066) 920-05-82</span></td>
+        <td class="m-hide">Андрій Бондар</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">20.11.2026</td>
+        <td class="r strong nowrap m-right">4 710,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/232/">№1232</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Mazda 6</span><span class="sub"><span class="plate " title="Держномер"><span>AI 3059 EA</span></span></span></td>
+        <td>Сергій Захарчук<span class="sub">+38 (063) 282-47-18</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">19.11.2026</td>
+        <td class="r strong nowrap m-right">4 070,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/231/">№1231</a></td>
+        <td class="m-right"><span class="strong">BMW 320d F30</span><span class="sub"><span class="plate " title="Держномер"><span>BI 9345 CK</span></span></span></td>
+        <td>Катерина Ткачук<span class="sub">+38 (066) 784-03-70</span></td>
+        <td class="m-hide">Василь Мельничук</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">19.11.2026</td>
+        <td class="r strong nowrap m-right">4 770,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/230/">№1230</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Kia Ceed</span><span class="sub"><span class="plate " title="Держномер"><span>KA 8899 XB</span></span></span></td>
+        <td>Юрій Коваленко<span class="sub">+38 (097) 494-63-65</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">19.11.2026</td>
+        <td class="r strong nowrap m-right">1 350,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/229/">№1229</a></td>
+        <td class="m-right"><span class="strong">Lexus RX 350</span><span class="sub"><span class="plate " title="Держномер"><span>AA 8249 AC</span></span></span></td>
+        <td>Олег Захарчук<span class="sub">+38 (093) 361-86-71</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">18.11.2026</td>
+        <td class="r strong nowrap m-right">13 140,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/228/">№1228</a></td>
+        <td class="m-right"><span class="strong">Mazda 6</span><span class="sub"><span class="plate " title="Держномер"><span>AI 3933 MX</span></span></span></td>
+        <td>Анастасія Коваленко<span class="sub">+38 (068) 804-02-10</span></td>
+        <td class="m-hide">Андрій Бондар</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">18.11.2026</td>
+        <td class="r strong nowrap m-right">2 260,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/227/">№1227</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Toyota Camry</span><span class="sub"><span class="plate " title="Держномер"><span>AA 6773 TX</span></span></span></td>
+        <td>Євген Поліщук<span class="sub">+38 (073) 559-08-03</span></td>
+        <td class="m-hide">Сергій Кравчук</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">17.11.2026</td>
+        <td class="r strong nowrap m-right">15 380,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/226/">№1226</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Skoda Octavia A7</span><span class="sub"><span class="plate " title="Держномер"><span>AI 3790 MP</span></span></span></td>
+        <td>Олена Петренко<span class="sub">+38 (095) 957-24-89</span></td>
+        <td class="m-hide">Василь Мельничук</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">17.11.2026</td>
+        <td class="r strong nowrap m-right">4 710,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/225/">№1225</a></td>
+        <td class="m-right"><span class="strong">Daewoo Lanos</span><span class="sub"><span class="plate " title="Держномер"><span>AM 7064 KH</span></span></span></td>
+        <td>Олег Захарчук<span class="sub">+38 (095) 522-64-91</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">17.11.2026</td>
+        <td class="r strong nowrap m-right">8 720,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/224/">№1224</a></td>
+        <td class="m-right"><span class="strong">Ford Focus III</span><span class="sub"><span class="plate " title="Держномер"><span>KA 2202 PA</span></span></span></td>
+        <td>Олег Захарчук<span class="sub">+38 (093) 361-86-71</span></td>
+        <td class="m-hide">Василь Мельничук</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">16.11.2026</td>
+        <td class="r strong nowrap m-right">15 200,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/223/">№1223</a></td>
+        <td class="m-right"><span class="strong">Daewoo Lanos</span><span class="sub"><span class="plate " title="Держномер"><span>BC 3028 TM</span></span></span></td>
+        <td>Анастасія Коваленко<span class="sub">+38 (068) 804-02-10</span></td>
+        <td class="m-hide">Андрій Бондар</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">16.11.2026</td>
+        <td class="r strong nowrap m-right">1 170,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/222/">№1222</a></td>
+        <td class="m-right"><span class="strong">Mazda 6</span><span class="sub"><span class="plate " title="Держномер"><span>AI 9041 KB</span></span></span></td>
+        <td>Костянтин Грищенко<span class="sub">+38 (063) 520-91-05</span></td>
+        <td class="m-hide">Сергій Кравчук</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">14.11.2026</td>
+        <td class="r strong nowrap m-right">5 840,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/221/">№1221</a></td>
+        <td class="m-right"><span class="strong">Mercedes-Benz E 220 W212</span><span class="sub"><span class="plate " title="Держномер"><span>KA 3494 AA</span></span></span></td>
+        <td>Володимир Грищенко<span class="sub">+38 (073) 742-81-50</span></td>
+        <td class="m-hide">Василь Мельничук</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">14.11.2026</td>
+        <td class="r strong nowrap m-right">6 040,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/220/">№1220</a></td>
+        <td class="m-right"><span class="strong">Kia Ceed</span><span class="sub"><span class="plate " title="Держномер"><span>KA 8899 XB</span></span></span></td>
+        <td>Юрій Коваленко<span class="sub">+38 (097) 494-63-65</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">14.11.2026</td>
+        <td class="r strong nowrap m-right">3 300,50 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/219/">№1219</a></td>
+        <td class="m-right"><span class="strong">Kia Ceed</span><span class="sub"><span class="plate " title="Держномер"><span>KA 8899 XB</span></span></span></td>
+        <td>Юрій Коваленко<span class="sub">+38 (097) 494-63-65</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">14.11.2026</td>
+        <td class="r strong nowrap m-right">2 070,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/218/">№1218</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Skoda Superb</span><span class="sub"><span class="plate " title="Держномер"><span>AM 6044 KI</span></span></span></td>
+        <td>Світлана Мельник<span class="sub">+38 (050) 294-84-63</span></td>
+        <td class="m-hide">Андрій Бондар</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">13.11.2026</td>
+        <td class="r strong nowrap m-right">3 870,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/217/">№1217</a></td>
+        <td class="m-right"><span class="strong">Ford Focus III</span><span class="sub"><span class="plate " title="Держномер"><span>KA 2202 PA</span></span></span></td>
+        <td>Олег Захарчук<span class="sub">+38 (093) 361-86-71</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">13.11.2026</td>
+        <td class="r strong nowrap m-right">4 716,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/216/">№1216</a></td>
+        <td class="m-right"><span class="strong">Volkswagen Golf VII</span><span class="sub"><span class="plate " title="Держномер"><span>KA 5263 IC</span></span></span></td>
+        <td>Тарас Федоренко<span class="sub">+38 (097) 694-74-68</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">13.11.2026</td>
+        <td class="r strong nowrap m-right">2 130,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/215/">№1215</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Kia Sportage</span><span class="sub"><span class="plate " title="Держномер"><span>AX 6152 BE</span></span></span></td>
+        <td>Павло Яковенко<span class="sub">+38 (068) 829-98-14</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">13.11.2026</td>
+        <td class="r strong nowrap m-right">3 350,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/214/">№1214</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Nissan Qashqai</span><span class="sub"><span class="plate " title="Держномер"><span>AI 1090 OB</span></span></span></td>
+        <td>Назар Захарчук<span class="sub">+38 (067) 690-26-65</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">13.11.2026</td>
+        <td class="r strong nowrap m-right">13 500,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/213/">№1213</a></td>
+        <td class="m-right"><span class="strong">Chevrolet Aveo</span><span class="sub"><span class="plate " title="Держномер"><span>KA 1452 MT</span></span></span></td>
+        <td>Олег Яковенко<span class="sub">+38 (067) 559-00-82</span></td>
+        <td class="m-hide">Андрій Бондар</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">12.11.2026</td>
+        <td class="r strong nowrap m-right">14 660,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/212/">№1212</a></td>
+        <td class="m-right"><span class="strong">Audi A6 C7</span><span class="sub"><span class="plate " title="Держномер"><span>KA 3918 HK</span></span></span></td>
+        <td>Микола Олійник<span class="sub">+38 (073) 927-55-47</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">12.11.2026</td>
+        <td class="r strong nowrap m-right">4 920,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/211/">№1211</a></td>
+        <td class="m-right"><span class="strong">Lexus RX 350</span><span class="sub"><span class="plate " title="Держномер"><span>KA 6195 XI</span></span></span></td>
+        <td>Ярослав Лисенко<span class="sub">+38 (063) 645-74-38</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">12.11.2026</td>
+        <td class="r strong nowrap m-right">14 400,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/210/">№1210</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Skoda Superb</span><span class="sub"><span class="plate " title="Держномер"><span>BH 1327 HO</span></span></span></td>
+        <td>Артем Власенко<span class="sub">+38 (068) 393-84-74</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">12.11.2026</td>
+        <td class="r strong nowrap m-right">2 980,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/209/">№1209</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Skoda Octavia A7</span><span class="sub"><span class="plate " title="Держномер"><span>AI 3790 MP</span></span></span></td>
+        <td>Олена Петренко<span class="sub">+38 (095) 957-24-89</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">11.11.2026</td>
+        <td class="r strong nowrap m-right">1 170,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/208/">№1208</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Renault Duster</span><span class="sub"><span class="plate " title="Держномер"><span>AM 5976 BK</span></span></span></td>
+        <td>Марія Яковенко<span class="sub">+38 (073) 318-11-20</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">11.11.2026</td>
+        <td class="r strong nowrap m-right">3 870,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/207/">№1207</a></td>
+        <td class="m-right"><span class="strong">Nissan Qashqai</span><span class="sub"><span class="plate " title="Держномер"><span>KA 4862 HM</span></span></span></td>
+        <td>Олександр Карпенко<span class="sub">+38 (066) 930-51-05</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">10.11.2026</td>
+        <td class="r strong nowrap m-right">3 870,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/206/">№1206</a></td>
+        <td class="m-right"><span class="strong">Skoda Superb</span><span class="sub"><span class="plate " title="Держномер"><span>AM 6044 KI</span></span></span></td>
+        <td>Світлана Мельник<span class="sub">+38 (050) 294-84-63</span></td>
+        <td class="m-hide">Василь Мельничук</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">10.11.2026</td>
+        <td class="r strong nowrap m-right">8 720,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/205/">№1205</a></td>
+        <td class="m-right"><span class="strong">Honda CR-V</span><span class="sub"><span class="plate " title="Держномер"><span>KA 4276 IK</span></span></span></td>
+        <td>Марія Яковенко<span class="sub">+38 (073) 318-11-20</span></td>
+        <td class="m-hide">Андрій Бондар</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">09.11.2026</td>
+        <td class="r strong nowrap m-right">13 500,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/204/">№1204</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Skoda Octavia A7</span><span class="sub"><span class="plate " title="Держномер"><span>AI 3790 MP</span></span></span></td>
+        <td>Олена Петренко<span class="sub">+38 (095) 957-24-89</span></td>
+        <td class="m-hide">Сергій Кравчук</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">09.11.2026</td>
+        <td class="r strong nowrap m-right">8 720,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/203/">№1203</a></td>
+        <td class="m-right"><span class="strong">Skoda Octavia A7</span><span class="sub"><span class="plate " title="Держномер"><span>KA 9873 EH</span></span></span></td>
+        <td>Артем Шевченко<span class="sub">+38 (068) 519-53-58</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">09.11.2026</td>
+        <td class="r strong nowrap m-right">13 500,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/202/">№1202</a> <span class="tag online">Сайт</span></td>
+        <td class="m-right"><span class="strong">Mitsubishi Outlander</span><span class="sub"><span class="plate " title="Держномер"><span>AA 3074 OA</span></span></span></td>
+        <td>Олег Литвин<span class="sub">+38 (068) 960-40-20</span></td>
+        <td class="m-hide">Андрій Бондар</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">09.11.2026</td>
+        <td class="r strong nowrap m-right">8 720,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td class="nowrap"><a class="row-link" href="/demos/torq/crm/orders/201/">№1201</a></td>
+        <td class="m-right"><span class="strong">Chevrolet Aveo</span><span class="sub"><span class="plate " title="Держномер"><span>KA 1452 MT</span></span></span></td>
+        <td>Олег Яковенко<span class="sub">+38 (067) 559-00-82</span></td>
+        <td class="m-hide">Олег Ткаченко</td>
+        <td><span class="pill s-done">Видано клієнту</span></td>
+        <td class="m-hide nowrap muted">09.11.2026</td>
+        <td class="r strong nowrap m-right">13 500,00 ₴</td>
+      </tr>
+    
+    </tbody>
+  </table>
+  </div>
+  
+  <div class="pager">
+    
+    <a class="btn ghost sm" href="/demos/torq/crm/orders/_q/page=2/">Далі →</a>
+  </div>
+  
+  
+</section>
+
+    </div>
+    
+  </div>
+
+  <nav class="tabbar" aria-label="Навігація">
+    <a href="/demos/torq/crm/board/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка</a>
+    <a href="/demos/torq/crm/orders/" class="on"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Наряди</a>
+    <a href="/demos/torq/crm/clients/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти</a>
+    <a href="/demos/torq/crm/inventory/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад</a>
+    <a href="/demos/torq/crm/dashboard/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+  </nav>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.demoPre&&demoPre()</script><script src="/demos/torq/static/js/app.js" defer></script>
+
+</body>
+</html>

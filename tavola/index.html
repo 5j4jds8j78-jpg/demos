@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Охра — бістро &amp; вино, Львів</title>
+  <meta name="description" content="Охра — бістро &amp; вино у місті Львів. Онлайн-бронювання столу зі схемою залу.">
+  <meta name="theme-color" content="#17332b">
+  <link rel="icon" href="/demos/tavola/static/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/demos/tavola/static/fonts/Lora-Variable.woff" as="font" type="font/woff" crossorigin>  <link rel="stylesheet" href="/demos/tavola/static/css/tokens.css">
+  <link rel="stylesheet" href="/demos/tavola/static/css/site.css">
+<script src="/demos/tavola/_demo/demo-shim.js"></script>
+<script src="/demos/tavola/_demo/tavola-config.js"></script>
+<script src="/demos/tavola/_demo/tavola-shim.js"></script>
+</head>
+<body class="page-home">
+<a class="skip-link" href="#main">Перейти до змісту</a>
+<header class="site-header site-header--over">
+  <div class="wrap site-header__inner">
+    <a class="site-header__brand" href="/demos/tavola/" aria-label="Охра — на головну"><span class="wordmark wordmark--light"><svg class="wordmark__mark" aria-hidden="true"><use href="/demos/tavola/static/img/icons.svg#logo"/></svg><span class="wordmark__name">Охра</span></span>
+</a>
+    <nav class="site-nav" aria-label="Головне меню">
+      <a href="/demos/tavola/menu/">Меню</a>
+      <a href="/demos/tavola/#about">Про нас</a>
+      <a href="/demos/tavola/#visit">Як знайти</a>
+      <a class="site-nav__phone" href="tel:+380670001818">+380 67 000 18 18</a>
+    </nav>
+    <a class="btn btn--ochre site-header__cta" href="/demos/tavola/book/">Забронювати стіл</a>
+  </div>
+</header>
+<main id="main">
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="hero__place">Бістро &amp; вино на Староєврейській, Львів</p>
+      <h1 class="hero__title">Оберіть свій стіл ще до того, як прийдете</h1>
+      <p class="hero__lead">Сезонна кухня, вино від малих виноробень і зала з вікнами на площу. Забронюйте онлайн: дата, час, кількість гостей і конкретне місце на схемі залу — без дзвінків.</p>
+
+      <form class="finder" action="/demos/tavola/book/" method="get">
+        <label class="finder__field">
+          <span>Дата</span>
+          <select class="finder__select" name="date">
+            <option value="2026-11-21">Сьогодні, 21 лист.</option>
+            <option value="2026-11-22">Завтра, 22 лист.</option>
+            <option value="2026-11-23">Пн, 23 лист.</option>
+            <option value="2026-11-24">Вт, 24 лист.</option>
+            <option value="2026-11-25">Ср, 25 лист.</option>
+            <option value="2026-11-26">Чт, 26 лист.</option>
+            <option value="2026-11-27">Пт, 27 лист.</option>
+            <option value="2026-11-28">Сб, 28 лист.</option>
+            <option value="2026-11-29">Нд, 29 лист.</option>
+            <option value="2026-11-30">Пн, 30 лист.</option>
+            <option value="2026-12-01">Вт, 1 груд.</option>
+            <option value="2026-12-02">Ср, 2 груд.</option>
+            <option value="2026-12-03">Чт, 3 груд.</option>
+            <option value="2026-12-04">Пт, 4 груд.</option>
+          </select>
+        </label>
+        <label class="finder__field finder__field--guests">
+          <span>Гості</span>
+          <select class="finder__select" name="guests">
+            <option value="1">1 гість</option>
+            <option value="2" selected>2 гості</option>
+            <option value="3">3 гості</option>
+            <option value="4">4 гості</option>
+            <option value="5">5 гостей</option>
+            <option value="6">6 гостей</option>
+            <option value="7">7 гостей</option>
+            <option value="8">8 гостей</option>
+          </select>
+        </label>
+        <button class="btn btn--ochre finder__submit" type="submit">Знайти стіл</button>
+      </form>
+      <p class="hero__aside">Компанія понад 8 гостей? Телефонуйте: <a href="tel:+380670001818">+380 67 000 18 18</a></p>
+    </div>
+
+    <figure class="hero__plan">
+      <div class="live">
+        <div class="live__head">
+          <span class="live__dot" aria-hidden="true"></span>
+          <p><strong>Сьогодні о 19:30</strong> вільно 2 столи із 14</p>
+        </div>
+        <svg class="plan plan--hero" id="hero-plan" viewBox="0 0 1000 640" role="group" aria-label="Схема залу: вільні та зайняті столи сьогодні о 19:30">
+  <defs>
+    <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#eef1ee"/><line x1="0" y1="0" x2="0" y2="10" stroke="#d3dbd6" stroke-width="4"/>
+    </pattern>
+    <pattern id="busy-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="7" fill="#e6eae7"/><line x1="0" y1="0" x2="0" y2="7" stroke="#d2d9d5" stroke-width="3"/>
+    </pattern>
+  </defs>
+  <g class="room" aria-hidden="true">
+    <rect class="terrace" x="22" y="22" width="206" height="596" rx="22"/>
+<line class="deck" x1="40" x2="210" y1="60" y2="60"/><line class="deck" x1="40" x2="210" y1="94" y2="94"/><line class="deck" x1="40" x2="210" y1="128" y2="128"/><line class="deck" x1="40" x2="210" y1="162" y2="162"/><line class="deck" x1="40" x2="210" y1="196" y2="196"/><line class="deck" x1="40" x2="210" y1="230" y2="230"/><line class="deck" x1="40" x2="210" y1="264" y2="264"/><line class="deck" x1="40" x2="210" y1="298" y2="298"/><line class="deck" x1="40" x2="210" y1="332" y2="332"/><line class="deck" x1="40" x2="210" y1="366" y2="366"/><line class="deck" x1="40" x2="210" y1="400" y2="400"/><line class="deck" x1="40" x2="210" y1="434" y2="434"/><line class="deck" x1="40" x2="210" y1="468" y2="468"/><line class="deck" x1="40" x2="210" y1="502" y2="502"/><line class="deck" x1="40" x2="210" y1="536" y2="536"/><line class="deck" x1="40" x2="210" y1="570" y2="570"/><circle class="plant" cx="206" cy="48" r="11"/><circle class="plant" cx="206" cy="176" r="11"/><circle class="plant" cx="206" cy="304" r="11"/><circle class="plant" cx="206" cy="440" r="11"/><circle class="plant" cx="206" cy="590" r="11"/>    <text class="room-label room-label--light" x="125" y="606" text-anchor="middle">Тераса</text>
+
+    <rect class="room-floor" x="250" y="20" width="730" height="600" rx="6"/>
+    <path class="wall" d="M250 290 V20 H980 V620 H578 M498 620 H250 V352"/>
+    <line class="window" x1="285" y1="20" x2="705" y2="20"/>
+<line class="window-frame" x1="355" y1="16" x2="355" y2="24"/><line class="window-frame" x1="425" y1="16" x2="425" y2="24"/><line class="window-frame" x1="495" y1="16" x2="495" y2="24"/><line class="window-frame" x1="565" y1="16" x2="565" y2="24"/><line class="window-frame" x1="635" y1="16" x2="635" y2="24"/>    <text class="room-label" x="495" y="50" text-anchor="middle">Вікна на площу</text>
+    <path class="door" d="M498 620 A80 80 0 0 1 578 540"/>
+    <text class="room-label" x="538" y="600" text-anchor="middle">Вхід</text>
+    <path class="door" d="M250 290 A62 62 0 0 1 312 352"/>
+    <rect class="hatch-area" x="760" y="20" width="220" height="148"/><path class="wall-thin" d="M760 20 V168 H800 M846 168 H980"/><path class="door" d="M800 168 A46 46 0 0 0 846 214"/>
+    <text class="room-label" x="870" y="102" text-anchor="middle">Кухня</text>
+    <rect class="counter" x="896" y="212" width="48" height="262" rx="14"/>
+<circle class="stool" cx="876" cy="248" r="8"/><circle class="stool" cx="876" cy="294" r="8"/><circle class="stool" cx="876" cy="340" r="8"/><circle class="stool" cx="876" cy="386" r="8"/><circle class="stool" cx="876" cy="432" r="8"/>    <text class="room-label" x="920" y="500" text-anchor="middle">Бар</text>
+    <path class="wall-thin" d="M860 620 V548 H980"/>
+    <text class="room-label" x="920" y="590" text-anchor="middle">Гардероб</text>
+    <circle class="plant" cx="272" cy="598" r="12"/><circle class="plant" cx="740" cy="44" r="12"/>
+  </g>
+  <g class="plan-tables"></g>
+</svg>
+
+        <figcaption class="live__foot">
+          <span class="legend"><i class="legend__sw legend__sw--free"></i>Вільно</span>
+          <span class="legend"><i class="legend__sw legend__sw--busy"></i>Зайнято</span>
+          <a class="live__link" href="/demos/tavola/book/_q/date=2026-11-21_amp_time=19_30/">Обрати стіл на 19:30</a>
+        </figcaption>
+      </div>
+      <script>window.demoPre&&demoPre()</script><script type="application/json" id="hero-plan-data">[{"id": 1, "label": "1", "min_seats": 1, "note": "\u0411\u0456\u043b\u044f \u043f\u0430\u043d\u043e\u0440\u0430\u043c\u043d\u043e\u0433\u043e \u0432\u0456\u043a\u043d\u0430", "rotation": 0, "seats": 2, "shape": "square", "state": "busy", "x": 330.0, "y": 112.0, "zone": "window", "zone_label": "\u0411\u0456\u043b\u044f \u0432\u0456\u043a\u043d\u0430"}, {"id": 2, "label": "2", "min_seats": 1, "note": "\u0411\u0456\u043b\u044f \u043f\u0430\u043d\u043e\u0440\u0430\u043c\u043d\u043e\u0433\u043e \u0432\u0456\u043a\u043d\u0430", "rotation": 0, "seats": 2, "shape": "square", "state": "busy", "x": 440.0, "y": 112.0, "zone": "window", "zone_label": "\u0411\u0456\u043b\u044f \u0432\u0456\u043a\u043d\u0430"}, {"id": 3, "label": "3", "min_seats": 2, "note": "\u0411\u0456\u043b\u044f \u0432\u0456\u043a\u043d\u0430, \u0432\u0438\u0434 \u043d\u0430 \u043f\u043b\u043e\u0449\u0443", "rotation": 0, "seats": 4, "shape": "rect", "state": "busy", "x": 580.0, "y": 112.0, "zone": "window", "zone_label": "\u0411\u0456\u043b\u044f \u0432\u0456\u043a\u043d\u0430"}, {"id": 4, "label": "4", "min_seats": 2, "note": "", "rotation": 0, "seats": 4, "shape": "round", "state": "busy", "x": 340.0, "y": 280.0, "zone": "hall", "zone_label": "\u041e\u0441\u043d\u043e\u0432\u043d\u0430 \u0437\u0430\u043b\u0430"}, {"id": 5, "label": "5", "min_seats": 2, "note": "", "rotation": 0, "seats": 4, "shape": "round", "state": "busy", "x": 480.0, "y": 280.0, "zone": "hall", "zone_label": "\u041e\u0441\u043d\u043e\u0432\u043d\u0430 \u0437\u0430\u043b\u0430"}, {"id": 6, "label": "6", "min_seats": 3, "note": "\u0412\u0435\u043b\u0438\u043a\u0438\u0439 \u0441\u0442\u0456\u043b \u0443 \u0446\u0435\u043d\u0442\u0440\u0456 \u0437\u0430\u043b\u0438", "rotation": 90, "seats": 6, "shape": "rect", "state": "free", "x": 650.0, "y": 285.0, "zone": "hall", "zone_label": "\u041e\u0441\u043d\u043e\u0432\u043d\u0430 \u0437\u0430\u043b\u0430"}, {"id": 7, "label": "7", "min_seats": 5, "note": "\u0414\u043b\u044f \u043a\u043e\u043c\u043f\u0430\u043d\u0456\u0439", "rotation": 0, "seats": 8, "shape": "rect", "state": "busy", "x": 410.0, "y": 452.0, "zone": "hall", "zone_label": "\u041e\u0441\u043d\u043e\u0432\u043d\u0430 \u0437\u0430\u043b\u0430"}, {"id": 8, "label": "8", "min_seats": 3, "note": "\u0417\u0430\u0442\u0438\u0448\u043d\u0438\u0439 \u0434\u0438\u0432\u0430\u043d-\u0431\u043e\u043a\u0441", "rotation": 0, "seats": 6, "shape": "booth", "state": "busy", "x": 640.0, "y": 500.0, "zone": "hall", "zone_label": "\u041e\u0441\u043d\u043e\u0432\u043d\u0430 \u0437\u0430\u043b\u0430"}, {"id": 9, "label": "\u04111", "min_seats": 1, "note": "\u0411\u0456\u043b\u044f \u0431\u0430\u0440\u043d\u043e\u0457 \u0441\u0442\u0456\u0439\u043a\u0438", "rotation": 0, "seats": 2, "shape": "square", "state": "busy", "x": 820.0, "y": 250.0, "zone": "bar", "zone_label": "\u0411\u0430\u0440\u043d\u0430 \u0441\u0442\u0456\u0439\u043a\u0430"}, {"id": 10, "label": "\u04112", "min_seats": 1, "note": "\u0411\u0456\u043b\u044f \u0431\u0430\u0440\u043d\u043e\u0457 \u0441\u0442\u0456\u0439\u043a\u0438", "rotation": 0, "seats": 2, "shape": "square", "state": "busy", "x": 820.0, "y": 350.0, "zone": "bar", "zone_label": "\u0411\u0430\u0440\u043d\u0430 \u0441\u0442\u0456\u0439\u043a\u0430"}, {"id": 11, "label": "\u04221", "min_seats": 1, "note": "\u0422\u0435\u0440\u0430\u0441\u0430 \u043f\u0456\u0434 \u043d\u0430\u0432\u0456\u0441\u043e\u043c, \u0454 \u043f\u043b\u0435\u0434\u0438 \u0439 \u043e\u0431\u0456\u0433\u0440\u0456\u0432\u0430\u0447\u0456", "rotation": 0, "seats": 2, "shape": "round", "state": "busy", "x": 128.0, "y": 112.0, "zone": "terrace", "zone_label": "\u0422\u0435\u0440\u0430\u0441\u0430"}, {"id": 12, "label": "\u04222", "min_seats": 1, "note": "\u0422\u0435\u0440\u0430\u0441\u0430 \u043f\u0456\u0434 \u043d\u0430\u0432\u0456\u0441\u043e\u043c, \u0454 \u043f\u043b\u0435\u0434\u0438 \u0439 \u043e\u0431\u0456\u0433\u0440\u0456\u0432\u0430\u0447\u0456", "rotation": 0, "seats": 2, "shape": "round", "state": "busy", "x": 128.0, "y": 232.0, "zone": "terrace", "zone_label": "\u0422\u0435\u0440\u0430\u0441\u0430"}, {"id": 13, "label": "\u04223", "min_seats": 2, "note": "\u0422\u0435\u0440\u0430\u0441\u0430 \u043f\u0456\u0434 \u043d\u0430\u0432\u0456\u0441\u043e\u043c, \u0454 \u043f\u043b\u0435\u0434\u0438 \u0439 \u043e\u0431\u0456\u0433\u0440\u0456\u0432\u0430\u0447\u0456", "rotation": 0, "seats": 4, "shape": "square", "state": "busy", "x": 128.0, "y": 370.0, "zone": "terrace", "zone_label": "\u0422\u0435\u0440\u0430\u0441\u0430"}, {"id": 14, "label": "\u04224", "min_seats": 2, "note": "\u0422\u0435\u0440\u0430\u0441\u0430 \u043f\u0456\u0434 \u043d\u0430\u0432\u0456\u0441\u043e\u043c, \u0454 \u043f\u043b\u0435\u0434\u0438 \u0439 \u043e\u0431\u0456\u0433\u0440\u0456\u0432\u0430\u0447\u0456", "rotation": 0, "seats": 4, "shape": "square", "state": "free", "x": 128.0, "y": 515.0, "zone": "terrace", "zone_label": "\u0422\u0435\u0440\u0430\u0441\u0430"}]</script>
+    </figure>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about__grid">
+    <h2 class="about__title">Невелика зала на 52 місця з відкритою кухнею та вином з бочки</h2>
+    <dl class="about__facts">
+      <div><dt><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-chef"/></svg>Кухня</dt><dd>Шеф готує з того, що привезли фермери цього тижня. Меню змінюється чотири рази на рік.</dd></div>
+      <div><dt><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#wine"/></svg>Вино</dt><dd>Сорок позицій від українських і європейських малих виноробень, дванадцять — на келих.</dd></div>
+      <div><dt><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#table"/></svg>Тераса</dt><dd>Чотири столи під навісом, з пледами та інфрачервоними обігрівачами. Відкрита цілий рік.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="preview" aria-labelledby="preview-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="preview-title" class="section-title">З чого варто почати</h2>
+      <a class="btn btn--ghost" href="/demos/tavola/menu/">Усе меню</a>
+    </div>
+    <ul class="carte">
+      <li class="carte__item">
+        <div class="carte__row">
+          <h3 class="carte__name">Тартар з яловичини</h3>
+          <span class="carte__leader" aria-hidden="true"></span>
+          <span class="carte__price tnum">365 ₴</span>
+        </div>
+        <p class="carte__desc">Мармурова яловичина, жовток, каперси, гірчичний крем, грінки на заквасці</p>
+        <p class="carte__meta">Закуски, 160 г</p>
+      </li>
+      <li class="carte__item">
+        <div class="carte__row">
+          <h3 class="carte__name">Буррата з томатами</h3>
+          <span class="carte__leader" aria-hidden="true"></span>
+          <span class="carte__price tnum">340 ₴</span>
+        </div>
+        <p class="carte__desc">Буррата, томати трьох сортів, базилікова олія, кримська цибуля</p>
+        <p class="carte__meta">Закуски, 220 г<span class="carte__veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>вегетаріанське</span></p>
+      </li>
+      <li class="carte__item">
+        <div class="carte__row">
+          <h3 class="carte__name">Салат з печеним буряком</h3>
+          <span class="carte__leader" aria-hidden="true"></span>
+          <span class="carte__price tnum">245 ₴</span>
+        </div>
+        <p class="carte__desc">Буряк, козячий сир, груша, волоський горіх, медова заправка</p>
+        <p class="carte__meta">Салати, 230 г<span class="carte__veg"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>вегетаріанське</span></p>
+      </li>
+      <li class="carte__item">
+        <div class="carte__row">
+          <h3 class="carte__name">Борщ з качкою</h3>
+          <span class="carte__leader" aria-hidden="true"></span>
+          <span class="carte__price tnum">225 ₴</span>
+        </div>
+        <p class="carte__desc">Борщ на качиному бульйоні, сметана, пампушка з часником</p>
+        <p class="carte__meta">Супи, 350 г</p>
+      </li>
+      <li class="carte__item">
+        <div class="carte__row">
+          <h3 class="carte__name">Качина ніжка конфі</h3>
+          <span class="carte__leader" aria-hidden="true"></span>
+          <span class="carte__price tnum">425 ₴</span>
+        </div>
+        <p class="carte__desc">Пюре з селери, вишневий соус, мікрозелень</p>
+        <p class="carte__meta">Основні страви, 320 г</p>
+      </li>
+      <li class="carte__item">
+        <div class="carte__row">
+          <h3 class="carte__name">Філе судака</h3>
+          <span class="carte__leader" aria-hidden="true"></span>
+          <span class="carte__price tnum">465 ₴</span>
+        </div>
+        <p class="carte__desc">Судак, різото з ячменю, соус бер-блан, спаржа</p>
+        <p class="carte__meta">Основні страви, 300 г</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <h2 id="how-title" class="section-title">Як працює бронювання</h2>
+    <ol class="how__steps">
+      <li><span class="how__n">1</span><h3>Дата і час</h3><p>Показуємо лише той час, коли справді є вільні столи.</p></li>
+      <li><span class="how__n">2</span><h3>Кількість гостей</h3><p>Стіл тримаємо від 1,5 до 2,5 години — залежно від компанії.</p></li>
+      <li><span class="how__n">3</span><h3>Стіл на схемі</h3><p>Оберіть місце біля вікна чи на терасі — або довірте вибір нам.</p></li>
+      <li><span class="how__n">4</span><h3>Код бронювання</h3><p>Одразу після підтвердження: його можна скасувати або додати в календар.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-labelledby="visit-title">
+  <div class="wrap visit__grid">
+    <div>
+      <h2 id="visit-title" class="section-title">Як нас знайти</h2>
+      <p class="visit__addr"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#pin"/></svg><span>вул. Староєврейська, 18, Львів<small>Дві хвилини пішки від площі Ринок</small></span></p>
+      <p class="visit__addr"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#phone"/></svg><a href="tel:+380670001818">+380 67 000 18 18</a></p>
+      <table class="hours">
+        <caption class="sr-only">Години роботи</caption>
+        <tr><th scope="row">Пн–Чт</th><td class="tnum">12:00–23:00</td></tr>
+        <tr><th scope="row">Пт–Сб</th><td class="tnum">12:00–23:30</td></tr>
+        <tr><th scope="row">Нд</th><td class="tnum">12:00–22:00</td></tr>
+      </table>
+      <p class="visit__note">Кухня приймає останнє замовлення за 30 хвилин до закриття.</p>
+    </div>
+    <figure class="map" aria-label="Схематична мапа: вул. Староєврейська, 18">
+      <svg viewBox="0 0 560 380" role="img" aria-label="Схематична мапа розташування">
+        <rect width="560" height="380" rx="24" class="map__bg"/>
+        <path class="map__block" d="M40 40h150v110H40zM230 40h120v60H230zM390 40h130v130H390zM40 190h110v150H40zM190 250h160v90H190zM390 210h130v130H390z"/>
+        <rect class="map__square" x="230" y="130" width="120" height="80" rx="6"/>
+        <text class="map__label" x="290" y="174" text-anchor="middle">пл. Ринок</text>
+        <path class="map__street" d="M20 170H540M210 20V360M370 20V360M20 230H210"/>
+        <text class="map__street-label" x="92" y="219">вул. Староєврейська</text>
+        <text class="map__street-label" x="380" y="196">вул. Федорова</text>
+        <g transform="translate(58 230)"><circle r="26" class="map__halo"/><circle r="10" class="map__pin"/></g>
+        <text class="map__venue" x="58" y="282" text-anchor="middle">Охра</text>
+      </svg>
+    </figure>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <div><span class="wordmark wordmark--light"><svg class="wordmark__mark" aria-hidden="true"><use href="/demos/tavola/static/img/icons.svg#logo"/></svg><span class="wordmark__name">Охра</span></span>
+<p class="site-footer__note">Бістро &amp; вино · вул. Староєврейська, 18, Львів</p></div>
+    <div class="site-footer__links">
+      <a href="/demos/tavola/book/">Бронювання</a>
+      <a href="/demos/tavola/menu/">Меню</a>
+      <a href="/demos/tavola/booking/find/">Моє бронювання</a>
+      <a href="tel:+380670001818">+380 67 000 18 18</a>
+    </div>
+    <p class="site-footer__made">Демо-проєкт системи бронювання Tavola. Заклад «Охра» вигаданий.</p>
+  </div>
+</footer>
+<script src="/demos/tavola/static/js/floorplan.js"></script>
+<script src="/demos/tavola/static/js/site.js"></script>
+</body>
+</html>

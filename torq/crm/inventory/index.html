@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Склад запчастин · TORQ</title>
+  <meta name="description" content="TORQ — CRM для СТО: замовлення-наряди, канбан, склад запчастин, аналітика.">
+  <meta name="theme-color" content="#141518">
+  <link rel="icon" href="/demos/torq/static/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/demos/torq/static/fonts/Inter-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="/demos/torq/static/css/app.css">
+  
+<script src="/demos/torq/_demo/demo-shim.js"></script>
+<script src="/demos/torq/_demo/torq-shim.js"></script>
+</head>
+<body class="crm" data-csrf="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<div class="shell">
+  <aside class="side" aria-label="Головне меню">
+    <a class="brand" href="/demos/torq/crm/board/">
+      <svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg>
+      <span><b>TORQ</b><small>CRM · TORQ Service</small></span>
+    </a>
+    <nav class="nav">
+      <span class="sect">Робота</span>
+      <a href="/demos/torq/crm/board/" class="" title="Дошка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка<span class="count hot" title="Нові заявки">4</span></a>
+      <a href="/demos/torq/crm/orders/" class="" title="Замовлення-наряди"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Замовлення-наряди</a>
+      <a href="/demos/torq/crm/clients/" class="" title="Клієнти й авто"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти й авто</a>
+      <a href="/demos/torq/crm/inventory/" class="on" title="Склад"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад<span class="count" title="Закінчуються">6</span></a>
+      
+      <span class="sect">Керування</span>
+      <a href="/demos/torq/crm/dashboard/" class="" title="Аналітика"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+      <a href="/demos/torq/crm/services/" class="" title="Прайс робіт"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#tag"/></svg>Прайс робіт</a>
+      <a href="/demos/torq/crm/users/" class="" title="Персонал"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#users"/></svg>Персонал</a>
+      
+      <span class="sect">Сайт</span>
+      <a href="/demos/torq/" target="_blank" rel="noopener" title="Публічна сторінка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#arrow"/></svg>Публічна сторінка</a>
+    </nav>
+    <div class="side-foot">
+      <span class="avatar">ІЛ</span>
+      <div><b>Ірина Литвиненко</b><small>Адміністратор</small></div>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" title="Вийти" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </aside>
+
+  <header class="mobile-top">
+    <a class="brand" href="/demos/torq/crm/board/"><svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg><b>TORQ</b></a>
+    <div class="who"><span class="avatar">ІЛ</span>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </header>
+
+  <div class="main" id="main">
+    
+<div class="topbar">
+  <div><h1>Склад запчастин</h1><p class="sub">Залишки списуються автоматично при додаванні в замовлення-наряд</p></div>
+  <div class="actions"><a class="btn ghost" href="/demos/torq/crm/inventory/export.csv"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#download"/></svg>CSV</a></div>
+</div>
+
+    
+    <div class="content">
+      
+      
+<section class="card">
+  <div class="summary-strip">
+    <div><span>Позицій</span><b>26</b></div>
+    <div><span>Собівартість залишку</span><b>317 558 ₴</b></div>
+    <div><span>У цінах продажу</span><b>458 992 ₴</b></div>
+    <div><span>Закінчуються</span><b class="bad">6</b></div>
+  </div>
+  <form class="toolbar card-b" method="get" role="search">
+    <label class="search"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#search"/></svg><span class="sr-only">Пошук</span><input type="search" name="q" value="" placeholder="Назва, артикул, бренд"></label>
+    <label class="check"><input type="checkbox" name="low" value="1"> Лише ті, що закінчуються</label>
+    <button class="btn ghost" type="submit">Показати</button>
+  </form>
+  
+  <div class="table-wrap">
+  <table class="table hover responsive">
+    <thead><tr><th>Найменування</th><th>Артикул</th><th>Комірка</th><th class="r">Залишок</th><th class="r">Мін.</th><th class="r">Закупівля</th><th class="r">Продаж</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/23/">Акумулятор 74 А·год Blue Dynamic</a> <span class="muted small">Varta</span></td>
+        <td class="vin m-hide">VARTA-E11</td>
+        <td class="muted m-hide">B-04</td>
+        <td class="r nowrap m-right"><span class="stock-q low">1 шт</span> <span class="tag bad">мало</span></td>
+        <td class="r muted m-hide">2</td>
+        <td class="r nowrap m-hide">3 900,00 ₴</td>
+        <td class="r nowrap strong">5 100,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/13/">Антифриз G12+ концентрат, 5 л</a> <span class="muted small">Febi</span></td>
+        <td class="vin m-hide">G12-5L</td>
+        <td class="muted m-hide">A-06</td>
+        <td class="r nowrap m-right"><span class="stock-q low">2 шт</span> <span class="tag bad">мало</span></td>
+        <td class="r muted m-hide">3</td>
+        <td class="r nowrap m-hide">980,00 ₴</td>
+        <td class="r nowrap strong">1 390,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/19/">Комплект ГРМ з помпою</a> <span class="muted small">Gates</span></td>
+        <td class="vin m-hide">K015578XS</td>
+        <td class="muted m-hide">C-01</td>
+        <td class="r nowrap m-right"><span class="stock-q low">2 компл</span> <span class="tag bad">мало</span></td>
+        <td class="r muted m-hide">4</td>
+        <td class="r nowrap m-hide">6 800,00 ₴</td>
+        <td class="r nowrap strong">9 200,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/20/">Комплект зчеплення</a> <span class="muted small">Valeo</span></td>
+        <td class="vin m-hide">826317</td>
+        <td class="muted m-hide">C-04</td>
+        <td class="r nowrap m-right"><span class="stock-q low">1 компл</span> <span class="tag bad">мало</span></td>
+        <td class="r muted m-hide">1</td>
+        <td class="r nowrap m-hide">7 400,00 ₴</td>
+        <td class="r nowrap strong">9 900,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/6/">Олива моторна Motul 8100 X-clean 5W-40</a> <span class="muted small">Motul</span></td>
+        <td class="vin m-hide">MOT-8100-540</td>
+        <td class="muted m-hide">A-02</td>
+        <td class="r nowrap m-right"><span class="stock-q low">15,2 л</span> <span class="tag bad">мало</span></td>
+        <td class="r muted m-hide">25</td>
+        <td class="r nowrap m-hide">430,00 ₴</td>
+        <td class="r nowrap strong">610,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/14/">Свічка запалювання іридієва</a> <span class="muted small">NGK</span></td>
+        <td class="vin m-hide">ILKAR7B11</td>
+        <td class="muted m-hide">A-01</td>
+        <td class="r nowrap m-right"><span class="stock-q low">7 шт</span> <span class="tag bad">мало</span></td>
+        <td class="r muted m-hide">8</td>
+        <td class="r nowrap m-hide">410,00 ₴</td>
+        <td class="r nowrap strong">590,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/17/">Амортизатор передній газовий</a> <span class="muted small">Sachs</span></td>
+        <td class="vin m-hide">313478</td>
+        <td class="muted m-hide">B-11</td>
+        <td class="r nowrap m-right"><span class="stock-q">8 шт</span></td>
+        <td class="r muted m-hide">2</td>
+        <td class="r nowrap m-hide">2 950,00 ₴</td>
+        <td class="r nowrap strong">4 180,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/11/">Диск гальмівний передній</a> <span class="muted small">TRW</span></td>
+        <td class="vin m-hide">DF4448</td>
+        <td class="muted m-hide">B-12</td>
+        <td class="r nowrap m-right"><span class="stock-q">24 шт</span></td>
+        <td class="r muted m-hide">4</td>
+        <td class="r nowrap m-hide">1 380,00 ₴</td>
+        <td class="r nowrap strong">1 990,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/9/">Колодки гальмівні задні</a> <span class="muted small">Bosch</span></td>
+        <td class="vin m-hide">0986494596</td>
+        <td class="muted m-hide">C-01</td>
+        <td class="r nowrap m-right"><span class="stock-q">14 компл</span></td>
+        <td class="r muted m-hide">3</td>
+        <td class="r nowrap m-hide">890,00 ₴</td>
+        <td class="r nowrap strong">1 320,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/8/">Колодки гальмівні передні</a> <span class="muted small">Bosch</span></td>
+        <td class="vin m-hide">0986494524</td>
+        <td class="muted m-hide">B-07</td>
+        <td class="r nowrap m-right"><span class="stock-q">14 компл</span></td>
+        <td class="r muted m-hide">4</td>
+        <td class="r nowrap m-hide">1 150,00 ₴</td>
+        <td class="r nowrap strong">1 690,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/10/">Колодки гальмівні передні</a> <span class="muted small">TRW</span></td>
+        <td class="vin m-hide">GDB1550</td>
+        <td class="muted m-hide">C-08</td>
+        <td class="r nowrap m-right"><span class="stock-q">11 компл</span></td>
+        <td class="r muted m-hide">3</td>
+        <td class="r nowrap m-hide">1 240,00 ₴</td>
+        <td class="r nowrap strong">1 820,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/24/">Лампа H7 Night Breaker</a> <span class="muted small">Osram</span></td>
+        <td class="vin m-hide">H7-NB200</td>
+        <td class="muted m-hide">C-04</td>
+        <td class="r nowrap m-right"><span class="stock-q">8 компл</span></td>
+        <td class="r muted m-hide">2</td>
+        <td class="r nowrap m-hide">640,00 ₴</td>
+        <td class="r nowrap strong">920,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/25/">Мастило проникне WD-40, 400 мл</a> <span class="muted small">WD-40</span></td>
+        <td class="vin m-hide">WD-40-400</td>
+        <td class="muted m-hide">B-05</td>
+        <td class="r nowrap m-right"><span class="stock-q">17 шт</span></td>
+        <td class="r muted m-hide">4</td>
+        <td class="r nowrap m-hide">210,00 ₴</td>
+        <td class="r nowrap strong">320,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/22/">Олива ATF Dexron III, 4 л</a> <span class="muted small">Liqui Moly</span></td>
+        <td class="vin m-hide">ATF-DIII-4L</td>
+        <td class="muted m-hide">C-04</td>
+        <td class="r nowrap m-right"><span class="stock-q">7 шт</span></td>
+        <td class="r muted m-hide">3</td>
+        <td class="r nowrap m-hide">1 650,00 ₴</td>
+        <td class="r nowrap strong">2 290,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/5/">Олива моторна Castrol EDGE 5W-30</a> <span class="muted small">Castrol</span></td>
+        <td class="vin m-hide">CAS-EDGE-530</td>
+        <td class="muted m-hide">C-07</td>
+        <td class="r nowrap m-right"><span class="stock-q">142,8 л</span></td>
+        <td class="r muted m-hide">25</td>
+        <td class="r nowrap m-hide">395,00 ₴</td>
+        <td class="r nowrap strong">560,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/7/">Олива моторна Toyota 0W-20</a> <span class="muted small">Toyota</span></td>
+        <td class="vin m-hide">TOY-0888</td>
+        <td class="muted m-hide">B-01</td>
+        <td class="r nowrap m-right"><span class="stock-q">55,6 л</span></td>
+        <td class="r muted m-hide">12</td>
+        <td class="r nowrap m-hide">360,00 ₴</td>
+        <td class="r nowrap strong">520,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/16/">Опора кульова</a> <span class="muted small">Lemförder</span></td>
+        <td class="vin m-hide">27145</td>
+        <td class="muted m-hide">C-01</td>
+        <td class="r nowrap m-right"><span class="stock-q">7 шт</span></td>
+        <td class="r muted m-hide">2</td>
+        <td class="r nowrap m-hide">860,00 ₴</td>
+        <td class="r nowrap strong">1 260,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/26/">Очисник гальм, 500 мл</a> <span class="muted small">Liqui Moly</span></td>
+        <td class="vin m-hide">BRK-CLN</td>
+        <td class="muted m-hide">A-07</td>
+        <td class="r nowrap m-right"><span class="stock-q">22 шт</span></td>
+        <td class="r muted m-hide">6</td>
+        <td class="r nowrap m-hide">180,00 ₴</td>
+        <td class="r nowrap strong">280,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/21/">Ремінь поліклиновий</a> <span class="muted small">Gates</span></td>
+        <td class="vin m-hide">6PK1873</td>
+        <td class="muted m-hide">B-08</td>
+        <td class="r nowrap m-right"><span class="stock-q">15 шт</span></td>
+        <td class="r muted m-hide">3</td>
+        <td class="r nowrap m-hide">520,00 ₴</td>
+        <td class="r nowrap strong">780,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/12/">Рідина гальмівна DOT 4, 1 л</a> <span class="muted small">ATE</span></td>
+        <td class="vin m-hide">DOT4-1L</td>
+        <td class="muted m-hide">A-10</td>
+        <td class="r nowrap m-right"><span class="stock-q">14 шт</span></td>
+        <td class="r muted m-hide">6</td>
+        <td class="r nowrap m-hide">290,00 ₴</td>
+        <td class="r nowrap strong">430,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/18/">Сайлентблок важеля</a> <span class="muted small">Febi</span></td>
+        <td class="vin m-hide">TS-SB-1215</td>
+        <td class="muted m-hide">A-07</td>
+        <td class="r nowrap m-right"><span class="stock-q">8 шт</span></td>
+        <td class="r muted m-hide">4</td>
+        <td class="r nowrap m-hide">360,00 ₴</td>
+        <td class="r nowrap strong">540,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/15/">Стійка стабілізатора передня</a> <span class="muted small">Lemförder</span></td>
+        <td class="vin m-hide">33968</td>
+        <td class="muted m-hide">A-11</td>
+        <td class="r nowrap m-right"><span class="stock-q">38 шт</span></td>
+        <td class="r muted m-hide">4</td>
+        <td class="r nowrap m-hide">690,00 ₴</td>
+        <td class="r nowrap strong">1 020,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/1/">Фільтр оливний</a> <span class="muted small">MANN-FILTER</span></td>
+        <td class="vin m-hide">W712/95</td>
+        <td class="muted m-hide">A-10</td>
+        <td class="r nowrap m-right"><span class="stock-q">45 шт</span></td>
+        <td class="r muted m-hide">8</td>
+        <td class="r nowrap m-hide">210,00 ₴</td>
+        <td class="r nowrap strong">320,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/2/">Фільтр оливний</a> <span class="muted small">MANN-FILTER</span></td>
+        <td class="vin m-hide">W811/80</td>
+        <td class="muted m-hide">A-05</td>
+        <td class="r nowrap m-right"><span class="stock-q">24 шт</span></td>
+        <td class="r muted m-hide">6</td>
+        <td class="r nowrap m-hide">245,00 ₴</td>
+        <td class="r nowrap strong">370,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/3/">Фільтр повітряний</a> <span class="muted small">MANN-FILTER</span></td>
+        <td class="vin m-hide">C30005</td>
+        <td class="muted m-hide">A-08</td>
+        <td class="r nowrap m-right"><span class="stock-q">18 шт</span></td>
+        <td class="r muted m-hide">5</td>
+        <td class="r nowrap m-hide">380,00 ₴</td>
+        <td class="r nowrap strong">560,00 ₴</td>
+      </tr>
+    
+      <tr>
+        <td><a class="row-link" href="/demos/torq/crm/inventory/4/">Фільтр салону вугільний</a> <span class="muted small">MANN-FILTER</span></td>
+        <td class="vin m-hide">CUK2939</td>
+        <td class="muted m-hide">B-08</td>
+        <td class="r nowrap m-right"><span class="stock-q">30 шт</span></td>
+        <td class="r muted m-hide">5</td>
+        <td class="r nowrap m-hide">420,00 ₴</td>
+        <td class="r nowrap strong">640,00 ₴</td>
+      </tr>
+    
+    </tbody>
+  </table>
+  </div>
+  
+  
+  <details class="drawer card-f"><summary class="btn sm"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#plus"/></svg>Нова позиція</summary>
+    <form class="grid g4" method="post" action="/demos/torq/crm/inventory/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+      <label class="field"><span>Артикул *</span><input name="sku" required maxlength="40"></label>
+      <label class="field span2"><span>Найменування *</span><input name="name" required maxlength="120"></label>
+      <label class="field"><span>Бренд</span><input name="brand" maxlength="40"></label>
+      <label class="field"><span>Одиниця</span><select name="unit"><option>шт</option><option>л</option><option>кг</option><option>м</option><option>компл</option></select></label>
+      <label class="field"><span>Початковий залишок</span><input name="qty" inputmode="decimal" value="0"></label>
+      <label class="field"><span>Мін. залишок</span><input name="min_qty" inputmode="decimal" value="1"></label>
+      <label class="field"><span>Комірка</span><input name="location" maxlength="20" placeholder="A-03"></label>
+      <label class="field"><span>Закупівля, ₴ *</span><input name="purchase_price" inputmode="decimal" required></label>
+      <label class="field"><span>Продаж, ₴ *</span><input name="sale_price" inputmode="decimal" required></label>
+      <div class="span2"><button class="btn" type="submit">Додати на склад</button></div>
+    </form>
+  </details>
+  
+</section>
+
+    </div>
+    
+  </div>
+
+  <nav class="tabbar" aria-label="Навігація">
+    <a href="/demos/torq/crm/board/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка</a>
+    <a href="/demos/torq/crm/orders/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Наряди</a>
+    <a href="/demos/torq/crm/clients/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти</a>
+    <a href="/demos/torq/crm/inventory/" class="on"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад</a>
+    <a href="/demos/torq/crm/dashboard/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+  </nav>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.demoPre&&demoPre()</script><script src="/demos/torq/static/js/app.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Опора кульова · TORQ</title>
+  <meta name="description" content="TORQ — CRM для СТО: замовлення-наряди, канбан, склад запчастин, аналітика.">
+  <meta name="theme-color" content="#141518">
+  <link rel="icon" href="/demos/torq/static/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/demos/torq/static/fonts/Inter-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="/demos/torq/static/css/app.css">
+  
+<script src="/demos/torq/_demo/demo-shim.js"></script>
+<script src="/demos/torq/_demo/torq-shim.js"></script>
+</head>
+<body class="crm" data-csrf="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<div class="shell">
+  <aside class="side" aria-label="Головне меню">
+    <a class="brand" href="/demos/torq/crm/board/">
+      <svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg>
+      <span><b>TORQ</b><small>CRM · TORQ Service</small></span>
+    </a>
+    <nav class="nav">
+      <span class="sect">Робота</span>
+      <a href="/demos/torq/crm/board/" class="" title="Дошка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка<span class="count hot" title="Нові заявки">4</span></a>
+      <a href="/demos/torq/crm/orders/" class="" title="Замовлення-наряди"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Замовлення-наряди</a>
+      <a href="/demos/torq/crm/clients/" class="" title="Клієнти й авто"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти й авто</a>
+      <a href="/demos/torq/crm/inventory/" class="on" title="Склад"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад<span class="count" title="Закінчуються">6</span></a>
+      
+      <span class="sect">Керування</span>
+      <a href="/demos/torq/crm/dashboard/" class="" title="Аналітика"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+      <a href="/demos/torq/crm/services/" class="" title="Прайс робіт"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#tag"/></svg>Прайс робіт</a>
+      <a href="/demos/torq/crm/users/" class="" title="Персонал"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#users"/></svg>Персонал</a>
+      
+      <span class="sect">Сайт</span>
+      <a href="/demos/torq/" target="_blank" rel="noopener" title="Публічна сторінка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#arrow"/></svg>Публічна сторінка</a>
+    </nav>
+    <div class="side-foot">
+      <span class="avatar">ІЛ</span>
+      <div><b>Ірина Литвиненко</b><small>Адміністратор</small></div>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" title="Вийти" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </aside>
+
+  <header class="mobile-top">
+    <a class="brand" href="/demos/torq/crm/board/"><svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg><b>TORQ</b></a>
+    <div class="who"><span class="avatar">ІЛ</span>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </header>
+
+  <div class="main" id="main">
+    
+    
+    <div class="content">
+      
+      
+<nav class="crumbs"><a href="/demos/torq/crm/inventory/">Склад</a><span>/</span><span>27145</span></nav>
+<div class="order-head"><div><h1>Опора кульова</h1>
+  <p class="muted small"><span class="vin">27145</span> · Lemförder · комірка C-01</p></div></div>
+<div class="split">
+  <div class="stack">
+    <section class="card">
+      <dl class="facts">
+        <div><dt>Залишок</dt><dd class="stock-q">7 шт</dd></div>
+        <div><dt>Мінімум</dt><dd>2 шт</dd></div>
+        <div><dt>Ціна продажу</dt><dd>1 260,00 ₴</dd></div>
+        <div><dt>Націнка</dt><dd>47%</dd></div>
+      </dl>
+    </section>
+    <section class="card">
+      <div class="card-h"><h2>Рух по складу</h2><span class="muted small">останні 100 операцій</span></div>
+      
+      <div class="table-wrap"><table class="table responsive">
+        <thead><tr><th>Дата</th><th>Операція</th><th class="r">Кількість</th><th class="r">Залишок</th><th>Хто</th></tr></thead>
+        <tbody><tr>
+          <td class="nowrap muted">21.11.2026 09:03</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/236/">№1236</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">7</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">12.11.2026 12:50</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/212/">№1212</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">8</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">21.10.2026 16:02</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/152/">№1152</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">9</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">08.10.2026 14:47</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/115/">№1115</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">10</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">07.10.2026 13:14</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/114/">№1114</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">11</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">07.10.2026 17:53</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/112/">№1112</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">12</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">24.09.2026 14:26</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/80/">№1080</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">13</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">21.09.2026 09:05</td>
+          <td class="m-right">Прихід <span class="muted small">· Автотехнікс, ВН-5680</span></td>
+          <td class="r nowrap mv-in">+4</td>
+          <td class="r nowrap m-right">14</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">19.09.2026 11:10</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/66/">№1066</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">10</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">17.09.2026 14:48</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/59/">№1059</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">11</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">10.09.2026 15:42</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/41/">№1041</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">12</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">08.09.2026 16:13</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/34/">№1034</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">13</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">07.09.2026 09:05</td>
+          <td class="m-right">Прихід <span class="muted small">· Автотехнікс, ВН-4959</span></td>
+          <td class="r nowrap mv-in">+8</td>
+          <td class="r nowrap m-right">14</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">04.09.2026 14:14</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/26/">№1026</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">6</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">01.09.2026 12:20</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/19/">№1019</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">7</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">31.08.2026 14:38</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/17/">№1017</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">8</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">25.08.2026 12:52</td>
+          <td class="m-right">Списання · <a href="/demos/torq/crm/orders/1/">№1001</a></td>
+          <td class="r nowrap mv-out">−1</td>
+          <td class="r nowrap m-right">9</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr><tr>
+          <td class="nowrap muted">21.08.2026 08:30</td>
+          <td class="m-right">Прихід <span class="muted small">· Початковий залишок</span></td>
+          <td class="r nowrap mv-in">+10</td>
+          <td class="r nowrap m-right">10</td>
+          <td class="muted m-hide">Ірина Литвиненко</td></tr></tbody>
+      </table></div>
+      
+    </section>
+  </div>
+  <aside class="stack">
+    
+    <section class="card"><div class="card-h"><h2>Прихід</h2></div>
+      <form class="card-b grid g2" method="post" action="/demos/torq/crm/inventory/16/receive/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+        <label class="field"><span>Кількість, шт</span><input name="qty" inputmode="decimal" required></label>
+        <label class="field"><span>Закупівля, ₴</span><input name="purchase_price" inputmode="decimal" placeholder="860,00"></label>
+        <label class="field span2"><span>Постачальник / накладна</span><input name="note" maxlength="120" placeholder="Напр.: Омега, ВН-2231"></label>
+        <div class="span2"><button class="btn" type="submit"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#plus"/></svg>Оприбуткувати</button></div>
+      </form>
+    </section>
+    <section class="card"><div class="card-h"><h2>Інвентаризація</h2></div>
+      <form class="card-b grid" method="post" action="/demos/torq/crm/inventory/16/adjust/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+        <label class="field"><span>Фактичний залишок, шт</span><input name="qty" inputmode="decimal" value="7" required></label>
+        <button class="btn ghost" type="submit">Скоригувати</button>
+      </form>
+    </section>
+    <section class="card"><div class="card-h"><h2>Картка позиції</h2></div>
+      <form class="card-b grid g2" method="post" action="/demos/torq/crm/inventory/16/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+        <label class="field span2"><span>Найменування</span><input name="name" value="Опора кульова" required maxlength="120"></label>
+        <label class="field"><span>Бренд</span><input name="brand" value="Lemförder" maxlength="40"></label>
+        <label class="field"><span>Одиниця</span><select name="unit"><option selected>шт</option><option>л</option><option>кг</option><option>м</option><option>компл</option></select></label>
+        <label class="field"><span>Закупівля, ₴</span><input name="purchase_price" inputmode="decimal" value="860.00"></label>
+        <label class="field"><span>Продаж, ₴</span><input name="sale_price" inputmode="decimal" value="1260.00"></label>
+        <label class="field"><span>Мін. залишок</span><input name="min_qty" inputmode="decimal" value="2"></label>
+        <label class="field"><span>Комірка</span><input name="location" value="C-01" maxlength="20"></label>
+        <div class="span2"><button class="btn ghost" type="submit">Зберегти</button></div>
+      </form>
+    </section>
+    
+  </aside>
+</div>
+
+    </div>
+    
+  </div>
+
+  <nav class="tabbar" aria-label="Навігація">
+    <a href="/demos/torq/crm/board/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка</a>
+    <a href="/demos/torq/crm/orders/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Наряди</a>
+    <a href="/demos/torq/crm/clients/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти</a>
+    <a href="/demos/torq/crm/inventory/" class="on"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад</a>
+    <a href="/demos/torq/crm/dashboard/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+  </nav>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.demoPre&&demoPre()</script><script src="/demos/torq/static/js/app.js" defer></script>
+
+</body>
+</html>

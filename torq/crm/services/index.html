@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Прайс робіт · TORQ</title>
+  <meta name="description" content="TORQ — CRM для СТО: замовлення-наряди, канбан, склад запчастин, аналітика.">
+  <meta name="theme-color" content="#141518">
+  <link rel="icon" href="/demos/torq/static/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/demos/torq/static/fonts/Inter-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="/demos/torq/static/css/app.css">
+  
+<script src="/demos/torq/_demo/demo-shim.js"></script>
+<script src="/demos/torq/_demo/torq-shim.js"></script>
+</head>
+<body class="crm" data-csrf="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<div class="shell">
+  <aside class="side" aria-label="Головне меню">
+    <a class="brand" href="/demos/torq/crm/board/">
+      <svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg>
+      <span><b>TORQ</b><small>CRM · TORQ Service</small></span>
+    </a>
+    <nav class="nav">
+      <span class="sect">Робота</span>
+      <a href="/demos/torq/crm/board/" class="" title="Дошка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка<span class="count hot" title="Нові заявки">4</span></a>
+      <a href="/demos/torq/crm/orders/" class="" title="Замовлення-наряди"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Замовлення-наряди</a>
+      <a href="/demos/torq/crm/clients/" class="" title="Клієнти й авто"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти й авто</a>
+      <a href="/demos/torq/crm/inventory/" class="" title="Склад"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад<span class="count" title="Закінчуються">6</span></a>
+      
+      <span class="sect">Керування</span>
+      <a href="/demos/torq/crm/dashboard/" class="" title="Аналітика"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+      <a href="/demos/torq/crm/services/" class="on" title="Прайс робіт"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#tag"/></svg>Прайс робіт</a>
+      <a href="/demos/torq/crm/users/" class="" title="Персонал"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#users"/></svg>Персонал</a>
+      
+      <span class="sect">Сайт</span>
+      <a href="/demos/torq/" target="_blank" rel="noopener" title="Публічна сторінка"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#arrow"/></svg>Публічна сторінка</a>
+    </nav>
+    <div class="side-foot">
+      <span class="avatar">ІЛ</span>
+      <div><b>Ірина Литвиненко</b><small>Адміністратор</small></div>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" title="Вийти" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </aside>
+
+  <header class="mobile-top">
+    <a class="brand" href="/demos/torq/crm/board/"><svg aria-hidden="true"><use href="/demos/torq/static/icons.svg#logo"/></svg><b>TORQ</b></a>
+    <div class="who"><span class="avatar">ІЛ</span>
+      <form method="post" action="/demos/torq/crm/logout/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><button type="submit" aria-label="Вийти"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#logout"/></svg></button></form>
+    </div>
+  </header>
+
+  <div class="main" id="main">
+    <div class="topbar"><div><h1>Прайс робіт</h1><p class="sub">Вартість = нормо-години × 900,00 ₴ (змінна LABOUR_RATE) · прайс показується на сайті</p></div></div>
+    
+    <div class="content">
+      
+      
+<div class="split">
+  <section class="card">
+    <div class="table-wrap"><table class="table responsive">
+      <thead><tr><th>Робота</th><th>Категорія</th><th class="r">Н-год</th><th class="r">Ціна</th><th class="r">На сайті</th></tr></thead>
+      <tbody><tr>
+        <td><span class="strong">Комп&#39;ютерна діагностика</span></td>
+        <td class="muted m-hide">Діагностика</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/1/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,5" inputmode="decimal" aria-label="Норма годин для Комп&#39;ютерна діагностика"></form></td>
+        <td class="r strong nowrap m-right">450 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/1/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Діагностика ходової частини</span></td>
+        <td class="muted m-hide">Діагностика</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/2/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,5" inputmode="decimal" aria-label="Норма годин для Діагностика ходової частини"></form></td>
+        <td class="r strong nowrap m-right">450 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/2/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Перевірка перед купівлею авто</span><span class="sub muted small"> · огляд + діагностика</span></td>
+        <td class="muted m-hide">Діагностика</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/3/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="1,5" inputmode="decimal" aria-label="Норма годин для Перевірка перед купівлею авто"></form></td>
+        <td class="r strong nowrap m-right">1 350 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/3/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна оливи та фільтра двигуна</span><span class="sub muted small"> · без вартості оливи</span></td>
+        <td class="muted m-hide">ТО та рідини</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/4/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,5" inputmode="decimal" aria-label="Норма годин для Заміна оливи та фільтра двигуна"></form></td>
+        <td class="r strong nowrap m-right">450 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/4/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна повітряного фільтра</span></td>
+        <td class="muted m-hide">ТО та рідини</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/5/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,2" inputmode="decimal" aria-label="Норма годин для Заміна повітряного фільтра"></form></td>
+        <td class="r strong nowrap m-right">180 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/5/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна фільтра салону</span></td>
+        <td class="muted m-hide">ТО та рідини</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/6/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,3" inputmode="decimal" aria-label="Норма годин для Заміна фільтра салону"></form></td>
+        <td class="r strong nowrap m-right">270 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/6/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна гальмівної рідини</span></td>
+        <td class="muted m-hide">ТО та рідини</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/7/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,8" inputmode="decimal" aria-label="Норма годин для Заміна гальмівної рідини"></form></td>
+        <td class="r strong nowrap m-right">720 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/7/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна антифризу</span></td>
+        <td class="muted m-hide">ТО та рідини</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/8/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="1" inputmode="decimal" aria-label="Норма годин для Заміна антифризу"></form></td>
+        <td class="r strong nowrap m-right">900 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/8/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна свічок запалювання</span><span class="sub muted small"> · 4 циліндри</span></td>
+        <td class="muted m-hide">ТО та рідини</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/9/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,6" inputmode="decimal" aria-label="Норма годин для Заміна свічок запалювання"></form></td>
+        <td class="r strong nowrap m-right">540 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/9/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна стійки стабілізатора</span><span class="sub muted small"> · 1 шт</span></td>
+        <td class="muted m-hide">Ходова частина</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/10/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,5" inputmode="decimal" aria-label="Норма годин для Заміна стійки стабілізатора"></form></td>
+        <td class="r strong nowrap m-right">450 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/10/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна амортизатора</span><span class="sub muted small"> · 1 шт</span></td>
+        <td class="muted m-hide">Ходова частина</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/11/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="1,2" inputmode="decimal" aria-label="Норма годин для Заміна амортизатора"></form></td>
+        <td class="r strong nowrap m-right">1 080 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/11/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна кульової опори</span></td>
+        <td class="muted m-hide">Ходова частина</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/12/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,8" inputmode="decimal" aria-label="Норма годин для Заміна кульової опори"></form></td>
+        <td class="r strong nowrap m-right">720 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/12/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна сайлентблоків важеля</span></td>
+        <td class="muted m-hide">Ходова частина</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/13/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="1,6" inputmode="decimal" aria-label="Норма годин для Заміна сайлентблоків важеля"></form></td>
+        <td class="r strong nowrap m-right">1 440 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/13/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Розвал-сходження</span><span class="sub muted small"> · 3D-стенд</span></td>
+        <td class="muted m-hide">Ходова частина</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/14/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="1" inputmode="decimal" aria-label="Норма годин для Розвал-сходження"></form></td>
+        <td class="r strong nowrap m-right">900 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/14/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна передніх колодок</span></td>
+        <td class="muted m-hide">Гальмівна система</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/15/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,6" inputmode="decimal" aria-label="Норма годин для Заміна передніх колодок"></form></td>
+        <td class="r strong nowrap m-right">540 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/15/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна задніх колодок</span></td>
+        <td class="muted m-hide">Гальмівна система</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/16/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,8" inputmode="decimal" aria-label="Норма годин для Заміна задніх колодок"></form></td>
+        <td class="r strong nowrap m-right">720 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/16/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна гальмівних дисків (вісь)</span></td>
+        <td class="muted m-hide">Гальмівна система</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/17/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="1,2" inputmode="decimal" aria-label="Норма годин для Заміна гальмівних дисків (вісь)"></form></td>
+        <td class="r strong nowrap m-right">1 080 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/17/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Обслуговування супортів (вісь)</span></td>
+        <td class="muted m-hide">Гальмівна система</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/18/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="1" inputmode="decimal" aria-label="Норма годин для Обслуговування супортів (вісь)"></form></td>
+        <td class="r strong nowrap m-right">900 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/18/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна комплекту ГРМ</span><span class="sub muted small"> · залежить від двигуна</span></td>
+        <td class="muted m-hide">Двигун і трансмісія</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/19/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="3,5" inputmode="decimal" aria-label="Норма годин для Заміна комплекту ГРМ"></form></td>
+        <td class="r strong nowrap m-right">3 150 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/19/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна зчеплення</span></td>
+        <td class="muted m-hide">Двигун і трансмісія</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/20/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="4" inputmode="decimal" aria-label="Норма годин для Заміна зчеплення"></form></td>
+        <td class="r strong nowrap m-right">3 600 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/20/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна оливи в АКПП</span><span class="sub muted small"> · часткова</span></td>
+        <td class="muted m-hide">Двигун і трансмісія</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/21/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="1,2" inputmode="decimal" aria-label="Норма годин для Заміна оливи в АКПП"></form></td>
+        <td class="r strong nowrap m-right">1 080 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/21/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна ременя генератора</span></td>
+        <td class="muted m-hide">Двигун і трансмісія</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/22/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,7" inputmode="decimal" aria-label="Норма годин для Заміна ременя генератора"></form></td>
+        <td class="r strong nowrap m-right">630 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/22/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна акумулятора</span></td>
+        <td class="muted m-hide">Електрика</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/23/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,3" inputmode="decimal" aria-label="Норма годин для Заміна акумулятора"></form></td>
+        <td class="r strong nowrap m-right">270 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/23/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Діагностика електрообладнання</span></td>
+        <td class="muted m-hide">Електрика</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/24/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="1" inputmode="decimal" aria-label="Норма годин для Діагностика електрообладнання"></form></td>
+        <td class="r strong nowrap m-right">900 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/24/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr><tr>
+        <td><span class="strong">Заміна ламп фар</span><span class="sub muted small"> · пара</span></td>
+        <td class="muted m-hide">Електрика</td>
+        <td class="r m-hide"><form method="post" action="/demos/torq/crm/services/25/" class="inline-edit"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input class="input" name="norm_hours" value="0,3" inputmode="decimal" aria-label="Норма годин для Заміна ламп фар"></form></td>
+        <td class="r strong nowrap m-right">270 ₴</td>
+        <td class="r"><form method="post" action="/demos/torq/crm/services/25/"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo"><input type="hidden" name="toggle" value="1"><button class="btn xs ghost" type="submit">Показано</button></form></td>
+      </tr></tbody>
+    </table></div>
+  </section>
+  <section class="card"><div class="card-h"><h2>Нова робота</h2></div>
+    <form class="card-b grid" method="post"><input type="hidden" name="_csrf" value="5YQjnJ3qnsWnErH93XDzX-AfzsS5sgSq3ju6QbiZrSo">
+      <label class="field"><span>Категорія</span><input name="category" list="cats" required maxlength="60"><datalist id="cats"><option value="Гальмівна система"><option value="Двигун і трансмісія"><option value="Діагностика"><option value="Електрика"><option value="ТО та рідини"><option value="Ходова частина"></datalist></label>
+      <label class="field"><span>Назва</span><input name="name" required maxlength="120"></label>
+      <label class="field"><span>Норма, год</span><input name="norm_hours" inputmode="decimal" required placeholder="1,5"></label>
+      <label class="field"><span>Примітка</span><input name="note" maxlength="120" placeholder="Напр.: без вартості оливи"></label>
+      <button class="btn" type="submit"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#plus"/></svg>Додати</button>
+    </form>
+  </section>
+</div>
+
+    </div>
+    
+  </div>
+
+  <nav class="tabbar" aria-label="Навігація">
+    <a href="/demos/torq/crm/board/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#board"/></svg>Дошка</a>
+    <a href="/demos/torq/crm/orders/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#orders"/></svg>Наряди</a>
+    <a href="/demos/torq/crm/clients/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#clients"/></svg>Клієнти</a>
+    <a href="/demos/torq/crm/inventory/" class=""><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#box"/></svg>Склад</a>
+    <a href="/demos/torq/crm/dashboard/" class="on"><svg class="ico " aria-hidden="true" focusable="false"><use href="/demos/torq/static/icons.svg#chart"/></svg>Аналітика</a>
+  </nav>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.demoPre&&demoPre()</script><script src="/demos/torq/static/js/app.js" defer></script>
+
+</body>
+</html>

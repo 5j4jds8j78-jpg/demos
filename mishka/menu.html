@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Меню — кав’ярня «Мишка», Київ</title>
+  <meta name="description" content="Меню кав’ярні «Мишка»: еспресо, капучино, лате, медовий лате, чай, лимонади, медівник, чизкейки, круасани та сніданки. Ціни в гривнях.">
+  <meta name="theme-color" content="#2e1f17">
+  <meta property="og:title" content="Кав’ярня «Мишка»">
+  <meta property="og:description" content="Кава, яка обіймає. Свіже обсмаження, домашні десерти й тепла музика.">
+  <meta property="og:image" content="img/photos/hero.webp">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="img/logo/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<header class="header" id="top">
+  <div class="wrap header__in">
+    <a class="header__logo" href="index.html" aria-label="Кав’ярня «Мишка», на головну">
+      <img src="img/logo/mishka-logo-horizontal.svg" alt="Мишка — кав’ярня" width="135" height="50">
+    </a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Відкрити меню навігації">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav" id="nav" aria-label="Головна навігація">
+      <a href="menu.html" aria-current="page">Меню</a>
+      <a href="index.html#about">Про нас</a>
+      <a href="index.html#gallery">Атмосфера</a>
+      <a href="index.html#visit">Контакти</a>
+      <!-- ЗАГЛУШКА: замініть номер телефону -->
+      <a class="btn btn--ghost" href="tel:+380000000000">Зателефонувати</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="menu-hero">
+    <div class="wrap menu-hero__in">
+      <div>
+        <h1>Меню</h1>
+        <p class="sub">Кава, чай, десерти та сніданки, усе з любов’ю й без поспіху.</p>
+      </div>
+      <p class="menu-hero__note">Будь-який напій приготуємо з собою. Про склад і алергени охоче розповість бариста.</p>
+    </div>
+  </section>
+
+  <nav class="tabs" aria-label="Розділи меню">
+    <div class="wrap"><ul class="tabs__list" data-tabs></ul></div>
+  </nav>
+
+  <div class="wrap">
+    <div data-menu>
+      <noscript><p style="padding:40px 0">Щоб побачити меню, увімкніть JavaScript у браузері.</p></noscript>
+    </div>
+
+    <aside class="menu-note" aria-label="Додатки до напоїв">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12h17v7a7 7 0 0 1-7 7h-3a7 7 0 0 1-7-7z"/><path d="M23 14h2a3 3 0 0 1 0 6h-2.3"/><path d="M11 4c-1 1.5 1 2.5 0 4M16 4c-1 1.5 1 2.5 0 4"/></svg>
+      <div data-addons><strong>Додатки до напоїв.</strong> Рослинне молоко (вівсяне, кокосове, мигдальне) +20 грн, сироп +15 грн, додатковий шот еспресо +25 грн. Ціни вказано в гривнях.</div>
+    </aside>
+  </div>
+
+  <section class="menu-cta">
+    <div class="wrap">
+      <h2 class="h2">Заходьте на каву</h2>
+      <p class="sub">У будні з 08:00, у вихідні з 09:00. Столик біля вікна можна забронювати телефоном.</p>
+      <div class="hero__actions">
+        <!-- ЗАГЛУШКА: телефон -->
+        <a class="btn btn--solid" href="tel:+380000000000">Зателефонувати</a>
+        <a class="link" href="index.html#visit">Як нас знайти</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="footer__logo" href="index.html"><img src="img/logo/mishka-logo-horizontal-light.svg" alt="Мишка — кав’ярня" width="121" height="45"></a>
+        <p class="footer__tag">Свіжа кава, домашні десерти й трохи ведмежого затишку.</p>
+      </div>
+      <div>
+        <h3>Сторінки</h3>
+        <ul>
+          <li><a href="menu.html">Меню</a></li>
+          <li><a href="index.html#about">Про нас</a></li>
+          <li><a href="index.html#gallery">Атмосфера</a></li>
+          <li><a href="index.html#visit">Контакти</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Зв’язок</h3>
+        <!-- ЗАГЛУШКИ: телефон, адреса, Instagram -->
+        <ul>
+          <li><a href="tel:+380000000000">+380 00 000 00 00</a></li>
+          <li>м. Київ, вул. Ярославів Вал, 00</li>
+          <li><a href="#">Instagram (додайте посилання)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Кав’ярня «Мишка»</span>
+      <a href="#top">Нагору</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/menu-data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

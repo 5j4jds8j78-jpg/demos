@@ -1,0 +1,1534 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Бронювання — Tavola · Охра</title>
+  <link rel="icon" href="/demos/tavola/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/tavola/static/css/tokens.css">
+  <link rel="stylesheet" href="/demos/tavola/static/css/admin.css">
+<script src="/demos/tavola/_demo/demo-shim.js"></script>
+<script src="/demos/tavola/_demo/tavola-config.js"></script>
+<script src="/demos/tavola/_demo/tavola-shim.js"></script>
+</head>
+<body class="adm ">
+<a class="skip-link" href="#main">Перейти до змісту</a>
+<div class="adm-shell">
+  <aside class="adm-side">
+    <a class="adm-brand" href="/demos/tavola/admin/">
+      <svg class="adm-brand__mark" aria-hidden="true"><use href="/demos/tavola/static/img/icons.svg#logo"/></svg>
+      <span><strong>Tavola</strong><small>Охра, Львів</small></span>
+    </a>
+    <nav class="adm-nav" aria-label="Розділи адмінки">
+      <a href="/demos/tavola/admin/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#timeline"/></svg><span>Сьогодні</span></a>
+      <a href="/demos/tavola/admin/bookings/" class="adm-nav__link is-active" aria-current="page"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#list"/></svg><span>Бронювання</span></a>
+      <a href="/demos/tavola/admin/floor/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#floor"/></svg><span>Схема залу</span></a>
+      <a href="/demos/tavola/admin/menu/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#book"/></svg><span>Меню</span></a>
+      <a href="/demos/tavola/admin/stats/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chart"/></svg><span>Статистика</span></a>
+      <a href="/demos/tavola/admin/qr/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#qr"/></svg><span>QR-меню</span></a>
+      <a href="/demos/tavola/admin/log/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#shield"/></svg><span>Журнал</span></a>
+    </nav>
+    <div class="adm-side__foot">
+      <a class="adm-side__site" href="/demos/tavola/"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#door"/></svg>Відкрити сайт</a>
+      <form method="post" action="/demos/tavola/admin/logout/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+        <button class="adm-side__logout" type="submit"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#logout"/></svg>Вийти<span>admin</span></button>
+      </form>
+    </div>
+  </aside>
+  <main class="adm-main" id="main">
+    <header class="adm-top">
+      <div class="adm-top__titles">
+        <h1 class="adm-top__title">Бронювання</h1>
+      </div>
+      <div class="adm-top__actions"></div>
+    </header>
+    
+<details class="card phone-card" id="phone-booking">
+  <summary class="card__title">Нове бронювання по телефону</summary>
+  <form method="post" action="/demos/tavola/admin/bookings/phone/" class="phone-form">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+    <label class="field"><span>Дата</span><input class="input" type="date" name="date" required value="2026-11-21" min="2026-11-21"></label>
+    <label class="field"><span>Час</span><input class="input" type="time" name="time" required step="1800" value="19:00"></label>
+    <label class="field"><span>Гостей</span><input class="input" type="number" name="guests" min="1" max="16" value="2" required></label>
+    <label class="field"><span>Стіл</span><select class="select" name="table"><option value="auto">Автоматично</option><option value="1">№ 1 (2)</option><option value="2">№ 2 (2)</option><option value="3">№ 3 (4)</option><option value="4">№ 4 (4)</option><option value="5">№ 5 (4)</option><option value="6">№ 6 (6)</option><option value="7">№ 7 (8)</option><option value="8">№ 8 (6)</option><option value="9">№ Б1 (2)</option><option value="10">№ Б2 (2)</option><option value="11">№ Т1 (2)</option><option value="12">№ Т2 (2)</option><option value="13">№ Т3 (4)</option><option value="14">№ Т4 (4)</option></select></label>
+    <label class="field"><span>Імʼя</span><input class="input" name="name" required maxlength="60"></label>
+    <label class="field"><span>Телефон</span><input class="input" name="phone" type="tel" required></label>
+    <label class="field phone-form__wide"><span>Коментар</span><input class="input" name="comment" maxlength="300"></label>
+    <button class="btn" type="submit">Створити бронювання</button>
+  </form>
+</details>
+
+<form class="filters" method="get" role="search">
+  <label class="filters__search"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#search"/></svg><span class="sr-only">Пошук</span>
+    <input class="input" type="search" name="q" value="" placeholder="Імʼя, телефон або код"></label>
+  <label class="sr-only" for="f-date">Дата</label>
+  <input class="input input--date" id="f-date" type="date" name="date" value="">
+  <input type="hidden" name="status" value="new">
+  <button class="btn btn--ghost" type="submit">Знайти</button>
+<a class="filters__reset" href="/demos/tavola/admin/bookings/">Скинути</a></form>
+<nav class="tabs" aria-label="Фільтр за статусом">
+  <a href="/demos/tavola/admin/bookings/" class="tabs__tab">Усі</a>
+  <a href="/demos/tavola/admin/bookings/_q/status=new/" class="tabs__tab is-on">Нове<span class="tabs__n">42</span></a>
+  <a href="/demos/tavola/admin/bookings/_q/status=confirmed/" class="tabs__tab">Підтверджене<span class="tabs__n">34</span></a>
+  <a href="/demos/tavola/admin/bookings/_q/status=seated/" class="tabs__tab">За столом<span class="tabs__n">6</span></a>
+  <a href="/demos/tavola/admin/bookings/_q/status=completed/" class="tabs__tab">Завершене</a>
+  <a href="/demos/tavola/admin/bookings/_q/status=no_show/" class="tabs__tab">Не прийшли</a>
+  <a href="/demos/tavola/admin/bookings/_q/status=cancelled/" class="tabs__tab">Скасоване</a>
+</nav>
+
+<section class="card card--flush">
+  <div class="table-scroll">
+  <table class="dt dt--cards">
+    <thead><tr><th scope="col">Коли</th><th scope="col">Гість</th><th scope="col">Гостей</th><th scope="col">Стіл</th><th scope="col">Джерело</th><th scope="col">Статус</th><th scope="col"><span class="sr-only">Дії</span></th></tr></thead>
+    <tbody>
+      <tr class="dt__group"><th colspan="7" scope="rowgroup">21 листопада, субота</th></tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>17:00</strong>–19:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1650/">Марія Лисенко</a>
+          <span class="dt__sub tnum">OX-3UP49 · +380 67 405 33 82</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1650/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1650/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1650/status/" data-confirm="Не прийшли: Марія Лисенко, 17:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1650/status/" data-confirm="Скасувати: Марія Лисенко, 17:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1650/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>17:30</strong>–19:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1640/">Дмитро Лисенко</a>
+          <span class="dt__sub tnum">OX-FYFZC · +380 67 637 06 08</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 2</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1640/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1640/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1640/status/" data-confirm="Не прийшли: Дмитро Лисенко, 17:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1640/status/" data-confirm="Скасувати: Дмитро Лисенко, 17:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1640/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>18:00</strong>–19:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1633/">Ярослав Кравець</a>
+          <span class="dt__sub tnum">OX-SNSR3 · +380 67 550 63 62</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>1</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 1</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1633/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1633/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1633/status/" data-confirm="Не прийшли: Ярослав Кравець, 18:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1633/status/" data-confirm="Скасувати: Ярослав Кравець, 18:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1633/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:00</strong>–21:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1648/">Катерина Бойко</a>
+          <span class="dt__sub tnum">OX-VJ2K4 · +380 67 435 80 11</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>3</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 5</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1648/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1648/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1648/status/" data-confirm="Не прийшли: Катерина Бойко, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1648/status/" data-confirm="Скасувати: Катерина Бойко, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1648/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:30</strong>–21:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1656/">Вікторія Зінченко</a>
+          <span class="dt__sub tnum">OX-ZCSQX · +380 67 430 32 03</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 1</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1656/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1656/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1656/status/" data-confirm="Не прийшли: Вікторія Зінченко, 19:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1656/status/" data-confirm="Скасувати: Вікторія Зінченко, 19:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1656/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>20:30</strong>–23:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1635/">Вікторія Левченко</a>
+          <span class="dt__sub tnum">OX-BBJUS · +380 67 951 64 44</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>8</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 7</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1635/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1635/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1635/status/" data-confirm="Не прийшли: Вікторія Левченко, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1635/status/" data-confirm="Скасувати: Вікторія Левченко, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1635/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>20:30</strong>–22:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1637/">Марія Мороз</a>
+          <span class="dt__sub tnum">OX-CG7KL · +380 67 708 15 03</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 2</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1637/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1637/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1637/status/" data-confirm="Не прийшли: Марія Мороз, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1637/status/" data-confirm="Скасувати: Марія Мороз, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1637/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>21:00</strong>–23:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1649/">Анна Петрук</a>
+          <span class="dt__sub tnum">OX-GX8FJ · +380 67 248 87 46</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>3</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1649/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1649/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1649/status/" data-confirm="Не прийшли: Анна Петрук, 21:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1649/status/" data-confirm="Скасувати: Анна Петрук, 21:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1649/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr class="dt__group"><th colspan="7" scope="rowgroup">22 листопада, неділя</th></tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>12:00</strong>–14:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1665/">Артем Кравець</a>
+          <span class="dt__sub tnum">OX-BG3EH · +380 67 559 04 99</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>8</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 7</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1665/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1665/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1665/status/" data-confirm="Не прийшли: Артем Кравець, 12:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1665/status/" data-confirm="Скасувати: Артем Кравець, 12:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1665/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>12:00</strong>–13:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1671/">Юлія Поліщук</a>
+          <span class="dt__sub tnum">OX-RYJ69 · +380 67 733 03 82</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 2</td>
+        <td data-cell="source">Телефон</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1671/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1671/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1671/status/" data-confirm="Не прийшли: Юлія Поліщук, 12:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1671/status/" data-confirm="Скасувати: Юлія Поліщук, 12:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1671/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>18:00</strong>–20:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1670/">Ярослав Олійник</a>
+          <span class="dt__sub tnum">OX-7X6RC · +380 67 170 48 74</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 4</td>
+        <td data-cell="source">Телефон</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1670/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1670/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1670/status/" data-confirm="Не прийшли: Ярослав Олійник, 18:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1670/status/" data-confirm="Скасувати: Ярослав Олійник, 18:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1670/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:00</strong>–21:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1667/">Олена Марченко</a>
+          <span class="dt__sub tnum">OX-MCAVZ · +380 67 465 29 00</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>3</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1667/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1667/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1667/status/" data-confirm="Не прийшли: Олена Марченко, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1667/status/" data-confirm="Скасувати: Олена Марченко, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1667/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr class="dt__group"><th colspan="7" scope="rowgroup">23 листопада, понеділок</th></tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>13:30</strong>–15:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1677/">Христина Поліщук</a>
+          <span class="dt__sub tnum">OX-U72GD · +380 67 279 93 54</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 1</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1677/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1677/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1677/status/" data-confirm="Не прийшли: Христина Поліщук, 13:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1677/status/" data-confirm="Скасувати: Христина Поліщук, 13:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1677/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>18:00</strong>–20:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1676/">Юлія Бондар</a>
+          <span class="dt__sub tnum">OX-J3Z3R · +380 67 370 23 05</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1676/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1676/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1676/status/" data-confirm="Не прийшли: Юлія Бондар, 18:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1676/status/" data-confirm="Скасувати: Юлія Бондар, 18:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1676/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:00</strong>–21:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1679/">Ярослав Бойко</a>
+          <span class="dt__sub tnum">OX-V4DJY · +380 67 269 15 29</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>3</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 4</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1679/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1679/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1679/status/" data-confirm="Не прийшли: Ярослав Бойко, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1679/status/" data-confirm="Скасувати: Ярослав Бойко, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1679/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:30</strong>–22:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1678/">Роман Шевчук</a>
+          <span class="dt__sub tnum">OX-VT2Y7 · +380 67 773 65 25</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>6</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 6</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1678/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1678/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1678/status/" data-confirm="Не прийшли: Роман Шевчук, 19:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1678/status/" data-confirm="Скасувати: Роман Шевчук, 19:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1678/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>20:30</strong>–22:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1680/">Святослав Бондар</a>
+          <span class="dt__sub tnum">OX-WMGC8 · +380 67 664 36 61</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 5</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1680/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1680/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1680/status/" data-confirm="Не прийшли: Святослав Бондар, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1680/status/" data-confirm="Скасувати: Святослав Бондар, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1680/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr class="dt__group"><th colspan="7" scope="rowgroup">24 листопада, вівторок</th></tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>18:30</strong>–20:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1683/">Святослав Бойко</a>
+          <span class="dt__sub tnum">OX-SEZGG · +380 67 156 08 99</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 2</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1683/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1683/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1683/status/" data-confirm="Не прийшли: Святослав Бойко, 18:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1683/status/" data-confirm="Скасувати: Святослав Бойко, 18:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1683/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>18:30</strong>–20:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1684/">Катерина Кравець</a>
+          <span class="dt__sub tnum">OX-95UHZ · +380 67 436 19 40</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ Т1</td>
+        <td data-cell="source">Телефон</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1684/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1684/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1684/status/" data-confirm="Не прийшли: Катерина Кравець, 18:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1684/status/" data-confirm="Скасувати: Катерина Кравець, 18:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1684/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>18:30</strong>–20:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1685/">Анна Савчук</a>
+          <span class="dt__sub tnum">OX-6DS8T · +380 67 670 81 29</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ Т2</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1685/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1685/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1685/status/" data-confirm="Не прийшли: Анна Савчук, 18:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1685/status/" data-confirm="Скасувати: Анна Савчук, 18:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1685/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:30</strong>–21:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1681/">Катерина Ткачук</a>
+          <span class="dt__sub tnum">OX-Q3J7G · +380 67 727 67 66</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 1</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1681/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1681/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1681/status/" data-confirm="Не прийшли: Катерина Ткачук, 19:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1681/status/" data-confirm="Скасувати: Катерина Ткачук, 19:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1681/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>20:00</strong>–22:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1686/">Софія Мороз</a>
+          <span class="dt__sub tnum">OX-86FLF · +380 67 268 74 55</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 4</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1686/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1686/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1686/status/" data-confirm="Не прийшли: Софія Мороз, 20:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1686/status/" data-confirm="Скасувати: Софія Мороз, 20:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1686/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>20:30</strong>–22:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1682/">Максим Ткачук</a>
+          <span class="dt__sub tnum">OX-F5QAH · +380 67 302 87 00</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1682/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1682/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1682/status/" data-confirm="Не прийшли: Максим Ткачук, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1682/status/" data-confirm="Скасувати: Максим Ткачук, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1682/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr class="dt__group"><th colspan="7" scope="rowgroup">25 листопада, середа</th></tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>13:30</strong>–15:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1690/">Тарас Руденко</a>
+          <span class="dt__sub tnum">OX-NTDHX · +380 67 171 66 98</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 1</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1690/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1690/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1690/status/" data-confirm="Не прийшли: Тарас Руденко, 13:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1690/status/" data-confirm="Скасувати: Тарас Руденко, 13:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1690/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>14:30</strong>–16:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1687/">Юлія Марченко</a>
+          <span class="dt__sub tnum">OX-QTAUU · +380 67 428 56 40</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1687/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1687/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1687/status/" data-confirm="Не прийшли: Юлія Марченко, 14:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1687/status/" data-confirm="Скасувати: Юлія Марченко, 14:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1687/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>18:00</strong>–20:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1691/">Олег Кравець</a>
+          <span class="dt__sub tnum">OX-RSSKK · +380 67 664 93 36</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1691/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1691/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1691/status/" data-confirm="Не прийшли: Олег Кравець, 18:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1691/status/" data-confirm="Скасувати: Олег Кравець, 18:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1691/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:00</strong>–20:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1688/">Ірина Мороз</a>
+          <span class="dt__sub tnum">OX-SSB3P · +380 67 141 64 33</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 1</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1688/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1688/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1688/status/" data-confirm="Не прийшли: Ірина Мороз, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1688/status/" data-confirm="Скасувати: Ірина Мороз, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1688/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:00</strong>–20:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1695/">Анна Мороз</a>
+          <span class="dt__sub tnum">OX-3Y9DE · +380 67 956 01 60</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ Т1</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1695/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1695/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1695/status/" data-confirm="Не прийшли: Анна Мороз, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1695/status/" data-confirm="Скасувати: Анна Мороз, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1695/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>20:30</strong>–23:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1693/">Віктор Петрук</a>
+          <span class="dt__sub tnum">OX-57QX6 · +380 67 145 32 43</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>8</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 7</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1693/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1693/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1693/status/" data-confirm="Не прийшли: Віктор Петрук, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1693/status/" data-confirm="Скасувати: Віктор Петрук, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1693/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr class="dt__group"><th colspan="7" scope="rowgroup">26 листопада, четвер</th></tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>16:30</strong>–18:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1697/">Ярослав Мороз</a>
+          <span class="dt__sub tnum">OX-VEGYH · +380 67 341 98 55</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1697/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1697/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1697/status/" data-confirm="Не прийшли: Ярослав Мороз, 16:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1697/status/" data-confirm="Скасувати: Ярослав Мороз, 16:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1697/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:00</strong>–20:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1699/">Богдан Петрук</a>
+          <span class="dt__sub tnum">OX-7W3QL · +380 67 375 13 38</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ Т1</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1699/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1699/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1699/status/" data-confirm="Не прийшли: Богдан Петрук, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1699/status/" data-confirm="Скасувати: Богдан Петрук, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1699/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr class="dt__group"><th colspan="7" scope="rowgroup">27 листопада, пʼятниця</th></tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>18:30</strong>–20:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1704/">Юлія Руденко</a>
+          <span class="dt__sub tnum">OX-VBB79 · +380 67 336 02 52</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>3</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1704/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1704/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1704/status/" data-confirm="Не прийшли: Юлія Руденко, 18:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1704/status/" data-confirm="Скасувати: Юлія Руденко, 18:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1704/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:00</strong>–20:30</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1700/">Христина Бондар</a>
+          <span class="dt__sub tnum">OX-LA4PS · +380 67 372 52 56</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 1</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1700/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1700/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1700/status/" data-confirm="Не прийшли: Христина Бондар, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1700/status/" data-confirm="Скасувати: Христина Бондар, 19:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1700/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>20:00</strong>–22:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1705/">Софія Кравець</a>
+          <span class="dt__sub tnum">OX-Z9DD3 · +380 67 409 11 38</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 4</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1705/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1705/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1705/status/" data-confirm="Не прийшли: Софія Кравець, 20:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1705/status/" data-confirm="Скасувати: Софія Кравець, 20:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1705/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr class="dt__group"><th colspan="7" scope="rowgroup">28 листопада, субота</th></tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>18:00</strong>–20:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1711/">Дмитро Коваль</a>
+          <span class="dt__sub tnum">OX-LDV9B · +380 67 826 10 54</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>4</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Телефон</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1711/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1711/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1711/status/" data-confirm="Не прийшли: Дмитро Коваль, 18:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1711/status/" data-confirm="Скасувати: Дмитро Коваль, 18:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1711/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>18:30</strong>–21:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1709/">Христина Гнатюк</a>
+          <span class="dt__sub tnum">OX-EFU4Q · +380 67 867 44 55</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>6</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 6</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1709/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1709/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1709/status/" data-confirm="Не прийшли: Христина Гнатюк, 18:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1709/status/" data-confirm="Скасувати: Христина Гнатюк, 18:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1709/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:30</strong>–22:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1708/">Оксана Ткачук</a>
+          <span class="dt__sub tnum">OX-AZL4Y · +380 67 141 10 31</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>7</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 7</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1708/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1708/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1708/status/" data-confirm="Не прийшли: Оксана Ткачук, 19:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1708/status/" data-confirm="Скасувати: Оксана Ткачук, 19:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1708/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>20:30</strong>–22:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1707/">Юлія Руденко</a>
+          <span class="dt__sub tnum">OX-257Y8 · +380 67 595 63 78</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>2</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 1</td>
+        <td data-cell="source">Телефон</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1707/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1707/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1707/status/" data-confirm="Не прийшли: Юлія Руденко, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1707/status/" data-confirm="Скасувати: Юлія Руденко, 20:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1707/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr class="dt__group"><th colspan="7" scope="rowgroup">29 листопада, неділя</th></tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>16:30</strong>–19:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1715/">Дмитро Поліщук</a>
+          <span class="dt__sub tnum">OX-75KDM · +380 67 319 40 70</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>6</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 6</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1715/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1715/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1715/status/" data-confirm="Не прийшли: Дмитро Поліщук, 16:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1715/status/" data-confirm="Скасувати: Дмитро Поліщук, 16:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1715/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>19:30</strong>–22:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1716/">Христина Петрук</a>
+          <span class="dt__sub tnum">OX-8QTCA · +380 67 129 98 49</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>6</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 8</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1716/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1716/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1716/status/" data-confirm="Не прийшли: Христина Петрук, 19:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1716/status/" data-confirm="Скасувати: Христина Петрук, 19:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1716/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr class="dt__group"><th colspan="7" scope="rowgroup">1 грудня, вівторок</th></tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>14:00</strong>–16:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1720/">Вікторія Зінченко</a>
+          <span class="dt__sub tnum">OX-K8SV9 · +380 67 300 38 96</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>3</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 3</td>
+        <td data-cell="source">Онлайн</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1720/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1720/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1720/status/" data-confirm="Не прийшли: Вікторія Зінченко, 14:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1720/status/" data-confirm="Скасувати: Вікторія Зінченко, 14:00?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1720/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+      <tr>
+        <td class="tnum dt__time" data-cell="time"><strong>17:30</strong>–20:00</td>
+        <td data-cell="who"><a class="dt__name" href="/demos/tavola/admin/bookings/1719/">Артем Савчук</a>
+          <span class="dt__sub tnum">OX-VS3YW · +380 67 539 50 33</span></td>
+        <td class="tnum" data-cell="guests"><span class="dt__lbl">Гостей: </span>5</td>
+        <td data-cell="table"><span class="dt__lbl">Стіл </span>№ 6</td>
+        <td data-cell="source">Телефон</td>
+        <td data-cell="status"><span class="status status--new">Нове</span></td>
+        <td class="dt__act" data-cell="act"><div class="acts">
+  <form method="post" action="/demos/tavola/admin/bookings/1719/status/">
+    <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+    <button class="btn btn--sm btn--ochre" name="status" value="confirmed">Підтвердити</button>
+  </form>
+  <details class="more">
+    <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Інші дії">⋯</summary>
+    <div class="more__menu">
+      <form method="post" action="/demos/tavola/admin/bookings/1719/status/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item" name="status" value="seated">Посадити</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1719/status/" data-confirm="Не прийшли: Артем Савчук, 17:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="no_show">Не прийшли</button>
+      </form>
+      <form method="post" action="/demos/tavola/admin/bookings/1719/status/" data-confirm="Скасувати: Артем Савчук, 17:30?">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="next" value="/admin/bookings?status=new&amp;amp;date=2026-11-21">
+        <button class="more__item more__item--danger" name="status" value="cancelled">Скасувати</button>
+      </form>
+      <a class="more__item" href="/demos/tavola/admin/bookings/1719/">Редагувати</a>
+    </div>
+  </details>
+</div>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+  </main>
+</div>
+<div class="tip" id="tip" role="tooltip" hidden></div>
+<script>window.demoPre&&demoPre()</script><script src="/demos/tavola/static/js/confirm.js"></script>
+<script src="/demos/tavola/static/js/admin.js"></script>
+</body>
+</html>

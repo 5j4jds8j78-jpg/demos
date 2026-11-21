@@ -1,0 +1,207 @@
+/* Tavola design tokens — shared by the public site and the admin panel.
+   Palette comes from the venue's materials: bottle-green glass, ochre plaster, brass, linen. */
+@font-face {
+  font-family: "Lora";
+  src: url("../fonts/Lora-Variable.woff") format("woff");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lora";
+  src: url("../fonts/Lora-Italic-Variable.woff") format("woff");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* bottle green */
+  --g-950: #0c1d18;
+  --g-900: #10251f;
+  --g-800: #17332b;
+  --g-700: #22473c;
+  --g-600: #2f5c4e;
+  --g-300: #9fb8ad;
+  --g-200: #c9d8d0;
+  --g-100: #e3ebe6;
+  --g-50:  #f1f5f2;
+  /* ochre */
+  --o-700: #8a5f17;
+  --o-600: #a8741f;
+  --o-500: #c8902e;
+  --o-400: #d9a94f;
+  --o-200: #eed9a8;
+  --o-100: #f7ecd2;
+  /* wine (errors, no-show) */
+  --w-700: #7d2433;
+  --w-500: #a8394b;
+  --w-100: #f6e3e6;
+
+  --paper: #f6f7f3;
+  --surface: #ffffff;
+  --ink: #12231d;
+  --ink-2: #3c4d46;
+  --ink-3: #66766f;
+  --line: #dde4df;
+  --line-2: #c8d3cc;
+
+  --serif: "Lora", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* type scale (1.25, base 16) */
+  --fs-xs: .75rem;
+  --fs-sm: .875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5625rem;
+  --fs-2xl: 1.953rem;
+  --fs-3xl: 2.441rem;
+  --fs-4xl: 3.052rem;
+  --fs-5xl: 3.815rem;
+
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 18px;
+  --r-xl: 28px;
+  --shadow-1: 0 1px 2px rgba(16, 37, 31, .06), 0 2px 8px rgba(16, 37, 31, .05);
+  --shadow-2: 0 10px 30px -12px rgba(16, 37, 31, .28);
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--o-500);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font: 400 var(--fs-md)/1.55 var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { max-width: 100%; }
+a { color: inherit; }
+a[href^="tel:"] { white-space: nowrap; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: var(--r-sm); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: var(--s-4); top: -60px; z-index: 100; background: var(--o-500); color: var(--g-950);
+  padding: var(--s-2) var(--s-4); border-radius: var(--r-md); font-weight: 600; text-decoration: none;
+}
+.skip-link:focus { top: var(--s-4); }
+.tnum { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* ---------- shared components ---------- */
+.btn {
+  --btn-bg: var(--g-800); --btn-fg: #fff; --btn-bd: var(--g-800);
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: 44px; padding: 0 var(--s-5); border-radius: 999px; border: 1.5px solid var(--btn-bd);
+  background: var(--btn-bg); color: var(--btn-fg); font-weight: 600; font-size: var(--fs-sm);
+  letter-spacing: .01em; text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease), color .2s;
+}
+.btn:hover { --btn-bg: var(--g-700); --btn-bd: var(--g-700); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled], .btn[aria-disabled="true"] { opacity: .45; cursor: not-allowed; transform: none; }
+.btn--ochre { --btn-bg: var(--o-500); --btn-bd: var(--o-500); --btn-fg: var(--g-950); }
+.btn--ochre:hover { --btn-bg: var(--o-400); --btn-bd: var(--o-400); }
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--ink); --btn-bd: var(--line-2); }
+.btn--ghost:hover { --btn-bg: var(--g-50); --btn-bd: var(--g-300); }
+.btn--light-ghost { --btn-bg: transparent; --btn-fg: #fff; --btn-bd: rgba(255, 255, 255, .35); }
+.btn--light-ghost:hover { --btn-bg: rgba(255, 255, 255, .08); --btn-bd: rgba(255, 255, 255, .6); }
+.btn--sm { min-height: 34px; padding: 0 var(--s-4); font-size: var(--fs-xs); }
+.btn--danger { --btn-bg: transparent; --btn-fg: var(--w-700); --btn-bd: #e3bcc3; }
+.btn--danger:hover { --btn-bg: var(--w-100); --btn-bd: var(--w-500); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+.field { display: grid; gap: 6px; }
+.field > span, .field > label { font-size: var(--fs-sm); font-weight: 600; color: var(--ink-2); }
+.field small { color: var(--ink-3); font-size: var(--fs-xs); }
+.input, .select, .textarea {
+  width: 100%; min-height: 46px; padding: 10px 14px; border: 1.5px solid var(--line-2); border-radius: var(--r-md);
+  background: var(--surface); transition: border-color .15s, box-shadow .15s;
+}
+.textarea { min-height: 92px; resize: vertical; }
+.input:hover, .select:hover, .textarea:hover { border-color: var(--g-300); }
+.input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--g-600); box-shadow: 0 0 0 3px var(--g-100); }
+.select { appearance: none; padding-right: 38px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2312231d' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; }
+
+.flash { display: flex; gap: var(--s-3); align-items: flex-start; padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-md); font-size: var(--fs-sm); border: 1px solid; }
+.flash svg { width: 18px; height: 18px; flex: none; margin-top: 2px; }
+.flash--error { background: var(--w-100); border-color: #ebc3ca; color: var(--w-700); }
+.flash--ok { background: var(--g-50); border-color: var(--g-200); color: var(--g-700); }
+
+.icon { width: 1em; height: 1em; display: inline-block; vertical-align: -.125em; fill: none; stroke: currentColor;
+  stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- floor plan (shared by booking, landing and admin editor) ---------- */
+.plan { display: block; width: 100%; height: auto; user-select: none; -webkit-user-select: none; }
+.plan .room-floor { fill: #fbfcfa; }
+.plan .wall { fill: none; stroke: var(--g-800); stroke-width: 6; stroke-linejoin: round; stroke-linecap: round; }
+.plan .wall-thin { fill: none; stroke: var(--g-800); stroke-width: 2; }
+.plan .window { stroke: #8fb4c4; stroke-width: 6; stroke-linecap: butt; }
+.plan .window-frame { stroke: #fff; stroke-width: 2; }
+.plan .terrace { fill: #eef3ec; stroke: var(--g-300); stroke-width: 2; stroke-dasharray: 2 7; stroke-linecap: round; }
+.plan .deck { stroke: #dfe8dc; stroke-width: 1.5; }
+.plan .hatch-area { fill: url(#hatch); stroke: none; }
+.plan .counter { fill: #e7d3ad; stroke: #b89558; stroke-width: 2; }
+.plan .stool { fill: #fff; stroke: #b89558; stroke-width: 1.5; }
+.plan .plant { fill: #b9cfb4; stroke: #86a47f; stroke-width: 1.5; }
+.plan .door { fill: none; stroke: var(--g-600); stroke-width: 1.5; stroke-dasharray: 3 4; }
+.plan .room-label { font: 600 13px var(--sans); fill: var(--ink-3); letter-spacing: .02em; }
+.plan .room-label--light { fill: #6b8278; }
+
+.plan .t { cursor: default; }
+.plan .t-body { fill: #fff; stroke: var(--g-700); stroke-width: 2; transition: fill .2s, stroke .2s; }
+.plan .t-chair { fill: var(--g-200); stroke: var(--g-600); stroke-width: 1.5; transition: fill .2s, stroke .2s; }
+.plan .t-sofa { fill: var(--g-200); stroke: var(--g-600); stroke-width: 1.5; }
+.plan .t-label { font: 600 17px var(--serif); fill: var(--ink); text-anchor: middle; pointer-events: none; }
+.plan .t-seats { font: 600 10.5px var(--sans); fill: var(--ink-3); text-anchor: middle; pointer-events: none; letter-spacing: .02em; }
+.plan .t-ring { fill: none; stroke: var(--o-500); stroke-width: 2.5; opacity: 0; }
+
+.plan .t--free { cursor: pointer; }
+.plan .t--free:hover .t-body, .plan .t--free:focus-visible .t-body { stroke: var(--o-600); stroke-width: 3; }
+.plan .t--free:hover .t-chair { fill: var(--o-100); stroke: var(--o-600); }
+.plan .t:focus { outline: none; }
+.plan .t:focus-visible .t-ring { opacity: 1; stroke: var(--g-900); stroke-dasharray: 4 4; }
+
+.plan .t--busy .t-body { fill: url(#busy-hatch); stroke: #b3bdb8; stroke-width: 1.5; }
+.plan .t--busy .t-chair, .plan .t--busy .t-sofa { fill: #e6eae7; stroke: #c2cbc6; }
+.plan .t--busy .t-label { fill: #8a9790; }
+.plan .t--busy .t-seats { fill: #8a9790; }
+
+.plan .t--small .t-body, .plan .t--large .t-body { fill: #f7f8f6; stroke: #c3ccc7; stroke-dasharray: 5 4; }
+.plan .t--small .t-chair, .plan .t--large .t-chair, .plan .t--small .t-sofa, .plan .t--large .t-sofa { fill: #f7f8f6; stroke: #cdd5d1; }
+.plan .t--small .t-label, .plan .t--large .t-label { fill: #9aa6a0; }
+
+.plan .t--recommended .t-ring { opacity: 1; stroke-width: 4; animation: ring 2.4s var(--ease) infinite; }
+.plan .t-badge { font: 700 10px var(--sans); fill: var(--o-700); text-anchor: middle; letter-spacing: .04em; pointer-events: none; }
+.plan .t-badge-bg { fill: var(--o-100); stroke: var(--o-500); stroke-width: 1.2; }
+.plan .t--selected .t-body { fill: var(--o-500); stroke: var(--o-700); stroke-width: 3; }
+.plan .t--selected .t-chair, .plan .t--selected .t-sofa { fill: var(--o-200); stroke: var(--o-700); }
+.plan .t--selected .t-label { fill: var(--g-950); }
+.plan .t--selected .t-seats { fill: var(--g-900); }
+.plan .t--selected .t-ring { opacity: 0; animation: none; }
+@keyframes ring { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+
+/* editor mode */
+.plan--editor .t { cursor: grab; }
+.plan--editor .t.is-dragging { cursor: grabbing; }
+.plan--editor .t--inactive { opacity: .38; }
+.plan--editor .t--editing .t-body { stroke: var(--o-600); stroke-width: 3.5; }
+.plan--editor .t--editing .t-ring { opacity: 1; stroke-dasharray: 4 4; stroke: var(--o-600); }

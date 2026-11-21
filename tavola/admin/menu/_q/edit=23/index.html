@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Меню — Tavola · Охра</title>
+  <link rel="icon" href="/demos/tavola/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/tavola/static/css/tokens.css">
+  <link rel="stylesheet" href="/demos/tavola/static/css/admin.css">
+<script src="/demos/tavola/_demo/demo-shim.js"></script>
+<script src="/demos/tavola/_demo/tavola-config.js"></script>
+<script src="/demos/tavola/_demo/tavola-shim.js"></script>
+</head>
+<body class="adm ">
+<a class="skip-link" href="#main">Перейти до змісту</a>
+<div class="adm-shell">
+  <aside class="adm-side">
+    <a class="adm-brand" href="/demos/tavola/admin/">
+      <svg class="adm-brand__mark" aria-hidden="true"><use href="/demos/tavola/static/img/icons.svg#logo"/></svg>
+      <span><strong>Tavola</strong><small>Охра, Львів</small></span>
+    </a>
+    <nav class="adm-nav" aria-label="Розділи адмінки">
+      <a href="/demos/tavola/admin/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#timeline"/></svg><span>Сьогодні</span></a>
+      <a href="/demos/tavola/admin/bookings/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#list"/></svg><span>Бронювання</span></a>
+      <a href="/demos/tavola/admin/floor/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#floor"/></svg><span>Схема залу</span></a>
+      <a href="/demos/tavola/admin/menu/" class="adm-nav__link is-active" aria-current="page"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#book"/></svg><span>Меню</span></a>
+      <a href="/demos/tavola/admin/stats/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#chart"/></svg><span>Статистика</span></a>
+      <a href="/demos/tavola/admin/qr/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#qr"/></svg><span>QR-меню</span></a>
+      <a href="/demos/tavola/admin/log/" class="adm-nav__link"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#shield"/></svg><span>Журнал</span></a>
+    </nav>
+    <div class="adm-side__foot">
+      <a class="adm-side__site" href="/demos/tavola/"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#door"/></svg>Відкрити сайт</a>
+      <form method="post" action="/demos/tavola/admin/logout/">
+        <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+        <button class="adm-side__logout" type="submit"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#logout"/></svg>Вийти<span>admin</span></button>
+      </form>
+    </div>
+  </aside>
+  <main class="adm-main" id="main">
+    <header class="adm-top">
+      <div class="adm-top__titles">
+        <h1 class="adm-top__title">Меню</h1>
+      </div>
+      <div class="adm-top__actions"><a class="btn btn--ghost" href="/demos/tavola/menu/" target="_blank" rel="noopener"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#book"/></svg>Як бачать гості</a>
+<a class="btn btn--ochre" href="/demos/tavola/admin/menu/#dish-form"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#plus"/></svg>Нова страва</a></div>
+    </header>
+    
+<div class="menu-grid">
+  <div class="menu-cats">
+    <section class="card card--flush" id="cat-1">
+      <div class="card__head">
+        <h2 class="card__title">Закуски <span class="muted">5</span></h2>
+        <details class="more">
+          <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Дії з категорією">⋯</summary>
+          <div class="more__menu more__menu--wide">
+            <form method="post" action="/demos/tavola/admin/menu/category/" class="inline-form">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="id" value="1">
+              <label class="sr-only" for="cn-1">Нова назва</label>
+              <input class="input input--sm" id="cn-1" name="name" value="Закуски" maxlength="40">
+              <button class="btn btn--sm">Перейменувати</button>
+            </form>
+            <form method="post" action="/demos/tavola/admin/menu/category/1/delete/" data-confirm="Видалити категорію «Закуски»?">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="more__item more__item--danger">Видалити категорію</button>
+            </form>
+          </div>
+        </details>
+      </div>
+      <ul class="dl">
+        <li class="dl__row" id="dish-1">
+          <div class="dl__main">
+            <p class="dl__name">Тартар з яловичини<span class="pill pill--ochre">На головній</span></p>
+            <p class="dl__meta">160 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-chef"/></svg>Вибір шефа</span><span class="dl__al">Алергени: яйця, глютен, гірчиця</span></p>
+          </div>
+          <span class="dl__price tnum">365 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/1/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=1/#dish-form" aria-label="Редагувати «Тартар з яловичини»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/1/delete/" data-confirm="Видалити «Тартар з яловичини» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Тартар з яловичини»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-2">
+          <div class="dl__main">
+            <p class="dl__name">Буррата з томатами<span class="pill pill--ochre">На головній</span></p>
+            <p class="dl__meta">220 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span><span class="dl__al">Алергени: молоко</span></p>
+          </div>
+          <span class="dl__price tnum">340 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/2/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=2/#dish-form" aria-label="Редагувати «Буррата з томатами»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/2/delete/" data-confirm="Видалити «Буррата з томатами» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Буррата з томатами»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-3">
+          <div class="dl__main">
+            <p class="dl__name">Паштет з курячої печінки</p>
+            <p class="dl__meta">150 г<span class="dl__al">Алергени: молоко, глютен, яйця</span></p>
+          </div>
+          <span class="dl__price tnum">215 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/3/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=3/#dish-form" aria-label="Редагувати «Паштет з курячої печінки»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/3/delete/" data-confirm="Видалити «Паштет з курячої печінки» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Паштет з курячої печінки»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-4">
+          <div class="dl__main">
+            <p class="dl__name">Хумус з печеним перцем</p>
+            <p class="dl__meta">200 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span><span class="dl__al">Алергени: кунжут, глютен</span></p>
+          </div>
+          <span class="dl__price tnum">185 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/4/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=4/#dish-form" aria-label="Редагувати «Хумус з печеним перцем»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/4/delete/" data-confirm="Видалити «Хумус з печеним перцем» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Хумус з печеним перцем»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-5">
+          <div class="dl__main">
+            <p class="dl__name">Устриці Fine de Claire</p>
+            <p class="dl__meta">1 шт<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-new"/></svg>Новинка</span><span class="dl__al">Алергени: молюски, глютен, молоко</span></p>
+          </div>
+          <span class="dl__price tnum">120 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/5/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=5/#dish-form" aria-label="Редагувати «Устриці Fine de Claire»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/5/delete/" data-confirm="Видалити «Устриці Fine de Claire» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Устриці Fine de Claire»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="card card--flush" id="cat-2">
+      <div class="card__head">
+        <h2 class="card__title">Салати <span class="muted">3</span></h2>
+        <details class="more">
+          <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Дії з категорією">⋯</summary>
+          <div class="more__menu more__menu--wide">
+            <form method="post" action="/demos/tavola/admin/menu/category/" class="inline-form">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="id" value="2">
+              <label class="sr-only" for="cn-2">Нова назва</label>
+              <input class="input input--sm" id="cn-2" name="name" value="Салати" maxlength="40">
+              <button class="btn btn--sm">Перейменувати</button>
+            </form>
+            <form method="post" action="/demos/tavola/admin/menu/category/2/delete/" data-confirm="Видалити категорію «Салати»?">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="more__item more__item--danger">Видалити категорію</button>
+            </form>
+          </div>
+        </details>
+      </div>
+      <ul class="dl">
+        <li class="dl__row" id="dish-6">
+          <div class="dl__main">
+            <p class="dl__name">Салат з печеним буряком<span class="pill pill--ochre">На головній</span></p>
+            <p class="dl__meta">230 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span><span class="dl__al">Алергени: молоко, горіхи</span></p>
+          </div>
+          <span class="dl__price tnum">245 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/6/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=6/#dish-form" aria-label="Редагувати «Салат з печеним буряком»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/6/delete/" data-confirm="Видалити «Салат з печеним буряком» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Салат з печеним буряком»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-7">
+          <div class="dl__main">
+            <p class="dl__name">Цезар з куркою су-від</p>
+            <p class="dl__meta">260 г<span class="dl__al">Алергени: яйця, глютен, молоко, риба</span></p>
+          </div>
+          <span class="dl__price tnum">285 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/7/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=7/#dish-form" aria-label="Редагувати «Цезар з куркою су-від»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/7/delete/" data-confirm="Видалити «Цезар з куркою су-від» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Цезар з куркою су-від»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-8">
+          <div class="dl__main">
+            <p class="dl__name">Теплий салат з телятиною</p>
+            <p class="dl__meta">240 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-spicy"/></svg>Гостре</span><span class="dl__al">Алергени: соя, кунжут, глютен</span></p>
+          </div>
+          <span class="dl__price tnum">315 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/8/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=8/#dish-form" aria-label="Редагувати «Теплий салат з телятиною»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/8/delete/" data-confirm="Видалити «Теплий салат з телятиною» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Теплий салат з телятиною»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="card card--flush" id="cat-3">
+      <div class="card__head">
+        <h2 class="card__title">Супи <span class="muted">3</span></h2>
+        <details class="more">
+          <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Дії з категорією">⋯</summary>
+          <div class="more__menu more__menu--wide">
+            <form method="post" action="/demos/tavola/admin/menu/category/" class="inline-form">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="id" value="3">
+              <label class="sr-only" for="cn-3">Нова назва</label>
+              <input class="input input--sm" id="cn-3" name="name" value="Супи" maxlength="40">
+              <button class="btn btn--sm">Перейменувати</button>
+            </form>
+            <form method="post" action="/demos/tavola/admin/menu/category/3/delete/" data-confirm="Видалити категорію «Супи»?">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="more__item more__item--danger">Видалити категорію</button>
+            </form>
+          </div>
+        </details>
+      </div>
+      <ul class="dl">
+        <li class="dl__row" id="dish-9">
+          <div class="dl__main">
+            <p class="dl__name">Борщ з качкою<span class="pill pill--ochre">На головній</span></p>
+            <p class="dl__meta">350 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-chef"/></svg>Вибір шефа</span><span class="dl__al">Алергени: молоко, глютен</span></p>
+          </div>
+          <span class="dl__price tnum">225 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/9/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=9/#dish-form" aria-label="Редагувати «Борщ з качкою»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/9/delete/" data-confirm="Видалити «Борщ з качкою» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Борщ з качкою»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-10">
+          <div class="dl__main">
+            <p class="dl__name">Крем-суп з печериць</p>
+            <p class="dl__meta">300 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span><span class="dl__al">Алергени: молоко, глютен</span></p>
+          </div>
+          <span class="dl__price tnum">195 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/10/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=10/#dish-form" aria-label="Редагувати «Крем-суп з печериць»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/10/delete/" data-confirm="Видалити «Крем-суп з печериць» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Крем-суп з печериць»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-11">
+          <div class="dl__main">
+            <p class="dl__name">Том ям з креветками</p>
+            <p class="dl__meta">350 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-spicy"/></svg>Гостре</span><span class="dl__al">Алергени: ракоподібні, риба, соя</span></p>
+          </div>
+          <span class="dl__price tnum">295 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/11/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=11/#dish-form" aria-label="Редагувати «Том ям з креветками»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/11/delete/" data-confirm="Видалити «Том ям з креветками» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Том ям з креветками»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="card card--flush" id="cat-4">
+      <div class="card__head">
+        <h2 class="card__title">Основні страви <span class="muted">5</span></h2>
+        <details class="more">
+          <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Дії з категорією">⋯</summary>
+          <div class="more__menu more__menu--wide">
+            <form method="post" action="/demos/tavola/admin/menu/category/" class="inline-form">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="id" value="4">
+              <label class="sr-only" for="cn-4">Нова назва</label>
+              <input class="input input--sm" id="cn-4" name="name" value="Основні страви" maxlength="40">
+              <button class="btn btn--sm">Перейменувати</button>
+            </form>
+            <form method="post" action="/demos/tavola/admin/menu/category/4/delete/" data-confirm="Видалити категорію «Основні страви»?">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="more__item more__item--danger">Видалити категорію</button>
+            </form>
+          </div>
+        </details>
+      </div>
+      <ul class="dl">
+        <li class="dl__row" id="dish-12">
+          <div class="dl__main">
+            <p class="dl__name">Качина ніжка конфі<span class="pill pill--ochre">На головній</span></p>
+            <p class="dl__meta">320 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-chef"/></svg>Вибір шефа</span><span class="dl__al">Алергени: молоко</span></p>
+          </div>
+          <span class="dl__price tnum">425 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/12/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=12/#dish-form" aria-label="Редагувати «Качина ніжка конфі»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/12/delete/" data-confirm="Видалити «Качина ніжка конфі» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Качина ніжка конфі»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-13">
+          <div class="dl__main">
+            <p class="dl__name">Стейк рібай Prime</p>
+            <p class="dl__meta">300/150 г<span class="dl__al">Алергени: молоко</span></p>
+          </div>
+          <span class="dl__price tnum">890 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/13/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=13/#dish-form" aria-label="Редагувати «Стейк рібай Prime»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/13/delete/" data-confirm="Видалити «Стейк рібай Prime» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Стейк рібай Prime»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-14">
+          <div class="dl__main">
+            <p class="dl__name">Філе судака<span class="pill pill--ochre">На головній</span></p>
+            <p class="dl__meta">300 г<span class="dl__al">Алергени: риба, молоко</span></p>
+          </div>
+          <span class="dl__price tnum">465 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/14/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=14/#dish-form" aria-label="Редагувати «Філе судака»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/14/delete/" data-confirm="Видалити «Філе судака» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Філе судака»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-15">
+          <div class="dl__main">
+            <p class="dl__name">Вареники з картоплею та грибами</p>
+            <p class="dl__meta">280 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span><span class="dl__al">Алергени: глютен, молоко, яйця</span></p>
+          </div>
+          <span class="dl__price tnum">235 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/15/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=15/#dish-form" aria-label="Редагувати «Вареники з картоплею та грибами»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/15/delete/" data-confirm="Видалити «Вареники з картоплею та грибами» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Вареники з картоплею та грибами»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-16">
+          <div class="dl__main">
+            <p class="dl__name">Свиняча щока BBQ</p>
+            <p class="dl__meta">330 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-spicy"/></svg>Гостре</span><span class="dl__al">Алергени: гірчиця, соя</span></p>
+          </div>
+          <span class="dl__price tnum">385 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/16/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=16/#dish-form" aria-label="Редагувати «Свиняча щока BBQ»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/16/delete/" data-confirm="Видалити «Свиняча щока BBQ» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Свиняча щока BBQ»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="card card--flush" id="cat-5">
+      <div class="card__head">
+        <h2 class="card__title">Паста та різото <span class="muted">3</span></h2>
+        <details class="more">
+          <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Дії з категорією">⋯</summary>
+          <div class="more__menu more__menu--wide">
+            <form method="post" action="/demos/tavola/admin/menu/category/" class="inline-form">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="id" value="5">
+              <label class="sr-only" for="cn-5">Нова назва</label>
+              <input class="input input--sm" id="cn-5" name="name" value="Паста та різото" maxlength="40">
+              <button class="btn btn--sm">Перейменувати</button>
+            </form>
+            <form method="post" action="/demos/tavola/admin/menu/category/5/delete/" data-confirm="Видалити категорію «Паста та різото»?">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="more__item more__item--danger">Видалити категорію</button>
+            </form>
+          </div>
+        </details>
+      </div>
+      <ul class="dl">
+        <li class="dl__row" id="dish-17">
+          <div class="dl__main">
+            <p class="dl__name">Паста з білими грибами</p>
+            <p class="dl__meta">300 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span><span class="dl__al">Алергени: глютен, яйця, молоко</span></p>
+          </div>
+          <span class="dl__price tnum">335 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/17/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=17/#dish-form" aria-label="Редагувати «Паста з білими грибами»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/17/delete/" data-confirm="Видалити «Паста з білими грибами» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Паста з білими грибами»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-18">
+          <div class="dl__main">
+            <p class="dl__name">Різото з морепродуктами</p>
+            <p class="dl__meta">320 г<span class="dl__al">Алергени: ракоподібні, молюски, молоко</span></p>
+          </div>
+          <span class="dl__price tnum">445 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/18/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=18/#dish-form" aria-label="Редагувати «Різото з морепродуктами»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/18/delete/" data-confirm="Видалити «Різото з морепродуктами» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Різото з морепродуктами»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-19">
+          <div class="dl__main">
+            <p class="dl__name">Карбонара класична</p>
+            <p class="dl__meta">280 г<span class="dl__al">Алергени: глютен, яйця, молоко</span></p>
+          </div>
+          <span class="dl__price tnum">295 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/19/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=19/#dish-form" aria-label="Редагувати «Карбонара класична»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/19/delete/" data-confirm="Видалити «Карбонара класична» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Карбонара класична»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="card card--flush" id="cat-6">
+      <div class="card__head">
+        <h2 class="card__title">Десерти <span class="muted">3</span></h2>
+        <details class="more">
+          <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Дії з категорією">⋯</summary>
+          <div class="more__menu more__menu--wide">
+            <form method="post" action="/demos/tavola/admin/menu/category/" class="inline-form">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="id" value="6">
+              <label class="sr-only" for="cn-6">Нова назва</label>
+              <input class="input input--sm" id="cn-6" name="name" value="Десерти" maxlength="40">
+              <button class="btn btn--sm">Перейменувати</button>
+            </form>
+            <form method="post" action="/demos/tavola/admin/menu/category/6/delete/" data-confirm="Видалити категорію «Десерти»?">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="more__item more__item--danger">Видалити категорію</button>
+            </form>
+          </div>
+        </details>
+      </div>
+      <ul class="dl">
+        <li class="dl__row" id="dish-20">
+          <div class="dl__main">
+            <p class="dl__name">Баскський чізкейк<span class="pill pill--ochre">На головній</span></p>
+            <p class="dl__meta">150 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-chef"/></svg>Вибір шефа</span><span class="dl__al">Алергени: молоко, яйця, глютен</span></p>
+          </div>
+          <span class="dl__price tnum">175 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/20/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=20/#dish-form" aria-label="Редагувати «Баскський чізкейк»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/20/delete/" data-confirm="Видалити «Баскський чізкейк» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Баскський чізкейк»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-21">
+          <div class="dl__main">
+            <p class="dl__name">Шоколадний фондан</p>
+            <p class="dl__meta">160 г<span class="dl__al">Алергени: молоко, яйця, глютен</span></p>
+          </div>
+          <span class="dl__price tnum">195 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/21/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=21/#dish-form" aria-label="Редагувати «Шоколадний фондан»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/21/delete/" data-confirm="Видалити «Шоколадний фондан» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Шоколадний фондан»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-22">
+          <div class="dl__main">
+            <p class="dl__name">Сорбет з обліпихи</p>
+            <p class="dl__meta">120 г<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span><span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-new"/></svg>Новинка</span></p>
+          </div>
+          <span class="dl__price tnum">125 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/22/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=22/#dish-form" aria-label="Редагувати «Сорбет з обліпихи»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/22/delete/" data-confirm="Видалити «Сорбет з обліпихи» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Сорбет з обліпихи»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="card card--flush" id="cat-7">
+      <div class="card__head">
+        <h2 class="card__title">Напої <span class="muted">4</span></h2>
+        <details class="more">
+          <summary class="btn btn--ghost btn--sm btn--icon" aria-label="Дії з категорією">⋯</summary>
+          <div class="more__menu more__menu--wide">
+            <form method="post" action="/demos/tavola/admin/menu/category/" class="inline-form">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo"><input type="hidden" name="id" value="7">
+              <label class="sr-only" for="cn-7">Нова назва</label>
+              <input class="input input--sm" id="cn-7" name="name" value="Напої" maxlength="40">
+              <button class="btn btn--sm">Перейменувати</button>
+            </form>
+            <form method="post" action="/demos/tavola/admin/menu/category/7/delete/" data-confirm="Видалити категорію «Напої»?">
+              <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="more__item more__item--danger">Видалити категорію</button>
+            </form>
+          </div>
+        </details>
+      </div>
+      <ul class="dl">
+        <li class="dl__row is-edit" id="dish-23">
+          <div class="dl__main">
+            <p class="dl__name">Лимонад обліпиха-розмарин</p>
+            <p class="dl__meta">400 мл<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span></p>
+          </div>
+          <span class="dl__price tnum">95 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/23/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=23/#dish-form" aria-label="Редагувати «Лимонад обліпиха-розмарин»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/23/delete/" data-confirm="Видалити «Лимонад обліпиха-розмарин» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Лимонад обліпиха-розмарин»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-24">
+          <div class="dl__main">
+            <p class="dl__name">Еспресо</p>
+            <p class="dl__meta">30 мл<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span></p>
+          </div>
+          <span class="dl__price tnum">55 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/24/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=24/#dish-form" aria-label="Редагувати «Еспресо»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/24/delete/" data-confirm="Видалити «Еспресо» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Еспресо»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-25">
+          <div class="dl__main">
+            <p class="dl__name">Капучино на вівсяному</p>
+            <p class="dl__meta">250 мл<span class="dl__tag"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span><span class="dl__al">Алергени: глютен</span></p>
+          </div>
+          <span class="dl__price tnum">85 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/25/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=25/#dish-form" aria-label="Редагувати «Капучино на вівсяному»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/25/delete/" data-confirm="Видалити «Капучино на вівсяному» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Капучино на вівсяному»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+        <li class="dl__row" id="dish-26">
+          <div class="dl__main">
+            <p class="dl__name">Вино дня — біле / червоне</p>
+            <p class="dl__meta">150 мл</p>
+          </div>
+          <span class="dl__price tnum">140 ₴</span>
+          <div class="dl__act">
+            <form method="post" action="/demos/tavola/admin/menu/dish/26/toggle/"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm" title="Тимчасово прибрати з меню гостей">У стоп-лист</button></form>
+            <a class="btn btn--ghost btn--sm btn--icon" href="/demos/tavola/admin/menu/_q/edit=26/#dish-form" aria-label="Редагувати «Вино дня — біле / червоне»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#edit"/></svg></a>
+            <form method="post" action="/demos/tavola/admin/menu/dish/26/delete/" data-confirm="Видалити «Вино дня — біле / червоне» з меню?"><input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+              <button class="btn btn--ghost btn--sm btn--icon btn--danger-ghost" aria-label="Видалити «Вино дня — біле / червоне»"><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#trash"/></svg></button></form>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <aside class="menu-side">
+    <form class="card dish-form" id="dish-form" method="post" action="/demos/tavola/admin/menu/dish/">
+      <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+<input type="hidden" name="id" value="23">      <h2 class="card__title">Редагувати страву</h2>
+      <label class="field"><span>Назва</span><input class="input" name="name" required maxlength="80" value="Лимонад обліпиха-розмарин"></label>
+      <label class="field"><span>Опис</span><textarea class="textarea" name="description" maxlength="240" rows="2">Власного приготування</textarea></label>
+      <div class="form-grid">
+        <label class="field"><span>Ціна, ₴</span><input class="input" name="price" type="number" min="0" max="100000" required value="95"></label>
+        <label class="field"><span>Вага / обʼєм</span><input class="input" name="weight" maxlength="30" value="400 мл" placeholder="250 г"></label>
+      </div>
+      <label class="field"><span>Категорія</span><select class="select" name="category_id"><option value="1">Закуски</option><option value="2">Салати</option><option value="3">Супи</option><option value="4">Основні страви</option><option value="5">Паста та різото</option><option value="6">Десерти</option><option value="7" selected>Напої</option></select></label>
+      <fieldset class="checks"><legend>Алергени</legend>
+<label class="tick"><input type="checkbox" name="allergens" value="gluten"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-gluten"/></svg>Глютен</span></label><label class="tick"><input type="checkbox" name="allergens" value="milk"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-milk"/></svg>Молоко</span></label><label class="tick"><input type="checkbox" name="allergens" value="egg"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-egg"/></svg>Яйця</span></label><label class="tick"><input type="checkbox" name="allergens" value="nuts"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-nuts"/></svg>Горіхи</span></label><label class="tick"><input type="checkbox" name="allergens" value="fish"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-fish"/></svg>Риба</span></label><label class="tick"><input type="checkbox" name="allergens" value="shellfish"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-shellfish"/></svg>Ракоподібні</span></label><label class="tick"><input type="checkbox" name="allergens" value="molluscs"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-molluscs"/></svg>Молюски</span></label><label class="tick"><input type="checkbox" name="allergens" value="soy"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-soy"/></svg>Соя</span></label><label class="tick"><input type="checkbox" name="allergens" value="sesame"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-sesame"/></svg>Кунжут</span></label><label class="tick"><input type="checkbox" name="allergens" value="mustard"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#al-mustard"/></svg>Гірчиця</span></label>      </fieldset>
+      <fieldset class="checks"><legend>Позначки</legend>
+<label class="tick"><input type="checkbox" name="tags" value="veg" checked><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-veg"/></svg>Вегетаріанське</span></label><label class="tick"><input type="checkbox" name="tags" value="spicy"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-spicy"/></svg>Гостре</span></label><label class="tick"><input type="checkbox" name="tags" value="chef"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-chef"/></svg>Вибір шефа</span></label><label class="tick"><input type="checkbox" name="tags" value="new"><span><svg class="icon " aria-hidden="true" focusable="false"><use href="/demos/tavola/static/img/icons.svg#tag-new"/></svg>Новинка</span></label>      </fieldset>
+      <label class="switch"><input type="checkbox" name="available" value="1" checked><span>Є в наявності</span></label>
+      <label class="switch"><input type="checkbox" name="featured" value="1"><span>Показувати на головній</span></label>
+      <div class="form-actions">
+<a class="btn btn--ghost" href="/demos/tavola/admin/menu/">Скасувати</a>        <button class="btn" type="submit">Зберегти</button>
+      </div>
+    </form>
+    <form class="card" method="post" action="/demos/tavola/admin/menu/category/">
+      <input type="hidden" name="_csrf" value="oees22_tLf_H_KANfXHblUCyYkut4VCQJWI8q2Spjxo">
+      <h2 class="card__title">Нова категорія</h2>
+      <div class="inline-form"><label class="sr-only" for="newcat">Назва категорії</label>
+        <input class="input" id="newcat" name="name" maxlength="40" placeholder="Напр., Сніданки" required>
+        <button class="btn btn--ghost">Додати</button></div>
+    </form>
+  </aside>
+</div>
+  </main>
+</div>
+<div class="tip" id="tip" role="tooltip" hidden></div>
+<script>window.demoPre&&demoPre()</script><script src="/demos/tavola/static/js/confirm.js"></script>
+<script src="/demos/tavola/static/js/admin.js"></script>
+</body>
+</html>
