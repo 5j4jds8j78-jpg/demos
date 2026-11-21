@@ -1,6 +1,7 @@
 (function () {
   const BASE = "/demos/zharivnia";
   let n = 0; try { n = +sessionStorage.getItem("shopDemoCount") || 0; } catch (_) {}
+  document.addEventListener("DOMContentLoaded", () => { const c = document.querySelector(".js-count"); if (!sessionStorage.getItem("shopDemoCount") && c) n = +c.textContent || 0; });
   window.demoFetch = (u, init) => {
     if (!/\/cart\/add\/?$/.test(u.pathname)) return null;
     n += 1; try { sessionStorage.setItem("shopDemoCount", n); } catch (_) {}
