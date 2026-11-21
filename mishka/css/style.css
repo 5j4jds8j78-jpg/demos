@@ -294,7 +294,7 @@ p { margin: 0; }
 .menu-cat__head { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 12px 40px; padding-bottom: 22px; margin-bottom: 8px; border-bottom: 1.5px solid var(--espresso); }
 .menu-cat__head h2 { font-size: clamp(34px, 4vw, 52px); font-variation-settings: "opsz" 60; }
 .menu-cat__head p { color: var(--muted); font-size: 16px; max-width: 30em; justify-self: end; }
-@media (max-width: 760px) { .menu-cat__head { grid-template-columns: 1fr; } .menu-cat__head p { justify-self: start; } }
+@media (max-width: 960px) { .menu-cat__head { grid-template-columns: 1fr; } .menu-cat__head p { justify-self: start; } }
 .menu-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 5vw, 80px); }
 .item { display: grid; grid-template-columns: 124px minmax(0, 1fr); gap: 22px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line); }
 .item__img { width: 124px; height: 124px; border-radius: 24px; overflow: hidden; background: #e2d3bb; }
