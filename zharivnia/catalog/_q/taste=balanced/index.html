@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Каталог кави та обладнання — Жарівня</title>
+  <meta name="description" content="Обсмажувальня спешелті-кави у Вінниці. Обсмажуємо двічі на тиждень і відправляємо Новою Поштою в день обсмажки.">
+  <meta name="theme-color" content="#2A2420">
+  <link rel="icon" href="/demos/zharivnia/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/demos/zharivnia/static/fonts/Lora-Variable.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="/demos/zharivnia/static/fonts/Inter-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/style.css">
+<script src="/demos/zharivnia/_demo/demo-shim.js"></script>
+<script src="/demos/zharivnia/_demo/shop-config.js"></script>
+<script src="/demos/zharivnia/_demo/shop-shim.js"></script>
+</head>
+<body class="page-catalog">
+<a class="skip" href="#main">Перейти до змісту</a>
+<div class="announce" role="region" aria-label="Оголошення">
+  <ul class="announce-track js-rotate">
+    <li class="is-on">Безкоштовна доставка Новою Поштою від 1 000 ₴</li>
+    <li>Обсмажуємо щовівторка й щоп'ятниці, відправляємо в той же день</li>
+    <li>Замовлення до 12:00 обсмажимо й відправимо найближчим рейсом</li>
+  </ul>
+</div>
+<header class="site-head">
+  <div class="wrap head-row">
+    <details class="mnav">
+      <summary aria-label="Меню"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#menu"></use></svg></summary>
+      <nav class="mnav-panel" aria-label="Мобільне меню">
+        <a href="/demos/zharivnia/catalog/_q/cat=beans/">Кава в зернах</a>
+        <a href="/demos/zharivnia/catalog/_q/cat=drip/">Дріп-пакети</a>
+        <a href="/demos/zharivnia/catalog/_q/cat=gear/">Обладнання</a>
+        <a href="/demos/zharivnia/#story">Про нас</a>
+        <a href="/demos/zharivnia/#delivery">Доставка й оплата</a>
+        <form action="/demos/zharivnia/catalog/" role="search"><input type="search" name="q" placeholder="Пошук кави…" aria-label="Пошук"></form>
+      </nav>
+    </details>
+    <a class="brand" href="/demos/zharivnia/" aria-label="Жарівня, на головну">
+      <span class="brand-word">жарівня</span>
+      <span class="brand-sub">обсмажувальня кави · з 2019</span>
+    </a>
+    <nav class="main-nav" aria-label="Основне меню">
+      <a href="/demos/zharivnia/catalog/_q/cat=beans/" >Кава</a>
+      <a href="/demos/zharivnia/catalog/_q/cat=drip/" >Дріп-пакети</a>
+      <a href="/demos/zharivnia/catalog/_q/cat=gear/" >Обладнання</a>
+      <a href="/demos/zharivnia/#story">Про нас</a>
+      <a href="/demos/zharivnia/#delivery">Доставка й оплата</a>
+    </nav>
+    <form class="head-search" action="/demos/zharivnia/catalog/" role="search">
+      <svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#search"></use></svg>
+      <input type="search" name="q" placeholder="Пошук кави…" aria-label="Пошук кави" value="">
+    </form>
+    <a class="head-cart" href="/demos/zharivnia/cart/" aria-label="Кошик, товарів: 2">
+      <svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#cart"></use></svg><span class="head-cart-label">Кошик</span>
+      <span class="cart-count js-count">2</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+  
+  
+<div class="wrap">
+  <nav class="crumbs" aria-label="Хлібні крихти"><a href="/demos/zharivnia/">Головна</a><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chev"></use></svg><span>Каталог</span></nav>
+  <div class="cat-head">
+    <h1>Збалансована кава</h1>
+    <p class="cat-lead">Обсмажено 20.11. Відправимо у вівторок, 24.11.</p>
+  </div>
+  <div class="tabs" role="list">
+    <a role="listitem" href="/demos/zharivnia/catalog/" class="tab is-on">Усе</a>
+    
+    <a role="listitem" href="/demos/zharivnia/catalog/_q/cat=beans/" class="tab">Зерно</a>
+    
+    <a role="listitem" href="/demos/zharivnia/catalog/_q/cat=drip/" class="tab">Дріп-пакети</a>
+    
+    <a role="listitem" href="/demos/zharivnia/catalog/_q/cat=gear/" class="tab">Обладнання</a>
+    
+  </div>
+
+  <div class="catalog">
+    <form class="filters js-filters" method="get" action="/demos/zharivnia/catalog/" aria-label="Фільтри">
+      
+      <input type="hidden" name="taste" value="balanced">
+      <details class="filters-toggle" open>
+        <summary>Фільтри <svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chevdown"></use></svg></summary>
+        <div class="filters-body">
+          <label class="f-search"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#search"></use></svg><span class="sr-only">Пошук</span>
+            <input type="search" name="q" value="" placeholder="Країна, назва, смак"></label>
+          
+          <fieldset><legend>Обсмажка</legend>
+            
+            <label class="check"><input type="checkbox" name="roast" value="light" ><span class="box"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#check"></use></svg></span>Світла <small>для фільтра</small></label>
+            
+            <label class="check"><input type="checkbox" name="roast" value="medium" ><span class="box"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#check"></use></svg></span>Середня <small>універсальна</small></label>
+            
+            <label class="check"><input type="checkbox" name="roast" value="dark" ><span class="box"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#check"></use></svg></span>Темна <small>для еспресо й молока</small></label>
+            
+          </fieldset>
+          <fieldset><legend>Обробка</legend>
+            
+            <label class="check"><input type="checkbox" name="process" value="washed" ><span class="box"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#check"></use></svg></span>Мита</label>
+            
+            <label class="check"><input type="checkbox" name="process" value="natural" ><span class="box"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#check"></use></svg></span>Натуральна</label>
+            
+            <label class="check"><input type="checkbox" name="process" value="honey" ><span class="box"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#check"></use></svg></span>Хані</label>
+            
+            <label class="check"><input type="checkbox" name="process" value="anaerobic" ><span class="box"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#check"></use></svg></span>Анаеробна</label>
+            
+          </fieldset>
+          
+          <fieldset><legend>Ціна, ₴</legend>
+            <div class="range">
+              <label><span class="sr-only">Від</span><input type="number" inputmode="numeric" name="min" min="0" value="" placeholder="від 330"></label>
+              <span aria-hidden="true">—</span>
+              <label><span class="sr-only">До</span><input type="number" inputmode="numeric" name="max" min="0" value="" placeholder="до 2890"></label>
+            </div>
+          </fieldset>
+          <div class="filters-actions">
+            <button class="btn btn-dark btn-block" type="submit">Показати</button>
+            <a class="link-reset" href="/demos/zharivnia/catalog/">Скинути фільтри</a>
+          </div>
+        </div>
+      </details>
+    </form>
+
+    <section class="results" aria-label="Товари">
+      <div class="results-bar">
+        <p class="found">Знайдено: <b>4</b> товари</p>
+        <form method="get" class="sort js-sort">
+          <input type="hidden" name="taste" value="balanced">
+          
+          
+          <label for="sort">Сортування</label>
+          <select id="sort" name="sort"><option value="popular" selected>Спершу популярні</option><option value="price_asc" >Спершу дешевші</option><option value="price_desc" >Спершу дорожчі</option><option value="new" >Новинки</option></select>
+          <noscript><button class="btn btn-sm">OK</button></noscript>
+        </form>
+      </div>
+      
+      <ul class="chips-active">
+        <li>Збалансована</li>
+        
+        
+        
+        
+        
+      </ul>
+      
+      
+      <div class="grid-cards grid-3"><article class="card">
+  <a class="card-media" href="/demos/zharivnia/p/colombia-huila/" tabindex="-1" aria-hidden="true">
+    
+<img class="card-img" src="/demos/zharivnia/static/img/products3d/colombia-huila-1.webp" alt=""
+     width="800" height="1000">
+    <span class="badge badge-hit">Хіт</span>
+
+  </a>
+  <div class="card-body">
+    <div class="card-meta">
+      <span>Колумбія · мита</span>
+      
+<span class="roast" title="Обсмажка 3 з 5">
+  <span class="roast-dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span>
+  <span class="sr-only">Обсмажка 3 з 5</span>
+</span>
+
+    </div>
+    <h3 class="card-title"><a href="/demos/zharivnia/p/colombia-huila/">Колумбія Уїла</a></h3>
+    <p class="card-notes">Карамель, червоне яблуко, фундук</p>
+    <div class="card-foot">
+      <div class="price">
+        <small>від</small> <b>410 ₴</b>
+        
+        <small class="per">/ 250 г</small>
+      </div>
+      
+      <form method="post" action="/demos/zharivnia/cart/add/" class="js-add">
+        <input type="hidden" name="_csrf" value="x">
+        <input type="hidden" name="product_id" value="4">
+        <input type="hidden" name="variant" value="250">
+        <button class="btn-add" type="submit" aria-label="Додати «Колумбія Уїла» у кошик"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#cart"></use></svg><span>У кошик</span></button>
+      </form>
+      
+    </div>
+    <p class="card-roasted">Обсмажено 20.11</p>
+  </div>
+</article><article class="card">
+  <a class="card-media" href="/demos/zharivnia/p/drip-colombia/" tabindex="-1" aria-hidden="true">
+    
+<img class="card-img" src="/demos/zharivnia/static/img/products/drip-colombia-1.svg" alt=""
+     width="800" height="1000">
+    
+  </a>
+  <div class="card-body">
+    <div class="card-meta">
+      <span>Колумбія · мита</span>
+      
+<span class="roast" title="Обсмажка 3 з 5">
+  <span class="roast-dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span>
+  <span class="sr-only">Обсмажка 3 з 5</span>
+</span>
+
+    </div>
+    <h3 class="card-title"><a href="/demos/zharivnia/p/drip-colombia/">Дріп-пакети Колумбія</a></h3>
+    <p class="card-notes">Карамель, яблуко, горіх</p>
+    <div class="card-foot">
+      <div class="price">
+        <small>від</small> <b>450 ₴</b>
+        
+        <small class="per">/ 10 шт</small>
+      </div>
+      
+      <form method="post" action="/demos/zharivnia/cart/add/" class="js-add">
+        <input type="hidden" name="_csrf" value="x">
+        <input type="hidden" name="product_id" value="12">
+        <input type="hidden" name="variant" value="10">
+        <button class="btn-add" type="submit" aria-label="Додати «Дріп-пакети Колумбія» у кошик"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#cart"></use></svg><span>У кошик</span></button>
+      </form>
+      
+    </div>
+    <p class="card-roasted">Обсмажено 20.11</p>
+  </div>
+</article><article class="card">
+  <a class="card-media" href="/demos/zharivnia/p/guatemala-antigua/" tabindex="-1" aria-hidden="true">
+    
+<img class="card-img" src="/demos/zharivnia/static/img/products/guatemala-antigua-1.svg" alt=""
+     width="800" height="1000">
+    
+  </a>
+  <div class="card-body">
+    <div class="card-meta">
+      <span>Гватемала · мита</span>
+      
+<span class="roast" title="Обсмажка 3 з 5">
+  <span class="roast-dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span>
+  <span class="sr-only">Обсмажка 3 з 5</span>
+</span>
+
+    </div>
+    <h3 class="card-title"><a href="/demos/zharivnia/p/guatemala-antigua/">Гватемала Антигуа</a></h3>
+    <p class="card-notes">Какао, апельсин, тростинний цукор</p>
+    <div class="card-foot">
+      <div class="price">
+        <small>від</small> <b>420 ₴</b>
+        
+        <small class="per">/ 250 г</small>
+      </div>
+      
+      <form method="post" action="/demos/zharivnia/cart/add/" class="js-add">
+        <input type="hidden" name="_csrf" value="x">
+        <input type="hidden" name="product_id" value="6">
+        <input type="hidden" name="variant" value="250">
+        <button class="btn-add" type="submit" aria-label="Додати «Гватемала Антигуа» у кошик"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#cart"></use></svg><span>У кошик</span></button>
+      </form>
+      
+    </div>
+    <p class="card-roasted">Обсмажено 20.11</p>
+  </div>
+</article><article class="card">
+  <a class="card-media" href="/demos/zharivnia/p/costa-rica-tarrazu-honey/" tabindex="-1" aria-hidden="true">
+    
+<img class="card-img" src="/demos/zharivnia/static/img/products/costa-rica-tarrazu-honey-1.svg" alt=""
+     width="800" height="1000" loading="lazy" decoding="async">
+    <span class="badge badge-low">Закінчується</span>
+
+  </a>
+  <div class="card-body">
+    <div class="card-meta">
+      <span>Коста-Рика · хані</span>
+      
+<span class="roast" title="Обсмажка 2 з 5">
+  <span class="roast-dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span>
+  <span class="sr-only">Обсмажка 2 з 5</span>
+</span>
+
+    </div>
+    <h3 class="card-title"><a href="/demos/zharivnia/p/costa-rica-tarrazu-honey/">Коста-Рика Тарразу Хані</a></h3>
+    <p class="card-notes">Мед, абрикос, мигдаль</p>
+    <div class="card-foot">
+      <div class="price">
+        <small>від</small> <b>480 ₴</b>
+        
+        <small class="per">/ 250 г</small>
+      </div>
+      
+      <form method="post" action="/demos/zharivnia/cart/add/" class="js-add">
+        <input type="hidden" name="_csrf" value="x">
+        <input type="hidden" name="product_id" value="7">
+        <input type="hidden" name="variant" value="250">
+        <button class="btn-add" type="submit" aria-label="Додати «Коста-Рика Тарразу Хані» у кошик"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#cart"></use></svg><span>У кошик</span></button>
+      </form>
+      
+    </div>
+    <p class="card-roasted">Обсмажено 20.11</p>
+  </div>
+</article></div>
+      
+    </section>
+  </div>
+</div>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <span class="brand-word">жарівня</span>
+      <p>Обсмажувальня спешелті-кави. Вінниця, з 2019.</p>
+      <form class="news js-demo-form" action="#" data-done="Дякуємо! Перший лист уже скоро.">
+        <label for="news-email">Нові лоти й рецепти раз на місяць. Без спаму.</label>
+        <div class="news-row">
+          <input id="news-email" type="email" placeholder="Ваш email" autocomplete="email" required>
+          <button class="btn btn-light" type="submit">Підписатися</button>
+        </div>
+      </form>
+    </div>
+    <nav aria-label="Магазин"><h2>Магазин</h2>
+      <a href="/demos/zharivnia/catalog/_q/cat=beans/">Кава в зернах</a>
+      <a href="/demos/zharivnia/catalog/_q/cat=drip/">Дріп-пакети</a>
+      <a href="/demos/zharivnia/catalog/_q/cat=gear/">Обладнання</a>
+      <a href="/demos/zharivnia/p/colombia-anaerobic-pink-bourbon/">Лот місяця</a>
+    </nav>
+    <nav aria-label="Допомога"><h2>Допомога</h2>
+      <a href="/demos/zharivnia/#delivery">Доставка й оплата</a>
+      <a href="/demos/zharivnia/#delivery">Повернення</a>
+      <a href="/demos/zharivnia/#faq">Часті запитання</a>
+      <a href="mailto:hello@zharivnia.example">hello@zharivnia.example</a>
+    </nav>
+    <div><h2>Контакти</h2>
+      <p class="foot-contact">Вінниця, Старе місто<br>Пн–Пт 9:00–18:00<br><a href="mailto:hello@zharivnia.example">hello@zharivnia.example</a></p>
+      <p class="foot-pay"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#cash"></use></svg> Оплата при отриманні · Visa / Mastercard</p>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Жарівня</span>
+    <span>Демо-проєкт для портфоліо. Замовлення не обробляються, оплата тестова.</span>
+  </div>
+</footer>
+
+
+
+<a class="mbar" href="/demos/zharivnia/cart/"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#cart"></use></svg><span>Кошик · <span class="js-count-text">2</span></span><b>Оформити <svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#arrow"></use></svg></b></a>
+
+
+<div class="toast" role="status" aria-live="polite" hidden></div>
+<script>window.demoPre&&demoPre()</script><script src="/demos/zharivnia/static/js/app.js" defer></script>
+
+</body>
+</html>

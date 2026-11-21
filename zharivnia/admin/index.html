@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Огляд — Жарівня</title>
+  <link rel="icon" href="/demos/zharivnia/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/style.css">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/admin.css">
+<script src="/demos/zharivnia/_demo/demo-shim.js"></script>
+<script src="/demos/zharivnia/_demo/shop-config.js"></script>
+<script src="/demos/zharivnia/_demo/shop-shim.js"></script>
+</head>
+<body class="admin">
+<a class="skip" href="#main">Перейти до змісту</a>
+<aside class="side">
+  <a class="side-brand" href="/demos/zharivnia/admin/"><span class="brand-word">жарівня</span><small>керування магазином</small></a>
+  <nav aria-label="Адмінка">
+    <a href="/demos/zharivnia/admin/" aria-current=page><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chart"></use></svg>Огляд</a>
+    <a href="/demos/zharivnia/admin/orders/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#box"></use></svg>Замовлення<span class="side-count">2</span></a>
+    <a href="/demos/zharivnia/admin/products/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#bean"></use></svg>Товари<span class="side-count side-warn">4</span></a>
+    <a href="/demos/zharivnia/" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#external"></use></svg>Відкрити магазин</a>
+  </nav>
+  <div class="side-foot">
+    <span class="side-user"><b>admin</b><small>адміністратор</small></span>
+    <form method="post" action="/demos/zharivnia/admin/logout/">
+      <input type="hidden" name="_csrf" value="x">
+      <button class="side-out" aria-label="Вийти"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#logout"></use></svg></button>
+    </form>
+  </div>
+</aside>
+<main id="main" class="adm">
+  
+    
+  
+  
+<header class="adm-head">
+  <div><h1>Огляд</h1><p class="muted">Останні 30 днів · дані оновлено 21 лист, 14:47</p></div>
+  <a class="btn btn-dark" href="/demos/zharivnia/admin/orders/_q/status=new/">Нові замовлення · 2</a>
+</header>
+
+
+<section class="kpis" aria-label="Ключові показники">
+  <div class="kpi kpi-main"><span>Виручка</span><b>62 962 ₴</b></div>
+  <div class="kpi"><span>Замовлень</span><b>41</b></div>
+  <div class="kpi"><span>Середній чек</span><b>1 536 ₴</b><span class="delta">без скасованих</span></div>
+  <div class="kpi"><span>Очікують підтвердження</span><b class="warn">2</b><span class="delta">статус «Нове»</span></div>
+</section>
+
+<div class="adm-grid">
+  <section class="panel panel-chart">
+    <div class="panel-head"><h2>Виручка за 14 днів</h2><span class="muted">разом 36 446 ₴ · 25 замовлень</span></div>
+    
+    
+    
+    <svg class="chart" viewBox="0 0 720 270" role="img" aria-label="Стовпчикова діаграма виручки за останні 14 днів">
+      
+      
+        <line x1="34" x2="720" y1="240.0" y2="240.0" class="grid base"/>
+        <text x="26" y="244.0" class="axis" text-anchor="end">0</text>
+      
+        <line x1="34" x2="720" y1="183.5" y2="183.5" class="grid"/>
+        <text x="26" y="187.5" class="axis" text-anchor="end">2k</text>
+      
+        <line x1="34" x2="720" y1="127.0" y2="127.0" class="grid"/>
+        <text x="26" y="131.0" class="axis" text-anchor="end">4k</text>
+      
+        <line x1="34" x2="720" y1="70.5" y2="70.5" class="grid"/>
+        <text x="26" y="74.5" class="axis" text-anchor="end">6k</text>
+      
+        <line x1="34" x2="720" y1="14.0" y2="14.0" class="grid"/>
+        <text x="26" y="18.0" class="axis" text-anchor="end">8k</text>
+      
+      
+        
+        
+        <g class="bar-g">
+          <title>8 лист: 910 ₴, 1 замовл.</title>
+          <rect x="42.82" y="214.2925" width="31.36" height="25.7075" rx="4"/>
+          
+          <text x="58.5" y="260" class="axis" text-anchor="middle">8</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>9 лист: 830 ₴, 1 замовл.</title>
+          <rect x="91.82" y="216.5525" width="31.36" height="23.4475" rx="4"/>
+          
+          <text x="107.5" y="260" class="axis" text-anchor="middle">9</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>10 лист: 0 ₴, 0 замовл.</title>
+          <rect x="140.82" y="240.0" width="31.36" height="0" rx="4"/>
+          
+          <text x="156.5" y="260" class="axis" text-anchor="middle">10</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>11 лист: 1 000 ₴, 1 замовл.</title>
+          <rect x="189.82" y="211.75" width="31.36" height="28.25" rx="4"/>
+          
+          <text x="205.5" y="260" class="axis" text-anchor="middle">11</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>12 лист: 4 610 ₴, 3 замовл.</title>
+          <rect x="238.82" y="109.76750000000001" width="31.36" height="130.2325" rx="4"/>
+          
+          <text x="254.5" y="260" class="axis" text-anchor="middle">12</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>13 лист: 5 633 ₴, 2 замовл.</title>
+          <rect x="287.82" y="80.86775" width="31.36" height="159.13225" rx="4"/>
+          
+          <text x="303.5" y="260" class="axis" text-anchor="middle">13</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>14 лист: 6 250 ₴, 3 замовл.</title>
+          <rect x="336.82" y="63.4375" width="31.36" height="176.5625" rx="4"/>
+          
+          <text x="352.5" y="260" class="axis" text-anchor="middle">14</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>15 лист: 1 949 ₴, 2 замовл.</title>
+          <rect x="385.82" y="184.94075" width="31.36" height="55.05925" rx="4"/>
+          
+          <text x="401.5" y="260" class="axis" text-anchor="middle">15</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>16 лист: 6 430 ₴, 4 замовл.</title>
+          <rect x="434.82" y="58.35249999999999" width="31.36" height="181.6475" rx="4"/>
+          <text x="450.5" y="50.35249999999999" class="val" text-anchor="middle">6.4k</text>
+          <text x="450.5" y="260" class="axis" text-anchor="middle">16</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>17 лист: 2 290 ₴, 1 замовл.</title>
+          <rect x="483.82" y="175.3075" width="31.36" height="64.6925" rx="4"/>
+          
+          <text x="499.5" y="260" class="axis" text-anchor="middle">17</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>18 лист: 1 510 ₴, 2 замовл.</title>
+          <rect x="532.82" y="197.3425" width="31.36" height="42.6575" rx="4"/>
+          
+          <text x="548.5" y="260" class="axis" text-anchor="middle">18</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>19 лист: 3 310 ₴, 2 замовл.</title>
+          <rect x="581.82" y="146.4925" width="31.36" height="93.5075" rx="4"/>
+          
+          <text x="597.5" y="260" class="axis" text-anchor="middle">19</text>
+        </g>
+      
+        
+        
+        <g class="bar-g">
+          <title>20 лист: 1 224 ₴, 2 замовл.</title>
+          <rect x="630.82" y="205.422" width="31.36" height="34.578" rx="4"/>
+          
+          <text x="646.5" y="260" class="axis" text-anchor="middle">20</text>
+        </g>
+      
+        
+        
+        <g class="bar-g today">
+          <title>21 лист: 500 ₴, 1 замовл.</title>
+          <rect x="679.82" y="225.875" width="31.36" height="14.125" rx="4"/>
+          <text x="695.5" y="217.875" class="val" text-anchor="middle">0.5k</text>
+          <text x="695.5" y="260" class="axis" text-anchor="middle">21</text>
+        </g>
+      
+    </svg>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><h2>Статуси</h2><span class="muted">30 днів</span></div>
+    
+    <ul class="st-list">
+      
+      <li><a href="/demos/zharivnia/admin/orders/_q/status=new/"><span class="st st-new">Нове</span><b>2</b></a>
+        <svg class="st-bar" viewBox="0 0 100 6" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="6" rx="3" class="st-track"/><rect width="4.8" height="6" rx="3" class="st-fill st-fill-new"/></svg></li>
+      
+      <li><a href="/demos/zharivnia/admin/orders/_q/status=confirmed/"><span class="st st-confirmed">Підтверджено</span><b>1</b></a>
+        <svg class="st-bar" viewBox="0 0 100 6" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="6" rx="3" class="st-track"/><rect width="2.4" height="6" rx="3" class="st-fill st-fill-confirmed"/></svg></li>
+      
+      <li><a href="/demos/zharivnia/admin/orders/_q/status=shipped/"><span class="st st-shipped">Відправлено</span><b>4</b></a>
+        <svg class="st-bar" viewBox="0 0 100 6" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="6" rx="3" class="st-track"/><rect width="9.5" height="6" rx="3" class="st-fill st-fill-shipped"/></svg></li>
+      
+      <li><a href="/demos/zharivnia/admin/orders/_q/status=done/"><span class="st st-done">Виконано</span><b>34</b></a>
+        <svg class="st-bar" viewBox="0 0 100 6" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="6" rx="3" class="st-track"/><rect width="81.0" height="6" rx="3" class="st-fill st-fill-done"/></svg></li>
+      
+      <li><a href="/demos/zharivnia/admin/orders/_q/status=cancelled/"><span class="st st-cancelled">Скасовано</span><b>1</b></a>
+        <svg class="st-bar" viewBox="0 0 100 6" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="6" rx="3" class="st-track"/><rect width="2.4" height="6" rx="3" class="st-fill st-fill-cancelled"/></svg></li>
+      
+    </ul>
+  </section>
+
+  <section class="panel panel-wide">
+    <div class="panel-head"><h2>Останні замовлення</h2><a class="link-arrow" href="/demos/zharivnia/admin/orders/">Усі <svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#arrow"></use></svg></a></div>
+    <table class="tbl">
+      <thead><tr><th>№</th><th>Клієнт</th><th>Місто</th><th class="num">Сума</th><th>Статус</th></tr></thead>
+      <tbody>
+      
+        <tr><td><a href="/demos/zharivnia/admin/orders/42/" class="mono">261121-0042</a><small>21 лист, 12:31</small></td>
+          <td>Ярослав Кузьменко</td><td>Вінниця</td><td class="num">500 ₴</td><td><span class="st st-new">Нове</span></td></tr>
+      
+        <tr><td><a href="/demos/zharivnia/admin/orders/41/" class="mono">261120-0041</a><small>20 лист, 21:43</small></td>
+          <td>Софія Лисенко</td><td>Київ</td><td class="num">711 ₴</td><td><span class="st st-new">Нове</span></td></tr>
+      
+        <tr><td><a href="/demos/zharivnia/admin/orders/40/" class="mono">261120-0040</a><small>20 лист, 14:34</small></td>
+          <td>Вікторія Захарченко</td><td>Одеса</td><td class="num">513 ₴</td><td><span class="st st-confirmed">Підтверджено</span></td></tr>
+      
+        <tr><td><a href="/demos/zharivnia/admin/orders/39/" class="mono">261119-0039</a><small>19 лист, 22:06</small></td>
+          <td>Артем Зінченко</td><td>Львів</td><td class="num">650 ₴</td><td><span class="st st-shipped">Відправлено</span></td></tr>
+      
+        <tr><td><a href="/demos/zharivnia/admin/orders/38/" class="mono">261119-0038</a><small>19 лист, 17:55</small></td>
+          <td>Оксана Дячук</td><td>Київ</td><td class="num">2 660 ₴</td><td><span class="st st-shipped">Відправлено</span></td></tr>
+      
+        <tr><td><a href="/demos/zharivnia/admin/orders/37/" class="mono">261118-0037</a><small>18 лист, 10:04</small></td>
+          <td>Оксана Дячук</td><td>Одеса</td><td class="num">420 ₴</td><td><span class="st st-shipped">Відправлено</span></td></tr>
+      
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><h2>Топ товарів</h2><span class="muted">за виручкою</span></div>
+    <ol class="top-list">
+      <li><span>Ручна кавомолка зі сталевими жорнами</span><small>4 шт</small><b>11 560 ₴</b></li><li><span>Колумбія Уїла</span><small>12 шт</small><b>9 970 ₴</b></li><li><span>Ефіопія Їргачефф Кочере</span><small>9 шт</small><b>6 590 ₴</b></li><li><span>Ефіопія Гуджі Натурал</span><small>7 шт</small><b>4 850 ₴</b></li><li><span>Еспресо-суміш «Ранок»</span><small>12 шт</small><b>4 750 ₴</b></li>
+    </ol>
+    <div class="panel-head panel-sub"><h2>Закінчуються</h2><a class="link-arrow" href="/demos/zharivnia/admin/products/">Товари <svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#arrow"></use></svg></a></div>
+    
+    <ul class="low-list"><li><span>Ваги з таймером 0,1 г</span><b class="out">немає</b></li><li><span>Чайник з гусячою шийкою 0,9 л</span><b class="low">2 шт</b></li><li><span>Коста-Рика Тарразу Хані</span><b class="low">3 шт</b></li><li><span>Дріп-набір «Дегустація»</span><b class="low">4 шт</b></li></ul>
+    
+  </section>
+</div>
+
+</main>
+<script>window.demoPre&&demoPre()</script><script src="/demos/zharivnia/static/js/admin.js" defer></script>
+</body>
+</html>

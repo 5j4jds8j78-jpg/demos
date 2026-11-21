@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Товари — Жарівня</title>
+  <link rel="icon" href="/demos/zharivnia/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/style.css">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/admin.css">
+<script src="/demos/zharivnia/_demo/demo-shim.js"></script>
+<script src="/demos/zharivnia/_demo/shop-config.js"></script>
+<script src="/demos/zharivnia/_demo/shop-shim.js"></script>
+</head>
+<body class="admin">
+<a class="skip" href="#main">Перейти до змісту</a>
+<aside class="side">
+  <a class="side-brand" href="/demos/zharivnia/admin/"><span class="brand-word">жарівня</span><small>керування магазином</small></a>
+  <nav aria-label="Адмінка">
+    <a href="/demos/zharivnia/admin/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chart"></use></svg>Огляд</a>
+    <a href="/demos/zharivnia/admin/orders/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#box"></use></svg>Замовлення<span class="side-count">2</span></a>
+    <a href="/demos/zharivnia/admin/products/" aria-current=page><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#bean"></use></svg>Товари<span class="side-count side-warn">4</span></a>
+    <a href="/demos/zharivnia/" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#external"></use></svg>Відкрити магазин</a>
+  </nav>
+  <div class="side-foot">
+    <span class="side-user"><b>admin</b><small>адміністратор</small></span>
+    <form method="post" action="/demos/zharivnia/admin/logout/">
+      <input type="hidden" name="_csrf" value="x">
+      <button class="side-out" aria-label="Вийти"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#logout"></use></svg></button>
+    </form>
+  </div>
+</aside>
+<main id="main" class="adm">
+  
+    
+  
+  
+<header class="adm-head">
+  <div><h1>Товари</h1><p class="muted">3 позицій · <span class="warn-text">1 закінчуються</span></p></div>
+  <a class="btn btn-primary" href="/demos/zharivnia/admin/products/new/"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#plus"></use></svg> Додати товар</a>
+</header>
+<nav class="seg-tabs" aria-label="Категорії">
+  <a href="/demos/zharivnia/admin/products/" class="">Усі</a>
+  <a href="/demos/zharivnia/admin/products/_q/cat=beans/" class="">Зерно</a><a href="/demos/zharivnia/admin/products/_q/cat=drip/" class="is-on">Дріп-пакети</a><a href="/demos/zharivnia/admin/products/_q/cat=gear/" class="">Обладнання</a>
+</nav>
+<section class="panel panel-flush">
+  <table class="tbl tbl-products">
+    <thead><tr><th>Товар</th><th>Категорія</th><th class="num">Ціна</th><th class="num">Велика уп.</th><th class="num">Продано</th><th>Залишок</th><th>На сайті</th><th><span class="sr-only">Дії</span></th></tr></thead>
+    <tbody>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products/drip-assorted-1.svg" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/13/">Дріп-набір «Дегустація»</a><small>drip-assorted</small></div></td>
+        <td>Дріп-пакети</td>
+        <td class="num">520 ₴<small><s>590 ₴</s></small></td>
+        <td class="num">1 190 ₴</td>
+        <td class="num">121</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/13/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="4" min="0" aria-label="Залишок «Дріп-набір «Дегустація»»">
+            <span class="stk stk-low"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#alert"></use></svg>Мало</span>
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/13/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products3d/drip-ethiopia-1.webp" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/11/">Дріп-пакети Ефіопія</a><small>drip-ethiopia</small></div></td>
+        <td>Дріп-пакети</td>
+        <td class="num">490 ₴</td>
+        <td class="num">1 090 ₴</td>
+        <td class="num">240</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/11/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="40" min="0" aria-label="Залишок «Дріп-пакети Ефіопія»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/11/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products/drip-colombia-1.svg" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/12/">Дріп-пакети Колумбія</a><small>drip-colombia</small></div></td>
+        <td>Дріп-пакети</td>
+        <td class="num">450 ₴</td>
+        <td class="num">990 ₴</td>
+        <td class="num">149</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/12/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="35" min="0" aria-label="Залишок «Дріп-пакети Колумбія»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/12/">Редагувати</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+</section>
+
+</main>
+<script>window.demoPre&&demoPre()</script><script src="/demos/zharivnia/static/js/admin.js" defer></script>
+</body>
+</html>

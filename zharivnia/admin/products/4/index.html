@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Колумбія Уїла — Жарівня</title>
+  <link rel="icon" href="/demos/zharivnia/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/style.css">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/admin.css">
+<script src="/demos/zharivnia/_demo/demo-shim.js"></script>
+<script src="/demos/zharivnia/_demo/shop-config.js"></script>
+<script src="/demos/zharivnia/_demo/shop-shim.js"></script>
+</head>
+<body class="admin">
+<a class="skip" href="#main">Перейти до змісту</a>
+<aside class="side">
+  <a class="side-brand" href="/demos/zharivnia/admin/"><span class="brand-word">жарівня</span><small>керування магазином</small></a>
+  <nav aria-label="Адмінка">
+    <a href="/demos/zharivnia/admin/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chart"></use></svg>Огляд</a>
+    <a href="/demos/zharivnia/admin/orders/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#box"></use></svg>Замовлення<span class="side-count">2</span></a>
+    <a href="/demos/zharivnia/admin/products/" aria-current=page><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#bean"></use></svg>Товари<span class="side-count side-warn">4</span></a>
+    <a href="/demos/zharivnia/" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#external"></use></svg>Відкрити магазин</a>
+  </nav>
+  <div class="side-foot">
+    <span class="side-user"><b>admin</b><small>адміністратор</small></span>
+    <form method="post" action="/demos/zharivnia/admin/logout/">
+      <input type="hidden" name="_csrf" value="x">
+      <button class="side-out" aria-label="Вийти"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#logout"></use></svg></button>
+    </form>
+  </div>
+</aside>
+<main id="main" class="adm">
+  
+    
+  
+  
+<a class="link-back-adm" href="/demos/zharivnia/admin/products/"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chev"></use></svg> Усі товари</a>
+<header class="adm-head"><div><h1>Колумбія Уїла</h1></div>
+  
+  <form method="post" action="/demos/zharivnia/admin/products/4/delete/" data-confirm="Видалити «Колумбія Уїла» назавжди? Історія замовлень збережеться.">
+    <input type="hidden" name="_csrf" value="x"><button class="btn btn-ghost btn-danger"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#trash"></use></svg> Видалити</button>
+  </form>
+  
+</header>
+<form method="post" class="pform">
+  <input type="hidden" name="_csrf" value="x">
+  <section class="panel">
+    <div class="panel-head"><h2>Основне</h2></div>
+    <div class="fields">
+      <label class="field field-wide">Назва<input name="name" required value="Колумбія Уїла"></label>
+      <label class="field">Категорія<span class="select"><select name="category"><option value="beans" selected>Кава в зернах</option><option value="drip" >Дріп-пакети</option><option value="gear" >Обладнання</option></select><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chevdown"></use></svg></span></label>
+      <label class="field">Адреса (slug)<input name="slug" value="colombia-huila" placeholder="створиться з назви"></label>
+      <label class="field">Країна<input name="origin" value="Колумбія"></label>
+      <label class="field">Регіон<input name="region" value="Уїла, Пітал&#39;іто"></label>
+      <label class="field field-wide">Смакові ноти (через кому)<input name="notes" value="Карамель, червоне яблуко, фундук"></label>
+      <label class="field field-wide">Короткий опис<input name="short" value="Збалансована щоденна кава без гіркоти." maxlength="140"></label>
+      <label class="field field-wide">Опис<textarea name="description" rows="4">Мікролот від невеликих фермерів департаменту Уїла. Солодкість карамелі, м&#39;яка яблучна кислотність і горіховий фініш. Універсальна: еспресо, гейзерна кавоварка, крапельна машина.</textarea></label>
+    </div>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2>Ціна і склад</h2></div>
+    <div class="fields fields-3">
+      <label class="field">Ціна, ₴ <small>250 г / 10 шт / 1 шт</small><input name="price" type="number" min="1" required value="410"></label>
+      <label class="field">Велика уп., ₴ <small>1 кг / 25 шт</small><input name="price_big" type="number" min="0" value="1420"></label>
+      <label class="field">Стара ціна, ₴ <small>для бейджа знижки</small><input name="old_price" type="number" min="0" value=""></label>
+      <label class="field">Залишок, шт<input name="stock" type="number" min="0" required value="64"></label>
+      <label class="field">Обсмажка<span class="select"><select name="roast"><option value="">—</option><option value="light" >Світла</option><option value="medium" selected>Середня</option><option value="dark" >Темна</option></select><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chevdown"></use></svg></span></label>
+      <label class="field">Обробка<span class="select"><select name="process"><option value="">—</option><option value="washed" selected>Мита</option><option value="natural" >Натуральна</option><option value="honey" >Хані</option><option value="anaerobic" >Анаеробна</option></select><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chevdown"></use></svg></span></label>
+      <label class="field">Оцінка SCA<input name="score" type="number" min="0" max="100" value="85"></label>
+      <label class="field">Висота<input name="altitude" value="1600–1800 м"></label>
+      <label class="field">Сорт<input name="variety" value="Катурра, Кастільо"></label>
+    </div>
+    <div class="toggles">
+      <label class="check"><input type="checkbox" name="active" value="1" checked><span class="box"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#check"></use></svg></span>Показувати на сайті</label>
+      <label class="check"><input type="checkbox" name="bestseller" value="1" checked><span class="box"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#check"></use></svg></span>Хіт продажів</label>
+    </div>
+  </section>
+  <div class="pform-actions"><button class="btn btn-primary btn-lg">Зберегти зміни</button><a href="/demos/zharivnia/admin/products/" class="link">Скасувати</a></div>
+</form>
+
+</main>
+<script>window.demoPre&&demoPre()</script><script src="/demos/zharivnia/static/js/admin.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+// Admin: confirm destructive actions.
+document.querySelectorAll("form[data-confirm]").forEach(function (f) {
+  f.addEventListener("submit", function (e) { if (!confirm(f.dataset.confirm)) e.preventDefault(); });
+});

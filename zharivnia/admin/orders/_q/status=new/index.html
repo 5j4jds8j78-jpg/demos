@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Замовлення — Жарівня</title>
+  <link rel="icon" href="/demos/zharivnia/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/style.css">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/admin.css">
+<script src="/demos/zharivnia/_demo/demo-shim.js"></script>
+<script src="/demos/zharivnia/_demo/shop-config.js"></script>
+<script src="/demos/zharivnia/_demo/shop-shim.js"></script>
+</head>
+<body class="admin">
+<a class="skip" href="#main">Перейти до змісту</a>
+<aside class="side">
+  <a class="side-brand" href="/demos/zharivnia/admin/"><span class="brand-word">жарівня</span><small>керування магазином</small></a>
+  <nav aria-label="Адмінка">
+    <a href="/demos/zharivnia/admin/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chart"></use></svg>Огляд</a>
+    <a href="/demos/zharivnia/admin/orders/" aria-current=page><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#box"></use></svg>Замовлення<span class="side-count">2</span></a>
+    <a href="/demos/zharivnia/admin/products/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#bean"></use></svg>Товари<span class="side-count side-warn">4</span></a>
+    <a href="/demos/zharivnia/" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#external"></use></svg>Відкрити магазин</a>
+  </nav>
+  <div class="side-foot">
+    <span class="side-user"><b>admin</b><small>адміністратор</small></span>
+    <form method="post" action="/demos/zharivnia/admin/logout/">
+      <input type="hidden" name="_csrf" value="x">
+      <button class="side-out" aria-label="Вийти"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#logout"></use></svg></button>
+    </form>
+  </div>
+</aside>
+<main id="main" class="adm">
+  
+    
+  
+  
+<header class="adm-head">
+  <div><h1>Замовлення</h1><p class="muted">2 замовлення зі статусом «Нове»</p></div>
+  <form class="adm-search" method="get">
+    <input type="hidden" name="status" value="new">
+    <svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#search"></use></svg><input type="search" name="q" value="" placeholder="Номер, ім'я або телефон" aria-label="Пошук замовлень">
+  </form>
+</header>
+<nav class="seg-tabs" aria-label="Фільтр за статусом">
+  <a href="/demos/zharivnia/admin/orders/" class="">Усі <span>42</span></a>
+  <a href="/demos/zharivnia/admin/orders/_q/status=new/" class="is-on">Нове <span>2</span></a><a href="/demos/zharivnia/admin/orders/_q/status=confirmed/" class="">Підтверджено <span>1</span></a><a href="/demos/zharivnia/admin/orders/_q/status=shipped/" class="">Відправлено <span>4</span></a><a href="/demos/zharivnia/admin/orders/_q/status=done/" class="">Виконано <span>34</span></a><a href="/demos/zharivnia/admin/orders/_q/status=cancelled/" class="">Скасовано <span>1</span></a>
+</nav>
+<section class="panel panel-flush">
+  
+  <table class="tbl tbl-orders">
+    <thead><tr><th>№</th><th>Дата</th><th>Клієнт</th><th>Місто</th><th class="num">Товарів</th><th class="num">Сума</th><th>Оплата</th><th>Статус</th><th><span class="sr-only">Дії</span></th></tr></thead>
+    <tbody>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/42/">261121-0042</a></td>
+        <td>21 лист, 12:31</td>
+        <td>Ярослав Кузьменко<small>+380675983060</small></td>
+        <td>Вінниця</td>
+        <td class="num">1</td>
+        <td class="num"><span class="sum-cell">500 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-new">Нове</span></td>
+        <td class="act">
+          
+          
+          <form method="post" action="/demos/zharivnia/admin/orders/42/status/">
+            <input type="hidden" name="_csrf" value="x"><input type="hidden" name="status" value="confirmed">
+            <input type="hidden" name="next" value="/admin/orders?status=new">
+            <button class="btn btn-sm btn-ghost">Підтвердити</button>
+          </form>
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/41/">261120-0041</a></td>
+        <td>20 лист, 21:43</td>
+        <td>Софія Лисенко<small>+380677205906</small></td>
+        <td>Київ</td>
+        <td class="num">1</td>
+        <td class="num"><span class="sum-cell">711 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-new">Нове</span></td>
+        <td class="act">
+          
+          
+          <form method="post" action="/demos/zharivnia/admin/orders/41/status/">
+            <input type="hidden" name="_csrf" value="x"><input type="hidden" name="status" value="confirmed">
+            <input type="hidden" name="next" value="/admin/orders?status=new">
+            <button class="btn btn-sm btn-ghost">Підтвердити</button>
+          </form>
+          
+        </td>
+      </tr>
+    
+    </tbody>
+  </table>
+  
+</section>
+
+</main>
+<script>window.demoPre&&demoPre()</script><script src="/demos/zharivnia/static/js/admin.js" defer></script>
+</body>
+</html>

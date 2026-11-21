@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Замовлення — Жарівня</title>
+  <link rel="icon" href="/demos/zharivnia/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/style.css">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/admin.css">
+<script src="/demos/zharivnia/_demo/demo-shim.js"></script>
+<script src="/demos/zharivnia/_demo/shop-config.js"></script>
+<script src="/demos/zharivnia/_demo/shop-shim.js"></script>
+</head>
+<body class="admin">
+<a class="skip" href="#main">Перейти до змісту</a>
+<aside class="side">
+  <a class="side-brand" href="/demos/zharivnia/admin/"><span class="brand-word">жарівня</span><small>керування магазином</small></a>
+  <nav aria-label="Адмінка">
+    <a href="/demos/zharivnia/admin/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chart"></use></svg>Огляд</a>
+    <a href="/demos/zharivnia/admin/orders/" aria-current=page><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#box"></use></svg>Замовлення<span class="side-count">2</span></a>
+    <a href="/demos/zharivnia/admin/products/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#bean"></use></svg>Товари<span class="side-count side-warn">4</span></a>
+    <a href="/demos/zharivnia/" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#external"></use></svg>Відкрити магазин</a>
+  </nav>
+  <div class="side-foot">
+    <span class="side-user"><b>admin</b><small>адміністратор</small></span>
+    <form method="post" action="/demos/zharivnia/admin/logout/">
+      <input type="hidden" name="_csrf" value="x">
+      <button class="side-out" aria-label="Вийти"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#logout"></use></svg></button>
+    </form>
+  </div>
+</aside>
+<main id="main" class="adm">
+  
+    
+  
+  
+<header class="adm-head">
+  <div><h1>Замовлення</h1><p class="muted">34 замовлення зі статусом «Виконано»</p></div>
+  <form class="adm-search" method="get">
+    <input type="hidden" name="status" value="done">
+    <svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#search"></use></svg><input type="search" name="q" value="" placeholder="Номер, ім'я або телефон" aria-label="Пошук замовлень">
+  </form>
+</header>
+<nav class="seg-tabs" aria-label="Фільтр за статусом">
+  <a href="/demos/zharivnia/admin/orders/" class="">Усі <span>42</span></a>
+  <a href="/demos/zharivnia/admin/orders/_q/status=new/" class="">Нове <span>2</span></a><a href="/demos/zharivnia/admin/orders/_q/status=confirmed/" class="">Підтверджено <span>1</span></a><a href="/demos/zharivnia/admin/orders/_q/status=shipped/" class="">Відправлено <span>4</span></a><a href="/demos/zharivnia/admin/orders/_q/status=done/" class="is-on">Виконано <span>34</span></a><a href="/demos/zharivnia/admin/orders/_q/status=cancelled/" class="">Скасовано <span>1</span></a>
+</nav>
+<section class="panel panel-flush">
+  
+  <table class="tbl tbl-orders">
+    <thead><tr><th>№</th><th>Дата</th><th>Клієнт</th><th>Місто</th><th class="num">Товарів</th><th class="num">Сума</th><th>Оплата</th><th>Статус</th><th><span class="sr-only">Дії</span></th></tr></thead>
+    <tbody>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/36/">261118-0036</a></td>
+        <td>18 лист, 08:18</td>
+        <td>Анна Петренко<small>+380675487903</small></td>
+        <td>Львів</td>
+        <td class="num">1</td>
+        <td class="num"><span class="sum-cell">1 090 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/35/">261117-0035</a></td>
+        <td>17 лист, 19:01</td>
+        <td>Тарас Головко<small>+380674793356</small></td>
+        <td>Київ</td>
+        <td class="num">5</td>
+        <td class="num"><span class="sum-cell">2 290 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/34/">261116-0034</a></td>
+        <td>16 лист, 17:52</td>
+        <td>Юлія Гнатюк<small>+380675421126</small></td>
+        <td>Львів</td>
+        <td class="num">1</td>
+        <td class="num"><span class="sum-cell">650 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/33/">261116-0033</a></td>
+        <td>16 лист, 15:02</td>
+        <td>Наталія Руденко<small>+380678483918</small></td>
+        <td>Івано-Франківськ</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">1 010 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/32/">261116-0032</a></td>
+        <td>16 лист, 10:52</td>
+        <td>Максим Ткачук<small>+380672378828</small></td>
+        <td>Дніпро</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">1 580 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/31/">261116-0031</a></td>
+        <td>16 лист, 08:33</td>
+        <td>Андрій Мельник<small>+380678311849</small></td>
+        <td>Львів</td>
+        <td class="num">3</td>
+        <td class="num"><span class="sum-cell">3 190 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/29/">261115-0029</a></td>
+        <td>15 лист, 08:02</td>
+        <td>Максим Ткачук<small>+380673166788</small></td>
+        <td>Вінниця</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">860 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/28/">261114-0028</a></td>
+        <td>14 лист, 22:43</td>
+        <td>Оксана Дячук<small>+380671980412</small></td>
+        <td>Одеса</td>
+        <td class="num">3</td>
+        <td class="num"><span class="sum-cell">2 230 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/27/">261114-0027</a></td>
+        <td>14 лист, 20:38</td>
+        <td>Олег Шевчук<small>+380672554732</small></td>
+        <td>Київ</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">960 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/26/">261114-0026</a></td>
+        <td>14 лист, 14:22</td>
+        <td>Христина Онищук<small>+380674084710</small></td>
+        <td>Львів</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">3 060 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/25/">261113-0025</a></td>
+        <td>13 лист, 13:56</td>
+        <td>Катерина Мороз<small>+380675607056</small></td>
+        <td>Львів</td>
+        <td class="num">4</td>
+        <td class="num"><span class="sum-cell">4 400 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/24/">261113-0024</a></td>
+        <td>13 лист, 10:43</td>
+        <td>Роман Білик<small>+380676238974</small></td>
+        <td>Дніпро</td>
+        <td class="num">3</td>
+        <td class="num"><span class="sum-cell">1 233 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/23/">261112-0023</a></td>
+        <td>12 лист, 18:15</td>
+        <td>Тарас Головко<small>+380677093630</small></td>
+        <td>Харків</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">2 970 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/22/">261112-0022</a></td>
+        <td>12 лист, 15:37</td>
+        <td>Віктор Поліщук<small>+380671222438</small></td>
+        <td>Львів</td>
+        <td class="num">1</td>
+        <td class="num"><span class="sum-cell">1 080 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/21/">261112-0021</a></td>
+        <td>12 лист, 08:22</td>
+        <td>Марія Кравець<small>+380679703244</small></td>
+        <td>Ужгород</td>
+        <td class="num">1</td>
+        <td class="num"><span class="sum-cell">560 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/20/">261111-0020</a></td>
+        <td>11 лист, 20:02</td>
+        <td>Софія Лисенко<small>+380673577745</small></td>
+        <td>Київ</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">1 000 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/19/">261109-0019</a></td>
+        <td>9 лист, 21:34</td>
+        <td>Андрій Мельник<small>+380678010612</small></td>
+        <td>Львів</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">830 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/18/">261108-0018</a></td>
+        <td>8 лист, 17:49</td>
+        <td>Віктор Поліщук<small>+380675429219</small></td>
+        <td>Івано-Франківськ</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">910 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/17/">261107-0017</a></td>
+        <td>7 лист, 19:49</td>
+        <td>Ірина Бондаренко<small>+380672362901</small></td>
+        <td>Харків</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">2 120 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/15/">261106-0015</a></td>
+        <td>6 лист, 14:38</td>
+        <td>Олег Шевчук<small>+380674571674</small></td>
+        <td>Дніпро</td>
+        <td class="num">3</td>
+        <td class="num"><span class="sum-cell">1 390 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/14/">261106-0014</a></td>
+        <td>6 лист, 10:03</td>
+        <td>Богдан Левченко<small>+380679383855</small></td>
+        <td>Київ</td>
+        <td class="num">4</td>
+        <td class="num"><span class="sum-cell">1 670 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/13/">261106-0013</a></td>
+        <td>6 лист, 09:08</td>
+        <td>Тарас Головко<small>+380677673602</small></td>
+        <td>Львів</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">3 300 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/12/">261105-0012</a></td>
+        <td>5 лист, 11:39</td>
+        <td>Олег Шевчук<small>+380679731646</small></td>
+        <td>Київ</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">860 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/11/">261103-0011</a></td>
+        <td>3 лист, 21:44</td>
+        <td>Олена Коваль<small>+380676674198</small></td>
+        <td>Дніпро</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">930 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/10/">261103-0010</a></td>
+        <td>3 лист, 18:27</td>
+        <td>Віктор Поліщук<small>+380679189280</small></td>
+        <td>Івано-Франківськ</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">1 050 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/9/">261102-0009</a></td>
+        <td>2 лист, 17:42</td>
+        <td>Максим Ткачук<small>+380675524491</small></td>
+        <td>Вінниця</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">2 280 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/8/">261102-0008</a></td>
+        <td>2 лист, 13:52</td>
+        <td>Роман Білик<small>+380678839185</small></td>
+        <td>Ужгород</td>
+        <td class="num">1</td>
+        <td class="num"><span class="sum-cell">2 890 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/7/">261031-0007</a></td>
+        <td>31 жовт, 16:34</td>
+        <td>Анна Петренко<small>+380674719681</small></td>
+        <td>Одеса</td>
+        <td class="num">1</td>
+        <td class="num"><span class="sum-cell">610 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/6/">261031-0006</a></td>
+        <td>31 жовт, 16:02</td>
+        <td>Артем Зінченко<small>+380672984880</small></td>
+        <td>Івано-Франківськ</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">684 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/5/">261030-0005</a></td>
+        <td>30 жовт, 08:47</td>
+        <td>Вікторія Захарченко<small>+380678031602</small></td>
+        <td>Ужгород</td>
+        <td class="num">1</td>
+        <td class="num"><span class="sum-cell">1 890 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/4/">261029-0004</a></td>
+        <td>29 жовт, 11:52</td>
+        <td>Христина Онищук<small>+380678933122</small></td>
+        <td>Івано-Франківськ</td>
+        <td class="num">3</td>
+        <td class="num"><span class="sum-cell">1 430 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/3/">261028-0003</a></td>
+        <td>28 жовт, 21:48</td>
+        <td>Марія Кравець<small>+380676742712</small></td>
+        <td>Київ</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">792 ₴</span></td>
+        <td><span class="pay-tag paid">Оплачено (демо)</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/2/">261027-0002</a></td>
+        <td>27 жовт, 10:13</td>
+        <td>Максим Ткачук<small>+380672738353</small></td>
+        <td>Київ</td>
+        <td class="num">2</td>
+        <td class="num"><span class="sum-cell">2 840 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+      <tr class="">
+        <td><a class="mono" href="/demos/zharivnia/admin/orders/1/">261026-0001</a></td>
+        <td>26 жовт, 21:12</td>
+        <td>Оксана Дячук<small>+380672107686</small></td>
+        <td>Дніпро</td>
+        <td class="num">3</td>
+        <td class="num"><span class="sum-cell">1 780 ₴</span></td>
+        <td><span class="pay-tag">При отриманні</span></td>
+        <td><span class="st st-done">Виконано</span></td>
+        <td class="act">
+          
+          
+        </td>
+      </tr>
+    
+    </tbody>
+  </table>
+  
+</section>
+
+</main>
+<script>window.demoPre&&demoPre()</script><script src="/demos/zharivnia/static/js/admin.js" defer></script>
+</body>
+</html>

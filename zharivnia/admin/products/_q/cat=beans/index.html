@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Товари — Жарівня</title>
+  <link rel="icon" href="/demos/zharivnia/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/style.css">
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/admin.css">
+<script src="/demos/zharivnia/_demo/demo-shim.js"></script>
+<script src="/demos/zharivnia/_demo/shop-config.js"></script>
+<script src="/demos/zharivnia/_demo/shop-shim.js"></script>
+</head>
+<body class="admin">
+<a class="skip" href="#main">Перейти до змісту</a>
+<aside class="side">
+  <a class="side-brand" href="/demos/zharivnia/admin/"><span class="brand-word">жарівня</span><small>керування магазином</small></a>
+  <nav aria-label="Адмінка">
+    <a href="/demos/zharivnia/admin/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chart"></use></svg>Огляд</a>
+    <a href="/demos/zharivnia/admin/orders/" ><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#box"></use></svg>Замовлення<span class="side-count">2</span></a>
+    <a href="/demos/zharivnia/admin/products/" aria-current=page><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#bean"></use></svg>Товари<span class="side-count side-warn">4</span></a>
+    <a href="/demos/zharivnia/" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#external"></use></svg>Відкрити магазин</a>
+  </nav>
+  <div class="side-foot">
+    <span class="side-user"><b>admin</b><small>адміністратор</small></span>
+    <form method="post" action="/demos/zharivnia/admin/logout/">
+      <input type="hidden" name="_csrf" value="x">
+      <button class="side-out" aria-label="Вийти"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#logout"></use></svg></button>
+    </form>
+  </div>
+</aside>
+<main id="main" class="adm">
+  
+    
+  
+  
+<header class="adm-head">
+  <div><h1>Товари</h1><p class="muted">10 позицій · <span class="warn-text">1 закінчуються</span></p></div>
+  <a class="btn btn-primary" href="/demos/zharivnia/admin/products/new/"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#plus"></use></svg> Додати товар</a>
+</header>
+<nav class="seg-tabs" aria-label="Категорії">
+  <a href="/demos/zharivnia/admin/products/" class="">Усі</a>
+  <a href="/demos/zharivnia/admin/products/_q/cat=beans/" class="is-on">Зерно</a><a href="/demos/zharivnia/admin/products/_q/cat=drip/" class="">Дріп-пакети</a><a href="/demos/zharivnia/admin/products/_q/cat=gear/" class="">Обладнання</a>
+</nav>
+<section class="panel panel-flush">
+  <table class="tbl tbl-products">
+    <thead><tr><th>Товар</th><th>Категорія</th><th class="num">Ціна</th><th class="num">Велика уп.</th><th class="num">Продано</th><th>Залишок</th><th>На сайті</th><th><span class="sr-only">Дії</span></th></tr></thead>
+    <tbody>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products3d/brazil-cerrado-1.webp" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/5/">Бразилія Серрадо</a><small>brazil-cerrado</small></div></td>
+        <td>Зерно</td>
+        <td class="num">350 ₴</td>
+        <td class="num">1 190 ₴</td>
+        <td class="num">308</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/5/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="88" min="0" aria-label="Залишок «Бразилія Серрадо»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/5/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products/guatemala-antigua-1.svg" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/6/">Гватемала Антигуа</a><small>guatemala-antigua</small></div></td>
+        <td>Зерно</td>
+        <td class="num">420 ₴</td>
+        <td class="num">1 460 ₴</td>
+        <td class="num">80</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/6/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="27" min="0" aria-label="Залишок «Гватемала Антигуа»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/6/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products3d/espresso-blend-ranok-1.webp" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/9/">Еспресо-суміш «Ранок»</a><small>espresso-blend-ranok</small></div></td>
+        <td>Зерно</td>
+        <td class="num">330 ₴<small><s>370 ₴</s></small></td>
+        <td class="num">1 120 ₴</td>
+        <td class="num">368</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/9/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="120" min="0" aria-label="Залишок «Еспресо-суміш «Ранок»»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/9/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products3d/ethiopia-yirgacheffe-kochere-1.webp" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/1/">Ефіопія Їргачефф Кочере</a><small>ethiopia-yirgacheffe-kochere</small></div></td>
+        <td>Зерно</td>
+        <td class="num">470 ₴</td>
+        <td class="num">1 650 ₴</td>
+        <td class="num">221</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/1/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="46" min="0" aria-label="Залишок «Ефіопія Їргачефф Кочере»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/1/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products3d/ethiopia-guji-natural-1.webp" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/2/">Ефіопія Гуджі Натурал</a><small>ethiopia-guji-natural</small></div></td>
+        <td>Зерно</td>
+        <td class="num">510 ₴<small><s>560 ₴</s></small></td>
+        <td class="num">1 790 ₴</td>
+        <td class="num">194</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/2/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="31" min="0" aria-label="Залишок «Ефіопія Гуджі Натурал»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/2/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products3d/kenya-nyeri-aa-1.webp" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/3/">Кенія Ньєрі AA</a><small>kenya-nyeri-aa</small></div></td>
+        <td>Зерно</td>
+        <td class="num">560 ₴</td>
+        <td class="num">1 950 ₴</td>
+        <td class="num">101</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/3/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="18" min="0" aria-label="Залишок «Кенія Ньєрі AA»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/3/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products/colombia-decaf-1.svg" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/10/">Колумбія Декаф</a><small>colombia-decaf</small></div></td>
+        <td>Зерно</td>
+        <td class="num">420 ₴</td>
+        <td class="num">1 460 ₴</td>
+        <td class="num">54</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/10/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="22" min="0" aria-label="Залишок «Колумбія Декаф»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/10/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products3d/colombia-anaerobic-pink-bourbon-1.webp" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/8/">Колумбія Рожевий Бурбон</a><small>colombia-anaerobic-pink-bourbon</small></div></td>
+        <td>Зерно</td>
+        <td class="num">790 ₴</td>
+        <td class="num">2 850 ₴</td>
+        <td class="num">43</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/8/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="9" min="0" aria-label="Залишок «Колумбія Рожевий Бурбон»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/8/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products3d/colombia-huila-1.webp" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/4/">Колумбія Уїла</a><small>colombia-huila</small></div></td>
+        <td>Зерно</td>
+        <td class="num">410 ₴</td>
+        <td class="num">1 420 ₴</td>
+        <td class="num">276</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/4/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="64" min="0" aria-label="Залишок «Колумбія Уїла»">
+            
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/4/">Редагувати</a></td>
+      </tr>
+    
+      <tr class="">
+        <td class="prod-cell">
+<img class="" src="/demos/zharivnia/static/img/products/costa-rica-tarrazu-honey-1.svg" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><a href="/demos/zharivnia/admin/products/7/">Коста-Рика Тарразу Хані</a><small>costa-rica-tarrazu-honey</small></div></td>
+        <td>Зерно</td>
+        <td class="num">480 ₴</td>
+        <td class="num">1 680 ₴</td>
+        <td class="num">65</td>
+        <td>
+          <form method="post" action="/demos/zharivnia/admin/products/7/stock/" class="stock-form">
+            <input type="hidden" name="_csrf" value="x">
+            <input type="number" name="stock" value="3" min="0" aria-label="Залишок «Коста-Рика Тарразу Хані»">
+            <span class="stk stk-low"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#alert"></use></svg>Мало</span>
+          </form>
+        </td>
+        <td>Так</td>
+        <td class="act"><a class="btn btn-sm btn-ghost" href="/demos/zharivnia/admin/products/7/">Редагувати</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+</section>
+
+</main>
+<script>window.demoPre&&demoPre()</script><script src="/demos/zharivnia/static/js/admin.js" defer></script>
+</body>
+</html>

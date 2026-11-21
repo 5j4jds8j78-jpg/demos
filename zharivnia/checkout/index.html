@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Оформлення замовлення — Жарівня</title>
+  <meta name="description" content="Обсмажувальня спешелті-кави у Вінниці. Обсмажуємо двічі на тиждень і відправляємо Новою Поштою в день обсмажки.">
+  <meta name="theme-color" content="#2A2420">
+  <link rel="icon" href="/demos/zharivnia/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/demos/zharivnia/static/fonts/Lora-Variable.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="/demos/zharivnia/static/fonts/Inter-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="/demos/zharivnia/static/css/style.css">
+<script src="/demos/zharivnia/_demo/demo-shim.js"></script>
+<script src="/demos/zharivnia/_demo/shop-config.js"></script>
+<script src="/demos/zharivnia/_demo/shop-shim.js"></script>
+</head>
+<body class="page-checkout">
+<a class="skip" href="#main">Перейти до змісту</a>
+<div class="announce" role="region" aria-label="Оголошення">
+  <ul class="announce-track js-rotate">
+    <li class="is-on">Безкоштовна доставка Новою Поштою від 1 000 ₴</li>
+    <li>Обсмажуємо щовівторка й щоп'ятниці, відправляємо в той же день</li>
+    <li>Замовлення до 12:00 обсмажимо й відправимо найближчим рейсом</li>
+  </ul>
+</div>
+<header class="site-head">
+  <div class="wrap head-row">
+    <details class="mnav">
+      <summary aria-label="Меню"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#menu"></use></svg></summary>
+      <nav class="mnav-panel" aria-label="Мобільне меню">
+        <a href="/demos/zharivnia/catalog/_q/cat=beans/">Кава в зернах</a>
+        <a href="/demos/zharivnia/catalog/_q/cat=drip/">Дріп-пакети</a>
+        <a href="/demos/zharivnia/catalog/_q/cat=gear/">Обладнання</a>
+        <a href="/demos/zharivnia/#story">Про нас</a>
+        <a href="/demos/zharivnia/#delivery">Доставка й оплата</a>
+        <form action="/demos/zharivnia/catalog/" role="search"><input type="search" name="q" placeholder="Пошук кави…" aria-label="Пошук"></form>
+      </nav>
+    </details>
+    <a class="brand" href="/demos/zharivnia/" aria-label="Жарівня, на головну">
+      <span class="brand-word">жарівня</span>
+      <span class="brand-sub">обсмажувальня кави · з 2019</span>
+    </a>
+    <nav class="main-nav" aria-label="Основне меню">
+      <a href="/demos/zharivnia/catalog/_q/cat=beans/" >Кава</a>
+      <a href="/demos/zharivnia/catalog/_q/cat=drip/" >Дріп-пакети</a>
+      <a href="/demos/zharivnia/catalog/_q/cat=gear/" >Обладнання</a>
+      <a href="/demos/zharivnia/#story">Про нас</a>
+      <a href="/demos/zharivnia/#delivery">Доставка й оплата</a>
+    </nav>
+    <form class="head-search" action="/demos/zharivnia/catalog/" role="search">
+      <svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#search"></use></svg>
+      <input type="search" name="q" placeholder="Пошук кави…" aria-label="Пошук кави" value="">
+    </form>
+    <a class="head-cart" href="/demos/zharivnia/cart/" aria-label="Кошик, товарів: 2">
+      <svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#cart"></use></svg><span class="head-cart-label">Кошик</span>
+      <span class="cart-count js-count">2</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+  
+  
+<div class="wrap">
+  <nav class="crumbs" aria-label="Хлібні крихти"><a href="/demos/zharivnia/cart/">Кошик</a><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chev"></use></svg><span>Оформлення</span></nav>
+  <div class="co-head">
+    <h1 class="page-title">Оформлення замовлення</h1>
+    <p class="muted">Без реєстрації, займе хвилину</p>
+  </div>
+  
+  <form method="post" class="co js-checkout" novalidate>
+    <input type="hidden" name="_csrf" value="x">
+    <div class="co-main">
+      <section class="co-step">
+        <h2><span class="co-n">1</span>Контакти</h2>
+        <div class="fields">
+          <label class="field field-wide">Ім'я та прізвище
+            <input name="name" autocomplete="name" required minlength="2" maxlength="60" value="" ></label>
+          <label class="field">Телефон
+            <input name="phone" type="tel" autocomplete="tel" required inputmode="tel" placeholder="+380 __ ___ __ __" value="" class="js-phone" >
+            <small>Для SMS від Нової Пошти та дзвінка, якщо щось уточнимо</small></label>
+          <label class="field">Email <em>(необов'язково)</em>
+            <input name="email" type="email" autocomplete="email" value="" >
+            <small>Надішлемо чек і номер ТТН</small></label>
+        </div>
+      </section>
+
+      <section class="co-step">
+        <h2><span class="co-n">2</span>Доставка Новою Поштою</h2>
+        <div class="fields js-np" data-branches='{"\u0406\u0432\u0430\u043d\u043e-\u0424\u0440\u0430\u043d\u043a\u0456\u0432\u0441\u044c\u043a": ["\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21162: \u0432\u0443\u043b. \u041d\u0435\u0437\u0430\u043b\u0435\u0436\u043d\u043e\u0441\u0442\u0456", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21166: \u0432\u0443\u043b. \u0413\u0430\u043b\u0438\u0446\u044c\u043a\u0430"], "\u0412\u0456\u043d\u043d\u0438\u0446\u044f": ["\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21161: \u0432\u0443\u043b. \u0421\u043e\u0431\u043e\u0440\u043d\u0430", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21167: \u0432\u0443\u043b. \u041a\u0435\u043b\u0435\u0446\u044c\u043a\u0430"], "\u0414\u043d\u0456\u043f\u0440\u043e": ["\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21164: \u043f\u0440\u043e\u0441\u043f. \u042f\u0432\u043e\u0440\u043d\u0438\u0446\u044c\u043a\u043e\u0433\u043e", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u211616: \u0432\u0443\u043b. \u0421\u0456\u0447\u0435\u0441\u043b\u0430\u0432\u0441\u044c\u043a\u0430 \u041d\u0430\u0431\u0435\u0440\u0435\u0436\u043d\u0430"], "\u041a\u0438\u0457\u0432": ["\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21161: \u0432\u0443\u043b. \u041f\u0438\u0440\u043e\u0433\u0456\u0432\u0441\u044c\u043a\u0438\u0439 \u0448\u043b\u044f\u0445", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21165: \u0432\u0443\u043b. \u0424\u0435\u0434\u043e\u0440\u043e\u0432\u0430", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u211612: \u0432\u0443\u043b. \u0412\u0435\u043b\u0438\u043a\u0430 \u0412\u0430\u0441\u0438\u043b\u044c\u043a\u0456\u0432\u0441\u044c\u043a\u0430", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u211634: \u043f\u0440\u043e\u0441\u043f. \u041f\u0435\u0440\u0435\u043c\u043e\u0433\u0438", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u2116101: \u0432\u0443\u043b. \u0421\u0456\u0447\u043e\u0432\u0438\u0445 \u0421\u0442\u0440\u0456\u043b\u044c\u0446\u0456\u0432", "\u041f\u043e\u0448\u0442\u043e\u043c\u0430\u0442 \u21162241: \u0422\u0420\u0426 Ocean Plaza"], "\u041b\u044c\u0432\u0456\u0432": ["\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21161: \u0432\u0443\u043b. \u0413\u043e\u0440\u043e\u0434\u043e\u0446\u044c\u043a\u0430", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21168: \u0432\u0443\u043b. \u0428\u0435\u0432\u0447\u0435\u043d\u043a\u0430", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u211617: \u043f\u0440\u043e\u0441\u043f. \u0427\u0435\u0440\u0432\u043e\u043d\u043e\u0457 \u041a\u0430\u043b\u0438\u043d\u0438", "\u041f\u043e\u0448\u0442\u043e\u043c\u0430\u0442 \u21165530: \u043f\u043b. \u0420\u0438\u043d\u043e\u043a"], "\u041e\u0434\u0435\u0441\u0430": ["\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21163: \u0432\u0443\u043b. \u0414\u0435\u0440\u0438\u0431\u0430\u0441\u0456\u0432\u0441\u044c\u043a\u0430", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u211611: \u0424\u043e\u043d\u0442\u0430\u043d\u0441\u044c\u043a\u0430 \u0434\u043e\u0440\u043e\u0433\u0430", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u211624: \u0432\u0443\u043b. \u0413\u0435\u043d\u0443\u0435\u0437\u044c\u043a\u0430"], "\u0423\u0436\u0433\u043e\u0440\u043e\u0434": ["\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21161: \u043f\u043b. \u041d\u0430\u0440\u043e\u0434\u043d\u0430", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21164: \u0432\u0443\u043b. \u0421\u043e\u0431\u0440\u0430\u043d\u0435\u0446\u044c\u043a\u0430"], "\u0425\u0430\u0440\u043a\u0456\u0432": ["\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21162: \u043f\u0440\u043e\u0441\u043f. \u041d\u0430\u0443\u043a\u0438", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u21169: \u0432\u0443\u043b. \u0421\u0443\u043c\u0441\u044c\u043a\u0430", "\u0412\u0456\u0434\u0434\u0456\u043b\u0435\u043d\u043d\u044f \u211645: \u0432\u0443\u043b. \u0413\u0435\u0440\u043e\u0457\u0432 \u041f\u0440\u0430\u0446\u0456"]}'>
+          <label class="field">Місто
+            <span class="select"><select name="city" required class="js-city" >
+              <option value="">Оберіть місто</option>
+              <option >Київ</option><option >Львів</option><option >Одеса</option><option >Харків</option><option >Дніпро</option><option >Вінниця</option><option >Івано-Франківськ</option><option >Ужгород</option>
+            </select><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chevdown"></use></svg></span></label>
+          <label class="field">Відділення або поштомат
+            <span class="select"><select name="branch" required class="js-branch" >
+              <option value="">Спершу оберіть місто</option>
+              <optgroup label="Київ"><option >Відділення №1: вул. Пирогівський шлях</option><option >Відділення №5: вул. Федорова</option><option >Відділення №12: вул. Велика Васильківська</option><option >Відділення №34: просп. Перемоги</option><option >Відділення №101: вул. Січових Стрільців</option><option >Поштомат №2241: ТРЦ Ocean Plaza</option></optgroup><optgroup label="Львів"><option >Відділення №1: вул. Городоцька</option><option >Відділення №8: вул. Шевченка</option><option >Відділення №17: просп. Червоної Калини</option><option >Поштомат №5530: пл. Ринок</option></optgroup><optgroup label="Одеса"><option >Відділення №3: вул. Дерибасівська</option><option >Відділення №11: Фонтанська дорога</option><option >Відділення №24: вул. Генуезька</option></optgroup><optgroup label="Харків"><option >Відділення №2: просп. Науки</option><option >Відділення №9: вул. Сумська</option><option >Відділення №45: вул. Героїв Праці</option></optgroup><optgroup label="Дніпро"><option >Відділення №4: просп. Яворницького</option><option >Відділення №16: вул. Січеславська Набережна</option></optgroup><optgroup label="Вінниця"><option >Відділення №1: вул. Соборна</option><option >Відділення №7: вул. Келецька</option></optgroup><optgroup label="Івано-Франківськ"><option >Відділення №2: вул. Незалежності</option><option >Відділення №6: вул. Галицька</option></optgroup><optgroup label="Ужгород"><option >Відділення №1: пл. Народна</option><option >Відділення №4: вул. Собранецька</option></optgroup>
+            </select><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#chevdown"></use></svg></span></label>
+          <label class="field field-wide">Коментар до замовлення <em>(необов'язково)</em>
+            <textarea name="comment" rows="2" maxlength="300"></textarea></label>
+        </div>
+        <p class="note"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#truck"></use></svg> 90 ₴ за тарифами перевізника, безкоштовно від 1 000 ₴. Відправимо у вівторок, 24.11, доставка 1–2 дні.</p>
+      </section>
+
+      <section class="co-step">
+        <h2><span class="co-n">3</span>Оплата</h2>
+        <div class="pay-opts" role="radiogroup" aria-label="Спосіб оплати">
+          <label class="pay-opt">
+            <input type="radio" name="payment" value="cod" checked>
+            <span class="pay-body"><svg class="ico pay-ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#cash"></use></svg><b>Оплата при отриманні</b>
+              <small>Оплачуєте у відділенні після огляду. Комісія НП за переказ: 20 ₴ + 2%.</small></span>
+          </label>
+          <label class="pay-opt">
+            <input type="radio" name="payment" value="card" >
+            <span class="pay-body"><svg class="ico pay-ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#wallet"></use></svg><b>Карткою онлайн <span class="demo-tag">демо</span></b>
+              <small>Тестова оплата на наступному кроці. Дані картки не вводяться і не зберігаються.</small></span>
+          </label>
+        </div>
+        
+      </section>
+    </div>
+
+    <aside class="summary co-summary" aria-label="Ваше замовлення">
+      <div class="summary-head"><h2>Ваше замовлення</h2><a href="/demos/zharivnia/cart/">Змінити</a></div>
+      <ul class="mini-lines">
+        
+        <li>
+<img class="" src="/demos/zharivnia/static/img/products3d/ethiopia-yirgacheffe-kochere-1.webp" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><b>Ефіопія Їргачефф Кочере</b><small>250 г · зерно (без помелу) × 1</small></div><span>470 ₴</span></li>
+        
+        <li>
+<img class="" src="/demos/zharivnia/static/img/products3d/ethiopia-guji-natural-1.webp" alt=""
+     width="800" height="1000" loading="lazy" decoding="async"><div><b>Ефіопія Гуджі Натурал</b><small>250 г · зерно (без помелу) × 1</small></div><span>510 ₴</span></li>
+        
+      </ul>
+      <dl class="sum">
+        <div><dt>Товари</dt><dd>980 ₴</dd></div>
+        
+        <div><dt>Доставка</dt><dd>90 ₴</dd></div>
+        <div class="sum-total"><dt>Разом до сплати</dt><dd>1 070 ₴</dd></div>
+      </dl>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Підтвердити замовлення на 1 070 ₴</button>
+      <p class="fine"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#lock"></use></svg> Дані передаються захищеним з'єднанням. Натискаючи кнопку, ви погоджуєтеся з умовами доставки й повернення.</p>
+    </aside>
+  </form>
+</div>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <span class="brand-word">жарівня</span>
+      <p>Обсмажувальня спешелті-кави. Вінниця, з 2019.</p>
+      <form class="news js-demo-form" action="#" data-done="Дякуємо! Перший лист уже скоро.">
+        <label for="news-email">Нові лоти й рецепти раз на місяць. Без спаму.</label>
+        <div class="news-row">
+          <input id="news-email" type="email" placeholder="Ваш email" autocomplete="email" required>
+          <button class="btn btn-light" type="submit">Підписатися</button>
+        </div>
+      </form>
+    </div>
+    <nav aria-label="Магазин"><h2>Магазин</h2>
+      <a href="/demos/zharivnia/catalog/_q/cat=beans/">Кава в зернах</a>
+      <a href="/demos/zharivnia/catalog/_q/cat=drip/">Дріп-пакети</a>
+      <a href="/demos/zharivnia/catalog/_q/cat=gear/">Обладнання</a>
+      <a href="/demos/zharivnia/p/colombia-anaerobic-pink-bourbon/">Лот місяця</a>
+    </nav>
+    <nav aria-label="Допомога"><h2>Допомога</h2>
+      <a href="/demos/zharivnia/#delivery">Доставка й оплата</a>
+      <a href="/demos/zharivnia/#delivery">Повернення</a>
+      <a href="/demos/zharivnia/#faq">Часті запитання</a>
+      <a href="mailto:hello@zharivnia.example">hello@zharivnia.example</a>
+    </nav>
+    <div><h2>Контакти</h2>
+      <p class="foot-contact">Вінниця, Старе місто<br>Пн–Пт 9:00–18:00<br><a href="mailto:hello@zharivnia.example">hello@zharivnia.example</a></p>
+      <p class="foot-pay"><svg class="ico" aria-hidden="true" focusable="false"><use href="/demos/zharivnia/static/img/icons.svg#cash"></use></svg> Оплата при отриманні · Visa / Mastercard</p>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Жарівня</span>
+    <span>Демо-проєкт для портфоліо. Замовлення не обробляються, оплата тестова.</span>
+  </div>
+</footer>
+
+
+<div class="toast" role="status" aria-live="polite" hidden></div>
+<script>window.demoPre&&demoPre()</script><script src="/demos/zharivnia/static/js/app.js" defer></script>
+
+</body>
+</html>
