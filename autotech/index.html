@@ -70,6 +70,7 @@ button{font:inherit;color:inherit}
 .hcall .t{display:none}
 @media(min-width:400px){.hcall .t{display:inline}}
 @media(min-width:1040px){.links{display:flex}}
+@media(min-width:1040px) and (max-width:1299px){.links a{font-size:14px;padding:10px 8px}.links a::after{left:8px;right:8px}.hcall .t{display:none}.hcall{padding:0 13px}}
 
 /* scroll road */
 .road-strip{position:relative;height:16px;background:var(--k0);border-top:1px solid #1a1a1b;overflow:hidden}
@@ -146,6 +147,17 @@ h1 em{font-style:normal;color:var(--red);display:block}
 @media(max-width:399px){.xs-hide{display:none}.open{font-size:13px}h1{margin:8px 0 10px}}
 .hero-hz{height:8px;background:var(--hz)}
 @media(max-width:379px){.cta .btn-red{font-size:16px}.cta .pn{display:none}}
+.duo{display:grid;gap:10px}
+.cta .btn-red,.cta .btn-book{min-height:60px}
+.btn-book{background:transparent;color:#fff;border:2px solid #fff;font-size:18px;white-space:normal;text-align:left}
+.btn-book:hover{background:rgba(255,255,255,.07)}
+.btn-book .bk{display:flex;flex-wrap:wrap;column-gap:.32em;row-gap:3px;align-items:baseline}
+@media(max-width:559px){
+  .btn-book .bk{flex-direction:column;align-items:flex-start}
+  .btn-book .dash{display:none}
+  .btn-book .nb{font-size:13.5px;font-weight:700;color:var(--ink2);letter-spacing:.01em}
+}
+@media(max-width:379px){.btn-book{font-size:16px}}
 @media(min-width:560px){.stage{height:300px}.stage .wheel-wrap{width:290px}}
 @media(min-width:960px){
   .hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;min-height:calc(100svh - 128px);max-height:900px;padding-top:32px;padding-bottom:44px}
@@ -153,7 +165,7 @@ h1 em{font-style:normal;color:var(--red);display:block}
   .stage{order:2;height:auto;aspect-ratio:1/1;max-height:600px;overflow:visible}
   .stage .wheel-wrap{width:94%}
   .cta{justify-items:start;max-width:520px}
-  .cta .btn-red,.msg{width:100%}
+  .cta .btn-red,.cta .btn-book,.duo,.msg{width:100%}
 }
 .spin{transform-origin:0 0;animation:spin 2.6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -213,7 +225,7 @@ h1 em{font-style:normal;color:var(--red);display:block}
 .panel .btn{width:100%;margin-top:20px}
 
 /* ---------- DASHBOARD ---------- */
-.dash{display:grid;gap:16px}
+.dash{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
 @media(min-width:960px){.dash{grid-template-columns:1.1fr .9fr;gap:36px;align-items:start}}
 .cluster{border-radius:20px;padding:18px;border:1px solid #2a2a2d;background-color:#141415;
   background-image:linear-gradient(rgba(14,14,15,.88),rgba(14,14,15,.88)),
@@ -382,12 +394,180 @@ footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);f
 .foot a{color:var(--ink2);white-space:nowrap}
 
 /* mobile sticky bar */
-.mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--k1);border-top:1px solid var(--line2);transition:transform .25s var(--ease)}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 52px;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--k1);border-top:1px solid var(--line2);transition:transform .25s var(--ease)}
 .mbar.hide{transform:translateY(110%)}
 .mbar .btn{min-height:50px;padding:0 8px;font-size:15px;gap:8px}
 .mbar .btn .ic{width:19px;height:19px}
-@media(max-width:379px){.mbar{grid-template-columns:minmax(0,1fr) 56px 56px}.mbar .lbl{display:none}}
+.mbar .mb-book{border-color:#fff;border-width:2px}
+.mbar .mb-msg{padding:0}
+.mbar .mb-msg[aria-expanded="true"]{border-color:#fff;background:var(--k3)}
+.mpop{position:absolute;right:12px;bottom:calc(100% + 8px);display:grid;gap:6px;width:200px;padding:8px;background:var(--k2);border:1px solid var(--line2);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.mpop[hidden]{display:none}
+.mpop a{display:flex;align-items:center;gap:12px;min-height:48px;padding:0 12px;border-radius:8px;text-decoration:none;font-weight:700}
+.mpop a:hover{background:var(--k3)}
+@media(max-width:379px){.mbar{gap:6px;padding-left:10px;padding-right:10px;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 48px}.mbar .btn{font-size:14px;gap:6px;padding:0 6px}.mbar .btn .ic{width:17px;height:17px}}
 @media(min-width:960px){.mbar{display:none}}
+@media(max-width:959px){html{scroll-padding-bottom:84px}}
+
+/* ---------- BOOKING WIZARD ---------- */
+.book{grid-template-columns:minmax(0,1fr)}
+@media(min-width:960px){.book{grid-template-columns:minmax(0,1.38fr) minmax(0,.62fr)}}
+.wz{border:1px solid var(--line);border-radius:12px;background:var(--k1);min-width:0}
+.wz form{border:0;border-radius:0;padding:20px;background:none;gap:20px}
+@media(min-width:760px){.wz form{padding:30px 32px 32px}}
+.wz-prog{display:grid;gap:10px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.wz-count{font:700 14px/1 var(--f);color:var(--mute)}
+.wz-count b{color:#fff;font-weight:800}
+.wz-bars{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.wz-bars li{display:grid;gap:8px;font-size:13px;font-weight:700;color:var(--mute);min-width:0}
+.wz-bars li::before{content:"";height:4px;border-radius:2px;background:var(--line2);transition:background .25s}
+.wz-bars li.on,.wz-bars li.done{color:#fff}
+.wz-bars li.on::before,.wz-bars li.done::before{background:var(--red)}
+.wz-bars span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wz-step{display:grid;gap:22px;min-width:0}
+.wz-step[hidden]{display:none}
+@media (prefers-reduced-motion:no-preference){.wz-step:not([hidden]),.wz-done:not([hidden]){animation:rise .45s var(--enter) both}.wz-step:not([hidden]){opacity:0;transform:translateY(8px)}}
+.wz h3{font:800 clamp(22px,4.6vw,27px)/1.15 var(--f);letter-spacing:-.015em}
+.wz h3:focus{outline:none}
+.wz fieldset{min-width:0}
+.wz legend{display:block;width:100%}
+.wz .opt{color:var(--mute);font-weight:500}
+.chips.svc-chips label{min-height:46px}
+.lamp-pick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+@media(min-width:620px){.lamp-pick{grid-template-columns:repeat(7,minmax(0,1fr))}}
+@media(max-width:619px){.lamp-pick label.nl{grid-column:1/-1;grid-template-columns:auto auto;justify-content:start;align-items:center;min-height:48px;padding:6px 14px;gap:12px;font-size:13px}.lamp-pick label.nl .none{width:26px;height:26px}}
+.lamp-pick input,.days input,.slots input,.chan input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.lamp-pick label{display:grid;justify-items:center;align-content:center;gap:5px;min-height:84px;padding:8px 3px;border-radius:10px;background:#0d0d0e;border:1.5px solid #252528;cursor:pointer;text-align:center;font-size:11.5px;line-height:1.2;color:var(--mute);transition:border-color .15s,background .15s}
+.lamp-pick label:hover{border-color:#4a4a4e}
+.lamp-pick svg{width:32px;height:32px;color:#4a4a4f;transition:color .15s}
+.lamp-pick .none{width:32px;height:32px;display:grid;place-items:center;font:800 13px/1 var(--f);color:#6a6a70;border:1.5px dashed #46464a;border-radius:50%}
+.lamp-pick input:checked+label{border-color:var(--red);background:#140d0d;color:#fff}
+.lamp-pick input:checked+label svg{color:var(--c,#fff)}
+.lamp-pick .amber{--c:#ffb800}.lamp-pick .redl{--c:#ff3b2f}
+.lamp-pick input:focus-visible+label,.days input:focus-visible+label,.slots input:focus-visible+label,.chan input:focus-visible+label{outline:2px solid #fff;outline-offset:2px}
+.lamp-note{font-size:13.5px;color:var(--ink2);margin-top:10px;display:flex;gap:8px;align-items:center}
+.lamp-note::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--red);flex:none}
+.lamp-note[hidden]{display:none}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+@media(max-width:619px){
+  .days{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(80px,1fr);overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;margin:0 calc(var(--pad) * -1 - 21px);padding:3px calc(var(--pad) + 21px) 4px;scroll-padding:0 calc(var(--pad) + 21px)}
+  .days::-webkit-scrollbar{display:none}
+  .days label{scroll-snap-align:start}
+}
+.days label,.slots label{display:grid;align-content:center;justify-items:center;gap:3px;min-height:58px;padding:6px 4px;border-radius:10px;border:1.5px solid var(--line2);cursor:pointer;text-align:center;color:#fff;font-size:14.5px;font-weight:700;line-height:1.15;transition:border-color .15s,background .15s}
+.days label small,.slots label small{font-size:11.5px;font-weight:500;color:var(--mute)}
+.days label:hover,.slots label:hover{border-color:#6a6a70}
+.days input:checked+label,.slots input:checked+label{border-color:var(--red);background:var(--red-soft)}
+.days input:checked+label small,.slots input:checked+label small{color:var(--ink2)}
+.slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+@media(min-width:620px){.slots{grid-template-columns:repeat(7,minmax(0,1fr))}}
+.slots label{min-height:50px;font-variant-numeric:tabular-nums}
+.slots input:disabled+label{cursor:not-allowed;color:#6a6a70;border-style:dashed;border-color:#333336;background:repeating-linear-gradient(-45deg,transparent 0 6px,#18181a 6px 12px)}
+.slots input:disabled+label small{color:#6a6a70}
+.slots .night{grid-column:1/-1}
+.slots .night label{grid-template-columns:auto 1fr;justify-items:start;text-align:left;column-gap:12px;padding:10px 14px;min-height:56px}
+.slots .night .ic{grid-row:span 2;color:var(--red)}
+.slots .night small{justify-self:start}
+.slot-legend{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:10px;font-size:12.5px;color:var(--mute)}
+.slot-legend span{display:inline-flex;align-items:center;gap:7px}
+.slot-legend i{width:14px;height:10px;border-radius:3px;border:1.5px solid var(--line2)}
+.slot-legend i.b{border:1.5px dashed #46464a;background:repeating-linear-gradient(-45deg,transparent 0 3px,#2a2a2d 3px 6px)}
+.slot-legend i.s{border-color:var(--red);background:var(--red-soft)}
+.wz-tip{border-left:3px solid var(--red);padding:4px 0 4px 14px;color:var(--ink2);font-size:14.5px}
+.wz-tip a{color:#fff;font-weight:700;white-space:nowrap}
+.wz-tip[hidden]{display:none}
+.recap{display:flex;flex-wrap:wrap;gap:6px}
+.recap span{font-size:13.5px;color:var(--ink2);border:1px solid var(--line2);border-radius:6px;padding:5px 9px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chan{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+@media(min-width:620px){.chan{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.chan label{display:flex;align-items:center;gap:10px;min-height:52px;padding:0 14px;border-radius:10px;border:1.5px solid var(--line2);cursor:pointer;color:#fff;font-size:15px;font-weight:700;transition:border-color .15s,background .15s}
+.chan label:hover{border-color:#6a6a70}
+.chan input:checked+label{border-color:var(--red);background:var(--red-soft)}
+.tick{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;cursor:pointer;color:#fff;font-size:15.5px;padding:2px 0}
+.tick input{appearance:none;-webkit-appearance:none;width:24px;height:24px;min-height:0;padding:0;margin-top:1px;border-radius:6px;border:1.5px solid var(--line2);background:var(--k2);display:grid;place-items:center;cursor:pointer}
+.tick input::after{content:"";width:11px;height:6px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:translateY(-2px) rotate(-45deg);opacity:0}
+.tick input:checked{background:var(--red);border-color:var(--red)}
+.tick input:checked::after{opacity:1}
+.tick input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.tick input:disabled{opacity:.45;cursor:not-allowed}
+.tick small{display:block;color:var(--mute);font-size:13px;font-weight:500;margin-top:2px}
+.wz-nav{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:10px;padding-top:18px;border-top:1px solid var(--line)}
+.wz-nav .btn{width:100%;min-height:56px}
+.wz [hidden],.stat [hidden]{display:none!important}
+.wz-nav #wzNext:only-child,.wz-nav.first #wzNext{grid-column:1/-1}
+.wz-nav .ic{width:19px;height:19px}
+.wz .err{margin-top:-6px}
+.wz .err.on{display:flex;gap:8px;align-items:center}
+/* success */
+.wz-done{padding:22px;display:grid;gap:22px}
+@media(min-width:760px){.wz-done{padding:32px}}
+.wz-done[hidden]{display:none}
+.wz-done:focus{outline:none}
+.done-top{display:grid;grid-template-columns:48px 1fr;gap:16px;align-items:start}
+.done-ic{width:48px;height:48px;border-radius:50%;background:rgba(79,207,142,.12);border:1.5px solid rgba(79,207,142,.6);display:grid;place-items:center;color:var(--green)}
+.done-ic .ic{width:24px;height:24px}
+.done-top p{color:var(--ink2);font-size:15px;margin-top:4px}
+.code-box{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;padding:16px 18px;border-radius:10px;background:var(--k2);border:1px dashed var(--line2)}
+.code-box small{display:block;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.code-box b{font:800 clamp(24px,6vw,30px)/1 var(--f);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.copy{min-height:44px;padding:0 14px;border-radius:8px;border:1.5px solid var(--line2);background:none;cursor:pointer;font-weight:700;font-size:14px}
+.copy:hover{border-color:#fff}
+.sum{display:grid;gap:0;border-top:1px solid var(--line)}
+.sum div{display:grid;grid-template-columns:minmax(0,108px) minmax(0,1fr);gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.sum dt{font-size:13px;font-weight:700;color:var(--mute);padding-top:1px}
+.sum dd{color:#fff;font-size:15px;overflow-wrap:anywhere}
+.wz-done h4{font:800 12.5px/1 var(--f);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:10px}
+.wz-done h4::before{content:"";width:18px;height:3px;background:var(--red);border-radius:1px}
+.next{list-style:none;display:grid;gap:12px;counter-reset:n}
+.next li{display:grid;grid-template-columns:28px 1fr;gap:12px;color:var(--ink2)}
+.next li::before{counter-increment:n;content:counter(n);width:28px;height:28px;border-radius:50%;border:2px solid var(--red);display:grid;place-items:center;font:800 13px/1 var(--f);color:#fff}
+.next li:first-child{color:#fff;font-weight:700}
+.done-act{display:grid;gap:10px}
+@media(min-width:620px){.done-act{grid-template-columns:1.4fr 1fr}}
+.done-act .btn{width:100%}
+.demo-note{font-size:12.5px;color:var(--mute);border-top:1px solid var(--line);padding-top:14px}
+.contact .why{display:grid;gap:10px;margin:2px 0 14px;padding-bottom:16px;border-bottom:1px solid var(--line);list-style:none;font-size:14.5px;color:var(--ink2)}
+.contact .why li{display:grid;grid-template-columns:20px 1fr;gap:10px}
+.contact .why .ic{width:18px;height:18px;color:var(--red);margin-top:2px}
+
+/* ---------- STATUS ---------- */
+.stat{display:grid;gap:16px}
+@media(min-width:960px){.stat{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:36px;align-items:start}}
+form.st-f{gap:16px}
+.st-f .btn{width:100%}
+.linkish{background:none;border:0;padding:0;color:#fff;font-weight:700;text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:2px;text-underline-offset:.22em;cursor:pointer;min-height:44px;font-size:inherit}
+.st-err{border:1px solid rgba(255,107,94,.45);background:rgba(255,107,94,.07);border-radius:10px;padding:14px 16px;color:#ffd9d4;font-size:15px;display:grid;gap:10px}
+.st-err[hidden]{display:none}
+.st-err b{color:#fff}
+.st-err .msg .btn{min-height:46px;font-size:14.5px}
+.st-res{border:1px solid var(--line);border-radius:12px;background:var(--k1);padding:22px;display:grid;gap:18px}
+@media(min-width:760px){.st-res{padding:30px}}
+.st-res:focus{outline:none}
+.st-meta{display:grid;gap:4px}
+.st-meta small{font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.st-meta b{font:800 22px/1.2 var(--f);letter-spacing:.02em}
+.st-meta span{color:var(--ink2);font-size:14.5px}
+.st-empty{color:var(--mute);font-size:15px}
+.tl{list-style:none;display:grid}
+.tl li{position:relative;display:grid;grid-template-columns:28px 1fr;gap:14px;padding-bottom:18px;color:var(--mute)}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:13px;top:30px;bottom:2px;width:2px;background:var(--line2)}
+.tl li:last-child::before{display:none}
+.tl li.done::before{background:var(--red)}
+.tl .d{width:28px;height:28px;border-radius:50%;border:2px solid var(--line2);background:var(--k1);display:grid;place-items:center;position:relative;z-index:1}
+.tl .d .ic{width:15px;height:15px;stroke-width:3;opacity:0}
+.tl li.done .d{background:var(--red);border-color:var(--red)}
+.tl li.done .d .ic{opacity:1;color:#fff}
+.tl li.now .d{border-color:var(--red);box-shadow:0 0 0 4px var(--red-soft)}
+.tl li.now .d::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--red)}
+@media (prefers-reduced-motion:no-preference){.tl li.now .d::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--red);animation:ping 1.8s ease-out infinite}}
+.tl h5{font:700 16px/1.3 var(--f);margin-top:3px;display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline}
+.tl h5 time{font-size:13px;font-weight:500;color:var(--mute);font-variant-numeric:tabular-nums}
+.tl li.done h5,.tl li.now h5{color:#fff}
+.tl p{font-size:14.5px;color:var(--ink2);margin-top:4px}
+.tl .live{margin-top:8px;display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:8px;background:var(--k2);border:1px solid var(--line2);color:#fff;font-size:14.5px;font-weight:700}
+.tl .live .ic{width:18px;height:18px;color:var(--red)}
+.st-res .fine{border-top:1px solid var(--line);padding-top:14px}
 
 .off *,.off{animation-play-state:paused!important}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
@@ -415,7 +595,13 @@ footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);f
     <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3.5L9 5.5h6L16.5 8H20v11H4Z"/><circle cx="12" cy="13" r="3.4"/></symbol>
     <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></symbol>
     <symbol id="i-car" viewBox="0 0 24 24"><path d="M3.5 16.5v-4l2-5h13l2 5v4M3.5 12.5h17"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/></symbol>
-    <symbol id="i-tri" viewBox="0 0 30 26"><path d="M15 2.5 27.5 23.5h-25Z" fill="none" stroke="#d61b1b" stroke-width="2.6" stroke-linejoin="round"/><path d="M15 9.5 21 19.8H9Z" fill="none" stroke="#d61b1b" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="m9 15 2 2 4-4"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 4.5h10.5A1.5 1.5 0 0 1 16 6v6.5a1.5 1.5 0 0 1-1.5 1.5H9l-3.5 3v-3H4a1.5 1.5 0 0 1-1.5-1.5V6A1.5 1.5 0 0 1 4 4.5Z"/><path d="M16 9h4a1.5 1.5 0 0 1 1.5 1.5V17a1.5 1.5 0 0 1-1.5 1.5h-1.5v3l-3.5-3h-4A1.5 1.5 0 0 1 9.5 17v-1"/></symbol>
+    <symbol id="i-sms" viewBox="0 0 24 24"><path d="M4.5 4.5h15A1.5 1.5 0 0 1 21 6v10a1.5 1.5 0 0 1-1.5 1.5H10L5.5 21v-3.5h-1A1.5 1.5 0 0 1 3 16V6a1.5 1.5 0 0 1 1.5-1.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-width="2.6"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10Z"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-tri"viewBox="0 0 30 26"><path d="M15 2.5 27.5 23.5h-25Z" fill="none" stroke="#d61b1b" stroke-width="2.6" stroke-linejoin="round"/><path d="M15 9.5 21 19.8H9Z" fill="none" stroke="#d61b1b" stroke-width="1.8" stroke-linejoin="round"/></symbol>
     <symbol id="sc-car" viewBox="0 0 18 34"><rect x="1" y="1" width="16" height="32" rx="6" fill="#d61b1b"/><rect x="3.2" y="20" width="11.6" height="7" rx="2" fill="#151516"/><rect x="3.6" y="7" width="10.8" height="5" rx="1.6" fill="#151516"/><rect x="2" y="30.5" width="4" height="2" rx="1" fill="#fff"/><rect x="12" y="30.5" width="4" height="2" rx="1" fill="#fff"/></symbol>
     <symbol id="pin-160" viewBox="0 0 24 30"><circle class="dot" cx="12" cy="11" r="9" fill="none" stroke="#d61b1b" stroke-width="2"/><path d="M12 29s-9-8-9-15.5a9 9 0 0 1 18 0C21 21 12 29 12 29Z" fill="#d61b1b"/><circle cx="12" cy="12.5" r="3.4" fill="#fff"/></symbol>
   </defs>
@@ -433,6 +619,8 @@ footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);f
       <a href="#services">Послуги</a>
       <a href="#reviews">Відгуки</a>
       <a href="#box">Бокс 160</a>
+      <a href="#book">Запис</a>
+      <a href="#status">Статус</a>
     </nav>
     <a class="hcall" href="tel:+380965087819" aria-label="Подзвонити: +380 96 508 78 19"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><span class="t num">096 508 78 19</span></a>
   </div>
@@ -459,7 +647,10 @@ footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);f
       <h1 id="h1">Заглохли вночі посеред дороги? <em>Приїдемо й допоможемо на місці</em></h1>
       <p class="lead">Цілодобово, без вихідних. Ремонтуємо в боксі на Кульчицького, а якщо авто не їде — майстер виїде до вас, часто з потрібною деталлю.<span class="xs-hide"> Вночі теж беремо трубку.</span></p>
       <div class="cta">
-        <a class="btn btn-red" id="heroCall" href="tel:+380965087819"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Подзвонити <span class="num pn">096 508 78 19</span></a>
+        <div class="duo">
+          <a class="btn btn-red" id="heroCall" href="tel:+380965087819"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Подзвонити <span class="num pn">096 508 78 19</span></a>
+          <a class="btn btn-book" href="#book"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg><span class="bk"><span>Записатися онлайн</span><span class="nb"><span class="dash">— </span>без дзвінка</span></span></a>
+        </div>
         <div class="msg">
           <a class="btn btn-line" href="viber://chat?number=%2B380965087819"><svg class="ic" aria-hidden="true"><use href="#i-viber"/></svg>Viber</a>
           <a class="btn btn-line" href="https://t.me/+380965087819" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Telegram</a>
@@ -709,6 +900,7 @@ footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);f
         <p class="verdict" id="r-v">Система керування двигуном зафіксувала помилку. Найчастіше можна обережно доїхати до сервісу.</p>
         <span class="urg care" id="r-u"><i></i><span id="r-ul">Обережно — до сервісу</span></span>
         <a class="btn btn-red" href="tel:+380965087819"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Подзвонити майстру</a>
+        <a class="btn btn-line" href="#book" id="lampBook"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg>Записатися онлайн</a>
         <details>
           <summary>Детальніше</summary>
           <dl>
@@ -734,22 +926,22 @@ footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);f
       <p class="intro">Вартість — після огляду авто.</p>
     </div>
     <ul class="svc">
-      <li><a class="card" href="#book">
+      <li><a class="card" href="#book" data-svc="Двигун">
         <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><g class="bob"><rect x="16" y="8" width="32" height="24" rx="3"/><path d="M16 15h32M16 21h32" stroke="#d61b1b"/></g><circle cx="32" cy="40" r="4"/><path d="M28 32l-2 8 6 16 6-16-2-8"/><circle cx="32" cy="56" r="3" fill="#d61b1b" stroke="#d61b1b"/></svg>
         <h3>Двигун і охолодження</h3><p>Патрубки, помпа, радіатор, термостат, ремінь ГРМ.</p><span class="price">від ___ грн</span></a></li>
-      <li><a class="card" href="#book">
+      <li><a class="card" href="#book" data-svc="Ходова/підвіска">
         <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><rect x="27" y="4" width="10" height="14" rx="2"/><path d="M32 18v6"/><g class="bob"><path d="M20 24h24M22 30l20 4M22 36l20 4M22 42l20 4M22 48l20 4" stroke="#d61b1b"/></g><path d="M20 56h24M32 50v6"/></svg>
         <h3>Ходова й підвіска</h3><p>Амортизатори, сайлентблоки, кульові опори, рульові тяги.</p><span class="price">від ___ грн</span></a></li>
-      <li><a class="card" href="#book">
+      <li><a class="card" href="#book" data-svc="Автоелектрика">
         <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><rect x="8" y="18" width="48" height="34" rx="4"/><path d="M15 18v-6h8v6M41 18v-6h8v6"/><path d="M15 32h9M40 32h9M44.5 27.5v9" stroke="#d61b1b"/><g class="bob"><path d="M33 38l-4 7h6l-4 7" stroke="#d61b1b"/></g></svg>
         <h3>Автоелектрика</h3><p>Стартер, генератор, проводка, акумулятор, освітлення.</p><span class="price">від ___ грн</span></a></li>
-      <li><a class="card" href="#book">
+      <li><a class="card" href="#book" data-svc="Діагностика">
         <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><rect x="6" y="14" width="40" height="28" rx="3"/><path d="M12 36l7-9 6 5 8-11 7 8" stroke="#d61b1b"/><path d="M46 28h6l6 6v8M22 42v8M30 42v8M16 50h20"/><circle class="bob" cx="55" cy="46" r="3" fill="#d61b1b" stroke="#d61b1b"/></svg>
         <h3>Комп’ютерна діагностика</h3><p>Зчитуємо помилки, перевіряємо датчики й системи двигуна.</p><span class="price">від ___ грн</span></a></li>
-      <li><a class="card" href="#book">
+      <li><a class="card" href="#book" data-svc="Планове ТО">
         <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><path d="M6 30h9l5-4h6v-5h-5v-4h14v4h-5v5h8l6 4 14-7 2 3-15 17H18l-3-4H8l-2-3z"/><g class="bob"><path d="M56 40c-3 4-3 7 0 7s3-3 0-7z" fill="#d61b1b" stroke="#d61b1b"/></g></svg>
         <h3>Планове ТО</h3><p>Заміна масла, фільтрів і технічних рідин.</p><span class="price">від ___ грн</span></a></li>
-      <li><a class="card" href="#book">
+      <li><a class="card" href="#book" data-svc="Гальма">
         <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><g class="rot"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="8"/><g fill="#fff" stroke="none"><circle cx="32" cy="16" r="2"/><circle cx="46" cy="25" r="2"/><circle cx="43" cy="44" r="2"/><circle cx="21" cy="44" r="2"/><circle cx="18" cy="25" r="2"/></g></g><path d="M12 22a22 22 0 0 1 14-13l3 9a12 12 0 0 0-8 7z" fill="#d61b1b" stroke="#d61b1b"/></svg>
         <h3>Гальмівна система</h3><p>Колодки, диски, супорти, гальмівна рідина.</p><span class="price">від ___ грн</span></a></li>
       <li><a class="card" href="tel:+380965087819"><span class="tag">24/7</span>
@@ -836,43 +1028,111 @@ footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);f
 <section class="sec" id="book" aria-labelledby="book-h">
   <div class="wrap">
     <div class="head">
-      <p class="kicker">Запис</p>
-      <h2 id="book-h">Залиште номер — майстер передзвонить</h2>
-      <p class="intro">Достатньо телефону. Решту уточнимо в розмові.</p>
+      <p class="kicker">Запис онлайн</p>
+      <h2 id="book-h">Запишіться без дзвінка</h2>
+      <p class="intro">Три короткі кроки. Майстер підтвердить запис письмово — у Viber, Telegram чи SMS, як вам зручніше.</p>
     </div>
     <div class="book">
-      <form id="f" novalidate aria-labelledby="f-h">
-        <h3 id="f-h">Заявка на ремонт</h3>
-        <label for="phone">Ваш телефон *
-          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" autocomplete="tel" required aria-describedby="phone-err">
-          <span class="err" id="phone-err">Вкажіть номер телефону, щоб майстер міг передзвонити.</span>
-        </label>
-        <label><span>Що сталося <span class="opt">(необов’язково)</span></span><textarea name="msg" placeholder="Наприклад: горить лампа масла, стукає спереду"></textarea></label>
-        <details>
-          <summary>Додати деталі</summary>
-          <div class="more">
-            <div class="row">
-              <label>Ім’я<input name="name" placeholder="Як до вас звертатися" autocomplete="name"></label>
-              <label>Що потрібно<select name="service"><option>Діагностика</option><option>Ремонт</option><option>Планове ТО</option><option>Виїзд на дорогу</option></select></label>
-            </div>
-            <label>Авто<input name="car" placeholder="Марка, модель, рік"></label>
+      <div class="wz" id="wz">
+        <form id="wzf" novalidate aria-labelledby="book-h">
+          <div class="wz-prog">
+            <p class="wz-count" id="wzCount" aria-live="polite">Крок <b class="num">1</b> з 3</p>
+            <ol class="wz-bars" aria-hidden="true"><li class="on"><span>Що сталося</span></li><li><span>Час</span></li><li><span>Контакти</span></li></ol>
+          </div>
+
+          <div class="wz-step" id="st1" role="group" aria-labelledby="st1-h">
+            <h3 id="st1-h" tabindex="-1">Що сталося?</h3>
             <fieldset>
-              <legend>Коли зручно</legend>
-              <div class="chips">
-                <input type="radio" name="when" id="w1" value="Якнайшвидше" checked><label for="w1">Якнайшвидше</label>
-                <input type="radio" name="when" id="w2" value="Сьогодні"><label for="w2">Сьогодні</label>
-                <input type="radio" name="when" id="w3" value="Завтра"><label for="w3">Завтра</label>
-                <input type="radio" name="when" id="w4" value="Інший день"><label for="w4">Інший день</label>
+              <legend>Що потрібно <span class="opt">— можна кілька</span></legend>
+              <div class="chips svc-chips" id="svcChips">
+                <input type="checkbox" name="svc" id="sv1" value="Діагностика"><label for="sv1">Діагностика</label>
+                <input type="checkbox" name="svc" id="sv2" value="Ходова/підвіска"><label for="sv2">Ходова/підвіска</label>
+                <input type="checkbox" name="svc" id="sv3" value="Двигун"><label for="sv3">Двигун</label>
+                <input type="checkbox" name="svc" id="sv4" value="Автоелектрика"><label for="sv4">Автоелектрика</label>
+                <input type="checkbox" name="svc" id="sv5" value="Гальма"><label for="sv5">Гальма</label>
+                <input type="checkbox" name="svc" id="sv6" value="Планове ТО"><label for="sv6">Планове ТО</label>
+                <input type="checkbox" name="svc" id="sv7" value="Інше"><label for="sv7">Інше</label>
               </div>
             </fieldset>
+            <fieldset>
+              <legend>Горить лампа на панелі? <span class="opt">(необов’язково)</span></legend>
+              <div class="lamp-pick" id="lampPick"></div>
+              <p class="lamp-note" id="lampNote" hidden>Підставили лампу, яку ви обрали в розділі «Що світиться на панелі».</p>
+            </fieldset>
+            <label for="wDesc"><span>Опишіть своїми словами <span class="opt">(необов’язково)</span></span>
+              <textarea id="wDesc" name="desc" rows="3" placeholder="Наприклад: стукає спереду справа на ямах, з’явилось після зими"></textarea></label>
+            <label for="wCar"><span>Авто <span class="opt">марка, модель, рік</span></span>
+              <input id="wCar" name="car" autocomplete="off" placeholder="Наприклад: Skoda Octavia, 2014"></label>
+            <p class="err" id="e1" role="alert"></p>
           </div>
-        </details>
-        <button class="btn btn-red" type="submit" id="send">Надіслати заявку</button>
-        <div class="ok" id="ok" role="status" aria-live="polite"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><div><b>Заявку прийнято</b>На робочому сайті вона одразу прийде майстру в Telegram, і він передзвонить.</div></div>
-        <p class="fine">Терміново? Швидше подзвонити: <a href="tel:+380965087819" class="num">096 508 78 19</a></p>
-      </form>
+
+          <div class="wz-step" id="st2" role="group" aria-labelledby="st2-h" hidden>
+            <h3 id="st2-h" tabindex="-1">Коли зручно?</h3>
+            <fieldset>
+              <legend>День</legend>
+              <div class="days" id="days"></div>
+            </fieldset>
+            <fieldset>
+              <legend>Час <span class="opt" id="dayFor"></span></legend>
+              <div class="slots" id="slots"></div>
+              <div class="slot-legend" aria-hidden="true"><span><i></i>вільно</span><span><i class="s"></i>ваш вибір</span><span><i class="b"></i>зайнято або минуло</span></div>
+            </fieldset>
+            <p class="wz-tip" id="nightTip" hidden>Вночі бокс теж працює. Якщо авто не їде — напишіть у коментарі на першому кроці, де ви, і майстер домовиться про виїзд. Коли рахунок на хвилини, швидше подзвонити: <a href="tel:+380965087819" class="num">096 508 78 19</a></p>
+            <p class="err" id="e2" role="alert"></p>
+          </div>
+
+          <div class="wz-step" id="st3" role="group" aria-labelledby="st3-h" hidden>
+            <h3 id="st3-h" tabindex="-1">Як з вами зв’язатися?</h3>
+            <p class="recap" id="recap" aria-label="Ваш вибір"></p>
+            <div class="row">
+              <label for="wName"><span>Ім’я <span class="opt">(необов’язково)</span></span>
+                <input id="wName" name="name" autocomplete="given-name" placeholder="Як до вас звертатися"></label>
+              <label for="wPhone"><span>Телефон *</span>
+                <input id="wPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+380 __ ___ __ __" required aria-describedby="wPhone-err">
+                <span class="err" id="wPhone-err"></span></label>
+            </div>
+            <fieldset>
+              <legend>Де вам відповісти</legend>
+              <div class="chan" id="chan">
+                <input type="radio" name="chan" id="ch1" value="viber" checked><label for="ch1"><svg class="ic" aria-hidden="true"><use href="#i-viber"/></svg>Viber</label>
+                <input type="radio" name="chan" id="ch2" value="telegram"><label for="ch2"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Telegram</label>
+                <input type="radio" name="chan" id="ch3" value="sms"><label for="ch3"><svg class="ic" aria-hidden="true"><use href="#i-sms"/></svg>SMS</label>
+                <input type="radio" name="chan" id="ch4" value="call"><label for="ch4"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Дзвінок</label>
+              </div>
+            </fieldset>
+            <label class="tick" for="wNoCall"><input type="checkbox" id="wNoCall" name="nocall" checked><span>Не телефонуйте — напишіть<small id="noCallHint">Майстер відповість повідомленням, без дзвінка.</small></span></label>
+          </div>
+
+          <div class="wz-nav first" id="wzNav">
+            <button class="btn btn-line" type="button" id="wzBack" hidden><svg class="ic" aria-hidden="true"><use href="#i-left"/></svg>Назад</button>
+            <button class="btn btn-red" type="submit" id="wzNext"><span id="wzNextT">Далі</span><svg class="ic" aria-hidden="true"><use href="#i-right"/></svg></button>
+          </div>
+        </form>
+
+        <div class="wz-done" id="wzDone" tabindex="-1" aria-labelledby="done-h" hidden>
+          <div class="done-top">
+            <span class="done-ic"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <div><h3 id="done-h">Заявку прийнято</h3><p id="doneSub">Збережіть номер — за ним можна перевірити статус ремонту.</p></div>
+          </div>
+          <div class="code-box"><div><small>Номер заявки</small><b id="dCode">AT-00-0000</b></div><button class="copy" type="button" id="dCopy">Скопіювати</button></div>
+          <dl class="sum" id="dSum"></dl>
+          <h4>Що далі</h4>
+          <ol class="next" id="dNext"></ol>
+          <div class="done-act">
+            <button class="btn btn-red" type="button" id="dStatus">Перевірити статус</button>
+            <button class="btn btn-line" type="button" id="dNew">Нова заявка</button>
+          </div>
+          <p class="demo-note">Демо: на робочому сайті заявка одразу приходить майстру в Telegram</p>
+        </div>
+      </div>
+
       <div class="contact">
-        <h3>Контакти</h3>
+        <h3>Без дзвінків — теж нормально</h3>
+        <ul class="why">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Запис і підтвердження — у Viber, Telegram чи SMS.</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Позначка «Не телефонуйте» передається майстру разом із заявкою.</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Статус ремонту — на сайті за номером заявки.</span></li>
+        </ul>
         <a class="ci" href="tel:+380965087819"><span class="k"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg></span><span><small>Телефон, цілодобово</small><b class="num">+380 96 508 78 19</b></span></a>
         <div class="ci"><span class="k"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg></span><span><small>Адреса</small><b>вул. Генерала Кульчицького, 17а, бокс 160, Київ</b></span></div>
         <div class="ci"><span class="k"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg></span><span><small>Графік</small><b>Щодня, 24/7</b></span></div>
@@ -881,6 +1141,42 @@ footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);f
           <a class="btn btn-line" href="viber://chat?number=%2B380965087819"><svg class="ic" aria-hidden="true"><use href="#i-viber"/></svg>Viber</a>
           <a class="btn btn-line" href="https://t.me/+380965087819" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Telegram</a>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tread" aria-hidden="true"></div>
+
+<!-- ============ STATUS ============ -->
+<section class="sec alt" id="status" aria-labelledby="st-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker">Статус ремонту</p>
+      <h2 id="st-h">Де зараз ваше авто</h2>
+      <p class="intro">Не треба дзвонити й питати. Введіть номер заявки та останні 4 цифри телефону.</p>
+    </div>
+    <div class="stat">
+      <form class="st-f" id="stf" novalidate aria-label="Перевірка статусу ремонту">
+        <label for="sCode">Номер заявки
+          <input id="sCode" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="AT-26-0137" aria-describedby="sCode-err">
+          <span class="err" id="sCode-err"></span></label>
+        <label for="sLast">Останні 4 цифри телефону
+          <input id="sLast" name="last4" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="_ _ _ _" aria-describedby="sLast-err">
+          <span class="err" id="sLast-err"></span></label>
+        <button class="btn btn-red" type="submit">Перевірити</button>
+        <div class="st-err" id="sMiss" role="alert" hidden>
+          <p><b>Не знайшли таку заявку.</b> Перевірте номер і цифри телефону. Номер є в повідомленні з підтвердженням запису. Якщо не виходить — напишіть, майстер підкаже.</p>
+          <div class="msg">
+            <a class="btn btn-line" href="viber://chat?number=%2B380965087819"><svg class="ic" aria-hidden="true"><use href="#i-viber"/></svg>Viber</a>
+            <a class="btn btn-line" href="https://t.me/+380965087819" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Telegram</a>
+          </div>
+        </div>
+        <p class="fine">Хочете побачити, як це виглядає? <button class="linkish" type="button" id="sDemo">Відкрити приклад заявки</button></p>
+      </form>
+      <div class="st-res" id="sRes" tabindex="-1" aria-live="polite">
+        <div class="st-meta" id="sMeta"><small>Етапи ремонту</small><span class="st-empty">Введіть номер заявки — покажемо, на якому етапі ваше авто.</span></div>
+        <ol class="tl" id="tl"></ol>
       </div>
     </div>
   </div>
@@ -896,8 +1192,12 @@ footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);f
 
 <nav class="mbar" id="mbar" aria-label="Швидкий зв’язок">
   <a class="btn btn-red" href="tel:+380965087819"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Подзвонити</a>
-  <a class="btn btn-line" href="viber://chat?number=%2B380965087819" aria-label="Написати у Viber"><svg class="ic" aria-hidden="true"><use href="#i-viber"/></svg><span class="lbl">Viber</span></a>
-  <a class="btn btn-line" href="https://t.me/+380965087819" target="_blank" rel="noopener" aria-label="Написати в Telegram"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg><span class="lbl">Telegram</span></a>
+  <a class="btn btn-line mb-book" href="#book"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg>Записатися</a>
+  <button class="btn btn-line mb-msg" type="button" id="mbMsg" aria-expanded="false" aria-controls="mpop" aria-label="Написати у Viber або Telegram"><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg></button>
+  <div class="mpop" id="mpop" hidden>
+    <a href="viber://chat?number=%2B380965087819"><svg class="ic" aria-hidden="true"><use href="#i-viber"/></svg>Viber</a>
+    <a href="https://t.me/+380965087819" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Telegram</a>
+  </div>
 </nav>
 
 <script>
@@ -997,16 +1297,231 @@ footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);f
   addEventListener('resize',measure,{passive:true});
   addEventListener('load',measure);measure();
 
-  /* form */
-  var f=$('f'),ph=$('phone'),pe=$('phone-err'),ok=$('ok'),sb=$('send');
-  function digits(){return ph.value.replace(/\D/g,'').length;}
-  ph.addEventListener('input',function(){if(digits()>=9){ph.removeAttribute('aria-invalid');pe.classList.remove('on');}});
-  f.addEventListener('submit',function(e){
-    e.preventDefault();var n=digits();
-    if(n<9){pe.textContent=n?'Схоже, бракує цифр.':'Вкажіть номер телефону, щоб майстер міг передзвонити.';ph.setAttribute('aria-invalid','true');pe.classList.add('on');ph.focus();return;}
-    sb.disabled=true;sb.textContent='Надсилаємо…';
-    setTimeout(function(){sb.disabled=false;sb.textContent='Надіслати ще одну заявку';ok.classList.add('on');ok.scrollIntoView({behavior:RM?'auto':'smooth',block:'nearest'});},700);
+  /* ---------- booking wizard ---------- */
+  var MON=['січня','лютого','березня','квітня','травня','червня','липня','серпня','вересня','жовтня','листопада','грудня'],
+      MON_S=['січ.','лют.','бер.','квіт.','трав.','черв.','лип.','серп.','вер.','жовт.','лист.','груд.'],
+      WD=['нд','пн','вт','ср','чт','пт','сб'],
+      CH={viber:'Viber',telegram:'Telegram',sms:'SMS',call:'Дзвінок'},
+      CH_IC={viber:'i-viber',telegram:'i-tg',sms:'i-sms',call:'i-phone'},
+      CONFIRM={viber:'Майстер підтвердить запис у Viber протягом 15 хвилин.',telegram:'Майстер підтвердить запис у Telegram протягом 15 хвилин.',
+        sms:'Майстер підтвердить запис через SMS протягом 15 хвилин.',call:'Майстер передзвонить протягом 15 хвилин, щоб підтвердити запис.'},
+      LIVE={viber:'Майстер підтвердить запис у Viber',telegram:'Майстер підтвердить запис у Telegram',sms:'Майстер підтвердить запис через SMS',call:'Майстер передзвонить, щоб підтвердити запис'};
+  function pad(n){return (n<10?'0':'')+n;}
+  function cap(t){return t.charAt(0).toUpperCase()+t.slice(1);}
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+  function icon(id,cls){var s=document.createElementNS(NS,'svg'),u=document.createElementNS(NS,'use');s.setAttribute('class',cls||'ic');s.setAttribute('aria-hidden','true');u.setAttribute('href','#'+id);s.appendChild(u);return s;}
+  function kyiv(d){
+    d=d||new Date();
+    try{var o={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Kyiv',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(d).forEach(function(x){o[x.type]=x.value;});
+      return {y:+o.year,m:+o.month-1,d:+o.day,h:(+o.hour)%24,mi:+o.minute};}
+    catch(e){return {y:d.getFullYear(),m:d.getMonth(),d:d.getDate(),h:d.getHours(),mi:d.getMinutes()};}
+  }
+  function hm(d){var k=kyiv(d);return pad(k.h)+':'+pad(k.mi);}
+  var RM_B=RM?'auto':'smooth';
+
+  var now=kyiv(),DAYS=[];
+  for(i=0;i<7;i++){var dt=new Date(Date.UTC(now.y,now.m,now.d+i));DAYS.push({i:i,y:dt.getUTCFullYear(),m:dt.getUTCMonth(),d:dt.getUTCDate(),wd:dt.getUTCDay()});}
+  function dayTitle(x){return x.i===0?'Сьогодні':x.i===1?'Завтра':cap(WD[x.wd])+' '+x.d;}
+  function dayLong(x){return (x.i<2?dayTitle(x)+', '+WD[x.wd]+' ':cap(WD[x.wd])+', ')+x.d+' '+MON[x.m];}
+  function freeHours(x){var h,out=[];for(h=8;h<=21;h++)if(!(x.i===0&&h<=now.h))out.push(h);return out;}
+  /* demo: 2–3 busy hours per day, derived from the date so they stay the same between visits */
+  function busy(x){var s=((x.y*372+x.m*31+x.d)%2147483646)+1,n=2+(s%2),out={},k=0,g=0;
+    while(k<n&&g<60){g++;s=(s*48271)%2147483647;var h=8+(s%14);if(!out[h]){out[h]=1;k++;}}return out;}
+
+  var wz=$('wz'),f=$('wzf'),doneEl=$('wzDone'),back=$('wzBack'),nav=$('wzNav'),nextT=$('wzNextT'),nextB=$('wzNext'),
+      daysEl=$('days'),slotsEl=$('slots'),lampPick=$('lampPick'),e1=$('e1'),e2=$('e2'),
+      wDesc=$('wDesc'),wCar=$('wCar'),wName=$('wName'),wPhone=$('wPhone'),pErr=$('wPhone-err'),noCall=$('wNoCall'),
+      step=1,selDay=0,selTime=null,LAMPS={none:'Немає'};
+  function setErr(box,msg){box.textContent=msg||'';box.classList.toggle('on',!!msg);}
+
+  /* lamp picker reuses the dashboard icons */
+  function addLamp(k,name,cls,glyph){
+    var inp=el('input');inp.type='radio';inp.name='lamp';inp.id='lp-'+k;inp.value=k;if(k==='none')inp.checked=true;
+    var lb=el('label',cls);lb.htmlFor=inp.id;lb.appendChild(glyph);lb.appendChild(el('span',null,name));
+    inp.addEventListener('change',function(){$('lampNote').hidden=true;setErr(e1,'');});
+    lampPick.appendChild(inp);lampPick.appendChild(lb);LAMPS[k]=name;
+  }
+  addLamp('none','Немає','nl',el('span','none','—'));
+  btns.forEach(function(b){var g=b.querySelector('svg').cloneNode(true);g.setAttribute('aria-hidden','true');
+    addLamp(b.dataset.k,b.querySelector('span').textContent,b.classList.contains('amber')?'amber':'redl',g);});
+  function lampVal(){var c=lampPick.querySelector('input:checked');return c?c.value:'none';}
+  function setLamp(k,fromDash){var r=$('lp-'+k);if(!r)return;r.checked=true;$('lampNote').hidden=!(fromDash&&k!=='none');}
+
+  function svcVals(){return [].map.call(f.querySelectorAll('input[name=svc]:checked'),function(x){return x.value;});}
+  f.querySelectorAll('input[name=svc]').forEach(function(x){x.addEventListener('change',function(){setErr(e1,'');});});
+  wDesc.addEventListener('input',function(){setErr(e1,'');});
+
+  /* days + slots */
+  var firstOpen=0;while(firstOpen<6&&!freeHours(DAYS[firstOpen]).length)firstOpen++;
+  DAYS.forEach(function(x){
+    var inp=el('input');inp.type='radio';inp.name='day';inp.id='dy'+x.i;inp.value=x.i;if(x.i===firstOpen)inp.checked=true;
+    var lb=el('label');lb.htmlFor=inp.id;lb.appendChild(document.createTextNode(dayTitle(x)));
+    lb.appendChild(el('small',null,x.i<2?WD[x.wd]+' '+x.d:MON_S[x.m]));
+    inp.addEventListener('change',function(){selDay=x.i;renderSlots();});
+    daysEl.appendChild(inp);daysEl.appendChild(lb);
   });
+  selDay=firstOpen;
+  function renderSlots(){
+    var x=DAYS[selDay],b=busy(x),hrs=freeHours(x),keep=false;
+    slotsEl.textContent='';
+    if(!hrs.length){var p=el('p','fine night',x.i===0?'На сьогодні денні години вже минули. Оберіть інший день — або «Вночі / терміново».':'');slotsEl.appendChild(p);}
+    hrs.forEach(function(h){
+      var v=pad(h)+':00',bz=!!b[h],inp=el('input');inp.type='radio';inp.name='time';inp.id='tm'+h;inp.value=v;
+      if(bz)inp.disabled=true;else if(v===selTime){inp.checked=true;keep=true;}
+      var lb=el('label');lb.htmlFor=inp.id;lb.appendChild(document.createTextNode(v));if(bz)lb.appendChild(el('small',null,'зайнято'));
+      slotsEl.appendChild(inp);slotsEl.appendChild(lb);
+    });
+    var w=el('div','night'),ni=el('input'),nl=el('label');ni.type='radio';ni.name='time';ni.id='tmN';ni.value='night';
+    if(selTime==='night'){ni.checked=true;keep=true;}
+    nl.htmlFor='tmN';nl.appendChild(icon('i-moon'));nl.appendChild(document.createTextNode('Вночі / терміново'));nl.appendChild(el('small',null,'після 21:00 або якнайшвидше'));
+    w.appendChild(ni);w.appendChild(nl);slotsEl.appendChild(w);
+    if(!keep)selTime=null;
+    $('nightTip').hidden=selTime!=='night';
+    $('dayFor').textContent='— '+dayLong(x).replace(/^[^,]+/,function(t){return t.toLowerCase();});
+  }
+  slotsEl.addEventListener('change',function(e){if(e.target.name==='time'){selTime=e.target.value;setErr(e2,'');$('nightTip').hidden=selTime!=='night';}});
+  renderSlots();
+  function whenText(r){return r.time==='night'?'Вночі / терміново':r.dayLong+', '+r.time;}
+
+  /* step 3 */
+  function chanVal(){return f.querySelector('input[name=chan]:checked').value;}
+  function noCallHint(){var c=chanVal();
+    $('noCallHint').textContent=c==='call'?'Ви обрали дзвінок — майстер передзвонить.':noCall.checked?'Майстер відповість у '+CH[c]+', без дзвінка.':'Майстер може й передзвонити, якщо так швидше.';}
+  f.querySelectorAll('input[name=chan]').forEach(function(x){x.addEventListener('change',function(){var c=chanVal();noCall.checked=c!=='call';noCall.disabled=c==='call';noCallHint();});});
+  noCall.addEventListener('change',noCallHint);
+  function phoneDigits(){return wPhone.value.replace(/\D/g,'');}
+  function phoneOk(){var d=phoneDigits();return d.length>=9&&d.length<=15&&!(d.indexOf('380')===0&&d.length<12);}
+  function fmtPhone(d){var n=d;if(n.length===12&&n.indexOf('380')===0)n=n.slice(3);else if(n.length===11&&n.indexOf('80')===0)n=n.slice(2);else if(n.length===10&&n.charAt(0)==='0')n=n.slice(1);
+    return n.length===9?'+380 '+n.slice(0,2)+' '+n.slice(2,5)+' '+n.slice(5,7)+' '+n.slice(7):null;}
+  wPhone.addEventListener('focus',function(){if(!wPhone.value)wPhone.value='+380 ';});
+  wPhone.addEventListener('blur',function(){var d=phoneDigits(),t=fmtPhone(d);if(d==='380'||!d)wPhone.value='';else if(t)wPhone.value=t;});
+  wPhone.addEventListener('input',function(){wPhone.value=wPhone.value.replace(/[^\d+()\-\s]/g,'');if(phoneOk()){wPhone.removeAttribute('aria-invalid');setErr(pErr,'');}});
+  function recapChip(t){return el('span',null,t);}
+  function renderRecap(){var r=$('recap'),s=svcVals(),l=lampVal();r.textContent='';
+    if(s.length)r.appendChild(recapChip(s.join(', ')));if(l!=='none')r.appendChild(recapChip('Лампа: '+LAMPS[l]));
+    if(wCar.value.trim())r.appendChild(recapChip(wCar.value.trim()));
+    r.appendChild(recapChip(selTime==='night'?'Вночі / терміново':dayTitle(DAYS[selDay])+', '+selTime));}
+
+  /* navigation */
+  var bars=document.querySelectorAll('.wz-bars li');
+  function scrollToWz(){var t=wz.getBoundingClientRect().top;if(t<0||t>innerHeight*.45)wz.scrollIntoView({behavior:RM_B,block:'start'});}
+  function show(n,focus){
+    step=n;for(var k=1;k<=3;k++)$('st'+k).hidden=k!==n;
+    bars.forEach(function(li,k){li.className=k+1<n?'done':k+1===n?'on':'';});
+    $('wzCount').innerHTML='Крок <b class="num">'+n+'</b> з 3';
+    back.hidden=n===1;nav.classList.toggle('first',n===1);
+    nextT.textContent=n===3?'Надіслати заявку':'Далі';
+    if(n===3){renderRecap();noCallHint();}
+    if(focus){scrollToWz();$('st'+n+'-h').focus({preventScroll:true});}
+  }
+  function v1(){var ok=svcVals().length||wDesc.value.trim().length>=3||lampVal()!=='none';
+    setErr(e1,ok?'':'Оберіть, що потрібно, або коротко опишіть проблему своїми словами.');if(!ok)$('sv1').focus();return ok;}
+  function v2(){if(selTime){setErr(e2,'');return true;}
+    setErr(e2,'Оберіть зручну годину або «Вночі / терміново».');var c=slotsEl.querySelector('input:not(:disabled)');if(c)c.focus();return false;}
+  function v3(){if(phoneOk())return true;var n=phoneDigits().replace(/^380$/,'').length;
+    setErr(pErr,n?'Схоже, бракує цифр. Наприклад: +380 96 508 78 19':'Вкажіть номер — на нього прийде підтвердження.');wPhone.setAttribute('aria-invalid','true');wPhone.focus();return false;}
+  back.addEventListener('click',function(){show(step-1,true);});
+  f.addEventListener('submit',function(e){e.preventDefault();
+    if(step===1){if(v1())show(2,true);}
+    else if(step===2){if(v2())show(3,true);}
+    else if(v3()){nextB.disabled=true;nextT.textContent='Надсилаємо…';setTimeout(finish,650);}
+  });
+
+  /* storage */
+  var KEY='autotech-requests',MEM={},LAT={'А':'A','В':'B','Е':'E','К':'K','М':'M','Н':'H','О':'O','Р':'P','С':'C','Т':'T','Х':'X','І':'I'};
+  function norm(c){return String(c||'').toUpperCase().replace(/ДЕМО/g,'DEMO').replace(/[АВЕКМНОРСТХІ]/g,function(ch){return LAT[ch];}).replace(/[^A-Z0-9]/g,'');}
+  function loadAll(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){return {};}}
+  function save(r){MEM[norm(r.code)]=r;try{var a=loadAll();a[norm(r.code)]=r;localStorage.setItem(KEY,JSON.stringify(a));}catch(e){}}
+  function find(c){var k=norm(c);return MEM[k]||loadAll()[k]||null;}
+  function genCode(){var c,g=0;do{c='AT-'+String(now.y).slice(2)+'-'+String(1+Math.floor(Math.random()*9998)).padStart(4,'0');g++;}while(find(c)&&g<20);return c;}
+
+  var last=null;
+  function finish(){
+    var d=phoneDigits(),x=DAYS[selDay],r={code:genCode(),last4:d.slice(-4),phone:fmtPhone(d)||wPhone.value.trim(),created:Date.now(),
+      svc:svcVals(),lamp:lampVal(),desc:wDesc.value.trim(),car:wCar.value.trim(),name:wName.value.trim(),
+      day:x.y+'-'+pad(x.m+1)+'-'+pad(x.d),dayI:x.i,dayLong:dayLong(x),dayTitle:dayTitle(x),time:selTime,chan:chanVal(),noCall:noCall.checked};
+    save(r);last=r;
+    $('dCode').textContent=r.code;$('dCopy').textContent='Скопіювати';
+    var sum=$('dSum');sum.textContent='';
+    function row(k,v){if(!v)return;var w=el('div');w.appendChild(el('dt',null,k));w.appendChild(el('dd',null,v));sum.appendChild(w);}
+    var what=r.svc.join(', ');if(r.lamp!=='none')what+=(what?' · ':'')+'лампа «'+LAMPS[r.lamp]+'»';
+    row('Що сталося',what||'Див. опис');row('Опис',r.desc);row('Авто',r.car);row('Коли',whenText(r));
+    row('Зв’язок',CH[r.chan]+' · '+r.phone+(r.noCall&&r.chan!=='call'?' · без дзвінків':''));row('Ім’я',r.name);
+    var nx=$('dNext');nx.textContent='';
+    nx.appendChild(el('li',null,CONFIRM[r.chan]));
+    nx.appendChild(el('li',null,r.time==='night'?'Якщо авто не їде — майстер домовиться з вами про виїзд або доставку на Печерськ.':
+      'Приїжджайте '+(r.dayI===0?'сьогодні':r.dayI===1?'завтра':r.dayLong.toLowerCase())+' о '+r.time+': вул. Генерала Кульчицького, 17а, бокс 160.'));
+    nx.appendChild(el('li',null,'Стежте за ремонтом у розділі «Статус ремонту» — за номером заявки й останніми 4 цифрами телефону.'));
+    nextB.disabled=false;f.hidden=true;doneEl.hidden=false;scrollToWz();doneEl.focus({preventScroll:true});
+  }
+  $('dCopy').addEventListener('click',function(){var b=this,c=$('dCode').textContent;
+    try{navigator.clipboard.writeText(c).then(function(){b.textContent='Скопійовано';},function(){b.textContent=c;});}catch(e){b.textContent=c;}});
+  $('dNew').addEventListener('click',function(){f.reset();selTime=null;selDay=firstOpen;renderSlots();noCall.disabled=false;$('lampNote').hidden=true;
+    setErr(e1,'');setErr(e2,'');setErr(pErr,'');wPhone.removeAttribute('aria-invalid');doneEl.hidden=true;f.hidden=false;show(1,true);});
+  $('dStatus').addEventListener('click',function(){if(!last)return;$('sCode').value=last.code;$('sLast').value=last.last4;check(true);});
+
+  /* open the booking from any "#book" link; service cards and the dashboard preselect */
+  function goBook(e){if(e)e.preventDefault();$('book').scrollIntoView({behavior:RM_B,block:'start'});
+    (doneEl.hidden?$('st'+step+'-h'):doneEl).focus({preventScroll:true});}
+  document.querySelectorAll('a[href="#book"]').forEach(function(a){a.addEventListener('click',function(e){
+    var s=a.dataset.svc;if(s&&doneEl.hidden){var c=f.querySelector('input[name=svc][value="'+s+'"]');if(c){c.checked=true;setErr(e1,'');}if(step!==1)show(1,false);}
+    if(a.id==='lampBook'&&doneEl.hidden){var p=document.querySelector('.lt[aria-pressed="true"]');if(p)setLamp(p.dataset.k,true);if(step!==1)show(1,false);}
+    goBook(e);});});
+  btns.forEach(function(b){b.addEventListener('click',function(){if(doneEl.hidden)setLamp(b.dataset.k,true);});});
+
+  /* ---------- status ---------- */
+  var STAGES=[
+    {t:'Заявку отримано',p:'Майстер бачить заявку і підтвердить запис.'},
+    {t:'Авто в боксі',p:'Авто на Кульчицького, 17а, бокс 160.'},
+    {t:'Діагностика',p:'Шукаємо причину несправності.'},
+    {t:'Погодження вартості',p:'Перегляньте кошторис і дайте відповідь майстру.'},
+    {t:'Ремонт',p:'Майстер працює з авто.'},
+    {t:'Готово, можна забирати',p:'Авто готове — приїжджайте в бокс 160.'}];
+  var tl=$('tl'),sMeta=$('sMeta'),sRes=$('sRes'),sCode=$('sCode'),sLast=$('sLast'),sMiss=$('sMiss');
+  function renderTL(cur,times,live,liveIc){tl.textContent='';
+    STAGES.forEach(function(s,k){var li=el('li',cur<0?'':k<cur?'done':k===cur?'now':''),d=el('span','d'),b=el('div'),h=el('h5',null,s.t);
+      d.appendChild(icon('i-check'));li.appendChild(d);
+      if(times&&times[k]&&k<=cur){var tm=el('time',null,times[k]);h.appendChild(tm);}
+      b.appendChild(h);
+      if(k===cur){b.appendChild(el('p',null,s.p));if(live){var lv=el('p','live');lv.appendChild(icon(liveIc||'i-chat'));lv.appendChild(document.createTextNode(live));b.appendChild(lv);}}
+      if(k===cur)li.setAttribute('aria-current','step');
+      li.appendChild(b);tl.appendChild(li);});}
+  function meta(sm,code,line){sMeta.textContent='';sMeta.appendChild(el('small',null,sm));sMeta.appendChild(el('b','num',code));if(line)sMeta.appendChild(el('span',null,line));}
+  function neutral(){sMeta.textContent='';sMeta.appendChild(el('small',null,'Етапи ремонту'));sMeta.appendChild(el('span','st-empty','Введіть номер заявки — покажемо, на якому етапі ваше авто.'));renderTL(-1);}
+  neutral();
+  function rel(min){return hm(new Date(Date.now()-min*60000));}
+  function check(fromDone){
+    var c=norm(sCode.value),l=sLast.value.replace(/\D/g,''),bad=false;
+    setErr($('sCode-err'),'');setErr($('sLast-err'),'');sCode.removeAttribute('aria-invalid');sLast.removeAttribute('aria-invalid');sMiss.hidden=true;
+    if(!c){setErr($('sCode-err'),'Вкажіть номер заявки, наприклад AT-26-0137.');sCode.setAttribute('aria-invalid','true');bad=true;}
+    if(l.length!==4){setErr($('sLast-err'),'Потрібні 4 останні цифри телефону.');sLast.setAttribute('aria-invalid','true');if(!bad)sLast.focus();bad=true;}
+    if(bad){if(!c)sCode.focus();return;}
+    if(c==='ATDEMO'){
+      meta('Приклад заявки','AT-DEMO','Volkswagen Passat, 2012 · Ходова/підвіска · Viber');
+      renderTL(3,[rel(170),rel(125),rel(70),rel(12)],'Майстер надіслав кошторис у Viber','i-viber');
+    }else{
+      var r=find(c);
+      if(!r||r.last4!==l){neutral();sMiss.hidden=false;return;}
+      var bits=[];if(r.car)bits.push(r.car);if(r.svc&&r.svc.length)bits.push(r.svc.join(', '));bits.push(whenText(r));
+      meta('Заявка',r.code,bits.join(' · '));
+      var k=kyiv(new Date(r.created)),t=kyiv(),same=k.y===t.y&&k.m===t.m&&k.d===t.d;
+      renderTL(0,[(same?'сьогодні, ':k.d+' '+MON[k.m]+', ')+hm(new Date(r.created))],LIVE[r.chan]||LIVE.viber,CH_IC[r.chan]);
+    }
+    if(fromDone){$('status').scrollIntoView({behavior:RM_B,block:'start'});}
+    else{var rt=sRes.getBoundingClientRect().top;if(rt>innerHeight*.6||rt<0)sRes.scrollIntoView({behavior:RM_B,block:'start'});}
+    sRes.focus({preventScroll:true});
+  }
+  $('stf').addEventListener('submit',function(e){e.preventDefault();check(false);});
+  sLast.addEventListener('input',function(){sLast.value=sLast.value.replace(/\D/g,'').slice(0,4);});
+  $('sDemo').addEventListener('click',function(){sCode.value='AT-DEMO';sLast.value='1234';check(false);});
+
+  /* mobile bar: messengers popover */
+  var mm=$('mbMsg'),mp=$('mpop');
+  function mpSet(o){mp.hidden=!o;mm.setAttribute('aria-expanded',o?'true':'false');}
+  mm.addEventListener('click',function(e){e.stopPropagation();mpSet(mp.hidden);if(!mp.hidden)mp.querySelector('a').focus();});
+  document.addEventListener('click',function(e){if(!mp.hidden&&!mp.contains(e.target))mpSet(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!mp.hidden){mpSet(false);mm.focus();}});
+  addEventListener('scroll',function(){if(!mp.hidden&&mbar.classList.contains('hide'))mpSet(false);},{passive:true});
 })();
 </script>
 </body>
