@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AutoTech Service — СТО на Печерську, цілодобово · допомога на дорозі (демо-концепт)</title>
+<meta name="description" content="AutoTech Service — СТО на Печерську, працює 24/7. Ремонт і діагностика на вул. Генерала Кульчицького, 17а, бокс 160. Заглохли в дорозі — майстер приїде й допоможе на місці. Демо-концепт сайту.">
+<meta name="theme-color" content="#111111">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://5j4jds8j78-jpg.github.io/demos/autotech/">
+<meta property="og:title" content="AutoTech Service — СТО на Печерську, 24/7">
+<meta property="og:description" content="Заглохли вночі посеред дороги? Приїдемо й допоможемо на місці. Цілодобово, без вихідних. Google 5.0 · 191 відгук.">
+<meta property="og:image" content="https://5j4jds8j78-jpg.github.io/demos/autotech/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23111111'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23ffffff' stroke-width='3'/%3E%3Cpath d='M8.5 11.5a9 9 0 0 1 7-5' fill='none' stroke='%23d61b1b' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --k0:#0b0b0c; --k1:#111111; --k2:#1f1f20; --k3:#29292b;
+  --line:#2c2c2f; --line2:#46464a;
+  --ink:#ffffff; --ink2:#d2d2d5; --mute:#9d9da3;
+  --red:#d61b1b; --red-soft:rgba(214,27,27,.14); --green:#4fcf8e;
+  --wrap:1200px; --pad:20px;
+  --f:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1); --enter:cubic-bezier(.22,1,.36,1);
+  --tread:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='20' viewBox='0 0 44 20'%3E%3Cpath d='M0 2h9l8 8-8 8H0l8-8zM22 2h9l8 8-8 8h-9l8-8z' fill='%23232325'/%3E%3C/svg%3E");
+  --hz:repeating-linear-gradient(-45deg,var(--red) 0 10px,var(--k1) 10px 20px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:96px;scrollbar-color:var(--line2) var(--k1)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{font:500 16px/1.6 var(--f);color:var(--ink);background:var(--k1);-webkit-font-smoothing:antialiased;overflow-x:clip}
+::selection{background:var(--red);color:#fff}
+a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px}
+img,svg,video{display:block}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+@media(min-width:760px){:root{--pad:32px}}
+@media(min-width:1320px){:root{--pad:24px}}
+.num{font-variant-numeric:tabular-nums}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:#fff;color:#111;padding:12px 16px;border-radius:8px;font-weight:700;text-decoration:none}
+.skip:focus{top:12px}
+.ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+.demo{background:#000;color:#cfcfd2;font-size:12.5px;line-height:1.4;text-align:center;padding:8px 16px;border-bottom:1px solid #1a1a1b}
+.demo b{color:#fff;font-weight:700}
+
+/* header */
+.top{position:sticky;top:0;z-index:60;background:var(--k1);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;min-height:44px;flex:none}
+.logo svg{width:38px;height:38px;overflow:visible}
+.logo b{font:900 18px/1 var(--f);letter-spacing:.07em;display:block}
+.logo b i{font-style:normal;color:var(--red)}
+.logo small{display:block;font-size:11.5px;color:var(--mute);margin-top:4px}
+.links{display:none;gap:2px}
+.links a{text-decoration:none;color:var(--ink2);font-size:14.5px;padding:10px 12px;border-radius:8px;position:relative;min-height:44px;display:flex;align-items:center}
+.links a::after{content:"";position:absolute;left:12px;right:12px;bottom:8px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .2s var(--ease)}
+.links a:hover{color:#fff}.links a:hover::after{transform:scaleX(1)}
+.hcall{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 14px;border-radius:10px;background:var(--red);text-decoration:none;font-weight:700;font-size:15px;transition:background .15s,transform .15s var(--ease)}
+.hcall:hover{background:#e52222;transform:translateY(-1px)}
+.hcall:active{transform:translateY(1px)}
+.hcall .t{display:none}
+@media(min-width:400px){.hcall .t{display:inline}}
+@media(min-width:1040px){.links{display:flex}}
+
+/* scroll road */
+.road-strip{position:relative;height:16px;background:var(--k0);border-top:1px solid #1a1a1b;overflow:hidden}
+.road-strip .lane{position:absolute;left:var(--pad);right:calc(var(--pad) + 22px);top:7px;height:2px;background:repeating-linear-gradient(90deg,#4a4a4e 0 10px,transparent 10px 20px)}
+.road-strip .done{position:absolute;left:var(--pad);top:7px;height:2px;width:calc((100% - var(--pad)*2 - 22px) * var(--p,0));background:var(--red)}
+.road-strip .car{position:absolute;left:var(--pad);top:1px;width:28px;height:14px;transform:translateX(var(--x,0px));will-change:transform}
+.road-strip .pin{position:absolute;right:var(--pad);top:0;width:16px;height:16px}
+.road-side{display:none}
+@media(min-width:1360px){
+  .road-strip{display:none}
+  .road-side{display:block;position:fixed;z-index:30;right:22px;top:150px;bottom:40px;width:30px;pointer-events:none}
+  .road-side .asphalt{position:absolute;left:5px;width:20px;top:0;bottom:26px;background:#18181a;border-radius:3px;border-left:1px solid #2b2b2e;border-right:1px solid #2b2b2e}
+  .road-side .lane{position:absolute;left:14px;width:2px;top:4px;bottom:30px;background:repeating-linear-gradient(#4a4a4e 0 9px,transparent 9px 18px)}
+  .road-side .done{position:absolute;left:14px;width:2px;top:4px;height:calc((100% - 34px) * var(--p,0));background:var(--red)}
+  .road-side .car{position:absolute;left:6px;top:0;width:18px;height:34px;transform:translateY(var(--y,0px));will-change:transform}
+  .road-side .pin{position:absolute;left:3px;bottom:0;width:24px;height:30px}
+  .road-side .tag{position:absolute;right:34px;bottom:4px;white-space:nowrap;font:700 11px/1 var(--f);letter-spacing:.08em;color:var(--mute);background:var(--k1);padding:5px 7px;border:1px solid var(--line);border-radius:4px;transition:color .3s,border-color .3s}
+  .arrived .road-side .tag{color:#fff;border-color:var(--red)}
+}
+.pin .dot{transform-origin:center;transform-box:fill-box}
+.arrived .pin .dot{animation:ping 1.4s ease-out infinite}
+@keyframes ping{0%{opacity:.8;transform:scale(.6)}100%{opacity:0;transform:scale(2)}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 22px;border-radius:10px;font:700 16px/1 var(--f);text-decoration:none;border:0;cursor:pointer;transition:transform .15s var(--ease),background .15s,border-color .15s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(1px);transition-duration:.09s}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:#e52222}
+.btn-line{background:transparent;color:#fff;border:1.5px solid var(--line2)}
+.btn-line:hover{border-color:#fff}
+.btn .ic{width:21px;height:21px}
+
+/* sections */
+.sec{position:relative;padding:52px 0}
+@media(min-width:960px){.sec{padding:84px 0}}
+.sec.alt{background:var(--k2)}
+.tread{height:18px;background:var(--tread) repeat-x center/44px 20px #0e0e0f}
+.kicker{display:inline-flex;align-items:center;gap:10px;font:800 12.5px/1 var(--f);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
+.kicker::before{content:"";width:18px;height:3px;background:var(--red);border-radius:1px}
+h1,h2,h3{text-wrap:balance}
+h2{font:800 clamp(27px,6vw,46px)/1.08 var(--f);letter-spacing:-.026em;max-width:22ch}
+.intro{color:var(--ink2);max-width:56ch;margin-top:14px;font-size:16.5px}
+@media(min-width:760px){.intro{font-size:18px}}
+.head{margin-bottom:28px}
+@media(min-width:960px){.head{margin-bottom:44px}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;background:var(--k1)}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding-top:6px;padding-bottom:30px}
+.hero-copy{order:2;min-width:0}
+.stage{order:1;position:relative;height:clamp(150px,22vh,200px);overflow:hidden;background:#111}
+.stage .wheel-wrap{position:absolute;left:50%;top:50%;width:min(180px,96%);aspect-ratio:1;height:auto;max-height:100%;transform:translate(-50%,-50%)}
+.stage svg.wheel{width:100%;height:100%}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#111;opacity:0;transition:opacity .6s;-webkit-mask-image:radial-gradient(closest-side,#000 72%,transparent 100%);mask-image:radial-gradient(closest-side,#000 72%,transparent 100%)}
+.stage.vid-on video{opacity:1}
+.stage.vid-on .wheel-wrap{visibility:hidden}
+.open{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:var(--ink2)}
+.open .lamp{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(79,207,142,.18)}
+.open b{color:#fff;font-weight:700}
+h1{font:800 clamp(27px,7.6vw,54px)/1.05 var(--f);letter-spacing:-.032em;margin:10px 0 12px}
+h1 em{font-style:normal;color:var(--red);display:block}
+.lead{font-size:16px;color:var(--ink2);max-width:42ch}
+@media(min-width:760px){.lead{font-size:19px}}
+.cta{display:grid;gap:10px;margin-top:18px}
+.cta .btn-red{min-height:58px;font-size:18px}
+.msg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.msg .btn{min-height:50px;font-size:15px;padding:0 12px}
+.msg-note{grid-column:1/-1;font-size:13.5px;color:var(--mute);display:flex;align-items:center;gap:8px;margin-top:-2px}
+.msg-note .ic{width:16px;height:16px;color:var(--red)}
+.facts{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--ink2)}
+.facts b{font-weight:800;color:#fff;font-size:15px;margin-right:6px}
+.facts .st{color:#f5b301;letter-spacing:1px}
+@media(max-width:399px){.xs-hide{display:none}.open{font-size:13px}h1{margin:8px 0 10px}}
+.hero-hz{height:8px;background:var(--hz)}
+@media(max-width:379px){.cta .btn-red{font-size:16px}.cta .pn{display:none}}
+@media(min-width:560px){.stage{height:300px}.stage .wheel-wrap{width:290px}}
+@media(min-width:960px){
+  .hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;min-height:calc(100svh - 128px);max-height:900px;padding-top:32px;padding-bottom:44px}
+  .hero-copy{order:1}
+  .stage{order:2;height:auto;aspect-ratio:1/1;max-height:600px;overflow:visible}
+  .stage .wheel-wrap{width:94%}
+  .cta{justify-items:start;max-width:520px}
+  .cta .btn-red,.msg{width:100%}
+}
+.spin{transform-origin:0 0;animation:spin 2.6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:no-preference){
+  [data-enter]>*{opacity:0;transform:translateY(14px);animation:rise .8s var(--enter) forwards}
+  [data-enter]>*:nth-child(2){animation-delay:.08s}[data-enter]>*:nth-child(3){animation-delay:.16s}
+  [data-enter]>*:nth-child(4){animation-delay:.24s}[data-enter]>*:nth-child(5){animation-delay:.32s}
+  .stage .wheel-wrap{animation:roll-in 1.1s var(--enter) both}
+}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes roll-in{from{opacity:0;transform:translate(-30%,-50%)}to{opacity:1;transform:translate(-50%,-50%)}}
+
+/* ---------- BAY ---------- */
+.bay-head{display:grid;gap:4px}
+@media(min-width:960px){.bay-head{grid-template-columns:1.2fr 1fr;gap:56px;align-items:end}.bay-head .intro{margin:0 0 6px}}
+.ill{position:relative;border-radius:12px;overflow:hidden;background:#131314;border:1px solid var(--line)}
+.ill svg{width:100%;height:auto}
+@media(max-width:699px){.ill svg{width:132%;margin-left:-5%}}
+.plain{list-style:none;display:grid;gap:10px;margin-top:22px;color:var(--ink2);font-size:15.5px}
+.plain b{color:#fff;font-weight:800}
+@media(min-width:960px){.plain.cols{grid-template-columns:repeat(3,1fr);gap:28px}}
+.lift{animation:lift 7s ease-in-out infinite}
+@keyframes lift{0%,100%{transform:translateY(-12px)}50%{transform:translateY(-42px)}}
+.wspin{transform-box:fill-box;transform-origin:center;animation:spin 1.6s linear infinite}
+.swing{transform-origin:640px 34px;animation:swing 5s ease-in-out infinite}
+@keyframes swing{0%,100%{transform:rotate(2deg)}50%{transform:rotate(-2deg)}}
+.beam{animation:flick 6s steps(1,end) infinite}
+@keyframes flick{0%,100%{opacity:1}62%{opacity:.35}63%{opacity:1}64%{opacity:.5}65%{opacity:1}}
+.graph{animation:scan 3s linear infinite}
+@keyframes scan{to{transform:translateX(-120px)}}
+.blink{animation:blink 1s steps(1,end) infinite}
+@keyframes blink{50%{opacity:.2}}
+
+/* ---------- ROADSIDE ---------- */
+.road{display:grid;gap:32px}
+@media(min-width:960px){.road{grid-template-columns:1fr 1fr;gap:64px;align-items:start}}
+.steps{list-style:none;display:grid;margin-top:26px}
+.steps li{position:relative;display:grid;grid-template-columns:44px 1fr;gap:16px;padding-bottom:22px}
+.steps li:last-child{padding-bottom:0}
+.steps li::before{content:"";position:absolute;left:21px;top:48px;bottom:4px;width:2px;background:repeating-linear-gradient(var(--line2) 0 6px,transparent 6px 12px)}
+.steps li:last-child::before{display:none}
+.steps .n{width:44px;height:44px;border-radius:50%;border:2px solid var(--red);display:grid;place-items:center;background:var(--k2);font:800 16px/1 var(--f)}
+.steps h3{font:700 18px/1.3 var(--f);margin:10px 0 2px}
+.steps p{color:var(--ink2)}
+.panel{border:1px solid var(--line);border-radius:12px;padding:24px;background:var(--k1)}
+@media(min-width:760px){.panel{padding:32px}}
+.panel h3{font:800 21px/1.25 var(--f);margin-bottom:4px}
+.panel .sub{color:var(--mute);font-size:15px;margin-bottom:18px}
+.check{list-style:none;display:grid;gap:12px;margin-bottom:20px;counter-reset:c}
+.check li{display:grid;grid-template-columns:26px 1fr;gap:12px;color:var(--ink2)}
+.check li::before{counter-increment:c;content:counter(c);width:26px;height:26px;border-radius:6px;background:var(--k3);display:grid;place-items:center;font:800 13px/1 var(--f);color:#fff}
+.check b{color:#fff;font-weight:700}
+.safety{border-top:1px solid var(--line);padding-top:16px}
+.safety h4{font:700 15px var(--f);display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.safety h4 svg{width:24px;height:22px}
+.safety p{font-size:15px;color:var(--mute)}
+.panel .btn{width:100%;margin-top:20px}
+
+/* ---------- DASHBOARD ---------- */
+.dash{display:grid;gap:16px}
+@media(min-width:960px){.dash{grid-template-columns:1.1fr .9fr;gap:36px;align-items:start}}
+.cluster{border-radius:20px;padding:18px;border:1px solid #2a2a2d;background-color:#141415;
+  background-image:linear-gradient(rgba(14,14,15,.88),rgba(14,14,15,.88)),
+   linear-gradient(27deg,#101011 5px,transparent 5px),linear-gradient(207deg,#101011 5px,transparent 5px),
+   linear-gradient(27deg,#1c1c1e 5px,transparent 5px),linear-gradient(207deg,#1c1c1e 5px,transparent 5px),
+   linear-gradient(90deg,#161617 10px,transparent 10px),
+   linear-gradient(#18181a 25%,#151516 25%,#151516 50%,transparent 50%,transparent 75%,#1e1e20 75%,#1e1e20);
+  background-size:auto,20px 20px,20px 20px,20px 20px,20px 20px,20px 20px,20px 20px;
+  background-position:0 0,0 5px,10px 0,0 10px,10px 5px,0 0,0 0;
+  box-shadow:inset 0 0 0 6px #0c0c0d,inset 0 0 0 7px #2c2c2f}
+@media(min-width:760px){.cluster{padding:28px}}
+.dials{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:14px}
+.dials svg{width:40%;max-width:200px;height:auto}
+.dials .odo{font:700 11px/1.3 var(--f);letter-spacing:.12em;text-align:center;color:#8a8a90}
+.dials .odo b{display:block;white-space:nowrap;font:800 clamp(14px,4.2vw,20px)/1 var(--f);letter-spacing:.06em;color:#ececee;margin-top:4px;font-variant-numeric:tabular-nums}
+.lights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.lt{display:grid;justify-items:center;align-content:center;gap:6px;padding:12px 4px 10px;min-height:92px;border-radius:12px;background:#0d0d0e;border:1px solid #252528;cursor:pointer;transition:border-color .15s,transform .15s var(--ease),background .15s}
+.lt:hover{transform:translateY(-2px);border-color:#3c3c40}
+.lt:active{transform:translateY(1px)}
+.lt svg{width:42px;height:42px;color:#3b3b3f;transition:color .2s,filter .2s}
+.lt span{font-size:12.5px;line-height:1.25;color:var(--mute);text-align:center;font-weight:700}
+.lt[aria-pressed="true"]{border-color:#55555a;background:#111112}
+.lt[aria-pressed="true"] span{color:#fff}
+.lt.on svg,.lt[aria-pressed="true"] svg{color:var(--c);filter:drop-shadow(0 0 5px color-mix(in srgb,var(--c) 60%,transparent))}
+.lt.amber{--c:#ffb800}.lt.redl{--c:#ff3b2f}
+.hint{margin-top:12px;font-size:13px;color:#8a8a90;text-align:center}
+.read{border:1px solid var(--line);border-radius:12px;background:var(--k1);padding:22px;display:grid;gap:14px}
+@media(min-width:760px){.read{padding:30px}}
+.read h3{font:800 22px/1.2 var(--f);letter-spacing:-.015em}
+.read .verdict{font-size:17px;color:#fff;font-weight:700;line-height:1.45}
+.urg{display:inline-flex;align-items:center;gap:10px;justify-self:start;padding:8px 13px;border-radius:8px;font-weight:800;font-size:15px;color:#111;background:var(--u)}
+.urg i{width:9px;height:9px;border-radius:50%;background:#111;flex:none}
+.urg.go{--u:#4fcf8e}.urg.care{--u:#f5b301}.urg.stop{--u:#ff3b2f;color:#fff}.urg.stop i{background:#fff}
+.read details{border-top:1px solid var(--line);padding-top:4px}
+.read dl{display:grid;gap:12px;padding-top:8px}
+.read dt{font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:2px}
+.read dd{color:var(--ink2)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--mute)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:9px;height:9px;border-radius:50%}
+.read .fine{font-size:13px;color:#8a8a90}
+
+/* ---------- SERVICES ---------- */
+.svc{display:grid;gap:10px;list-style:none}
+@media(min-width:620px){.svc{grid-template-columns:1fr 1fr}}
+@media(min-width:1040px){.svc{grid-template-columns:repeat(4,1fr)}}
+.card{position:relative;display:flex;flex-direction:column;gap:8px;padding:22px 20px 20px;border-radius:12px;background:var(--k2);border:1px solid var(--line);transition:transform .15s var(--ease),border-color .15s;text-decoration:none;height:100%}
+.card:hover{transform:translateY(-2px);border-color:#4a4a4e}
+.card .icon{width:58px;height:58px;margin-bottom:6px}
+.card h3{font:700 17.5px/1.25 var(--f)}
+.card p{color:var(--ink2);font-size:15px;flex:1}
+.card .price{font-weight:700;font-size:15px;padding-top:12px;margin-top:4px;border-top:1px dashed var(--line2)}
+.card .tag{position:absolute;top:16px;right:16px;font:800 12px/1 var(--f);background:var(--red);padding:6px 8px;border-radius:5px}
+.card .icon .rot{transform-box:fill-box;transform-origin:center;transition:transform .6s var(--ease)}
+.card:hover .icon .rot{transform:rotate(60deg)}
+.card .icon .bob{transition:transform .3s var(--ease)}
+.card:hover .icon .bob{transform:translateY(-4px)}
+@media(max-width:619px){
+  .card{display:grid;grid-template-columns:48px 1fr;column-gap:14px;row-gap:2px;padding:16px}
+  .card .icon{grid-row:span 3;width:48px;height:48px;margin:0}
+  .card .price{grid-column:2;padding-top:8px}
+  .card .tag{top:12px;right:12px}
+}
+.svc-more{color:var(--ink2);font-size:16px;padding:6px 4px;align-self:center}
+@media(min-width:1040px){.svc-more{padding:20px}}
+.svc-more a{color:#fff;font-weight:800;white-space:nowrap;display:inline-flex;align-items:center;min-height:44px;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.info-strip{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:12px}
+.info-strip div{background:var(--k1);padding:14px 18px;display:grid;grid-template-columns:22px 1fr;gap:12px;font-size:15px;color:var(--ink2)}
+.info-strip .ic{color:#fff;width:22px;height:22px;margin-top:1px}
+.info-strip b{color:#fff;font-weight:700}
+@media(min-width:760px){.info-strip{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- REVIEWS ---------- */
+.rev{display:grid;gap:28px}
+@media(min-width:960px){.rev{grid-template-columns:.75fr 1.25fr;gap:64px;align-items:start}}
+.gauge{border-top:1px solid var(--line);padding-top:20px;margin-top:24px}
+.gauge svg{width:100%;max-width:300px;height:auto}
+.gauge .needle{transform-origin:200px 200px;transform:rotate(-90deg);transition:transform 1.8s var(--enter)}
+.gauge .arc{stroke-dasharray:503;stroke-dashoffset:503;transition:stroke-dashoffset 1.8s var(--enter)}
+.gauge.go .arc{stroke-dashoffset:0}
+.g-read{display:flex;align-items:baseline;gap:12px;margin-top:4px}
+.g-read > b{font:800 44px/1 var(--f);letter-spacing:-.03em}
+.g-read span{font-size:15px;color:var(--ink2)}
+.g-read span b{color:#fff;font-weight:800}
+.plain.themes{gap:0;margin-top:0;border-top:1px solid var(--line)}
+.plain.themes li{padding:16px 0;border-bottom:1px solid var(--line)}
+.note{margin-top:20px;border:1px solid var(--line2);border-radius:12px;padding:18px 20px;display:grid;gap:14px}
+.note p{font-size:14.5px;color:var(--mute)}
+@media(min-width:620px){.note{grid-template-columns:1fr auto;align-items:center}}
+
+/* ---------- BOX 160 ---------- */
+.box-grid{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.box-grid .slot:first-child{grid-column:1/-1}
+@media(min-width:760px){.box-grid{grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr}.box-grid .slot:first-child{grid-row:span 2;grid-column:auto}}
+.slot{position:relative;min-height:130px;border-radius:12px;border:1.5px dashed #4a4a4e;display:grid;place-items:center;text-align:center;padding:14px;color:var(--mute);font-size:13px;font-weight:700;background:repeating-linear-gradient(-45deg,#1b1b1c 0 14px,#19191a 14px 28px)}
+.slot:first-child{min-height:190px}
+@media(min-width:760px){.slot{min-height:180px;font-size:14.5px}.slot:first-child{min-height:380px}}
+.slot svg{width:40px;height:40px;margin:0 auto 10px;color:#6a6a70}
+.find{display:grid;gap:10px;margin-top:10px}
+@media(min-width:960px){.find{grid-template-columns:1fr 1.4fr}}
+.find-card{border-radius:12px;border:1px solid var(--line);background:var(--k1);padding:22px}
+.find-card h3{font:800 21px/1.2 var(--f);margin-bottom:14px}
+.find-card ol{list-style:none;display:grid;gap:12px}
+.find-card li{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;color:var(--ink2)}
+.find-card li b{display:block;color:#fff;font-weight:700}
+.find-card .k{width:40px;height:40px;border-radius:8px;background:var(--k3);display:grid;place-items:center}
+.find-card .btn{width:100%;margin-top:18px}
+.map{position:relative;min-height:300px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--k3);display:grid;place-items:center;color:var(--mute);font-size:14px}
+.map iframe{position:absolute;inset:0;border:0;width:100%;height:100%;filter:grayscale(.5) contrast(1.05)}
+.map .badge{position:absolute;left:12px;top:12px;z-index:2;display:flex;align-items:center;gap:8px;background:var(--k1);border:1px solid var(--line2);border-radius:8px;padding:8px 12px;font-weight:800;font-size:13px;letter-spacing:.06em}
+.map .badge i{width:9px;height:9px;border-radius:50%;background:var(--red)}
+
+/* ---------- BOOK ---------- */
+.book{display:grid;gap:16px}
+@media(min-width:960px){.book{grid-template-columns:1.05fr .95fr;gap:36px;align-items:start}}
+form{border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--k1);display:grid;gap:16px}
+@media(min-width:760px){form{padding:32px}}
+form h3{font:800 22px/1.2 var(--f)}
+.row{display:grid;gap:16px}
+@media(min-width:620px){.row{grid-template-columns:1fr 1fr}}
+label{font-size:14px;color:var(--ink2);display:grid;gap:8px;font-weight:700}
+label .opt{color:var(--mute);font-weight:500}
+input,select,textarea{font:500 17px/1.4 var(--f);color:#fff;background:var(--k2);border:1.5px solid var(--line2);border-radius:10px;padding:0 14px;min-height:54px;width:100%;transition:border-color .15s;caret-color:var(--red)}
+textarea{padding:14px;min-height:92px;resize:vertical}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m5 8 5 5 5-5' fill='none' stroke='%23cfcfd2' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:18px;padding-right:44px}
+input::placeholder,textarea::placeholder{color:#808086}
+input:hover,select:hover,textarea:hover{border-color:#5a5a5f}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#fff}
+input[aria-invalid="true"]{border-color:#ff6b5e}
+.err{color:#ff8a7e;font-size:14px;display:none;font-weight:500}
+.err.on{display:block}
+details > summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;min-height:44px;font-weight:700;font-size:15px}
+details > summary::-webkit-details-marker{display:none}
+details > summary::before{content:"+";width:26px;height:26px;border-radius:6px;background:var(--k3);display:grid;place-items:center;font-weight:800;flex:none}
+details[open] > summary::before{content:"—";font-size:12px}
+form details{border-top:1px solid var(--line);padding-top:4px}
+form details .more{display:grid;gap:16px;padding-top:8px}
+fieldset{border:0;display:grid;gap:8px}
+legend{font-size:14px;color:var(--ink2);font-weight:700;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips input{position:absolute;opacity:0;width:1px;height:1px}
+.chips label{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid var(--line2);border-radius:10px;cursor:pointer;color:#fff;font-size:15px;font-weight:500}
+.chips input:checked+label{border-color:var(--red);background:var(--red-soft)}
+.chips input:focus-visible+label{outline:2px solid #fff;outline-offset:2px}
+form .btn{width:100%}
+.fine{font-size:13.5px;color:var(--mute)}
+.fine a{white-space:nowrap}
+.ok{display:none;border:1px solid rgba(79,207,142,.5);background:rgba(79,207,142,.08);border-radius:10px;padding:16px 18px;font-size:15px;color:#d6f5e4}
+.ok.on{display:grid;grid-template-columns:22px 1fr;gap:12px}
+.ok .ic{color:var(--green);width:22px;height:22px}
+.ok b{display:block;color:#fff;margin-bottom:2px}
+.contact{border:1px solid var(--line);border-radius:12px;background:var(--k1);padding:22px;display:grid}
+@media(min-width:760px){.contact{padding:30px}}
+.contact h3{font:800 21px/1.2 var(--f);margin-bottom:6px}
+.ci{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);text-decoration:none;min-height:64px}
+.ci:last-of-type{border-bottom:0}
+.ci .k{width:44px;height:44px;border-radius:10px;background:var(--k3);display:grid;place-items:center}
+.ci small{display:block;color:var(--mute);font-size:13px}
+.ci b{font-weight:700;font-size:16px;overflow-wrap:anywhere}
+a.ci:hover b{text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.contact .msg{margin-top:12px}
+
+footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);font-size:14px;background:var(--k0)}
+@media(min-width:960px){footer{padding-bottom:36px}}
+.foot{display:grid;gap:10px}
+.foot a{color:var(--ink2);white-space:nowrap}
+
+/* mobile sticky bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--k1);border-top:1px solid var(--line2);transition:transform .25s var(--ease)}
+.mbar.hide{transform:translateY(110%)}
+.mbar .btn{min-height:50px;padding:0 8px;font-size:15px;gap:8px}
+.mbar .btn .ic{width:19px;height:19px}
+@media(max-width:379px){.mbar{grid-template-columns:minmax(0,1fr) 56px 56px}.mbar .lbl{display:none}}
+@media(min-width:960px){.mbar{display:none}}
+
+.off *,.off{animation-play-state:paused!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">До змісту</a>
+<div class="demo" role="note"><b>Демо-концепт</b> сайту, підготовлений для власника AutoTech Service. Це не офіційний сайт компанії.</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3.5h3.2l1.6 4.2-2.1 1.4a12 12 0 0 0 7.2 7.2l1.4-2.1 4.2 1.6V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.1 1.5 1.5 0 0 1 5 3.5Z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19 7"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+    <symbol id="i-tg" viewBox="0 0 24 24"><path d="M20.5 4.5 3.5 11l5.5 2 2 6 3-4 4.5 3.5Z"/><path d="m9 13 8-5.5"/></symbol>
+    <symbol id="i-viber" viewBox="0 0 24 24"><path d="M12 3c5 0 8 2.3 8 7.5S17 18 12 18c-.8 0-1.6-.1-2.3-.2L6.5 21v-3.7C4.6 16 4 13.8 4 10.5 4 5.3 7 3 12 3Z"/><path d="M9.3 7.6c.4-.3.9-.2 1.1.2l.7 1.3c.2.4.1.8-.2 1l-.4.3c.4 1 1.2 1.8 2.2 2.2l.3-.4c.2-.3.7-.4 1-.2l1.3.7c.4.2.5.7.2 1.1-.5.7-1.3 1-2.1.7a7 7 0 0 1-4.6-4.6c-.2-.8.1-1.6.5-2.3Z"/></symbol>
+    <symbol id="i-road" viewBox="0 0 24 24"><path d="M8 3 4 21M16 3l4 18M12 4v3M12 10v3M12 16v4"/></symbol>
+    <symbol id="i-gate" viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M7 21v-9h10v9M7 15h10M7 18h10"/></symbol>
+    <symbol id="i-hash" viewBox="0 0 24 24"><path d="M9 4 7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></symbol>
+    <symbol id="i-park" viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="3"/><path d="M10 16.5v-9h3a2.5 2.5 0 0 1 0 5h-3"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3.5L9 5.5h6L16.5 8H20v11H4Z"/><circle cx="12" cy="13" r="3.4"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M3.5 16.5v-4l2-5h13l2 5v4M3.5 12.5h17"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/></symbol>
+    <symbol id="i-tri" viewBox="0 0 30 26"><path d="M15 2.5 27.5 23.5h-25Z" fill="none" stroke="#d61b1b" stroke-width="2.6" stroke-linejoin="round"/><path d="M15 9.5 21 19.8H9Z" fill="none" stroke="#d61b1b" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="sc-car" viewBox="0 0 18 34"><rect x="1" y="1" width="16" height="32" rx="6" fill="#d61b1b"/><rect x="3.2" y="20" width="11.6" height="7" rx="2" fill="#151516"/><rect x="3.6" y="7" width="10.8" height="5" rx="1.6" fill="#151516"/><rect x="2" y="30.5" width="4" height="2" rx="1" fill="#fff"/><rect x="12" y="30.5" width="4" height="2" rx="1" fill="#fff"/></symbol>
+    <symbol id="pin-160" viewBox="0 0 24 30"><circle class="dot" cx="12" cy="11" r="9" fill="none" stroke="#d61b1b" stroke-width="2"/><path d="M12 29s-9-8-9-15.5a9 9 0 0 1 18 0C21 21 12 29 12 29Z" fill="#d61b1b"/><circle cx="12" cy="12.5" r="3.4" fill="#fff"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="AutoTech Service — на початок">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="none" stroke="#fff" stroke-width="3.4"/><circle cx="20" cy="20" r="9.5" fill="none" stroke="#5a5a5f" stroke-width="1.6" stroke-dasharray="2.4 2.6"/><path d="M8.6 13.2a13 13 0 0 1 8.6-6.4" fill="none" stroke="#d61b1b" stroke-width="5" stroke-linecap="round"/><circle cx="20" cy="20" r="3.6" fill="#fff"/></svg>
+      <span><b>AUTO<i>TECH</i></b><small>СТО на Печерську · 24/7</small></span>
+    </a>
+    <nav class="links" aria-label="Розділи">
+      <a href="#road">Допомога на дорозі</a>
+      <a href="#dash">Лампи на панелі</a>
+      <a href="#services">Послуги</a>
+      <a href="#reviews">Відгуки</a>
+      <a href="#box">Бокс 160</a>
+    </nav>
+    <a class="hcall" href="tel:+380965087819" aria-label="Подзвонити: +380 96 508 78 19"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><span class="t num">096 508 78 19</span></a>
+  </div>
+  <div class="road-strip" aria-hidden="true">
+    <div class="lane"></div><div class="done"></div>
+    <svg class="car" viewBox="0 0 34 18"><g transform="rotate(-90 17 9) translate(8 -8)"><use href="#sc-car" width="18" height="34"/></g></svg>
+    <svg class="pin"><use href="#pin-160"/></svg>
+  </div>
+</header>
+
+<div class="road-side" aria-hidden="true">
+  <div class="asphalt"></div><div class="lane"></div><div class="done"></div>
+  <svg class="car" viewBox="0 0 18 34"><g transform="rotate(180 9 17)"><use href="#sc-car" width="18" height="34"/></g></svg>
+  <svg class="pin" viewBox="0 0 24 30"><use href="#pin-160"/></svg>
+  <span class="tag">БОКС 160</span>
+</div>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="hero" id="top" aria-labelledby="h1" data-anim>
+  <div class="wrap hero-grid">
+    <div class="hero-copy" data-enter>
+      <p class="open"><span class="lamp" aria-hidden="true"></span><span>Київ, <b class="num" id="clock">зараз</b> — бокс відчинений</span></p>
+      <h1 id="h1">Заглохли вночі посеред дороги? <em>Приїдемо й допоможемо на місці</em></h1>
+      <p class="lead">Цілодобово, без вихідних. Ремонтуємо в боксі на Кульчицького, а якщо авто не їде — майстер виїде до вас, часто з потрібною деталлю.<span class="xs-hide"> Вночі теж беремо трубку.</span></p>
+      <div class="cta">
+        <a class="btn btn-red" id="heroCall" href="tel:+380965087819"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Подзвонити <span class="num pn">096 508 78 19</span></a>
+        <div class="msg">
+          <a class="btn btn-line" href="viber://chat?number=%2B380965087819"><svg class="ic" aria-hidden="true"><use href="#i-viber"/></svg>Viber</a>
+          <a class="btn btn-line" href="https://t.me/+380965087819" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Telegram</a>
+          <p class="msg-note"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>Надішліть геолокацію — так майстер знайде вас швидше</p>
+        </div>
+      </div>
+      <p class="facts"><span><b>24/7</b></span><span><b>5.0</b><span class="st" aria-hidden="true">★★★★★</span> Google</span><span><b class="num">191</b>відгук</span><span><b>6+</b>років досвіду</span></p>
+    </div>
+
+    <div class="stage" id="stage">
+      <!-- 3D-рендер колеса: hero-wheel.webm, hero-wheel.mp4, hero-wheel-poster.jpg (1080x1080, фон #111) поруч з index.html. Поки файлів немає — під відео крутиться SVG-колесо. -->
+      <div class="wheel-wrap" aria-hidden="true">
+        <svg class="wheel" viewBox="-300 -300 600 600">
+          <defs>
+            <radialGradient id="tireG" r=".5"><stop offset=".62" stop-color="#1d1d1f"/><stop offset=".86" stop-color="#121213"/><stop offset="1" stop-color="#0a0a0b"/></radialGradient>
+            <linearGradient id="rimG" x1="0" y1="-1" x2=".4" y2="1"><stop offset="0" stop-color="#f1f1f3"/><stop offset=".45" stop-color="#9c9ea4"/><stop offset=".55" stop-color="#6f7178"/><stop offset="1" stop-color="#cfd0d4"/></linearGradient>
+            <linearGradient id="spokeG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7d7f86"/><stop offset=".5" stop-color="#e2e3e6"/><stop offset="1" stop-color="#8a8c92"/></linearGradient>
+            <radialGradient id="discG" r=".5"><stop offset=".3" stop-color="#4b4d52"/><stop offset=".75" stop-color="#7b7d83"/><stop offset=".95" stop-color="#5a5c61"/><stop offset="1" stop-color="#3a3b3f"/></radialGradient>
+            <linearGradient id="calG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ee2b2b"/><stop offset="1" stop-color="#9e1010"/></linearGradient>
+            <g id="spoke"><path d="M-9 -58 L-21 -186 Q-14 -194 -6 -194 L-2 -60 Z" fill="url(#spokeG)"/><path d="M9 -58 L21 -186 Q14 -194 6 -194 L2 -60 Z" fill="url(#spokeG)"/></g>
+          </defs>
+          <ellipse cx="0" cy="292" rx="220" ry="9" fill="#000" opacity=".5"/>
+          <g class="spin">
+            <circle r="292" fill="url(#tireG)"/>
+            <circle r="291" fill="none" stroke="#2a2a2c" stroke-width="10" stroke-dasharray="15 9"/>
+            <circle r="262" fill="none" stroke="#262628" stroke-width="2"/>
+            <circle r="238" fill="none" stroke="#1f1f21" stroke-width="14" stroke-dasharray="3 16"/>
+            <circle r="214" fill="none" stroke="#262628" stroke-width="3"/>
+            <circle r="168" fill="url(#discG)"/>
+            <circle r="168" fill="none" stroke="#2c2d30" stroke-width="3"/>
+            <circle r="96" fill="#2d2e32"/>
+            <g fill="#1a1a1c" id="holes"></g>
+          </g>
+          <g>
+            <path d="M-166.8 -77.8 A184 184 0 0 1 -47.6 -177.7 L-33.1 -123.6 A128 128 0 0 0 -116 -54.1 Z" fill="url(#calG)" stroke="#c41818" stroke-width="12" stroke-linejoin="round"/>
+            <path d="M-150 -78 A164 164 0 0 1 -56 -152" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="-128" cy="-100" r="6" fill="#7a0c0c"/><circle cx="-74" cy="-146" r="6" fill="#7a0c0c"/>
+          </g>
+          <g class="spin">
+            <circle r="200" fill="none" stroke="url(#rimG)" stroke-width="22"/>
+            <circle r="188" fill="none" stroke="#1a1a1c" stroke-width="3"/>
+            <use href="#spoke"/><use href="#spoke" transform="rotate(72)"/><use href="#spoke" transform="rotate(144)"/><use href="#spoke" transform="rotate(216)"/><use href="#spoke" transform="rotate(288)"/>
+            <circle r="62" fill="url(#rimG)"/>
+            <circle r="62" fill="none" stroke="#5b5d63" stroke-width="2"/>
+            <g fill="#2a2b2e" stroke="#9a9ca1" stroke-width="2">
+              <circle cx="0" cy="-38" r="7.5"/><circle cx="0" cy="-38" r="7.5" transform="rotate(72)"/><circle cx="0" cy="-38" r="7.5" transform="rotate(144)"/><circle cx="0" cy="-38" r="7.5" transform="rotate(216)"/><circle cx="0" cy="-38" r="7.5" transform="rotate(288)"/>
+            </g>
+            <circle r="21" fill="#141415"/>
+            <path d="M-10 -5a12 12 0 0 1 9-7" fill="none" stroke="#d61b1b" stroke-width="5" stroke-linecap="round"/>
+          </g>
+          <path d="M-250 -150 A292 292 0 0 1 -120 -266" fill="none" stroke="#fff" stroke-opacity=".07" stroke-width="10" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <video autoplay muted loop playsinline preload="metadata" poster="hero-wheel-poster.jpg" aria-hidden="true" tabindex="-1">
+        <source src="hero-wheel.webm" type="video/webm">
+        <source src="hero-wheel.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+  <div class="hero-hz" aria-hidden="true"></div>
+</section>
+
+<!-- ============ BAY ============ -->
+<section class="sec" id="bay" aria-labelledby="bay-h" data-anim>
+  <div class="wrap">
+    <div class="head bay-head">
+      <div><p class="kicker">Бокс 160 на Печерську</p>
+      <h2 id="bay-h">Механік, діагност і автоелектрик — в одному боксі</h2></div>
+      <p class="intro">Не треба об’їжджати кілька сервісів: механіка, діагностика й електрика — в одному місці.</p>
+    </div>
+    <div class="ill" role="img" aria-label="Креслення: бокс СТО, седан на двостійковому підйомнику, візок з інструментами, ноутбук діагностики">
+      <svg viewBox="0 0 1200 660" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <defs>
+          <pattern id="bp" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" stroke="#1a1a1c" stroke-width="1"/></pattern>
+          <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V8" stroke="#2e2e31" stroke-width="1.5"/></pattern>
+          <pattern id="hatchF" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><path d="M0 0V14" stroke="#202022" stroke-width="1.5"/></pattern>
+          <pattern id="frameS" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="11" height="22" fill="#2a2a2d"/></pattern>
+          <pattern id="peg" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="1.6" fill="#3a3a3e"/></pattern>
+          <clipPath id="scr"><rect x="106" y="372" width="144" height="84"/></clipPath>
+          <g id="wh">
+            <circle r="50" fill="#131314" stroke="#8a8a90" stroke-width="2"/>
+            <circle r="43" stroke="#4a4a4e" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <g class="wspin">
+              <circle r="31" stroke="#a6a6ac" stroke-width="2"/>
+              <circle r="9" stroke="#a6a6ac" stroke-width="2"/>
+              <path d="M0 -9V-30M8.6 -2.8 28.5 -9.3M5.3 7.3 17.6 24.3M-5.3 7.3-17.6 24.3M-8.6 -2.8-28.5 -9.3" stroke="#a6a6ac" stroke-width="2"/>
+            </g>
+            <path d="M-24 -10A26 26 0 0 1-8 -25" stroke="#d61b1b" stroke-width="7"/>
+          </g>
+        </defs>
+        <rect width="1200" height="660" fill="#131314" stroke="none"/>
+        <rect width="1200" height="660" fill="url(#bp)" stroke="none"/>
+        <rect x="0" y="560" width="1200" height="100" fill="url(#hatchF)" stroke="none"/>
+        <path d="M0 560H1200" stroke="#5a5a5f" stroke-width="2"/>
+        <path d="M80 600H1120" stroke="#3a3a3e" stroke-width="1.5" stroke-dasharray="26 14"/>
+        <path d="M44 560V40H1156V560" stroke="#5a5a5f" stroke-width="2"/>
+        <rect x="44" y="40" width="34" height="520" fill="url(#frameS)" stroke="#5a5a5f" stroke-width="2"/>
+        <rect x="1122" y="40" width="34" height="520" fill="url(#frameS)" stroke="#5a5a5f" stroke-width="2"/>
+        <rect x="78" y="40" width="1044" height="54" fill="#161617" stroke="#5a5a5f" stroke-width="2"/>
+        <path d="M78 58H1122M78 76H1122" stroke="#2e2e31" stroke-width="1.5"/>
+        <path d="M78 300H1122M330 94V560M870 94V560" stroke="#222225" stroke-width="1.5"/>
+        <g transform="translate(140 128)">
+          <rect width="170" height="52" rx="3" fill="#131314" stroke="#a6a6ac" stroke-width="2"/>
+          <text x="85" y="34" text-anchor="middle" fill="#e6e6e8" stroke="none" font-family="Montserrat,sans-serif" font-weight="800" font-size="23" letter-spacing="3">БОКС 160</text>
+          <path d="M10 -18 18 0M160 -18 152 0" stroke="#5a5a5f" stroke-width="1.5"/>
+        </g>
+        <g transform="translate(900 128)">
+          <rect width="200" height="168" rx="3" fill="url(#peg)" stroke="#6d6d73" stroke-width="2"/>
+          <g stroke="#a6a6ac" stroke-width="2">
+            <path d="M30 22v92"/><circle cx="30" cy="126" r="11"/><path d="M24 14h12l-2 8h-8z"/>
+            <path d="M64 20v100"/><path d="M56 16a9 9 0 0 0 16 0M56 124a9 9 0 0 1 16 0"/>
+            <path d="M100 22v76"/><rect x="94" y="98" width="12" height="40" rx="3" fill="url(#hatch)"/>
+            <path d="M136 24v110"/><rect x="126" y="16" width="20" height="14" rx="2" fill="url(#hatch)"/>
+            <path d="M172 22v56M163 82h18l-3 32h-12z"/>
+          </g>
+        </g>
+        <g stroke="#8a8a90" stroke-width="2">
+          <rect x="262" y="230" width="36" height="330" fill="url(#hatch)"/>
+          <rect x="902" y="230" width="36" height="330" fill="url(#hatch)"/>
+          <path d="M248 560v-12h64v12M888 560v-12h64v12"/>
+          <path d="M262 222H938"/><path d="M262 230H938" stroke="#4a4a4e" stroke-width="1.5"/>
+          <path d="M280 250V540M920 250V540" stroke="#4a4a4e" stroke-width="1.5" stroke-dasharray="4 8"/>
+        </g>
+        <g class="lift">
+          <g stroke="#a6a6ac" stroke-width="2">
+            <rect x="254" y="508" width="52" height="38" rx="3" fill="#131314"/>
+            <rect x="894" y="508" width="52" height="38" rx="3" fill="#131314"/>
+            <path d="M306 528H460M894 528H740"/><path d="M306 536H460M894 536H740" stroke="#5a5a5f" stroke-width="1.5"/>
+            <rect x="446" y="514" width="30" height="8" fill="#131314"/><rect x="724" y="514" width="30" height="8" fill="#131314"/>
+          </g>
+          <g transform="translate(-28 -24)">
+            <path d="M362 532 L356 498 Q354 474 380 466 L468 458 Q498 420 540 400 Q568 390 628 389 L678 390 Q718 392 748 420 L780 452 Q858 458 896 470 Q920 478 922 500 L924 530 Q924 538 914 538 L866 538 A58 58 0 0 0 750 538 L506 538 A58 58 0 0 0 390 538 L372 538 Q362 538 362 532 Z" fill="#141415" stroke="#d61b1b" stroke-width="2.6"/>
+            <path d="M480 462 Q506 428 542 410 Q568 400 624 399 L628 458 Z" fill="url(#hatch)" stroke="#8a8a90" stroke-width="1.8"/>
+            <path d="M640 399 L676 400 Q712 402 738 426 L764 458 L640 458 Z" fill="url(#hatch)" stroke="#8a8a90" stroke-width="1.8"/>
+            <path d="M384 478 Q600 464 900 480" stroke="#4a4a4e" stroke-width="1.5"/>
+            <g stroke="#6d6d73" stroke-width="1.8"><path d="M498 462 L500 530"/><path d="M632 458 L634 530"/><path d="M768 458 Q772 500 766 530"/><path d="M600 476h20M738 476h20"/><path d="M772 452l16-3 3 12-17 2z"/><path d="M390 524H750M866 524H916"/></g>
+            <path d="M892 480 Q912 484 916 494 L896 494 Z" stroke="#a6a6ac" stroke-width="1.8"/>
+            <path d="M360 476 L382 472 L382 492 L358 494 Z" stroke="#a6a6ac" stroke-width="1.8"/>
+            <use href="#wh" x="448" y="540"/>
+            <use href="#wh" x="808" y="540"/>
+          </g>
+        </g>
+        <g class="swing">
+          <path d="M640 94V206" stroke="#6d6d73" stroke-width="1.5"/>
+          <polygon class="beam" points="614,240 666,240 800,410 480,410" fill="#fff" fill-opacity=".045" stroke="none"/>
+          <path d="M616 206h48l12 34h-72z" fill="#131314" stroke="#a6a6ac" stroke-width="2"/>
+          <path d="M612 240l8 20M640 240v22M668 240l-8 20M616 254h48" stroke="#6d6d73" stroke-width="1.5"/>
+          <path d="M624 240h32" stroke="#f2f2f3" stroke-width="3"/>
+        </g>
+        <g stroke="#a6a6ac" stroke-width="2">
+          <path d="M178 476V600M140 604h76"/><circle cx="146" cy="610" r="5"/><circle cx="210" cy="610" r="5"/>
+          <rect x="98" y="364" width="160" height="100" rx="5" fill="#131314"/>
+          <rect x="106" y="372" width="144" height="84" stroke="#4a4a4e" stroke-width="1.5"/>
+          <g clip-path="url(#scr)" stroke-width="1.8">
+            <path d="M106 400H250M106 428H250" stroke="#222225" stroke-width="1"/>
+            <g class="graph">
+              <path d="M106 434 l12 -6 12 4 12 -18 12 10 12 -4 12 -14 12 12 12 -6 12 8 12 -22 12 16 12 -4 12 -6 12 4 12 -18 12 10 12 -4 12 -14 12 12 12 -6 12 8 12 -22 12 16 12 -4 12 -6" stroke="#e6e6e8"/>
+              <path d="M106 448 l20 -2 20 4 20 -6 20 2 20 -4 20 6 20 -2 20 4 20 -6 20 2 20 -4" stroke="#6d6d73" stroke-width="1.5"/>
+            </g>
+            <circle class="blink" cx="242" cy="381" r="2.5" fill="#e6e6e8" stroke="none"/>
+          </g>
+          <path d="M92 464H264L254 476H102Z" fill="#131314"/>
+          <path d="M258 470C296 484 300 520 330 530" stroke="#5a5a5f" stroke-width="1.5" stroke-dasharray="3 4"/>
+        </g>
+        <g transform="translate(978 386)" stroke="#a6a6ac" stroke-width="2">
+          <rect x="0" y="0" width="124" height="160" rx="4" fill="#131314"/>
+          <path d="M-6 -6H130" stroke-width="3"/>
+          <path d="M6 40H118M6 80H118M6 120H118" stroke="#6d6d73" stroke-width="1.5"/>
+          <path d="M44 20h36M44 60h36M44 100h36M44 140h36" stroke-width="3"/>
+          <circle cx="18" cy="168" r="8"/><circle cx="106" cy="168" r="8"/>
+          <path d="M14 -18 64 -24"/><circle cx="72" cy="-25" r="6"/><rect x="92" y="-30" width="14" height="22" rx="2" fill="url(#hatch)"/>
+        </g>
+        <g transform="translate(96 520)" stroke="#8a8a90" stroke-width="2">
+          <rect x="0" y="0" width="60" height="20" rx="9" fill="url(#hatch)"/><rect x="0" y="20" width="60" height="20" rx="9" fill="url(#hatch)"/>
+        </g>
+      </svg>
+    </div>
+    <ul class="plain cols">
+      <li><b>Механіки</b> — двигун, охолодження, ходова, гальма, ТО.</li>
+      <li><b>Діагности</b> — зчитують помилки й перевіряють датчики сканером.</li>
+      <li><b>Автоелектрики</b> — стартер, генератор, проводка, акумулятор.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="tread" aria-hidden="true"></div>
+
+<!-- ============ ROADSIDE ============ -->
+<section class="sec alt" id="road" aria-labelledby="road-h">
+  <div class="wrap road">
+    <div>
+      <p class="kicker">Допомога на дорозі</p>
+      <h2 id="road-h">Зламалися в дорозі? Не поспішайте викликати евакуатор</h2>
+      <p class="intro">Часто поломку можна усунути на місці: патрубок, акумулятор, ремінь, датчик. Майстер приїде з інструментом, а коли можливо — з потрібною деталлю.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><h3>Ви дзвоните або пишете</h3><p>Розкажіть, де ви і що сталося.</p></div></li>
+        <li><span class="n">2</span><div><h3>Майстер виїжджає</h3><p>Беремо інструмент і, якщо можливо, запчастину під вашу поломку.</p></div></li>
+        <li><span class="n">3</span><div><h3>Ремонт на місці або в боксі</h3><p>Якщо можна полагодити на дорозі — лагодимо. Якщо ні — домовляємося, як доставити авто на Печерськ.</p></div></li>
+      </ol>
+    </div>
+    <aside class="panel" aria-labelledby="say-h">
+      <h3 id="say-h">Що сказати телефоном</h3>
+      <p class="sub">Так майстер візьме саме те, що потрібно.</p>
+      <ul class="check">
+        <li><span><b>Де ви.</b> Вулиця, міст, орієнтир — або геолокація у Viber чи Telegram.</span></li>
+        <li><span><b>Яке авто.</b> Марка, модель, рік, бензин чи дизель.</span></li>
+        <li><span><b>Що сталося.</b> Лампа на панелі, пара з-під капота, звук, запах — усе важливо.</span></li>
+      </ul>
+      <div class="safety">
+        <h4><svg aria-hidden="true"><use href="#i-tri"/></svg>Поки чекаєте</h4>
+        <p>Увімкніть аварійку, виставте знак аварійної зупинки (20 м у місті, 40 м за містом) і відійдіть від проїжджої частини. Якщо з-під капота йде пара — не відкривайте розширювальний бачок.</p>
+      </div>
+      <a class="btn btn-red" href="tel:+380965087819"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Викликати майстра</a>
+    </aside>
+  </div>
+</section>
+
+<div class="tread" aria-hidden="true"></div>
+
+<!-- ============ DASHBOARD ============ -->
+<section class="sec" id="dash" aria-labelledby="dash-h" data-anim>
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker">Панель приладів</p>
+      <h2 id="dash-h">Що світиться на панелі?</h2>
+      <p class="intro">Натисніть на лампу, яку бачите у своєму авто: підкажемо, що вона зазвичай означає і чи можна їхати далі.</p>
+    </div>
+    <div class="dash">
+      <div class="cluster" id="cluster">
+        <div class="dials" aria-hidden="true">
+          <svg viewBox="0 0 200 120"><path d="M20 110 A80 80 0 0 1 180 110" fill="none" stroke="#2a2a2d" stroke-width="10"/><path d="M20 110 A80 80 0 0 1 180 110" fill="none" stroke="#8a8a90" stroke-width="2" stroke-dasharray="1.5 11.05"/><path d="M152 53 A80 80 0 0 1 180 110" fill="none" stroke="#d61b1b" stroke-width="10"/><text x="100" y="72" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="12" fill="#6a6a70">×1000 RPM</text><path d="M100 110 L52 72" stroke="#d61b1b" stroke-width="3.5" stroke-linecap="round"/><circle cx="100" cy="110" r="7" fill="#2a2a2d"/></svg>
+          <div class="odo">ПРОБІГ<b>184 216</b></div>
+          <svg viewBox="0 0 200 120"><path d="M20 110 A80 80 0 0 1 180 110" fill="none" stroke="#2a2a2d" stroke-width="10"/><path d="M20 110 A80 80 0 0 1 180 110" fill="none" stroke="#8a8a90" stroke-width="2" stroke-dasharray="1.5 11.05"/><text x="100" y="72" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="12" fill="#6a6a70">КМ/ГОД</text><path d="M100 110 L150 74" stroke="#d61b1b" stroke-width="3.5" stroke-linecap="round"/><circle cx="100" cy="110" r="7" fill="#2a2a2d"/></svg>
+        </div>
+        <div class="lights" role="group" aria-label="Контрольні лампи">
+          <button class="lt amber" type="button" data-k="engine" aria-pressed="true"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 19h4v-4h5v-3h12v3h-6v3h7l4 4h3v-3h4v15h-4v-3h-3v4l-4 4H17l-4-4h-2v-5H8v4H5V18h3z" fill="currentColor"/></svg><span>Check engine</span></button>
+          <button class="lt redl" type="button" data-k="battery" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="8" width="7" height="5" rx="1" fill="currentColor"/><rect x="31" y="8" width="7" height="5" rx="1" fill="currentColor"/><rect x="5" y="13" width="38" height="26" rx="3" fill="currentColor"/><path d="M11 26h8M29 26h8M33 22v8" stroke="#0d0d0e" stroke-width="3" stroke-linecap="round"/></svg><span>Акумулятор</span></button>
+          <button class="lt redl" type="button" data-k="oil" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 20h7l3-2h4v-3h-4v-3h12v3h-4v3h6l4 3 11-6 1 2-12 13H13l-2-3H6l-2-2z" fill="currentColor"/><path d="M43 30c-2 3-2 5 0 5s2-2 0-5z" fill="currentColor"/></svg><span>Тиск масла</span></button>
+          <button class="lt redl" type="button" data-k="coolant" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M21 6h6v20.5a6.5 6.5 0 1 1-6 0z" fill="currentColor"/><path d="M27 11h7M27 16h5M27 21h7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M4 39c3-3 5-3 8 0s5 3 8 0M28 39c3-3 5-3 8 0s5 3 8 0" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><span>Температура</span></button>
+          <button class="lt amber" type="button" data-k="abs" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="14" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M8 12a20 20 0 0 0 0 24M40 12a20 20 0 0 1 0 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/><text x="24" y="28.5" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="11.5" fill="currentColor">ABS</text></svg><span>ABS</span></button>
+          <button class="lt redl" type="button" data-k="brake" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="14" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M8 12a20 20 0 0 0 0 24M40 12a20 20 0 0 1 0 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/><path d="M24 15v11" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="24" cy="32" r="2.4" fill="currentColor"/></svg><span>Гальма, ручник</span></button>
+        </div>
+        <p class="hint">Символи можуть трохи відрізнятися залежно від моделі авто.</p>
+      </div>
+      <div class="read" id="read" aria-live="polite">
+        <h3 id="r-t">Check engine — несправність двигуна</h3>
+        <p class="verdict" id="r-v">Система керування двигуном зафіксувала помилку. Найчастіше можна обережно доїхати до сервісу.</p>
+        <span class="urg care" id="r-u"><i></i><span id="r-ul">Обережно — до сервісу</span></span>
+        <a class="btn btn-red" href="tel:+380965087819"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Подзвонити майстру</a>
+        <details>
+          <summary>Детальніше</summary>
+          <dl>
+            <div><dt>Що це зазвичай означає</dt><dd id="r-m">Блок керування зафіксував помилку: датчик, запалювання, паливна суміш, навіть погано закрита кришка бака. Точну причину покаже лише комп’ютерна діагностика.</dd></div>
+            <div><dt>Що робити</dt><dd id="r-d">Якщо лампа горить рівно і авто їде як завжди — доїжджайте до сервісу без різких навантажень. Якщо лампа блимає або двигун тремтить (троїть) — зупиніться: так можна пошкодити каталізатор.</dd></div>
+          </dl>
+        </details>
+        <div class="legend" aria-hidden="true"><span><i style="background:#4fcf8e"></i>можна їхати</span><span><i style="background:#f5b301"></i>обережно, до сервісу</span><span><i style="background:#ff3b2f"></i>зупиніться</span></div>
+        <p class="fine">Це загальна довідка. Якщо сумніваєтесь — краще зупинитися й подзвонити.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tread" aria-hidden="true"></div>
+
+<!-- ============ SERVICES ============ -->
+<section class="sec alt" id="services" aria-labelledby="svc-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker">Послуги</p>
+      <h2 id="svc-h">Що ремонтуємо</h2>
+      <p class="intro">Вартість — після огляду авто.</p>
+    </div>
+    <ul class="svc">
+      <li><a class="card" href="#book">
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><g class="bob"><rect x="16" y="8" width="32" height="24" rx="3"/><path d="M16 15h32M16 21h32" stroke="#d61b1b"/></g><circle cx="32" cy="40" r="4"/><path d="M28 32l-2 8 6 16 6-16-2-8"/><circle cx="32" cy="56" r="3" fill="#d61b1b" stroke="#d61b1b"/></svg>
+        <h3>Двигун і охолодження</h3><p>Патрубки, помпа, радіатор, термостат, ремінь ГРМ.</p><span class="price">від ___ грн</span></a></li>
+      <li><a class="card" href="#book">
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><rect x="27" y="4" width="10" height="14" rx="2"/><path d="M32 18v6"/><g class="bob"><path d="M20 24h24M22 30l20 4M22 36l20 4M22 42l20 4M22 48l20 4" stroke="#d61b1b"/></g><path d="M20 56h24M32 50v6"/></svg>
+        <h3>Ходова й підвіска</h3><p>Амортизатори, сайлентблоки, кульові опори, рульові тяги.</p><span class="price">від ___ грн</span></a></li>
+      <li><a class="card" href="#book">
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><rect x="8" y="18" width="48" height="34" rx="4"/><path d="M15 18v-6h8v6M41 18v-6h8v6"/><path d="M15 32h9M40 32h9M44.5 27.5v9" stroke="#d61b1b"/><g class="bob"><path d="M33 38l-4 7h6l-4 7" stroke="#d61b1b"/></g></svg>
+        <h3>Автоелектрика</h3><p>Стартер, генератор, проводка, акумулятор, освітлення.</p><span class="price">від ___ грн</span></a></li>
+      <li><a class="card" href="#book">
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><rect x="6" y="14" width="40" height="28" rx="3"/><path d="M12 36l7-9 6 5 8-11 7 8" stroke="#d61b1b"/><path d="M46 28h6l6 6v8M22 42v8M30 42v8M16 50h20"/><circle class="bob" cx="55" cy="46" r="3" fill="#d61b1b" stroke="#d61b1b"/></svg>
+        <h3>Комп’ютерна діагностика</h3><p>Зчитуємо помилки, перевіряємо датчики й системи двигуна.</p><span class="price">від ___ грн</span></a></li>
+      <li><a class="card" href="#book">
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><path d="M6 30h9l5-4h6v-5h-5v-4h14v4h-5v5h8l6 4 14-7 2 3-15 17H18l-3-4H8l-2-3z"/><g class="bob"><path d="M56 40c-3 4-3 7 0 7s3-3 0-7z" fill="#d61b1b" stroke="#d61b1b"/></g></svg>
+        <h3>Планове ТО</h3><p>Заміна масла, фільтрів і технічних рідин.</p><span class="price">від ___ грн</span></a></li>
+      <li><a class="card" href="#book">
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><g class="rot"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="8"/><g fill="#fff" stroke="none"><circle cx="32" cy="16" r="2"/><circle cx="46" cy="25" r="2"/><circle cx="43" cy="44" r="2"/><circle cx="21" cy="44" r="2"/><circle cx="18" cy="25" r="2"/></g></g><path d="M12 22a22 22 0 0 1 14-13l3 9a12 12 0 0 0-8 7z" fill="#d61b1b" stroke="#d61b1b"/></svg>
+        <h3>Гальмівна система</h3><p>Колодки, диски, супорти, гальмівна рідина.</p><span class="price">від ___ грн</span></a></li>
+      <li><a class="card" href="tel:+380965087819"><span class="tag">24/7</span>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><path d="M4 44V28h22v16M26 32h12l8 8v4h-6"/><path d="M30 32v8h14"/><g class="bob"><path d="M12 28l8-14h4M24 14l6 4"/><rect x="8" y="22" width="6" height="4" fill="#d61b1b" stroke="#d61b1b"/></g><circle cx="13" cy="46" r="5"/><circle cx="38" cy="46" r="5"/><path d="M18 44h15M48 52h12" stroke="#d61b1b"/></svg>
+        <h3>Виїзд на дорогу</h3><p>Майстер приїде на місце поломки з інструментом.</p><span class="price">від ___ грн</span></a></li>
+      <li class="svc-more">Не знайшли свою поломку? Опишіть її телефоном: <a href="tel:+380965087819" class="num">096 508 78 19</a></li>
+    </ul>
+    <div class="info-strip">
+      <div><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span><b>Гарантія</b> — ___</span></div>
+      <div><svg class="ic" aria-hidden="true"><use href="#i-card"/></svg><span><b>Оплата</b> — ___, ___, ___</span></div>
+      <div><svg class="ic" aria-hidden="true"><use href="#i-car"/></svg><span><b>Марки й двигуни</b> — ___</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="tread" aria-hidden="true"></div>
+
+<!-- ============ REVIEWS ============ -->
+<section class="sec" id="reviews" aria-labelledby="rev-h">
+  <div class="wrap">
+    <div class="rev">
+      <div>
+        <p class="kicker">Відгуки</p>
+        <h2 id="rev-h">5.0 у Google: за що нам дякують</h2>
+        <p class="intro">Клієнти часто пишуть про нічні виклики, допомогу на дорозі й швидкий ремонт.</p>
+        <div class="gauge" id="gauge">
+          <svg viewBox="0 0 400 228" aria-hidden="true">
+            <path d="M40 200 A160 160 0 0 1 360 200" fill="none" stroke="#262628" stroke-width="6"/>
+            <path class="arc" d="M40 200 A160 160 0 0 1 360 200" fill="none" stroke="#6d6d73" stroke-width="6"/>
+            <g id="ticks" stroke="#55555a" stroke-width="2"></g>
+            <g font-family="Montserrat,sans-serif" font-weight="700" font-size="15" fill="#77777d" text-anchor="middle"><text x="40" y="226">0</text><text x="360" y="226">5</text></g>
+            <g class="needle"><path d="M197.5 200 L200 70 L202.5 200 Z" fill="#d61b1b"/><circle cx="200" cy="200" r="9" fill="#111" stroke="#8a8a90" stroke-width="2"/></g>
+          </svg>
+          <div class="g-read"><b class="num" id="g-score">5.0</b><span><b class="num" id="g-count">191</b> відгук у Google</span></div>
+        </div>
+      </div>
+      <div>
+        <ul class="plain themes">
+          <li><b>Вночі, під час тривоги.</b> Авто стало біля Дарницького мосту — майстер приїхав із запасним патрубком охолодження й полагодив машину на місці.</li>
+          <li><b>На дорозі.</b> Бувало, самі зупинялися допомогти водієві на дорозі.</li>
+          <li><b>Старенький ВАЗ.</b> Допомогли 70-річному чоловікові з його старим ВАЗом. Цією історією активно ділилися в мережі.</li>
+          <li><b>Майстер Віталій.</b> Клієнти дякують майстру Віталію за швидкий і якісний ремонт.</li>
+        </ul>
+        <div class="note">
+          <p>Вище — короткі перекази тем із відгуків, не цитати. Справжні відгуки з іменами й датами — у Google-картці.</p>
+          <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=AutoTech+Service+%D0%9A%D1%83%D0%BB%D1%8C%D1%87%D0%B8%D1%86%D1%8C%D0%BA%D0%BE%D0%B3%D0%BE+17%D0%B0+%D0%9A%D0%B8%D1%97%D0%B2" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg>Читати відгуки в Google</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tread" aria-hidden="true"></div>
+
+<!-- ============ BOX 160 ============ -->
+<section class="sec alt" id="box" aria-labelledby="box-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker">Бокс 160</p>
+      <h2 id="box-h">Як нас знайти на Кульчицького</h2>
+      <p class="intro">вул. Генерала Кульчицького, 17а, бокс 160, Печерськ. Приїжджайте в будь-який час — бокс працює цілодобово.</p>
+    </div>
+    <div class="box-grid">
+      <div class="slot"><div><svg class="ic" aria-hidden="true"><use href="#i-cam"/></svg>Фото боксу — додамо ваше</div></div>
+      <div class="slot"><div><svg class="ic" aria-hidden="true"><use href="#i-cam"/></svg>Фото команди — додамо ваше</div></div>
+      <div class="slot"><div><svg class="ic" aria-hidden="true"><use href="#i-cam"/></svg>Фото в’їзду — додамо ваше</div></div>
+    </div>
+    <div class="find" id="contacts">
+      <div class="find-card">
+        <h3>Як під’їхати</h3>
+        <ol>
+          <li><span class="k"><svg class="ic" aria-hidden="true"><use href="#i-gate"/></svg></span><span><b>В’їзд</b>________________________</span></li>
+          <li><span class="k"><svg class="ic" aria-hidden="true"><use href="#i-hash"/></svg></span><span><b>Бокс 160</b>________________________</span></li>
+          <li><span class="k"><svg class="ic" aria-hidden="true"><use href="#i-park"/></svg></span><span><b>Де залишити авто</b>________________________</span></li>
+        </ol>
+        <a class="btn btn-line" href="https://www.google.com/maps/dir/?api=1&amp;destination=50.4119044,30.5412364" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-road"/></svg>Прокласти маршрут</a>
+      </div>
+      <div class="map"><span class="badge"><i></i>БОКС 160</span><span>Карта завантажується…</span><iframe loading="lazy" title="Карта: AutoTech Service, вул. Генерала Кульчицького, 17а" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=50.4119044,30.5412364&amp;z=16&amp;output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK ============ -->
+<section class="sec" id="book" aria-labelledby="book-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker">Запис</p>
+      <h2 id="book-h">Залиште номер — майстер передзвонить</h2>
+      <p class="intro">Достатньо телефону. Решту уточнимо в розмові.</p>
+    </div>
+    <div class="book">
+      <form id="f" novalidate aria-labelledby="f-h">
+        <h3 id="f-h">Заявка на ремонт</h3>
+        <label for="phone">Ваш телефон *
+          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="+380 __ ___ __ __" autocomplete="tel" required aria-describedby="phone-err">
+          <span class="err" id="phone-err">Вкажіть номер телефону, щоб майстер міг передзвонити.</span>
+        </label>
+        <label><span>Що сталося <span class="opt">(необов’язково)</span></span><textarea name="msg" placeholder="Наприклад: горить лампа масла, стукає спереду"></textarea></label>
+        <details>
+          <summary>Додати деталі</summary>
+          <div class="more">
+            <div class="row">
+              <label>Ім’я<input name="name" placeholder="Як до вас звертатися" autocomplete="name"></label>
+              <label>Що потрібно<select name="service"><option>Діагностика</option><option>Ремонт</option><option>Планове ТО</option><option>Виїзд на дорогу</option></select></label>
+            </div>
+            <label>Авто<input name="car" placeholder="Марка, модель, рік"></label>
+            <fieldset>
+              <legend>Коли зручно</legend>
+              <div class="chips">
+                <input type="radio" name="when" id="w1" value="Якнайшвидше" checked><label for="w1">Якнайшвидше</label>
+                <input type="radio" name="when" id="w2" value="Сьогодні"><label for="w2">Сьогодні</label>
+                <input type="radio" name="when" id="w3" value="Завтра"><label for="w3">Завтра</label>
+                <input type="radio" name="when" id="w4" value="Інший день"><label for="w4">Інший день</label>
+              </div>
+            </fieldset>
+          </div>
+        </details>
+        <button class="btn btn-red" type="submit" id="send">Надіслати заявку</button>
+        <div class="ok" id="ok" role="status" aria-live="polite"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><div><b>Заявку прийнято</b>На робочому сайті вона одразу прийде майстру в Telegram, і він передзвонить.</div></div>
+        <p class="fine">Терміново? Швидше подзвонити: <a href="tel:+380965087819" class="num">096 508 78 19</a></p>
+      </form>
+      <div class="contact">
+        <h3>Контакти</h3>
+        <a class="ci" href="tel:+380965087819"><span class="k"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg></span><span><small>Телефон, цілодобово</small><b class="num">+380 96 508 78 19</b></span></a>
+        <div class="ci"><span class="k"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg></span><span><small>Адреса</small><b>вул. Генерала Кульчицького, 17а, бокс 160, Київ</b></span></div>
+        <div class="ci"><span class="k"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg></span><span><small>Графік</small><b>Щодня, 24/7</b></span></div>
+        <a class="ci" href="mailto:info@autotech.kiev.ua"><span class="k"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><span><small>Email</small><b>info@autotech.kiev.ua</b></span></a>
+        <div class="msg">
+          <a class="btn btn-line" href="viber://chat?number=%2B380965087819"><svg class="ic" aria-hidden="true"><use href="#i-viber"/></svg>Viber</a>
+          <a class="btn btn-line" href="https://t.me/+380965087819" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <p><b style="color:#fff">AutoTech Service</b> · СТО на Печерську · вул. Генерала Кульчицького, 17а, бокс 160 · <a href="tel:+380965087819" class="num">+380 96 508 78 19</a> · <a href="mailto:info@autotech.kiev.ua">info@autotech.kiev.ua</a></p>
+    <p>Демо-концепт: ціни, гарантію, способи оплати й опис під’їзду уточнимо з вами; форма в демо не надсилає дані — на робочому сайті заявка приходить майстру в Telegram.</p>
+  </div>
+</footer>
+
+<nav class="mbar" id="mbar" aria-label="Швидкий зв’язок">
+  <a class="btn btn-red" href="tel:+380965087819"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Подзвонити</a>
+  <a class="btn btn-line" href="viber://chat?number=%2B380965087819" aria-label="Написати у Viber"><svg class="ic" aria-hidden="true"><use href="#i-viber"/></svg><span class="lbl">Viber</span></a>
+  <a class="btn btn-line" href="https://t.me/+380965087819" target="_blank" rel="noopener" aria-label="Написати в Telegram"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg><span class="lbl">Telegram</span></a>
+</nav>
+
+<script>
+(function(){
+  var RM=matchMedia('(prefers-reduced-motion: reduce)').matches, NS='http://www.w3.org/2000/svg', IO='IntersectionObserver' in window;
+  var $=function(id){return document.getElementById(id);}, i, a;
+
+  /* clock */
+  var c=$('clock');
+  function tick(){try{c.textContent=new Intl.DateTimeFormat('uk-UA',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Kyiv'}).format(new Date());}catch(e){}}
+  tick(); setInterval(tick,30000);
+
+  /* brake disc holes */
+  var h=$('holes');
+  for(i=0;i<18;i++){a=document.createElementNS(NS,'circle');a.setAttribute('cy','-132');a.setAttribute('r','5.5');a.setAttribute('transform','rotate('+i*20+')');h.appendChild(a);}
+  for(i=0;i<9;i++){a=document.createElementNS(NS,'circle');a.setAttribute('cy','-152');a.setAttribute('r','4.5');a.setAttribute('transform','rotate('+(10+i*40)+')');h.appendChild(a);}
+
+  /* hero video */
+  var stage=$('stage'), v=stage.querySelector('video');
+  v.addEventListener('playing',function(){stage.classList.add('vid-on');});
+  var srcs=v.querySelectorAll('source'); srcs[srcs.length-1].addEventListener('error',function(){stage.classList.remove('vid-on');});
+  if(RM){v.removeAttribute('autoplay');try{v.pause();}catch(e){}}
+
+  /* pause off-screen */
+  if(IO){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      e.target.classList.toggle('off',!e.isIntersecting);
+      if(e.target.id==='top'&&!RM){if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){});}else v.pause();}
+    });},{rootMargin:'80px'});
+    document.querySelectorAll('[data-anim]').forEach(function(s){io.observe(s);});
+  }
+
+  /* sticky bar appears once the hero call button has scrolled away */
+  var mbar=$('mbar'),hc=$('heroCall');
+  if(IO){mbar.classList.add('hide');
+    new IntersectionObserver(function(es){var e=es[0];mbar.classList.toggle('hide',e.isIntersecting||e.boundingClientRect.top>0);}).observe(hc);}
+
+  /* dashboard */
+  var D={
+    engine:{t:'Check engine — несправність двигуна',v:'Система керування двигуном зафіксувала помилку. Найчастіше можна обережно доїхати до сервісу.',u:'care',ul:'Обережно — до сервісу',
+      m:'Блок керування зафіксував помилку: датчик, запалювання, паливна суміш, навіть погано закрита кришка бака. Точну причину покаже лише комп’ютерна діагностика.',
+      d:'Якщо лампа горить рівно і авто їде як завжди — доїжджайте до сервісу без різких навантажень. Якщо лампа блимає або двигун тремтить (троїть) — зупиніться: так можна пошкодити каталізатор.'},
+    battery:{t:'Лампа акумулятора — немає зарядки',v:'Акумулятор не заряджається — авто може заглухнути будь-якої миті.',u:'care',ul:'Обережно — до сервісу',
+      m:'Акумулятор не заряджається під час руху. Найчастіше винні генератор, його ремінь або проводка. Авто їде на залишку заряду.',
+      d:'Вимкніть усе зайве: кондиціонер, підігріви, музику. Стежте за температурою двигуна: на багатьох авто той самий ремінь, що крутить генератор, крутить і помпу. Якщо температура росте — зупиніться й подзвоніть.'},
+    oil:{t:'Низький тиск масла',v:'Двигуну бракує мастила — далі їхати не можна.',u:'stop',ul:'Зупиніться',
+      m:'У двигуні не вистачає тиску масла: замало масла, витік або несправний насос. Без змащення двигун може серйозно пошкодитися за лічені хвилини.',
+      d:'Зупиніться в безпечному місці й одразу заглушіть двигун. Не продовжуйте рух, навіть якщо лампа згасла. Подзвоніть — підкажемо, що перевірити, або приїдемо.'},
+    coolant:{t:'Перегрів двигуна',v:'Двигун перегрівається — зупиніться й заглушіть його.',u:'stop',ul:'Зупиніться',
+      m:'Температура охолоджувальної рідини занадто висока: витік, лопнув патрубок, несправні термостат, помпа або вентилятор.',
+      d:'Зупиніться й заглушіть двигун. Не відкривайте бачок і радіатор, поки двигун гарячий — рідина під тиском може обпекти. Дочекайтеся, поки двигун охолоне, і подзвоніть.'},
+    abs:{t:'ABS — антиблокувальна система',v:'ABS вимкнулася, але звичайні гальма працюють.',u:'go',ul:'Можна їхати — обережно',
+      m:'ABS вимкнулася через помилку: найчастіше датчик швидкості колеса або його проводка.',
+      d:'Їхати можна, але колеса можуть блокуватися при різкому гальмуванні. Тримайте більшу дистанцію і заїдьте на діагностику. Якщо разом з ABS горить лампа гальм (!) — не їдьте.'},
+    brake:{t:'Гальмівна система або ручник',v:'Перевірте ручник, інакше — зупиніться.',u:'stop',ul:'Перевірте ручник, інакше — зупиніться',
+      m:'Найпростіше — не до кінця опущений ручник. Якщо лампа горить з опущеним ручником, це може бути низький рівень гальмівної рідини, на деяких авто — знос колодок, або несправність гальм.',
+      d:'Перевірте ручник. Якщо лампа не гасне — не продовжуйте рух: гальма можуть працювати гірше. Зупиніться й подзвоніть майстру.'}
+  };
+  var btns=document.querySelectorAll('.lt'),read=$('read');
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    var d=D[b.dataset.k];btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+    $('r-t').textContent=d.t;$('r-v').textContent=d.v;$('r-u').className='urg '+d.u;$('r-ul').textContent=d.ul;$('r-m').textContent=d.m;$('r-d').textContent=d.d;
+    if(innerWidth<960){var r=read.getBoundingClientRect();if(r.top>innerHeight*.7)read.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});}
+  });});
+  if(!RM&&IO){var io2=new IntersectionObserver(function(es){if(es[0].isIntersecting){io2.disconnect();
+      btns.forEach(function(b,k){setTimeout(function(){b.classList.add('on');},k*90);});
+      setTimeout(function(){btns.forEach(function(b){b.classList.remove('on');});},1500);}},{threshold:.5});io2.observe($('cluster'));}
+
+  /* gauge */
+  var ticks=$('ticks');
+  for(i=0;i<=10;i++){var an=Math.PI*(1-i/10),r1=i%2===0?142:148,l=document.createElementNS(NS,'line');
+    l.setAttribute('x1',200+r1*Math.cos(an));l.setAttribute('y1',200-r1*Math.sin(an));l.setAttribute('x2',200+154*Math.cos(an));l.setAttribute('y2',200-154*Math.sin(an));ticks.appendChild(l);}
+  var g=$('gauge'),needle=g.querySelector('.needle'),gs=$('g-score'),gc=$('g-count');
+  function done(){g.classList.add('go');needle.style.transform='rotate(90deg)';}
+  if(RM||!IO){done();}
+  else{gs.textContent='0.0';gc.textContent='0';
+    var io3=new IntersectionObserver(function(es){if(es[0].isIntersecting){io3.disconnect();done();
+      var t0=performance.now();(function step(t){var k=Math.min(1,(t-t0)/1800),e=1-Math.pow(1-k,3);
+        gs.textContent=(5*e).toFixed(1);gc.textContent=Math.round(191*e);if(k<1)requestAnimationFrame(step);})(t0);}},{threshold:.4});io3.observe(g);}
+
+  /* scroll car */
+  var root=document.documentElement,strip=document.querySelector('.road-strip'),side=document.querySelector('.road-side'),
+      target=$('contacts'),sCar=strip.querySelector('.car'),vCar=side.querySelector('.car'),
+      wide=matchMedia('(min-width:1360px)'),ticking=false,endY=1,lenX=0,lenY=0;
+  function measure(){
+    endY=Math.max(1,target.getBoundingClientRect().top+scrollY-innerHeight*.45);
+    lenX=strip.clientWidth-parseFloat(getComputedStyle(strip.querySelector('.lane')).left)*2-50;
+    lenY=side.clientHeight-64;update();
+  }
+  function update(){
+    ticking=false;var p=Math.min(1,Math.max(0,scrollY/endY));
+    if(wide.matches){side.style.setProperty('--p',p);vCar.style.setProperty('--y',(p*lenY).toFixed(1)+'px');}
+    else{strip.style.setProperty('--p',p);sCar.style.setProperty('--x',(p*lenX).toFixed(1)+'px');}
+    root.classList.toggle('arrived',p>=.995);
+  }
+  addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(update);}},{passive:true});
+  addEventListener('resize',measure,{passive:true});
+  addEventListener('load',measure);measure();
+
+  /* form */
+  var f=$('f'),ph=$('phone'),pe=$('phone-err'),ok=$('ok'),sb=$('send');
+  function digits(){return ph.value.replace(/\D/g,'').length;}
+  ph.addEventListener('input',function(){if(digits()>=9){ph.removeAttribute('aria-invalid');pe.classList.remove('on');}});
+  f.addEventListener('submit',function(e){
+    e.preventDefault();var n=digits();
+    if(n<9){pe.textContent=n?'Схоже, бракує цифр.':'Вкажіть номер телефону, щоб майстер міг передзвонити.';ph.setAttribute('aria-invalid','true');pe.classList.add('on');ph.focus();return;}
+    sb.disabled=true;sb.textContent='Надсилаємо…';
+    setTimeout(function(){sb.disabled=false;sb.textContent='Надіслати ще одну заявку';ok.classList.add('on');ok.scrollIntoView({behavior:RM?'auto':'smooth',block:'nearest'});},700);
+  });
+})();
+</script>
+</body>
+</html>
