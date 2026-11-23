@@ -9,6 +9,8 @@ const plural = (n, a, b, c) => { const m10 = n % 10, m100 = n % 100; return m10 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const icon = (id, cls = 'ic') => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
 const SWATCH = { black: '#2a2a2d', white: '#eceae4', natural: '#bdb6aa', blue: '#33435c', desert: '#cbb092', pink: '#efcfcb', green: '#9fb7a3', purple: '#6b5a73', yellow: '#efe2a2', red: '#b31620', gray: '#5a5a5e', orange: '#dc7a3c', silver: '#dcdde0', burgundy: '#6a1f2b', glacier: '#bcd3e6', ultramarine: '#5b6fd6', sierra: '#a7bdd6' };
+const brand = t => String(t || '').replace(/iSpayal/g, 'iSPAYAL'); // UI spelling; the caption generator keeps the post text
+const battCol = p => p >= 90 ? '#1f9d55' : p >= 85 ? '#d99a00' : '#e0121a';
 const PHONE = '+380989885588', DIRECT = 'https://ig.me/m/ispayal.ua';
 const PRICE_STEPS = () => { const mx = Math.max(...S.listings().filter(l => l.cat === 'iphone').map(l => +l.price || 0)), all = [15000, 20000, 30000, 40000, 60000, 80000, 100000, 150000, 200000], i = all.findIndex(v => v >= mx); return i < 0 ? all : all.slice(0, i + 1); }; // top step always covers the dearest iPhone
 
@@ -291,7 +293,8 @@ const QUICK = [
   ['likenew', 'Майже нові 9,8+', l => !l.isNew && l.score != null && l.score >= 9.8],
   ['new', 'Нові', l => condGroup(l) === 'Новий'],
 ];
-const perMonth = l => Math.ceil(l.price / 4); // 4 платежі без % від банку
+const MAX_N = 14; // найдовший строк: Укрсиб, до 14 платежів
+const perMonth = l => Math.ceil(l.price / MAX_N);
 const grade = l => l.isNew || l.score == null ? null : l.score >= 9.8 ? ['Як новий', 4] : l.score >= 9.4 ? ['Відмінний', 3] : l.score >= 9 ? ['Хороший', 2] : ['Нормальний', 1];
 const gradeHTML = l => { const g = grade(l); if (!g) return ''; return `<span class="card__grade" title="Стан ${String(l.score).replace('.', ',')} з 10"><svg viewBox="0 0 14 12" aria-hidden="true">${[0, 1, 2, 3].map(i => `<rect x="${i * 3.6}" y="${9 - i * 3}" width="2.6" height="${3 + i * 3}" rx="1" ${i < g[1] ? '' : 'opacity=".25"'}/>`).join('')}</svg>${g[0]}</span>`; };
 let FAV = new Set(JSON.parse(localStorage.getItem('ispayal.fav') || '[]'));
@@ -311,7 +314,7 @@ function buildFilters() {
   chipGroup($('[data-fl-model]'), GENS(), F.gens, g => 'iPhone ' + g);
   chipGroup($('[data-fl-var]'), VARS().filter(v => LIST.some(l => l.cat === 'iphone' && variant(l.model) === v)), F.vars, v => v);
   chipGroup($('[data-fl-mem]'), MEMS(), F.mems, memL);
-  chipGroup($('[data-fl-cond]'), ['Новий', 'Майже новий', 'б/у', 'Під замовлення'].filter(c => LIST.some(l => condGroup(l) === c)), F.conds);
+  chipGroup($('[data-fl-cond]'), ['Новий', 'Майже новий', 'б/у', 'Під замовлення'].filter(c => LIST.some(l => condGroup(l) === c)), F.conds, c => c === 'б/у' ? 'Вживаний' : c);
   chipGroup($('[data-fl-sim]'), ['Фіз', 'eSIM'].filter(s => LIST.some(l => l.sim === s)), F.sims, v => v === 'Фіз' ? 'Фізична SIM' : 'eSIM');
   const sc = $('[data-fl-score]'), bt = $('[data-fl-batt]'), a = $('[data-fl-pmin]'), b = $('[data-fl-pmax]');
   sc.min = SCORE_MIN; a.min = b.min = P_MIN; a.max = b.max = P_MAX;
@@ -337,6 +340,17 @@ function buildFilters() {
   [sc, bt, a, b].forEach(i => i.oninput = () => { paint(); renderGrid(); });
   $('[data-fl-sealed]').checked = F.sealed; $('[data-fl-sealed]').onchange = e => { F.sealed = e.target.checked; renderGrid(); };
   paint();
+}
+/* catalog price: typed «від / до» next to the two thumbs (any amount, step 100) */
+function syncPT() { const lo = $('[data-fl-plo]'), hi = $('[data-fl-phi]'); if (!lo || document.activeElement === lo || document.activeElement === hi) return; lo.value = fmt(+$('[data-fl-pmin]').value) + ' ₴'; hi.value = fmt(+$('[data-fl-pmax]').value) + ' ₴'; }
+{
+  const lo = $('[data-fl-plo]'), hi = $('[data-fl-phi]'), a = $('[data-fl-pmin]'), b = $('[data-fl-pmax]');
+  if (lo) {
+    const put = () => { const g = x => parseInt(x.value.replace(/\D/g, ''), 10); let x = g(lo), y = g(hi); if (isNaN(x)) x = P_MIN; if (isNaN(y)) y = P_MAX; x = Math.max(P_MIN, Math.min(P_MAX, Math.round(x / 100) * 100)); y = Math.max(P_MIN, Math.min(P_MAX, Math.round(y / 100) * 100)); if (x > y) [x, y] = [y, x];
+      a.value = x; b.value = y; b.focus({ preventScroll: true }); a.dispatchEvent(new Event('input')); document.activeElement.blur(); syncPT(); };
+    [lo, hi].forEach(i => { i.addEventListener('change', put); i.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); put(); } }); i.addEventListener('focus', () => i.select()); });
+    [a, b].forEach(i => i.addEventListener('input', syncPT));
+  }
 }
 function passScore(l) { return F.score <= SCORE_MIN || l.isNew || (l.score != null && l.score >= F.score - 1e-9); }
 function passBatt(l) { return F.batt <= BATT_MIN || l.isNew || (l.batt != null && l.batt >= F.batt); }
@@ -408,10 +422,10 @@ function cardHTML(l) {
   if (l.score != null || l.batt != null) {
     pp = `<div class="pp">
       ${l.score != null ? `<div><p class="pp__k">Стан</p><p class="pp__score"><b>${String(l.score).replace('.', ',')}</b><span>| 10</span></p><div class="bar ${hi ? 'is-hi' : ''}"><i style="width:${l.score * 10}%"></i></div></div>` : `<div><p class="pp__k">Стан</p><p class="pp__score"><span>не вказано</span></p></div>`}
-      ${l.batt != null ? `<div class="ring" role="img" aria-label="АКБ ${l.batt}%">${ringSVG(l.batt)}<b>${l.batt}%</b></div>` : ''}
+      ${l.batt != null ? `<div class="ring" role="img" aria-label="АКБ ${l.batt}%">${ringSVG(l.batt, 64, 6, battCol(l.batt))}<b>${l.batt}%</b></div>` : ''}
       ${l.batt != null ? `<p class="pp__cyc"><span>АКБ</span><b>${battText(l)}</b></p>` : ''}</div>`;
   } else if (l.isNew) {
-    pp = `<div class="pp pp--new"><p class="pp__k">${l.label && /замовл/i.test(l.label) ? 'Під замовлення' : 'Новий'}</p><p class="pp__newt">${esc(l.warranty || 'Новий пристрій')}</p></div>`;
+    pp = `<div class="pp pp--new"><p class="pp__k">${l.label && /замовл/i.test(l.label) ? 'Під замовлення' : 'Новий'}</p><p class="pp__newt">${esc(brand(l.warranty) || 'Новий пристрій')}</p></div>`;
   }
   const ig = igUrl(l);
   return `<li class="card card--${statusOf(l)}" data-id="${l.id}">
@@ -422,11 +436,12 @@ function cardHTML(l) {
     </div>
     <div class="card__body">
       ${statusHTML(l)}${BEST.has(l.id) ? `<span class="bestv" title="Найменше ₴ за 1% АКБ серед таких самих моделей у видачі">${icon('battery')}Найкраща ціна за АКБ</span>` : ''}
+      <p class="card__mini mono">${l.score != null ? 'стан ' + String(l.score).replace('.', ',') : esc(S.cond(l))}${l.batt != null ? ' · АКБ ' + l.batt + '%' : ''}${l.cycles != null ? ' · ' + l.cycles + ' ' + plural(l.cycles, 'цикл', 'цикли', 'циклів') : ''}</p>
       <h3 class="card__t">${esc(S.title(l)).replace(/ (\d+ [ГТ]Б)$/, ' · $1')}</h3>
       <p class="card__sub">${l.color ? `<span class="swatch" style="background:${SWATCH[l.tint] || '#999'}"></span>${esc(l.color)}` : ''}${l.sim ? ` · ${l.sim === 'Фіз' ? 'Фіз. SIM' : 'eSIM'}` : ''}</p>
       ${pp}
       <div class="flags">${flags.join('')}</div>
-      <div class="card__foot"><div><p class="price price--full">${fmt(l.price)}<small>₴</small></p><p class="price price--mo">від ${fmt(perMonth(l))}<small>₴/міс</small></p><p class="price__alt price__alt--mo">або від ${fmt(perMonth(l))} ₴/міс</p><p class="price__alt price__alt--full">повна ціна ${fmt(l.price)} ₴</p>${l.warranty ? `<p class="card__warr">${esc(l.warranty)}</p>` : ''}</div></div>
+      <div class="card__foot"><div><p class="price price--full">${fmt(l.price)}<small>₴</small></p><p class="price price--mo">від ${fmt(perMonth(l))}<small>₴/міс</small></p><p class="price__alt price__alt--mo">або від ${fmt(perMonth(l))} ₴/міс</p><p class="price__alt price__alt--full">повна ціна ${fmt(l.price)} ₴</p>${l.warranty ? `<p class="card__warr">${esc(brand(l.warranty))}</p>` : ''}</div></div>
       <div class="card__cta">${directBtn(l, 'data-direct')}</div>
       <div class="card__acts">
         <button class="btn btn--line" type="button" data-book="${l.id}" ${statusOf(l) === 'sold' ? 'disabled' : ''}>${statusOf(l) === 'sold' ? 'Продано' : statusOf(l) === 'reserved' ? 'Стати в чергу' : 'Забронювати'}</button>
@@ -450,9 +465,12 @@ function tickCount(el, to) {
   const f = now => { if (tok !== tickCount.tok) return; const k = Math.min(1, (now - t0) / d), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(from + (to - from) * e); if (k < 1) requestAnimationFrame(f); else el.textContent = to; };
   requestAnimationFrame(f);
 }
+const PAGE = 12, PAGED = matchMedia('(max-width:560px)'); let shown = PAGE, keepPage = false;
 function renderGrid() {
-  const a = filtered(), grid = $('[data-grid]');
-  BEST = computeBest(a);
+  const all = filtered(), grid = $('[data-grid]');
+  if (!keepPage) shown = PAGE; keepPage = false;
+  const a = PAGED.matches ? all.slice(0, shown) : all;
+  BEST = computeBest(all);
   // FLIP: remember where cards were
   const gr = grid.getBoundingClientRect(), flip = !reduced && gr.bottom > 0 && gr.top < innerHeight && a.length <= 60;
   const before = {}; if (flip) $$('.card', grid).forEach(c => { before[c.dataset.id] = c.getBoundingClientRect(); });
@@ -463,15 +481,18 @@ function renderGrid() {
     if (b) { const dx = b.left - r.left, dy = b.top - r.top; if (dx || dy) c.animate([{ transform: `translate(${dx}px,${dy}px)` }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.7,.2,1)' }); }
     else c.animate([{ opacity: 0, transform: 'scale(.96)' }, { opacity: 1, transform: 'none' }], { duration: 320, delay: Math.min(i, 8) * 30, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
   });
-  tickCount($('[data-count]'), a.length); $('[data-count-word]').textContent = unitWord(a.length);
-  $('[data-count-btn]').textContent = a.length ? `Показати ${a.length} ${a.every(l => l.cat === 'iphone') ? 'iPhone' : unitWord(a.length)}` : 'Нічого не знайдено — змініть фільтри';
+  { const mb = $('[data-more]'); if (mb) { const left = all.length - a.length; mb.hidden = left <= 0; mb.textContent = `Показати ще ${Math.min(PAGE, left)} · показано ${a.length} з ${all.length}`; } }
+  tickCount($('[data-count]'), all.length); $('[data-count-word]').textContent = unitWord(all.length);
+  $('[data-count-btn]').textContent = all.length ? `Показати ${all.length} ${all.every(l => l.cat === 'iphone') ? 'iPhone' : unitWord(all.length)}` : 'Нічого не знайдено — змініть фільтри';
   const act = F.models.size + F.colors.size + F.cats.size + F.gens.size + F.vars.size + F.mems.size + F.conds.size + F.sims.size + (F.score > SCORE_MIN) + (F.batt > BATT_MIN) + (F.pmin > P_MIN || F.pmax < P_MAX) + F.sealed + F.quick.size + !!F.q;
   $('[data-active-count]').textContent = act ? act : '';
   const want = F.gens.size === 1 ? `iPhone ${[...F.gens][0]}${F.vars.size === 1 && [...F.vars][0] !== 'Базова' ? ' ' + [...F.vars][0] : ''}${F.mems.size === 1 ? ' ' + [...F.mems][0] : ''}${F.batt > BATT_MIN ? `, АКБ від ${F.batt}%` : ''}` : '';
   if (want) $('[data-notify-want]').value = want;
-  paintQuick(); paintChips(); const tb = $('[data-ct-n]'); if (tb) { tb.textContent = act || ''; tb.hidden = !act; }
+  paintQuick(); paintChips(); hpSync(); syncPT(); const tb = $('[data-ct-n]'); if (tb) { tb.textContent = act || ''; tb.hidden = !act; }
 }
 $('[data-sort]').addEventListener('change', e => { F.sort = e.target.value; renderGrid(); });
+$('[data-more]') && $('[data-more]').addEventListener('click', () => { const n0 = shown; shown += PAGE; keepPage = true; renderGrid(); const c = $$('[data-grid] .card')[n0]; if (c) $('.card__vis', c).focus({ preventScroll: true }); });
+addEventListener('load', paintRecent);
 function paintQuick() {
   const box = $('[data-qpills]'); if (!box) return;
   const keep = F.quick; F.quick = new Set(); const base = filtered(); F.quick = keep;
@@ -569,7 +590,7 @@ function paintChips() {
   if (F.q) c.push([`«${F.q}»`, () => { F.q = ''; const i = $('[data-csearch]'); if (i) i.value = ''; }]);
   F.cats.forEach(v => c.push([CATS[v], () => F.cats.delete(v)])); F.models.forEach(v => c.push([v.replace('iPhone ', ''), () => { F.models.delete(v); F.colors.clear(); }]));
   F.colors.forEach(v => c.push([v, () => F.colors.delete(v)])); F.gens.forEach(v => c.push(['iPhone ' + v, () => F.gens.delete(v)])); F.vars.forEach(v => c.push([v, () => F.vars.delete(v)]));
-  F.mems.forEach(v => c.push([memL(v), () => F.mems.delete(v)])); F.conds.forEach(v => c.push([v, () => F.conds.delete(v)])); F.sims.forEach(v => c.push([v === 'Фіз' ? 'Фізична SIM' : 'eSIM', () => F.sims.delete(v)]));
+  F.mems.forEach(v => c.push([memL(v), () => F.mems.delete(v)])); F.conds.forEach(v => c.push([v === 'б/у' ? 'Вживаний' : v, () => F.conds.delete(v)])); F.sims.forEach(v => c.push([v === 'Фіз' ? 'Фізична SIM' : 'eSIM', () => F.sims.delete(v)]));
   if (F.score > SCORE_MIN) c.push([`Стан від ${F.score.toFixed(1).replace('.', ',')}`, () => { F.score = SCORE_MIN; }]);
   if (F.batt > BATT_MIN) c.push([`АКБ ${F.batt}%+`, () => { F.batt = BATT_MIN; }]);
   if (F.pmin > P_MIN || F.pmax < P_MAX) c.push([F.pmin > P_MIN ? `${fmt(F.pmin)} – ${fmt(F.pmax)} ₴` : `до ${fmt(F.pmax)} ₴`, () => { F.pmin = P_MIN; F.pmax = P_MAX; }]);
@@ -610,7 +631,8 @@ const INFO_TILES = [
   const tb = $('[data-ctool]');
   if (tb) {
     const ss = $('[data-sort]'), cs = $('[data-ct-sort]'); cs.innerHTML = ss.innerHTML;
-    const syncSort = () => { cs.value = ss.value; $('[data-ct-sortv]').textContent = ss.value === 'feed' ? '' : '· ' + ss.selectedOptions[0].textContent.replace('Спочатку ', '').replace('Найкращ', 'найкращ'); };
+    const SHORT = { feed: 'Стрічка', cheap: 'Дешевші', exp: 'Дорожчі', batt: 'АКБ', score: 'Стан' };
+    const syncSort = () => { cs.value = ss.value; $('[data-ct-sortv]').textContent = SHORT[ss.value] || ''; cs.setAttribute('aria-label', 'Сортування: ' + ss.selectedOptions[0].textContent); };
     cs.addEventListener('change', () => { ss.value = cs.value; ss.dispatchEvent(new Event('change')); syncSort(); });
     ss.addEventListener('change', syncSort); syncSort();
     const fb = $('[data-ct-filters]'); fb.addEventListener('click', () => { $('[data-filters-open]').click(); fb.setAttribute('aria-expanded', 'true'); });
@@ -736,7 +758,7 @@ $('[data-compare-open]').addEventListener('click', () => {
   <div style="overflow-x:auto"><table><thead><tr><th></th>${ls.map(l => `<td><div class="cmp__vis">${visual(l)}</div><b>${esc(S.title(l))}</b></td>`).join('')}</tr></thead><tbody>
   ${row('Ціна', l => fmt(l.price) + ' ₴', bP)}${row('Стан', l => dash(l.score != null ? String(l.score).replace('.', ',') + ' | 10' : null), bS)}${row('АКБ', l => dash(l.batt != null ? l.batt + '%' : null), bB)}${row('Цикли', l => dash(l.cycles), bC)}
   ${row('Колір', l => dash(esc(l.color)))}${row('SIM', l => dash(l.sim))}${row('Тип', l => esc(S.cond(l)))}${row('Герметичний', l => l.sealed ? 'так, без слідів ремонту' : dash(null))}
-  ${row('Обслуговування', l => dash(esc(l.service)))}${row('Примітка', l => dash(esc(l.note)))}${row('Комплект', l => dash(esc(l.kit)))}${row('Бонус', l => dash(esc(l.bonus)))}${row('Гарантія', l => dash(esc(l.warranty)))}
+  ${row('Обслуговування', l => dash(esc(l.service)))}${row('Примітка', l => dash(esc(l.note)))}${row('Комплект', l => dash(esc(l.kit)))}${row('Бонус', l => dash(esc(l.bonus)))}${row('Гарантія', l => dash(esc(brand(l.warranty))))}
   <tr><th></th>${ls.map(l => `<td><button class="btn btn--red btn--sm" type="button" data-open-from-cmp="${l.id}">Паспорт</button></td>`).join('')}</tr></tbody></table></div>
   <p class="mono muted" style="margin-top:12px">Червоним — найкраще значення серед обраних. «Не вказано» — у пості цього немає.</p></div>`;
   d.showModal();
@@ -754,7 +776,7 @@ function gauge(score) {
 }
 function battGauge(pct) {
   const r = 80, c = 2 * Math.PI * r;
-  return `<svg viewBox="0 0 200 200" aria-hidden="true" style="max-width:150px"><circle cx="100" cy="100" r="${r}" fill="none" stroke="#e2dfd8" stroke-width="14"/><circle cx="100" cy="100" r="${r}" fill="none" stroke="#ff2a2f" stroke-width="14" stroke-linecap="round" stroke-dasharray="${(c * pct / 100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 100 100)"/><circle cx="100" cy="100" r="62" fill="none" stroke="#0a0a0a" stroke-width="2" stroke-dasharray="2 5" opacity=".35"/></svg>`;
+  return `<svg viewBox="0 0 200 200" aria-hidden="true" style="max-width:150px"><circle cx="100" cy="100" r="${r}" fill="none" stroke="#e2dfd8" stroke-width="14"/><circle cx="100" cy="100" r="${r}" fill="none" stroke="${battCol(pct)}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${(c * pct / 100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 100 100)"/><circle cx="100" cy="100" r="62" fill="none" stroke="#0a0a0a" stroke-width="2" stroke-dasharray="2 5" opacity=".35"/></svg>`;
 }
 function cyclesNote(l) {
   if (l.cycles != null && /замін/i.test(l.battRaw)) return `Акумулятор замінений · ${l.cycles} ${plural(l.cycles, 'цикл', 'цикли', 'циклів')}`;
@@ -785,6 +807,7 @@ function openPass(id, focusBook) {
   if (l.score != null) dials.push(`<div class="dial">${gauge(l.score)}<p class="dial__v">${String(l.score).replace('.', ',')}</p><p class="dial__k">Стан, з 10</p></div>`);
   if (l.batt != null) dials.push(`<div class="dial">${battGauge(l.batt)}<p class="dial__v" style="margin-top:-96px;margin-bottom:58px">${l.batt}%</p><p class="dial__k">Ємність АКБ</p><p class="dial__s">${cyclesNote(l)}</p></div>`);
   if (!dials.length) dials.push(`<div class="dial dial--wide"><p class="dial__v" style="margin:6px 0 0">${esc(condGroup(l))}</p><p class="dial__k">${l.isNew ? 'Новий пристрій' : 'Стан у пості не вказано'}</p></div>`);
+  if (l.score != null && !l.isNew) { const g = grade(l)[0]; dials.push(`<div class="glegend"><p class="glegend__k">Що означає стан x/10</p><ul>${[['Як новий', '9,8–10'], ['Відмінний', '9,4–9,7'], ['Хороший', '9,0–9,3'], ['Нормальний', 'до 9,0']].map(([t, r]) => `<li class="${t === g ? 'is-on' : ''}"><b>${t}</b><span>${r}</span></li>`).join('')}</ul></div>`); }
   const isPhone = l.cat === 'iphone';
   const others = LIST.filter(o => o.id !== l.id && o.model === l.model && o.cat === l.cat).sort((x, y) => (statusOf(x) === 'sold') - (statusOf(y) === 'sold') || x.price - y.price);
   const diff = o => { const v = o.price - l.price; return v === 0 ? 'та сама ціна' : (v > 0 ? '+' : '−') + fmt(Math.abs(v)) + ' ₴'; };
@@ -793,7 +816,7 @@ function openPass(id, focusBook) {
       <span class="other__t">${esc(S.memL(o.mem) || '')} · ${esc(o.color || '')}</span>
       <span class="other__m mono">${o.score != null ? 'стан ' + String(o.score).replace('.', ',') : esc(S.cond(o))}${o.batt != null ? ' · АКБ ' + o.batt + '%' : ''}${statusOf(o) !== 'available' ? ' · ' + STATUS[statusOf(o)].toLowerCase() : ''}</span>
       <span class="other__p"><b>${fmt(o.price)} ₴</b><small class="${o.price < l.price ? 'is-less' : ''}">${diff(o)}</small></span></button></li>`).join('')}</ul></div>` : '';
-  const trust = [l.warranty ? ['shield', /apple/i.test(l.warranty) ? esc(l.warranty) : '90 днів гарантії від iSpayal'] : null, ['check', 'Перевірка при вас у магазині'], ['coins', 'Оплата частинами'], ['swap', 'Trade-in']].filter(Boolean);
+  const trust = [l.warranty ? ['shield', /apple/i.test(l.warranty) ? esc(brand(l.warranty)) : '90 днів гарантії від iSPAYAL'] : null, ['check', 'Перевірка при вас у магазині'], ['coins', 'Оплата частинами'], ['swap', 'Trade-in']].filter(Boolean);
   d.innerHTML = `
   <div class="pass__vis pass__vis--${l.cat}">
     <p class="pass__no">ПАСПОРТ · ${esc(l.code || l.id)}</p>
@@ -811,7 +834,7 @@ function openPass(id, focusBook) {
     ${hist.length ? `<div class="hist"><h3>Що відомо про цей пристрій</h3><ol>${hist.map(([a, b, s]) => `<li class="${s ? 'is-svc' : ''}">${esc(a)}<small>${esc(b)}</small></li>`).join('')}</ol></div>` : ''}
     ${kit.length ? `<div class="kit"><h3>Комплект${l.bonus ? ' і бонус' : ''}</h3><ul>${kit.map(([i, t, b]) => `<li class="${b ? 'is-bonus' : ''}">${icon(i)}<span>${esc(t)}${b ? '<br><small class="mono">бонус*</small>' : ''}</span></li>`).join('')}</ul></div>` : ''}
     <div class="pay"><h3>Оплата${l.warranty ? ' і гарантія' : ''}</h3><div class="pay__chips"><span>USDT</span><span>$</span><span>₴</span><span>€</span><span>Післяплата</span><span>Розстрочка</span></div>
-      <p>${l.warranty ? `${icon('shield')} ${esc(l.warranty)}. ` : ''}${l.isNew ? 'Спеціальна пропозиція — діє при визначених умовах оплати. ' : ''}<a href="#rozstrochka" data-to-calc="${l.price}">Порахувати розстрочку</a>${ig ? ` · <a href="${ig}" target="_blank" rel="noopener">Пост в Instagram ↗</a>` : ''}</p></div>
+      <p>${l.warranty ? `${icon('shield')} ${esc(brand(l.warranty))}. ` : ''}${l.isNew ? 'Спеціальна пропозиція — діє при визначених умовах оплати. ' : ''}<a href="#rozstrochka" data-to-calc="${l.price}">Порахувати розстрочку</a>${ig ? ` · <a href="${ig}" target="_blank" rel="noopener">Пост в Instagram ↗</a>` : ''}</p></div>
     ${othersHTML}
     <div class="pass__bookwrap" ${statusOf(l) === 'sold' ? 'hidden' : ''}><h3>${statusOf(l) === 'reserved' ? 'Вже заброньовано — стати в чергу' : 'Забронювати'}</h3>
       <form class="pass__book" data-pass-book novalidate>
@@ -829,6 +852,7 @@ function openPass(id, focusBook) {
     </div>
   </div>`;
   if (!d.open) d.showModal();
+  try { const r = JSON.parse(localStorage.getItem('ispayal.recent') || '[]').filter(x => x !== id); r.unshift(id); localStorage.setItem('ispayal.recent', JSON.stringify(r.slice(0, 8))); } catch { }
   if (location.hash !== '#t/' + id) history.replaceState(null, '', '#t/' + id);
   $('.pass__data', d).scrollTop = 0;
   if (focusBook) setTimeout(() => { const n = d.querySelector('[name=name]'); n.scrollIntoView({ block: 'center' }); n.focus({ preventScroll: true }); }, 60); else d.querySelector('[data-close]').focus({ preventScroll: true });
@@ -858,7 +882,13 @@ function openPass(id, focusBook) {
   };
 }
 $$('dialog').forEach(d => d.addEventListener('keydown', e => trapTab(d, e)));
-$('[data-pass]').addEventListener('close', () => { if (viewer) { viewer.destroy(); viewer = null; } if (location.hash.startsWith('#t/')) history.replaceState(null, '', location.pathname + location.search); /* drop the deep link without leaving an implicit #katalog that would reopen mid-page */ });
+function paintRecent() { // below the grid, so adding it never moves what is on screen
+  const box = $('[data-recent]'); if (!box) return; let r = []; try { r = JSON.parse(localStorage.getItem('ispayal.recent') || '[]').map(byId).filter(Boolean); } catch { }
+  box.hidden = !r.length; if (!r.length) return;
+  $('[data-recent-list]', box).innerHTML = r.map(l => `<li><button type="button" class="rcard" data-open="${l.id}"><span class="rcard__img">${l.cat === 'iphone' ? `<img src="assets/img/phones/${l.tint}.webp" alt="" width="560" height="700" loading="lazy">` : deviceSVG(l)}</span><span class="rcard__t">${esc(S.title(l))}<small>${esc(l.color || '')}</small></span><b>${fmt(l.price)} ₴</b></button></li>`).join('');
+}
+$('[data-recent]') && $('[data-recent]').addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openPass(b.dataset.open); });
+$('[data-pass]').addEventListener('close', () => { paintRecent(); if (viewer) { viewer.destroy(); viewer = null; } if (location.hash.startsWith('#t/')) history.replaceState(null, '', location.pathname + location.search); /* drop the deep link without leaving an implicit #katalog that would reopen mid-page */ });
 function routeHash() { const m = location.hash.match(/^#t\/([\w-]+)/); if (m && byId(m[1])) { noSmooth(() => $('#katalog').scrollIntoView()); openPass(m[1]); } } // jump instantly: the scroll lock must record the final position, not a frame of a smooth scroll
 addEventListener('hashchange', routeHash);
 
@@ -873,71 +903,114 @@ $('[data-notify-form]').addEventListener('submit', e => {
 });
 
 /* hero finder (iPhones) */
+const HPR = { lo: 0, hi: Infinity }; // hero price range, any amount; synced with the catalog price filter
+let hpSync = () => { };
 {
   const f = $('[data-finder]');
   const fill = () => {
     f.model.innerHTML = `<option value="">будь-який iPhone</option>` + MODELS().map(m => `<option ${m === 'iPhone 15 Pro' ? 'selected' : ''}>${m}</option>`).join('');
     f.mem.innerHTML = `<option value="">будь-якій памʼяті</option>` + [...new Set(LIST.filter(l => l.cat === 'iphone').map(l => l.mem))].sort((a, b) => a - b).map(m => `<option value="${m}" ${m === 256 ? 'selected' : ''}>${memL(m)}</option>`).join('');
     f.batt.innerHTML = [0, 85, 90, 95].map(v => `<option value="${v}">${v ? v + '%+' : 'будь-якого %'}</option>`).join(''); f.batt.value = '85';
-    f.max.innerHTML = `<option value="999999">будь-якої ціни</option>` + PRICE_STEPS().map(v => `<option value="${v}">${fmt(v)} ₴</option>`).join(''); f.max.value = PRICE_STEPS().includes(40000) ? '40000' : '999999';
+    f.max.innerHTML = `<option value="999999">будь-яка</option>` + PRICE_STEPS().map(v => `<option value="${v}">до ${fmt(v)} ₴</option>`).join(''); f.max.value = '999999';
+    f.max.addEventListener('change', () => { HPR.lo = 0; HPR.hi = +f.max.value >= 999999 ? Infinity : +f.max.value; }); // no-JS-style select still works if someone uses it
   };
   const count = () => {
-    const n = LIST.filter(l => l.cat === 'iphone' && (!f.model.value || l.model === f.model.value) && (!f.mem.value || l.mem === +f.mem.value) && (+f.batt.value === 0 || l.isNew || (l.batt != null && l.batt >= +f.batt.value)) && l.price <= +f.max.value).length;
+    const n = LIST.filter(l => l.cat === 'iphone' && (!f.model.value || l.model === f.model.value) && (!f.mem.value || l.mem === +f.mem.value) && (+f.batt.value === 0 || l.isNew || (l.batt != null && l.batt >= +f.batt.value)) && l.price >= HPR.lo && l.price <= HPR.hi).length;
     $('[data-f-count]').textContent = n ? `Показати ${n} ${plural(n, 'телефон', 'телефони', 'телефонів')}` : 'Повідомити, коли буде';
     return n;
   };
   fill(); count();
-  f.addEventListener('change', count);
+  f.addEventListener('change', count); f.addEventListener('hpr', count);
   f.addEventListener('submit', e => {
     e.preventDefault();
     ['cats', 'gens', 'vars', 'mems', 'conds', 'sims', 'quick'].forEach(k => F[k].clear());
     F.cats.add('iphone');
     F.models.clear(); F.colors.clear(); if (f.model.value) F.models.add(f.model.value);
     if (f.mem.value) F.mems.add(+f.mem.value);
-    F.batt = Math.max(BATT_MIN, +f.batt.value || BATT_MIN); F.pmax = Math.min(P_MAX, +f.max.value); F.pmin = P_MIN; F.score = SCORE_MIN; F.sealed = false; F.fav = false; $('[data-fav-toggle]').setAttribute('aria-pressed', 'false');
+    F.batt = Math.max(BATT_MIN, +f.batt.value || BATT_MIN); F.pmax = HPR.hi < P_MAX ? HPR.hi : P_MAX; F.pmin = HPR.lo > P_MIN ? HPR.lo : P_MIN; F.score = SCORE_MIN; F.sealed = false; F.fav = false; $('[data-fav-toggle]').setAttribute('aria-pressed', 'false');
     buildFilters(); renderGrid(); paintPick();
-    $('#katalog').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
-    const ch = $('.cat__count'); ch.tabIndex = -1; ch.focus({ preventScroll: true }); // keyboard / screen-reader users land on the result count
+    const ch = $('.cat__count'); ch.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); // user click → land on the result count
+    ch.tabIndex = -1; ch.focus({ preventScroll: true }); // keyboard / screen-reader users land on the result count
   });
 }
 
-/* hero sentence pickers: dark bottom sheet (≤768px) or anchored popover; the native <select>s stay as the no-JS fallback and the source of truth */
+/* hero sentence pickers: dark bottom sheet (≤768px) or a wide panel; the native <select>s stay as the no-JS fallback */
 {
-  const f = $('[data-finder]'), sheet = $('[data-hp]'), MOB = matchMedia('(max-width:768px)');
-  const TITLES = { model: 'Оберіть модель', mem: 'Оберіть памʼять', batt: 'АКБ від', max: 'Ціна до' };
-  const NAMES = { model: 'Модель', mem: 'Памʼять', batt: 'АКБ від', max: 'Ціна до' };
+  const f = $('[data-finder]'), sheet = $('[data-hp]'), MOB = matchMedia('(max-width:768px)'), hero = $('.hero');
+  const TITLES = { model: 'Оберіть модель', mem: 'Оберіть памʼять', batt: 'АКБ від', max: 'Ціна' };
+  const NAMES = { model: 'Модель', mem: 'Памʼять', batt: 'АКБ від', max: 'Ціна' };
   const phones = () => LIST.filter(l => l.cat === 'iphone');
-  const match = (o = {}) => { const v = k => (k in o ? o[k] : f[k].value); return phones().filter(l => (!v('model') || l.model === v('model')) && (!v('mem') || l.mem === +v('mem')) && (+v('batt') === 0 || l.isNew || (l.batt != null && l.batt >= +v('batt'))) && l.price <= +v('max')).length; };
+  const PR = () => { const p = phones().map(l => l.price); return { min: Math.floor(Math.min(...p) / 1000) * 1000, max: Math.ceil(Math.max(...p) / 1000) * 1000 }; };
+  const pOk = (l, lo = HPR.lo, hi = HPR.hi) => l.price >= lo && l.price <= hi;
+  const match = (o = {}) => { const v = k => (k in o ? o[k] : f[k].value); return phones().filter(l => (!v('model') || l.model === v('model')) && (!v('mem') || l.mem === +v('mem')) && (+v('batt') === 0 || l.isNew || (l.batt != null && l.batt >= +v('batt'))) && pOk(l, o.lo ?? HPR.lo, o.hi ?? HPR.hi)).length; };
+  const priceLabel = () => { const { lo, hi } = HPR; return !lo && hi === Infinity ? 'будь-яка ціна' : !lo ? `до ${fmt(hi)} ₴` : hi === Infinity ? `від ${fmt(lo)} ₴` : `від ${fmt(lo)} до ${fmt(hi)} ₴`; };
   const opts = k => {
-    if (k === 'model') return [{ v: '', t: 'Будь-який iPhone', sub: `${phones().filter(avail).length} в наявності` }, ...MODELS().map(m => { const st = modelStats(m); return { v: m, t: shortModel(m), img: st.tint, sub: `від ${fmt(st.min)} ₴`, n: st.n ? `${st.n} в наявності` : 'під замовлення' }; })];
-    return [...f[k].options].map(o => ({ v: o.value, t: k === 'batt' ? (+o.value ? o.value + '%+' : 'будь-яка') : k === 'max' ? (+o.value >= 999999 ? 'будь-яка' : 'до ' + (+o.value / 1000) + ' тис.') : (o.value ? o.textContent : 'будь-яка'), c: match({ [k]: o.value }) }));
+    if (k === 'model') return [{ v: '', t: 'Будь-який iPhone', sub: `${phones().filter(avail).length} в наявності`, g: '' }, ...MODELS().map(m => { const st = modelStats(m); return { v: m, t: shortModel(m), img: st.tint, sub: `від ${fmt(st.min)} ₴`, n: st.n ? `${st.n} в наявності` : 'під замовлення', g: /\de\b/.test(m) ? gen(m) + 'e' : gen(m) }; })];
+    return [...f[k].options].map(o => ({ v: o.value, t: k === 'batt' ? (+o.value ? o.value + '%+' : 'будь-яка') : (o.value ? o.textContent : 'будь-яка'), c: match({ [k]: o.value }) }));
   };
   let cur = null, trig = null;
-  const pop = document.createElement('div'); pop.className = 'hp hp--pop'; pop.hidden = true; f.appendChild(pop);
+  const pop = document.createElement('div'); pop.className = 'hp hp--pop'; pop.hidden = true; hero.appendChild(pop);
   const box = () => (MOB.matches ? sheet : pop);
-  const label = k => { const o = f[k].selectedOptions[0]; return o ? o.textContent : ''; };
+  const label = k => { if (k === 'max') return priceLabel(); const o = f[k].selectedOptions[0]; return o ? o.textContent : ''; };
   const trigs = {};
   $$('.finder__sel', f).forEach(lb => {
     const sel = $('select', lb), k = sel.name;
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'hp-trig'; b.setAttribute('role', 'combobox'); b.setAttribute('aria-haspopup', 'listbox'); b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-controls', 'hp-list'); b.dataset.k = k;
-    sel.tabIndex = -1; sel.setAttribute('aria-hidden', 'true'); lb.classList.add('is-js'); lb.after(b); // the hidden select keeps the form data
+    let b = $(`.hp-trig[data-k="${k}"]`, f); // rendered in the HTML so nothing shifts when JS starts
+    if (!b) { b = document.createElement('button'); b.type = 'button'; b.className = 'hp-trig'; b.setAttribute('role', 'combobox'); b.setAttribute('aria-haspopup', k === 'max' ? 'dialog' : 'listbox'); b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-controls', 'hp-list'); b.dataset.k = k; lb.after(b); }
+    sel.tabIndex = -1; sel.setAttribute('aria-hidden', 'true'); lb.classList.add('is-js');
     trigs[k] = b;
   });
   const paintTrigs = () => Object.entries(trigs).forEach(([k, b]) => { $('.hp-trig__v', b)?.remove(); b.insertAdjacentHTML('beforeend', `<span class="hp-trig__v">${esc(label(k))}</span>`); b.setAttribute('aria-label', `${NAMES[k]}: ${label(k)}`); });
+  const doneText = () => { const n = match(); return n ? `Готово · ${n} iPhone` : 'Готово · 0 iPhone — змініть умови'; };
+  function priceHTML() {
+    const { min, max } = PR(), ps = phones().map(l => l.price), bins = 32, step = (max - min) / bins, cnt = Array(bins).fill(0);
+    ps.forEach(p => cnt[Math.min(bins - 1, Math.floor((p - min) / step))]++); const mx = Math.max(...cnt, 1);
+    const lo = HPR.lo || min, hi = HPR.hi === Infinity ? max : HPR.hi;
+    const PRE = [['до 20 тис.', 0, 20000], ['20–40 тис.', 20000, 40000], ['40–60 тис.', 40000, 60000], ['60+ тис.', 60000, Infinity]];
+    return `<div class="pr" data-pr data-min="${min}" data-max="${max}">
+      <div class="pr__hist" aria-hidden="true">${cnt.map((c, i) => `<i data-a="${min + i * step}" data-b="${min + (i + 1) * step}" style="height:${c ? 14 + c / mx * 86 : 4}%"></i>`).join('')}</div>
+      <div class="pr__dual"><input type="range" min="${min}" max="${max}" step="100" value="${lo}" aria-label="Ціна від" data-pr-a><input type="range" min="${min}" max="${max}" step="100" value="${hi}" aria-label="Ціна до" data-pr-b></div>
+      <div class="pr__nums"><label class="pr__f"><span>від</span><input inputmode="numeric" autocomplete="off" aria-label="Ціна від, гривень" data-pr-lo></label><span class="pr__dash" aria-hidden="true">—</span><label class="pr__f"><span>до</span><input inputmode="numeric" autocomplete="off" aria-label="Ціна до, гривень" data-pr-hi></label></div>
+      <div class="pr__pre" role="group" aria-label="Швидкий вибір ціни">${PRE.map(([t, a, b]) => `<button type="button" class="pr__chip" data-pre="${a},${b === Infinity ? '' : b}">${t} <small>${match({ lo: a, hi: b })}</small></button>`).join('')}<button type="button" class="pr__chip" data-pre="0,">будь-яка <small>${match({ lo: 0, hi: Infinity })}</small></button></div></div>`;
+  }
+  function wirePrice(el) {
+    const R = $('[data-pr]', el); if (!R) return;
+    const min = +R.dataset.min, max = +R.dataset.max, A = $('[data-pr-a]', R), B = $('[data-pr-b]', R), L = $('[data-pr-lo]', R), H = $('[data-pr-hi]', R);
+    const paint = (exact) => { // exact = [lo, hi] typed by hand (any amount, not snapped to the 100 ₴ step)
+      let a = exact ? exact[0] : +A.value, b = exact ? exact[1] : +B.value; if (a > b) [a, b] = [b, a];
+      HPR.lo = a <= min ? 0 : a; HPR.hi = b >= max ? Infinity : b;
+      L.value = fmt(a) + ' ₴'; H.value = fmt(b) + ' ₴';
+      R.style.setProperty('--a', ((a - min) / (max - min) * 100) + '%'); R.style.setProperty('--b', ((b - min) / (max - min) * 100) + '%');
+      $$('.pr__hist i', R).forEach(i => i.classList.toggle('is-in', +i.dataset.b >= a && +i.dataset.a <= b));
+      $$('[data-pre]', R).forEach(c => { const [x, y] = c.dataset.pre.split(','); c.setAttribute('aria-pressed', (+x || 0) === HPR.lo && (y ? +y : Infinity) === HPR.hi); });
+      f.dispatchEvent(new Event('hpr')); paintTrigs(); const d = $('.hp__done', box()); if (d) d.textContent = doneText();
+    };
+    const fromText = () => { const g = (x, d) => { const v = parseInt(x.value.replace(/\D/g, ''), 10); return isNaN(v) ? d : Math.max(min, Math.min(max, v)); };
+      let a = g(L, HPR.lo || min), b = g(H, HPR.hi === Infinity ? max : HPR.hi); if (a > b) [a, b] = [b, a]; A.value = a; B.value = b; paint([a, b]); };
+    [A, B].forEach(x => { x.addEventListener('input', () => paint()); x.addEventListener('keydown', e => { if (e.key === 'PageUp' || e.key === 'PageDown') { e.preventDefault(); x.value = +x.value + (e.key === 'PageUp' ? 1000 : -1000); paint(); } }); });
+    L.addEventListener('change', fromText); H.addEventListener('change', fromText);
+    [L, H].forEach(x => { x.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); x.dispatchEvent(new Event('change')); } }); x.addEventListener('focus', () => x.select()); });
+    R.addEventListener('click', e => { const c = e.target.closest('[data-pre]'); if (!c) return; const [x, y] = c.dataset.pre.split(','); A.value = Math.max(min, +x || min); B.value = y ? Math.min(max, +y) : max; paint(); });
+    paint();
+  }
   function render() {
-    const k = cur, el = box(), list = opts(k), val = f[k].value, n = match();
-    const isModel = k === 'model';
-    el.innerHTML = `<div class="hp__head"><p class="hp__h" id="hp-h">${TITLES[k]}</p><button type="button" class="hp__x" data-hp-close aria-label="Закрити">${icon('x')}</button></div>
-      <div class="hp__body"><div class="hp__list ${isModel ? 'hp__list--tiles' : 'hp__list--chips'}" role="listbox" id="hp-list" aria-labelledby="hp-h">${list.map((o, i) => `<div role="option" id="hp-o${i}" tabindex="${o.v === val ? 0 : -1}" aria-selected="${o.v === val}" class="hp__o ${isModel ? 'hp__o--tile' : 'hp__o--chip'} ${!isModel && !o.c && o.v !== val ? 'is-zero' : ''}" data-v="${esc(o.v)}">
+    const k = cur, el = box(), val = f[k].value;
+    const head = `<div class="hp__head"><p class="hp__h" id="hp-h">${TITLES[k]}</p><button type="button" class="hp__x" data-hp-close aria-label="Закрити">${icon('x')}</button></div>`;
+    const foot = `<div class="hp__foot"><button type="button" class="btn btn--red hp__done" data-hp-close>${doneText()}</button></div>`;
+    if (k === 'max') { el.innerHTML = head + `<div class="hp__body" id="hp-list">${priceHTML()}</div>` + foot; el.dataset.k = k; wirePrice(el); return; }
+    const list = opts(k), isModel = k === 'model';
+    const gens = isModel ? [...new Set(list.map(o => o.g).filter(Boolean))].sort((a, b) => parseFloat(a === 'Air' ? 17.5 : a) - parseFloat(b === 'Air' ? 17.5 : b) || a.length - b.length) : [];
+    el.innerHTML = head + (isModel && !MOB.matches ? `<div class="hp__tabs" role="group" aria-label="Перейти до покоління">${['', ...gens].map(g => `<button type="button" class="hp__tab" data-gen="${g}">${g ? (g === 'Air' ? 'Air' : g) : 'Усі'}</button>`).join('')}</div>` : '') +
+      `<div class="hp__body"><div class="hp__list ${isModel ? 'hp__list--tiles' : 'hp__list--chips'}" role="listbox" id="hp-list" aria-labelledby="hp-h">${list.map((o, i) => `<div role="option" id="hp-o${i}" tabindex="${o.v === val ? 0 : -1}" aria-selected="${o.v === val}" class="hp__o ${isModel ? 'hp__o--tile' : 'hp__o--chip'} ${!isModel && !o.c && o.v !== val ? 'is-zero' : ''}" data-v="${esc(o.v)}" ${isModel ? `data-g="${o.g}"` : ''}>
         ${isModel ? `<span class="hp__img">${o.img ? `<img src="assets/img/phones/${o.img}.webp" alt="" width="560" height="700" loading="lazy">` : `<b class="hp__all">${icon('phone')}</b>`}</span><span class="hp__t">${o.img ? '<small>iPhone</small>' : ''}${esc(o.t)}</span><span class="hp__p">${esc(o.sub)}</span>${o.n ? `<span class="hp__n">${esc(o.n)}</span>` : ''}` : `<span class="hp__t">${esc(o.t)}</span><span class="hp__c">${o.c} iPhone</span>`}
-        <span class="hp__ok">${icon('check')}</span></div>`).join('')}</div></div>
-      <div class="hp__foot"><button type="button" class="btn btn--red hp__done" data-hp-close>${n ? `Готово · ${n} iPhone` : 'Готово · 0 iPhone — змініть умови'}</button></div>`;
-    if (!el.querySelector('[tabindex="0"]')) el.querySelector('[role=option]').tabIndex = 0;
+        <span class="hp__ok">${icon('check')}</span></div>`).join('')}</div></div>` + foot;
+    el.dataset.k = k;
+    if (!el.querySelector('[role=option][tabindex="0"]')) el.querySelector('[role=option]').tabIndex = 0;
   }
   function fitSheet() { // definite px height (iOS in-app WebKit collapsed the list when the sheet only had max-height)
     if (!sheet.open) return;
-    const vv = window.visualViewport ? visualViewport.height : innerHeight, hd = $('.hp__head', sheet), bd = $('.hp__body', sheet), ft = $('.hp__foot', sheet);
-    const ls = $('.hp__list', sheet), nat = (hd ? hd.offsetHeight : 0) + (ls ? ls.offsetHeight + 20 : 300) + (ft ? ft.offsetHeight : 0) + 2;
+    const vv = window.visualViewport ? visualViewport.height : innerHeight, hd = $('.hp__head', sheet), ft = $('.hp__foot', sheet);
+    const ls = $('.hp__list', sheet) || $('[data-pr]', sheet), nat = (hd ? hd.offsetHeight : 0) + (ls ? ls.offsetHeight + 20 : 300) + (ft ? ft.offsetHeight : 0) + 2;
     sheet.style.height = Math.round(Math.max(Math.min(nat, vv * 0.88, 760), Math.min(320, vv * 0.88))) + 'px';
   }
   window.visualViewport && visualViewport.addEventListener('resize', fitSheet);
@@ -945,19 +1018,23 @@ $('[data-notify-form]').addEventListener('submit', e => {
     const bd = o.closest('.hp__body'); if (!bd) return; const r = o.getBoundingClientRect(), br = bd.getBoundingClientRect();
     if (r.top < br.top) bd.scrollTop -= br.top - r.top + 8; else if (r.bottom > br.bottom) bd.scrollTop += r.bottom - br.bottom + 8;
   }
-  function place() {
+  function place() { // wide panel in the viewport (position: fixed), under the sentence when there is room
     if (MOB.matches || !trig) return;
-    pop.style.maxHeight = Math.max(300, Math.min(620, innerHeight - trig.getBoundingClientRect().bottom - 24)) + 'px';
-    const fr = f.getBoundingClientRect(), tr = trig.getBoundingClientRect(), w = Math.min(cur === 'model' ? 620 : 380, fr.width - 16);
-    pop.style.width = w + 'px'; pop.style.left = Math.max(8, Math.min(tr.left - fr.left - 12, fr.width - w - 8)) + 'px'; pop.style.top = (tr.bottom - fr.top + 10) + 'px';
+    const W = innerWidth, H = innerHeight, wide = cur === 'model', w = Math.round(Math.min(wide ? 1040 : cur === 'max' ? 640 : 560, W * 0.92));
+    const maxH = Math.round(Math.min(wide ? 720 : 560, H * 0.78)), tr = trig.getBoundingClientRect(), fr = f.getBoundingClientRect();
+    pop.style.width = w + 'px'; pop.style.maxHeight = maxH + 'px';
+    pop.style.left = Math.round(Math.max(16, Math.min(wide ? fr.left : tr.left - 12, W - w - 16))) + 'px';
+    const h = Math.min(pop.scrollHeight, maxH), below = tr.bottom + 10;
+    pop.style.top = Math.round(below + h <= H - 12 ? below : Math.max(12 + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav')) || 64), H - h - 12)) + 'px';
   }
+  const cols = () => { const l = $('.hp__list', box()); return l ? getComputedStyle(l).gridTemplateColumns.split(' ').length : 1; };
   function openHP(k) {
     if (cur) closeHP(false);
     cur = k; trig = trigs[k]; trig.setAttribute('aria-expanded', 'true');
     render();
     if (MOB.matches) { sheet.showModal(); fitSheet(); }
     else { pop.hidden = false; place(); }
-    const o = box().querySelector('[role=option][tabindex="0"]'); o.focus({ preventScroll: true }); reveal(o);
+    const o = box().querySelector('[role=option][tabindex="0"]') || box().querySelector('[data-pr-a]'); o.focus({ preventScroll: true }); if (o.matches('[role=option]')) reveal(o);
   }
   function closeHP(refocus = true) {
     if (!cur) return;
@@ -972,24 +1049,31 @@ $('[data-notify-form]').addEventListener('submit', e => {
   }
   Object.values(trigs).forEach(b => {
     b.addEventListener('click', () => (cur === b.dataset.k ? closeHP() : openHP(b.dataset.k)));
-    b.addEventListener('keydown', e => { if (['ArrowDown', 'ArrowUp'].includes(e.key) || (e.altKey && e.key === 'ArrowDown')) { e.preventDefault(); openHP(b.dataset.k); } });
+    b.addEventListener('keydown', e => { if (['ArrowDown', 'ArrowUp'].includes(e.key)) { e.preventDefault(); openHP(b.dataset.k); } });
   });
-  const onClick = e => { const o = e.target.closest('[role=option]'); if (o) return choose(o); if (e.target.closest('[data-hp-close]')) return closeHP(); if (e.target === sheet) closeHP(); };
+  const onClick = e => {
+    const tab = e.target.closest('[data-gen]'); if (tab) { const t = $(tab.dataset.gen ? `[role=option][data-g="${tab.dataset.gen}"]` : '[role=option]', box()), bd = $('.hp__body', box()); $$('[data-gen]', box()).forEach(x => x.setAttribute('aria-pressed', x === tab)); if (t && bd) { bd.scrollTop = t.offsetTop - $('.hp__list', box()).offsetTop; $$('[role=option]', box()).forEach(x => x.tabIndex = x === t ? 0 : -1); } return; }
+    const o = e.target.closest('[role=option]'); if (o) return choose(o); if (e.target.closest('[data-hp-close]')) return closeHP(); if (e.target === sheet) closeHP();
+  };
   sheet.addEventListener('click', onClick); pop.addEventListener('click', onClick);
   sheet.addEventListener('cancel', e => { e.preventDefault(); closeHP(); });
   const onKey = e => {
-    const os = $$('[role=option]', box()), i = os.indexOf(document.activeElement);
     if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); return closeHP(); }
+    const os = $$('[role=option]', box()), i = os.indexOf(document.activeElement);
     if (i < 0) return;
     const go = j => { j = Math.max(0, Math.min(os.length - 1, j)); os.forEach((x, n) => x.tabIndex = n === j ? 0 : -1); os[j].focus({ preventScroll: true }); reveal(os[j]); e.preventDefault(); };
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') go(i + 1); else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') go(i - 1); else if (e.key === 'Home') go(0); else if (e.key === 'End') go(os.length - 1);
+    const c = cols();
+    if (e.key === 'ArrowRight') go(i + 1); else if (e.key === 'ArrowLeft') go(i - 1); else if (e.key === 'ArrowDown') go(i + c); else if (e.key === 'ArrowUp') go(i - c);
+    else if (e.key === 'Home') go(0); else if (e.key === 'End') go(os.length - 1);
     else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(os[i]); }
   };
   sheet.addEventListener('keydown', onKey); pop.addEventListener('keydown', onKey);
-  pop.addEventListener('focusout', e => { if (cur && !MOB.matches && !pop.contains(e.relatedTarget) && e.relatedTarget !== trig) closeHP(false); });
+  pop.addEventListener('focusout', e => { if (cur && !MOB.matches && e.relatedTarget && !pop.contains(e.relatedTarget) && e.relatedTarget !== trig) closeHP(false); });
   document.addEventListener('pointerdown', e => { if (cur && !MOB.matches && !pop.contains(e.target) && !Object.values(trigs).some(t => t.contains(e.target))) closeHP(false); });
+  addEventListener('scroll', () => { if (cur && !MOB.matches) closeHP(false); }, { passive: true }); // the panel is fixed: close it when the page moves
   addEventListener('resize', () => { if (!cur) return; if (MOB.matches !== sheet.open) { const k = cur; closeHP(false); openHP(k); } else place(); });
   f.addEventListener('change', paintTrigs);
+  hpSync = () => { const lo = F.pmin > P_MIN ? F.pmin : 0, hi = F.pmax < P_MAX ? F.pmax : Infinity; if (lo === HPR.lo && hi === HPR.hi) return; HPR.lo = lo; HPR.hi = hi; f.dispatchEvent(new Event('hpr')); paintTrigs(); };
   f.classList.add('finder--js'); paintTrigs();
 }
 
@@ -1020,14 +1104,14 @@ $('[data-notify-form]').addEventListener('submit', e => {
 
 /* ---------------- installment calculator ---------------- */
 const BANKS = [
-  { id: 'privat', n: 'Приват', note: '4 платежі без % від банку', def: 4, max: 12, free: 4 },
-  { id: 'mono', n: 'Моно', note: '4 платежі без % від банку', def: 4, max: 12, free: 4 },
-  { id: 'pumb', n: 'ПУМБ', note: '4 платежі без % від банку', def: 4, max: 12, free: 4 },
-  { id: 'abank', n: 'A-Bank', note: '4 платежі без % від банку', def: 4, max: 12, free: 4 },
+  { id: 'privat', n: 'Приват', note: '4 без %, до 12 платежів', def: 12, max: 12, free: 4 },
+  { id: 'mono', n: 'Моно', note: '4 без %, до 12 платежів', def: 12, max: 12, free: 4 },
+  { id: 'pumb', n: 'ПУМБ', note: '4 без %, до 12 платежів', def: 12, max: 12, free: 4 },
+  { id: 'abank', n: 'A-Bank', note: '4 без %, до 12 платежів', def: 12, max: 12, free: 4 },
   { id: 'sens', n: 'Sens', note: '11 платежів без %', def: 11, max: 11, free: 11 },
-  { id: 'ukrsib', n: 'Укрсиб', note: 'до 14 платежів', def: 14, max: 14, free: 0 },
+  { id: 'ukrsib', n: 'Укрсиб', note: 'до 14 платежів — найдовший строк', def: 14, max: 14, free: 0 },
 ];
-let bank = BANKS[1];
+let bank = BANKS.find(b => b.id === 'ukrsib');
 function setCalcPrice(v) { const p = $('[data-c-price]'), r = $('[data-c-range]'); p.value = v; r.value = Math.min(95000, Math.max(5000, v)); rangeFill(r); calc(); }
 function calc() {
   const price = Math.max(0, +$('[data-c-price]').value || 0), nI = $('[data-c-n]');
@@ -1051,7 +1135,7 @@ function calc() {
 /* ---------------- trade-in ---------------- */
 {
   const f = $('[data-trade-form]');
-  const olds = ['iPhone 11', 'iPhone 11 Pro', 'iPhone 11 Pro Max', 'iPhone 12', 'iPhone 12 mini', 'iPhone 12 Pro', 'iPhone 12 Pro Max', 'iPhone 13', 'iPhone 13 mini', 'iPhone 13 Pro', 'iPhone 13 Pro Max', 'iPhone 14', 'iPhone 14 Plus', 'iPhone 14 Pro', 'iPhone 14 Pro Max', 'iPhone 15', 'iPhone 15 Plus', 'iPhone 15 Pro', 'iPhone 15 Pro Max', 'iPhone 16', 'iPhone 16 Pro', 'iPhone 16 Pro Max', 'Інший iPhone'];
+  const olds = ['iPhone 11', 'iPhone 11 Pro', 'iPhone 11 Pro Max', 'iPhone 12', 'iPhone 12 mini', 'iPhone 12 Pro', 'iPhone 12 Pro Max', 'iPhone 13', 'iPhone 13 mini', 'iPhone 13 Pro', 'iPhone 13 Pro Max', 'iPhone 14', 'iPhone 14 Plus', 'iPhone 14 Pro', 'iPhone 14 Pro Max', 'iPhone 15', 'iPhone 15 Plus', 'iPhone 15 Pro', 'iPhone 15 Pro Max', 'iPhone 16', 'iPhone 16 Plus', 'iPhone 16e', 'iPhone 16 Pro', 'iPhone 16 Pro Max', 'iPhone 17', 'iPhone 17 Pro', 'iPhone 17 Pro Max', 'iPhone Air', 'iPhone 18 Pro', 'iPhone 18 Pro Max', 'Інший iPhone'];
   f.model.innerHTML = olds.map(m => `<option ${m === 'iPhone 13' ? 'selected' : ''}>${m}</option>`).join('');
   const factors = () => {
     const b = +f.batt.value, look = f.look.value, out = [];

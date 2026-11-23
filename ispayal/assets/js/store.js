@@ -1285,7 +1285,7 @@ window.ISP_DEFAULT_LISTINGS = [
     fmt(n) { return Math.round(n).toLocaleString('uk-UA').replace(/,/g, ' '); },
     memL(m) { return m == null ? '' : (+m >= 1024 ? (+m / 1024) + ' ТБ' : m + ' ГБ'); },
     title(l) { return l.cat === 'iphone' ? `${l.model} ${S.memL(l.mem)}`.trim() : l.cat === 'mac' && l.mem ? `${l.model} ${S.memL(l.mem)}` : l.model; },
-    cond(l) { return l.label || (l.isNew ? 'Новий' : 'б/у'); },
+    cond(l) { return l.label || (l.isNew ? 'Новий' : 'Вживаний'); },
     caption(l) {
       const L = [];
       const t = l.title.replace(/^(б\/у\s+)/i, '');
