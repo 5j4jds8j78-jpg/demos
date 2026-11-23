@@ -270,7 +270,7 @@ const lerpKey = (keys, t) => { if (t <= keys[0][0]) return keys[0].slice(1); for
 }
 
 /* ---------------- catalog ---------------- */
-const F = { cats: new Set(), gens: new Set(), vars: new Set(), mems: new Set(), conds: new Set(), sims: new Set(), score: 8, batt: 80, pmin: 5000, pmax: 95000, sealed: false, fav: false, sort: 'feed' };
+const F = { models: new Set(), colors: new Set(), cats: new Set(), gens: new Set(), vars: new Set(), mems: new Set(), conds: new Set(), sims: new Set(), score: 8, batt: 80, pmin: 5000, pmax: 95000, sealed: false, fav: false, sort: 'feed' };
 const SCORE_MIN = 8, BATT_MIN = 80, P_MIN = 5000, P_MAX = 95000;
 let FAV = new Set(JSON.parse(localStorage.getItem('ispayal.fav') || '[]'));
 let CMP = [];
@@ -299,10 +299,19 @@ function buildFilters() {
     let lo = +a.value, hi = +b.value; if (lo > hi - 1000) { if (document.activeElement === a) a.value = lo = hi - 1000; else b.value = hi = lo + 1000; }
     F.pmin = lo; F.pmax = hi;
     $('[data-o-score]').textContent = F.score <= SCORE_MIN ? 'будь-яка' : F.score.toFixed(1); $('[data-o-batt]').textContent = F.batt <= BATT_MIN ? 'будь-яка' : F.batt + '%';
+    const w = $('[data-o-word]'); if (w) w.textContent = F.score <= SCORE_MIN ? '' : F.score >= 9.8 ? '· Як новий' : F.score >= 9.4 ? '· Відмінний' : F.score >= 9 ? '· Хороший' : '· Нормальний';
+    const bf = $('[data-batt-fill]'); if (bf) { bf.style.transform = `scaleX(${F.batt <= BATT_MIN ? 0.25 : (F.batt - 60) / 40})`; bf.parentElement.classList.toggle('is-full', F.batt >= 95); }
+    $$('[data-hist] i').forEach(i => i.classList.toggle('is-in', +i.dataset.hi >= lo && +i.dataset.lo <= hi));
     $('[data-o-price]').textContent = `${fmt(lo)} – ${fmt(hi)} ₴`;
     const dual = $('[data-dual]'); dual.style.setProperty('--a', ((lo - P_MIN) / (P_MAX - P_MIN) * 100) + '%'); dual.style.setProperty('--b', ((hi - P_MIN) / (P_MAX - P_MIN) * 100) + '%');
     rangeFill(sc); rangeFill(bt);
   };
+  { // price histogram of real prices behind the slider
+    const bins = 28, step = (P_MAX - P_MIN) / bins, cnt = Array(bins).fill(0);
+    LIST.forEach(l => { const k = Math.min(bins - 1, Math.max(0, Math.floor((l.price - P_MIN) / step))); cnt[k]++; });
+    const mx = Math.max(...cnt, 1);
+    $('[data-hist]').innerHTML = cnt.map((c, k) => `<i data-lo="${P_MIN + k * step}" data-hi="${P_MIN + (k + 1) * step}" style="height:${c ? 12 + c / mx * 88 : 4}%"></i>`).join('');
+  }
   [sc, bt, a, b].forEach(i => i.oninput = () => { paint(); renderGrid(); });
   $('[data-fl-sealed]').checked = F.sealed; $('[data-fl-sealed]').onchange = e => { F.sealed = e.target.checked; renderGrid(); };
   paint();
@@ -311,7 +320,7 @@ function passScore(l) { return F.score <= SCORE_MIN || l.isNew || (l.score != nu
 function passBatt(l) { return F.batt <= BATT_MIN || l.isNew || (l.batt != null && l.batt >= F.batt); }
 function filtered() {
   const a = LIST.filter(l =>
-    (!F.cats.size || F.cats.has(l.cat)) &&
+    (!F.cats.size || F.cats.has(l.cat)) && (!F.models.size || F.models.has(l.model)) && (!F.colors.size || F.colors.has(l.color)) &&
     (!F.gens.size || (l.cat === 'iphone' && F.gens.has(gen(l.model)))) && (!F.vars.size || (l.cat === 'iphone' && F.vars.has(variant(l.model)))) &&
     (!F.mems.size || F.mems.has(l.mem)) && (!F.conds.size || F.conds.has(condGroup(l))) && (!F.sims.size || F.sims.has(l.sim)) &&
     passScore(l) && passBatt(l) && l.price >= F.pmin && l.price <= F.pmax && (!F.sealed || l.sealed) && (!F.fav || FAV.has(l.id)));
@@ -389,7 +398,7 @@ function cardHTML(l) {
       <button class="iconbtn" type="button" data-cmp="${l.id}" aria-pressed="${CMP.includes(l.id)}" aria-label="Додати до порівняння">${icon('compare')}</button>
     </div>
     <div class="card__body">
-      ${statusHTML(l)}
+      ${statusHTML(l)}${BEST.has(l.id) ? `<span class="bestv" title="Найменше ₴ за 1% АКБ серед таких самих моделей у видачі">${icon('battery')}Найкраща ціна за АКБ</span>` : ''}
       <h3 class="card__t">${esc(S.title(l)).replace(/ (\d+ [ГТ]Б)$/, ' · $1')}</h3>
       <p class="card__sub">${l.color ? `<span class="swatch" style="background:${SWATCH[l.tint] || '#999'}"></span>${esc(l.color)}` : ''}${l.sim ? ` · ${l.sim === 'Фіз' ? 'Фіз. SIM' : 'eSIM'}` : ''}</p>
       ${pp}
@@ -403,25 +412,115 @@ function cardHTML(l) {
       <div class="card__links"><button class="card__open" type="button" data-open="${l.id}">Паспорт ${icon('arrow')}</button>${ig ? `<a class="card__ig" href="${ig}" target="_blank" rel="noopener">Пост в Instagram ↗</a>` : ''}</div>
     </div></li>`;
 }
+let BEST = new Set(), lastCount = null;
+function computeBest(a) { // lowest ₴ per 1% of battery among the same model (needs 2+ units with a stated АКБ)
+  const by = {}; a.filter(l => l.batt != null && !l.isNew && statusOf(l) !== 'sold').forEach(l => (by[l.model] = by[l.model] || []).push(l));
+  const best = new Set();
+  Object.values(by).forEach(g => { if (g.length < 2) return; g.sort((x, y) => x.price / x.batt - y.price / y.batt); best.add(g[0].id); });
+  return best;
+}
+function tickCount(el, to) {
+  const from = lastCount == null ? to : lastCount; lastCount = to;
+  if (reduced || from === to) { tickCount.tok = (tickCount.tok || 0) + 1; el.textContent = to; return; }
+  const t0 = performance.now(), d = 380, tok = (tickCount.tok = (tickCount.tok || 0) + 1);
+  el.textContent = to; // final value immediately for assistive tech / throttled frames; the tick is decoration
+  const f = now => { if (tok !== tickCount.tok) return; const k = Math.min(1, (now - t0) / d), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(from + (to - from) * e); if (k < 1) requestAnimationFrame(f); else el.textContent = to; };
+  requestAnimationFrame(f);
+}
 function renderGrid() {
-  const a = filtered();
-  $('[data-grid]').innerHTML = a.length ? a.map(cardHTML).join('') : `<li class="empty"><p class="h3">Під такі умови зараз нічого немає.</p><p style="margin-top:8px">Послабте фільтр або залиште заявку нижче — напишемо, щойно зʼявиться.</p></li>`;
-  $('[data-count]').textContent = a.length; $('[data-count-word]').textContent = unitWord(a.length);
-  $('[data-count-btn]').textContent = `${a.length} ${unitWord(a.length)}`;
-  const act = F.cats.size + F.gens.size + F.vars.size + F.mems.size + F.conds.size + F.sims.size + (F.score > SCORE_MIN) + (F.batt > BATT_MIN) + (F.pmin > P_MIN || F.pmax < P_MAX) + F.sealed;
+  const a = filtered(), grid = $('[data-grid]');
+  BEST = computeBest(a);
+  // FLIP: remember where cards were
+  const gr = grid.getBoundingClientRect(), flip = !reduced && gr.bottom > 0 && gr.top < innerHeight && a.length <= 60;
+  const before = {}; if (flip) $$('.card', grid).forEach(c => { before[c.dataset.id] = c.getBoundingClientRect(); });
+  grid.innerHTML = a.length ? a.map(cardHTML).join('') : `<li class="empty"><p class="h3">Такого зараз немає — але може зʼявитися завтра.</p><p style="margin-top:8px">Скажіть, що шукаєте, і ми напишемо першими, ще до посту в Instagram.</p><button type="button" class="btn btn--red" style="margin-top:16px" data-notify-go>${icon('bell')}Повідомити, коли зʼявиться</button></li>`;
+  if (flip) $$('.card', grid).forEach((c, i) => {
+    const b = before[c.dataset.id], r = c.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    if (b) { const dx = b.left - r.left, dy = b.top - r.top; if (dx || dy) c.animate([{ transform: `translate(${dx}px,${dy}px)` }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.7,.2,1)' }); }
+    else c.animate([{ opacity: 0, transform: 'scale(.96)' }, { opacity: 1, transform: 'none' }], { duration: 320, delay: Math.min(i, 8) * 30, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
+  });
+  tickCount($('[data-count]'), a.length); $('[data-count-word]').textContent = unitWord(a.length);
+  $('[data-count-btn]').textContent = a.length ? `Показати ${a.length} ${a.every(l => l.cat === 'iphone') ? 'iPhone' : unitWord(a.length)}` : 'Нічого не знайдено — змініть фільтри';
+  const act = F.models.size + F.colors.size + F.cats.size + F.gens.size + F.vars.size + F.mems.size + F.conds.size + F.sims.size + (F.score > SCORE_MIN) + (F.batt > BATT_MIN) + (F.pmin > P_MIN || F.pmax < P_MAX) + F.sealed;
   $('[data-active-count]').textContent = act ? act : '';
   const want = F.gens.size === 1 ? `iPhone ${[...F.gens][0]}${F.vars.size === 1 && [...F.vars][0] !== 'Базова' ? ' ' + [...F.vars][0] : ''}${F.mems.size === 1 ? ' ' + [...F.mems][0] : ''}${F.batt > BATT_MIN ? `, АКБ від ${F.batt}%` : ''}` : '';
   if (want) $('[data-notify-want]').value = want;
 }
 $('[data-sort]').addEventListener('change', e => { F.sort = e.target.value; renderGrid(); });
-function resetFilters() { Object.assign(F, { score: SCORE_MIN, batt: BATT_MIN, pmin: P_MIN, pmax: P_MAX, sealed: false }); ['cats', 'gens', 'vars', 'mems', 'conds', 'sims'].forEach(k => F[k].clear()); buildFilters(); renderGrid(); }
+$('[data-grid]').addEventListener('click', e => { if (!e.target.closest('[data-notify-go]')) return; const f = $('[data-notify-form]'); f.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); setTimeout(() => f.want.focus({ preventScroll: true }), reduced ? 0 : 450); });
+
+/* model picker: tiles with real min price + count, a live 3D preview that recolours, colour swatches */
+let pickViewer = null, pickViewerLoading = false;
+const avail = l => statusOf(l) !== 'sold';
+function modelStats(m) {
+  const u = LIST.filter(l => l.model === m), a = u.filter(avail);
+  const min = Math.min(...(a.length ? a : u).map(l => l.price));
+  const cheapest = (a.length ? a : u).find(l => l.price === min);
+  return { n: a.length, min, tint: cheapest.tint };
+}
+function shortModel(m) { return m.replace('iPhone ', ''); }
+function buildTiles() {
+  const box = $('[data-tiles]'); if (!box) return;
+  const models = MODELS();
+  box.innerHTML = models.map(m => { const st = modelStats(m); return `<button type="button" role="option" class="tile" aria-selected="${F.models.has(m)}" data-model="${esc(m)}">
+    <span class="tile__img"><img src="assets/img/phones/${st.tint}.webp" alt="" width="560" height="700" loading="lazy"></span>
+    <span class="tile__name"><small>iPhone</small>${esc(shortModel(m))}</span>
+    <span class="tile__price">від ${fmt(st.min)} ₴</span>
+    <span class="tile__n">${st.n ? `${st.n} в наявності` : 'під замовлення'}</span></button>`; }).join('');
+}
+function paintPick() {
+  const box = $('[data-tiles]'), pick = $('[data-pick]'); if (!box) return;
+  const m = [...F.models][0];
+  $$('.tile', box).forEach(t => t.setAttribute('aria-selected', t.dataset.model === m));
+  if (!m) { pick.hidden = true; return; }
+  const units = LIST.filter(l => l.model === m), st = modelStats(m);
+  const colors = [...new Map(units.map(l => [l.color, l])).values()];
+  if (F.colors.size && !colors.some(c => F.colors.has(c.color))) F.colors.clear();
+  const tint = F.colors.size ? units.find(l => F.colors.has(l.color)).tint : st.tint;
+  pick.hidden = false;
+  $('[data-pick-name]').textContent = m;
+  $('[data-pick-meta]').textContent = `від ${fmt(st.min)} ₴ · ${st.n ? st.n + ' в наявності' : 'під замовлення'} · ${[...new Set(units.map(l => memL(l.mem)))].join(' / ')}`;
+  $('[data-swatches]').innerHTML = colors.map(c => `<button type="button" class="sw" aria-pressed="${F.colors.has(c.color)}" data-color="${esc(c.color)}"><i style="background:${SWATCH[c.tint] || '#999'}"></i>${esc(c.color)} <small>${units.filter(l => l.color === c.color && avail(l)).length}</small></button>`).join('');
+  const img = $('[data-pick-img]'); img.src = `assets/img/phones/${tint}.webp`;
+  if (pickViewer) pickViewer.setTint(tint);
+  else if (wantGL && !pickViewerLoading && !qs.has('capture')) {
+    pickViewerLoading = true;
+    import('./hero3d.js').then(mod => {
+      const c = document.createElement('canvas'); c.setAttribute('role', 'img'); c.setAttribute('aria-label', 'Узагальнена 3D-модель обраного кольору; можна покрутити'); c.tabIndex = 0;
+      $('[data-pick-vis]').appendChild(c);
+      pickViewer = mod.startViewer(c, { tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
+      $('[data-pick-vis]').classList.add('has-gl');
+    }).catch(() => { });
+  }
+}
+{
+  const box = $('[data-tiles]');
+  if (box) {
+    box.addEventListener('click', e => {
+      const t = e.target.closest('.tile'); if (!t) return;
+      const m = t.dataset.model, on = F.models.has(m);
+      F.models.clear(); F.colors.clear(); if (!on) { F.models.add(m); F.cats.clear(); F.gens.clear(); F.vars.clear(); }
+      buildFilters(); renderGrid(); paintPick();
+      if (!on) t.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+    });
+    $('[data-swatches]').addEventListener('click', e => {
+      const b = e.target.closest('.sw'); if (!b) return;
+      const c = b.dataset.color; const on = F.colors.has(c); F.colors.clear(); if (!on) F.colors.add(c);
+      renderGrid(); paintPick();
+    });
+    const step = dir => box.scrollBy({ left: dir * box.clientWidth * 0.8, behavior: reduced ? 'auto' : 'smooth' });
+    $('[data-tiles-prev]').addEventListener('click', () => step(-1)); $('[data-tiles-next]').addEventListener('click', () => step(1));
+  }
+}
+function resetFilters() { Object.assign(F, { score: SCORE_MIN, batt: BATT_MIN, pmin: P_MIN, pmax: P_MAX, sealed: false }); ['models', 'colors', 'cats', 'gens', 'vars', 'mems', 'conds', 'sims'].forEach(k => F[k].clear()); buildFilters(); renderGrid(); paintPick(); }
 $('[data-reset]').addEventListener('click', resetFilters);
 $('[data-fav-toggle]').addEventListener('click', e => { F.fav = !F.fav; e.currentTarget.setAttribute('aria-pressed', F.fav); renderGrid(); });
 {
   const fl = $('[data-filters]'), ob = $('[data-filters-open]');
   const sheet = () => getComputedStyle(ob).display !== 'none'; // filters are a bottom sheet only when the button is shown
   const close = () => { if (!fl.classList.contains('is-open')) return; fl.classList.remove('is-open'); ob.setAttribute('aria-expanded', 'false'); ob.focus({ preventScroll: true }); };
-  ob.addEventListener('click', () => { fl.classList.add('is-open'); ob.setAttribute('aria-expanded', 'true'); $('.filters__close', fl).focus(); });
+  ob.addEventListener('click', () => { const bd = $('[data-filters-body]', fl); if (bd) bd.scrollTop = 0; fl.scrollTop = 0; fl.classList.add('is-open'); ob.setAttribute('aria-expanded', 'true'); $('.filters__close', fl).focus({ preventScroll: true }); });
   $$('[data-filters-close]').forEach(b => b.addEventListener('click', close));
   fl.addEventListener('keydown', e => { if (!sheet() || !fl.classList.contains('is-open')) return; if (e.key === 'Escape') { close(); e.preventDefault(); } else trapTab(fl, e); });
 }
@@ -531,21 +630,24 @@ function openPass(id, focusBook) {
     ${kit.length ? `<div class="kit"><h3>Комплект${l.bonus ? ' і бонус' : ''}</h3><ul>${kit.map(([i, t, b]) => `<li class="${b ? 'is-bonus' : ''}">${icon(i)}<span>${esc(t)}${b ? '<br><small class="mono">бонус*</small>' : ''}</span></li>`).join('')}</ul></div>` : ''}
     <div class="pay"><h3>Оплата${l.warranty ? ' і гарантія' : ''}</h3><div class="pay__chips"><span>USDT</span><span>$</span><span>₴</span><span>€</span><span>Післяплата</span><span>Розстрочка</span></div>
       <p>${l.warranty ? `${icon('shield')} ${esc(l.warranty)}. ` : ''}${l.isNew ? 'Спеціальна пропозиція — діє при визначених умовах оплати. ' : ''}<a href="#rozstrochka" data-to-calc="${l.price}">Порахувати розстрочку</a>${ig ? ` · <a href="${ig}" target="_blank" rel="noopener">Пост в Instagram ↗</a>` : ''}</p></div>
-    <div class="pass__buy">
-      <div class="pass__row"><p class="price">${fmt(l.price)}<small>₴</small></p>
-        <div class="pass__acts"><a class="sq" href="tel:${PHONE}" aria-label="Подзвонити">${icon('phone')}</a><button class="sq" type="button" data-share aria-label="Скопіювати посилання на цю позицію">${icon('share')}</button></div></div>
-      ${directBtn(l, 'data-direct-pass')}
-      <form class="pass__book" data-pass-book novalidate ${statusOf(l) === 'sold' ? 'hidden' : ''}>
+    <div class="pass__bookwrap" ${statusOf(l) === 'sold' ? 'hidden' : ''}><h3>Забронювати</h3>
+      <form class="pass__book" data-pass-book novalidate>
         <label class="fld"><span>Імʼя</span><input name="name" autocomplete="given-name" required></label>
         <label class="fld"><span>Телефон</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+380" required></label>
         <button class="btn btn--red" type="submit">Забронювати</button>
         <p class="form__err" data-err hidden style="grid-column:1/-1"></p><p class="form__ok" data-ok hidden style="grid-column:1/-1"></p>
       </form>
     </div>
+    <div class="pass__buy">
+      <div class="pass__row"><p class="price">${fmt(l.price)}<small>₴</small></p>
+        <div class="pass__acts"><a class="sq" href="tel:${PHONE}" aria-label="Подзвонити">${icon('phone')}</a><button class="sq" type="button" data-share aria-label="Скопіювати посилання на цю позицію">${icon('share')}</button></div></div>
+      ${directBtn(l, 'data-direct-pass')}
+    </div>
   </div>`;
   d.showModal();
   if (location.hash !== '#t/' + id) history.replaceState(null, '', '#t/' + id);
-  if (focusBook) setTimeout(() => d.querySelector('[name=name]').focus(), 60); else d.querySelector('[data-close]').focus();
+  $('.pass__data', d).scrollTop = 0;
+  if (focusBook) setTimeout(() => { const n = d.querySelector('[name=name]'); n.scrollIntoView({ block: 'center' }); n.focus({ preventScroll: true }); }, 60); else d.querySelector('[data-close]').focus({ preventScroll: true });
   if (isPhone && wantGL && !qs.has('capture')) {
     import('./hero3d.js').then(mod => {
       if (!d.open) return;
@@ -601,10 +703,10 @@ $('[data-notify-form]').addEventListener('submit', e => {
     e.preventDefault();
     ['cats', 'gens', 'vars', 'mems', 'conds', 'sims'].forEach(k => F[k].clear());
     F.cats.add('iphone');
-    if (f.model.value) { F.gens.add(gen(f.model.value)); F.vars.add(variant(f.model.value)); }
+    F.models.clear(); F.colors.clear(); if (f.model.value) F.models.add(f.model.value);
     if (f.mem.value) F.mems.add(+f.mem.value);
     F.batt = Math.max(BATT_MIN, +f.batt.value || BATT_MIN); F.pmax = Math.min(P_MAX, +f.max.value); F.pmin = P_MIN; F.score = SCORE_MIN; F.sealed = false; F.fav = false; $('[data-fav-toggle]').setAttribute('aria-pressed', 'false');
-    buildFilters(); renderGrid();
+    buildFilters(); renderGrid(); paintPick();
     $('#katalog').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
   });
 }
@@ -690,10 +792,33 @@ function calc() {
   });
 }
 
+/* ---------------- overlays: scroll lock + hide the bottom bar ----------------
+   Any open dialog, the filter sheet or the mobile menu locks the page (no jump on unlock)
+   and hides the sticky bar, so nothing covers the sheet's own buttons (Instagram in-app browser too). */
+{
+  const html = document.documentElement, fl = $('[data-filters]'), menu = $('[data-menu]'), ob = $('[data-filters-open]');
+  let on = false, y = 0;
+  const sheetMode = () => getComputedStyle(ob).display !== 'none';
+  const anyOpen = () => !!document.querySelector('dialog[open]') || (fl.classList.contains('is-open') && sheetMode()) || !menu.hidden;
+  const sync = () => {
+    const want = anyOpen(); if (want === on) return; on = want;
+    if (want) { y = scrollY; html.classList.add('is-locked'); document.body.style.top = `-${y}px`; }
+    else { html.classList.remove('is-locked'); document.body.style.top = ''; window.scrollTo({ top: y, behavior: 'instant' }); }
+  };
+  const mo = new MutationObserver(sync);
+  $$('dialog').forEach(d => mo.observe(d, { attributes: true, attributeFilter: ['open'] }));
+  mo.observe(fl, { attributes: true, attributeFilter: ['class'] });
+  mo.observe(menu, { attributes: true, attributeFilter: ['hidden'] });
+  // typing: hide the bar so the on-screen keyboard + bar never cover the field
+  const typing = el => el && el.matches && el.matches('input:not([type=range]):not([type=checkbox]):not([type=radio]), select, textarea');
+  document.addEventListener('focusin', e => html.classList.toggle('is-typing', typing(e.target)));
+  document.addEventListener('focusout', () => setTimeout(() => html.classList.toggle('is-typing', typing(document.activeElement)), 50));
+}
+
 /* ---------------- init ---------------- */
 function refreshData() {
   LIST = S.listings();
-  buildFilters(); renderGrid(); saveFav(); paintTray();
+  buildFilters(); renderGrid(); saveFav(); paintTray(); buildTiles(); paintPick();
   $('[data-c-pick]').innerHTML = '<option value="">— позиція з каталогу —</option>' + LIST.map(l => `<option value="${l.price}">${esc(S.title(l))}${l.color ? ' ' + esc(l.color) : ''} — ${fmt(l.price)} ₴</option>`).join('');
 }
 refreshData();

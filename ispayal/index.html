@@ -225,21 +225,38 @@
     <div class="cat__body">
       <aside class="filters" id="filters" data-filters aria-label="Фільтри">
         <div class="filters__top"><b>Фільтри</b><button type="button" class="linkbtn" data-reset>Скинути</button><button type="button" class="filters__close" data-filters-close aria-label="Закрити фільтри"><svg class="ic"><use href="#i-x"/></svg></button></div>
+        <div class="filters__body" data-filters-body>
         <fieldset><legend>Категорія</legend><div class="chips chips--wrap" data-fl-cat></div></fieldset>
         <fieldset><legend>Покоління iPhone</legend><div class="chips chips--wrap" data-fl-model></div></fieldset>
         <fieldset><legend>Версія iPhone</legend><div class="chips chips--wrap" data-fl-var></div></fieldset>
         <fieldset><legend>Памʼять</legend><div class="chips" data-fl-mem></div></fieldset>
         <fieldset><legend>Стан</legend><div class="chips chips--wrap" data-fl-cond></div></fieldset>
         <fieldset><legend>SIM</legend><div class="chips" data-fl-sim></div></fieldset>
-        <div class="rng"><label for="f-score">Оцінка стану від <output data-o-score>8.5</output></label><input id="f-score" type="range" min="8.5" max="10" step="0.1" value="8.5" data-fl-score></div>
-        <div class="rng"><label for="f-batt">АКБ від <output data-o-batt>80%</output></label><input id="f-batt" type="range" min="80" max="100" step="1" value="80" data-fl-batt></div>
+        <div class="rng"><label for="f-score">Оцінка стану від <output data-o-score>8.5</output> <span class="condword" data-o-word></span></label><input id="f-score" type="range" min="8.5" max="10" step="0.1" value="8.5" data-fl-score></div>
+        <div class="rng"><label for="f-batt"><span class="battico" aria-hidden="true"><i data-batt-fill></i></span>АКБ від <output data-o-batt>80%</output></label><input id="f-batt" type="range" min="80" max="100" step="1" value="80" data-fl-batt></div>
         <div class="rng rng--dual"><span class="rng__l" id="price-l">Ціна <output data-o-price></output></span>
+          <div class="hist" data-hist aria-hidden="true"></div>
           <div class="dual" data-dual><input type="range" aria-label="Ціна від" min="5000" max="80000" step="500" value="5000" data-fl-pmin><input type="range" aria-label="Ціна до" min="5000" max="80000" step="500" value="80000" data-fl-pmax></div></div>
         <label class="tog"><input type="checkbox" data-fl-sealed><span>Тільки герметичні, без слідів ремонту</span></label>
-        <button type="button" class="btn btn--red filters__apply" data-filters-close>Показати <span data-count-btn></span></button>
+        </div>
+        <div class="filters__foot"><button type="button" class="btn btn--red filters__apply" data-filters-close data-count-btn>Показати</button></div>
       </aside>
 
       <div class="cat__main">
+        <div class="picker" data-picker>
+          <div class="picker__head"><h3 class="picker__t">Оберіть модель iPhone</h3><p class="mono muted picker__sub">ціни й кількість — з реальних позицій</p>
+            <div class="picker__nav"><button type="button" class="sq sq--sm" data-tiles-prev aria-label="Попередні моделі"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button><button type="button" class="sq sq--sm" data-tiles-next aria-label="Наступні моделі"><svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
+          <div class="tiles" role="listbox" aria-label="Модель iPhone" data-tiles></div>
+          <div class="pick" data-pick hidden>
+            <div class="pick__vis" data-pick-vis><img alt="" data-pick-img width="560" height="700"></div>
+            <div class="pick__info">
+              <p class="pick__name" data-pick-name></p>
+              <p class="pick__meta" data-pick-meta></p>
+              <p class="pick__k">Доступні кольори</p>
+              <div class="swatches" role="group" aria-label="Колір" data-swatches></div>
+            </div>
+          </div>
+        </div>
         <p class="cat__count" aria-live="polite"><b data-count>0</b> <span data-count-word>позицій</span> під ваші умови</p>
         <ul class="grid" data-grid></ul>
         <div class="notify" data-notify>
