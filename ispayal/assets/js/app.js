@@ -858,7 +858,7 @@ function openPass(id, focusBook) {
   };
 }
 $$('dialog').forEach(d => d.addEventListener('keydown', e => trapTab(d, e)));
-$('[data-pass]').addEventListener('close', () => { if (viewer) { viewer.destroy(); viewer = null; } if (location.hash.startsWith('#t/')) history.replaceState(null, '', location.pathname + location.search); // drop the deep link without leaving an implicit #katalog that would reopen mid-page });
+$('[data-pass]').addEventListener('close', () => { if (viewer) { viewer.destroy(); viewer = null; } if (location.hash.startsWith('#t/')) history.replaceState(null, '', location.pathname + location.search); /* drop the deep link without leaving an implicit #katalog that would reopen mid-page */ });
 function routeHash() { const m = location.hash.match(/^#t\/([\w-]+)/); if (m && byId(m[1])) { noSmooth(() => $('#katalog').scrollIntoView()); openPass(m[1]); } } // jump instantly: the scroll lock must record the final position, not a frame of a smooth scroll
 addEventListener('hashchange', routeHash);
 
