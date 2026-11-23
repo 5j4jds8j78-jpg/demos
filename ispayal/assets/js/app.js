@@ -115,6 +115,8 @@ async function bootGL() {
     gl = mod.start($('[data-gl]'), {
       anchor: $('[data-anchor]'), labels, font: '"ISP Display"', mono: '"ISP Mono"', capture: qs.has('capture'), still: qs.has('capture'),
       onPick: name => pickPart(name, true),
+      lowPower: !!lowPower || (navigator.hardwareConcurrency || 8) <= 4, debug: qs.has('fps'),
+      onLost: () => stage.classList.remove('has-gl'), onRestored: () => stage.classList.add('has-gl'), // lost WebGL context → poster, never a blank stage
     });
     window.__isp3d = { mod, gl };
     stage.classList.add('has-gl');
@@ -344,7 +346,7 @@ function filtered() {
     (!F.gens.size || (l.cat === 'iphone' && F.gens.has(gen(l.model)))) && (!F.vars.size || (l.cat === 'iphone' && F.vars.has(variant(l.model)))) &&
     (!F.mems.size || F.mems.has(l.mem)) && (!F.conds.size || F.conds.has(condGroup(l))) && (!F.sims.size || F.sims.has(l.sim)) &&
     passScore(l) && passBatt(l) && l.price >= F.pmin && (F.pmax >= P_MAX || l.price <= F.pmax) && (!F.sealed || l.sealed) && (!F.fav || FAV.has(l.id)) &&
-    (!F.quick.size || [...F.quick].every(k => QUICK.find(q => q[0] === k)[2](l))));
+    (!F.quick.size || [...F.quick].every(k => QUICK.find(q => q[0] === k)[2](l))) && (!F.q || qTest(F.q, l)));
   const nz = v => v == null ? -1 : v;
   const s = { feed: (x, y) => x.order - y.order, cheap: (x, y) => x.price - y.price, exp: (x, y) => y.price - x.price, batt: (x, y) => nz(y.batt) - nz(x.batt) || nz(x.cycles) - nz(y.cycles), score: (x, y) => nz(y.score) - nz(x.score) }[F.sort];
   const sr = l => statusOf(l) === 'sold' ? 1 : 0;
@@ -413,7 +415,7 @@ function cardHTML(l) {
   }
   const ig = igUrl(l);
   return `<li class="card card--${statusOf(l)}" data-id="${l.id}">
-    <button class="card__vis card__vis--${l.cat}" type="button" data-open="${l.id}" aria-label="Паспорт: ${esc(S.title(l))} ${esc(l.color)}">${visual(l)}${tagHTML(l)}${gradeHTML(l)}</button>
+    <button class="card__vis card__vis--${l.cat}" type="button" data-open="${l.id}" aria-label="Паспорт: ${esc(S.title(l))} ${esc(l.color)}">${visual(l)}${tagHTML(l)}${gradeHTML(l)}</button>${dotsHTML(l)}
     <div class="card__icons">
       <button class="iconbtn" type="button" data-fav="${l.id}" aria-pressed="${FAV.has(l.id)}" aria-label="В обране">${icon('heart')}</button>
       <button class="iconbtn" type="button" data-cmp="${l.id}" aria-pressed="${CMP.includes(l.id)}" aria-label="Додати до порівняння">${icon('compare')}</button>
@@ -454,7 +456,7 @@ function renderGrid() {
   // FLIP: remember where cards were
   const gr = grid.getBoundingClientRect(), flip = !reduced && gr.bottom > 0 && gr.top < innerHeight && a.length <= 60;
   const before = {}; if (flip) $$('.card', grid).forEach(c => { before[c.dataset.id] = c.getBoundingClientRect(); });
-  grid.innerHTML = a.length ? a.map(cardHTML).join('') : `<li class="empty"><p class="h3">Такого зараз немає — але може зʼявитися завтра.</p><p style="margin-top:8px">Скажіть, що шукаєте, і ми напишемо першими, ще до посту в Instagram.</p><button type="button" class="btn btn--red" style="margin-top:16px" data-notify-go>${icon('bell')}Повідомити, коли зʼявиться</button></li>`;
+  grid.innerHTML = a.length ? a.map((l, i) => cardHTML(l) + (i === 5 && a.length > 6 ? INFO_TILES[0] : i === 13 && a.length > 14 ? INFO_TILES[1] : '')).join('') : `<li class="empty"><p class="h3">Такого зараз немає — але може зʼявитися завтра.</p><p style="margin-top:8px">Скажіть, що шукаєте, і ми напишемо першими, ще до посту в Instagram.</p><button type="button" class="btn btn--red" style="margin-top:16px" data-notify-go>${icon('bell')}Повідомити, коли зʼявиться</button></li>`;
   if (flip) $$('.card', grid).forEach((c, i) => {
     const b = before[c.dataset.id], r = c.getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
@@ -463,11 +465,11 @@ function renderGrid() {
   });
   tickCount($('[data-count]'), a.length); $('[data-count-word]').textContent = unitWord(a.length);
   $('[data-count-btn]').textContent = a.length ? `Показати ${a.length} ${a.every(l => l.cat === 'iphone') ? 'iPhone' : unitWord(a.length)}` : 'Нічого не знайдено — змініть фільтри';
-  const act = F.models.size + F.colors.size + F.cats.size + F.gens.size + F.vars.size + F.mems.size + F.conds.size + F.sims.size + (F.score > SCORE_MIN) + (F.batt > BATT_MIN) + (F.pmin > P_MIN || F.pmax < P_MAX) + F.sealed + F.quick.size;
+  const act = F.models.size + F.colors.size + F.cats.size + F.gens.size + F.vars.size + F.mems.size + F.conds.size + F.sims.size + (F.score > SCORE_MIN) + (F.batt > BATT_MIN) + (F.pmin > P_MIN || F.pmax < P_MAX) + F.sealed + F.quick.size + !!F.q;
   $('[data-active-count]').textContent = act ? act : '';
   const want = F.gens.size === 1 ? `iPhone ${[...F.gens][0]}${F.vars.size === 1 && [...F.vars][0] !== 'Базова' ? ' ' + [...F.vars][0] : ''}${F.mems.size === 1 ? ' ' + [...F.mems][0] : ''}${F.batt > BATT_MIN ? `, АКБ від ${F.batt}%` : ''}` : '';
   if (want) $('[data-notify-want]').value = want;
-  paintQuick();
+  paintQuick(); paintChips(); const tb = $('[data-ct-n]'); if (tb) { tb.textContent = act || ''; tb.hidden = !act; }
 }
 $('[data-sort]').addEventListener('change', e => { F.sort = e.target.value; renderGrid(); });
 function paintQuick() {
@@ -480,6 +482,144 @@ $('[data-qpills]') && $('[data-qpills]').addEventListener('click', e => { const 
 $('[data-pmode]') && $('[data-pmode]').addEventListener('click', e => { const b = e.target.closest('[data-pm]'); if (!b) return; const mo = b.dataset.pm === 'mo'; $$('[data-pm]').forEach(x => x.setAttribute('aria-pressed', x === b)); $('[data-grid]').classList.toggle('is-monthly', mo); try { localStorage.setItem('ispayal.pmode', mo ? 'mo' : 'full'); } catch { } });
 if (localStorage.getItem('ispayal.pmode') === 'mo' && $('[data-pmode]')) { $('[data-grid]').classList.add('is-monthly'); $$('[data-pm]').forEach(x => x.setAttribute('aria-pressed', x.dataset.pm === 'mo')); }
 $('[data-grid]').addEventListener('click', e => { if (!e.target.closest('[data-notify-go]')) return; const f = $('[data-notify-form]'); f.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); setTimeout(() => f.want.focus({ preventScroll: true }), reduced ? 0 : 450); });
+
+/* ---- catalog search: UA/RU/EN tokens → predicates («15 про макс 256 синій до 30») ---- */
+F.q = '';
+const QSYN = { 'про': 'pro', 'прo': 'pro', 'макс': 'max', 'мах': 'max', 'міні': 'mini', 'мини': 'mini', 'плюс': 'plus', 'ейр': 'air', 'эйр': 'air', 'еір': 'air', 'аір': 'air',
+  'айфон': 'iphone', 'айфони': 'iphone', 'айфоны': 'iphone', 'iphone': 'iphone', 'аірподс': 'airpods', 'аирподс': 'airpods', 'эирподс': 'airpods', 'ейрподс': 'airpods', 'навушники': 'airpods', 'наушники': 'airpods', 'airpods': 'airpods',
+  'годинник': 'watch', 'часы': 'watch', 'вотч': 'watch', 'watch': 'watch', 'макбук': 'mac', 'macbook': 'mac', 'mac': 'mac', 'ноутбук': 'mac', 'новий': 'new', 'новый': 'new', 'нові': 'new', 'новые': 'new', 'new': 'new',
+  'герметичний': 'sealed', 'герметичный': 'sealed', 'есім': 'esim', 'есим': 'esim', 'esim': 'esim' };
+const QCOL = [[/^(син|blue|блакит|голуб|sierra|sky|glacier|ультрамар|ultramar)/, ['blue', 'glacier', 'sierra', 'ultramarine']], [/^(чорн|черн|black|midnight|графіт|графит|graphite)/, ['black', 'gray']], [/^(біл|бел|white|starlight)/, ['white']],
+  [/^(срібл|сріб|сереб|silver)/, ['silver']], [/^(натур|natural|титан)/, ['natural']], [/^(пісоч|песоч|золот|desert|gold)/, ['desert']], [/^(фіолет|фиолет|purple)/, ['purple']], [/^(рожев|розов|pink)/, ['pink']],
+  [/^(зелен|green)/, ['green']], [/^(жовт|желт|yellow)/, ['yellow']], [/^(червон|красн|red)/, ['red']], [/^(помаранч|оранж|orange)/, ['orange']], [/^(сір|сер(?!еб)|gray|grey)/, ['gray']], [/^(бордо|burgundy)/, ['burgundy']]];
+const QSTOP = new Set(['на', 'і', 'й', 'та', 'и', 'з', 'с', 'в', 'у', 'гб', 'gb', 'грн', '₴', 'apple', 'епл', 'эпл']);
+const qCache = new Map();
+function qParse(q) {
+  if (qCache.has(q)) return qCache.get(q);
+  const raw = q.toLowerCase().replace(/ʼ|'|’/g, '').replace(/(\d)\s*(гб|gb)\b/g, '$1').replace(/(\d)\s*(тб|tb)\b/g, '$1tb').replace(/(\d)\s*(к|k|тис\.?|тыс\.?)(?=\s|$)/g, '$1000').split(/[\s,;/]+/).filter(Boolean);
+  const P = []; let mode = '';
+  const words = m => m.toLowerCase().split(/\s+/);
+  for (let i = 0; i < raw.length; i++) {
+    let t = raw[i]; if (QSTOP.has(t)) continue;
+    if (/^(до|<|до:|max)$/.test(t) && mode !== 'x') { mode = 'max'; continue; } if (/^(від|от|>|from)$/.test(t)) { mode = 'min'; continue; }
+    if (/^\d+tb$/.test(t)) { const m = +t.replace('tb', '') * 1024; P.push(l => l.mem === m); mode = ''; continue; }
+    if (/^\d+$/.test(t)) {
+      let n = +t;
+      if (mode) { if (n < 1000) n *= 1000; const md = mode; P.push(md === 'max' ? (l => l.price <= n) : (l => l.price >= n)); mode = ''; continue; }
+      if ([64, 128, 256, 512, 1024].includes(n)) { P.push(l => l.mem === n); continue; }
+      if (n >= 11 && n <= 18) { P.push(l => l.cat === 'iphone' && gen(l.model) === String(n)); continue; }
+      if (n >= 1000) { P.push(l => l.price <= n); continue; }
+    }
+    mode = '';
+    const m16e = t.match(/^(1[1-8])e$/); if (m16e) { P.push(l => l.cat === 'iphone' && new RegExp('iPhone ' + m16e[1] + 'e\\b').test(l.model)); continue; }
+    const s = QSYN[t] || (t.length >= 4 ? Object.entries(QSYN).find(([k]) => k.startsWith(t) || t.startsWith(k))?.[1] : null) || t;
+    if (s === 'iphone' || s === 'airpods' || s === 'watch' || s === 'mac') { const c = s; P.push(l => l.cat === c); continue; }
+    if (s === 'new') { P.push(l => condGroup(l) === 'Новий'); continue; }
+    if (s === 'sealed') { P.push(l => !!l.sealed); continue; }
+    if (s === 'esim') { P.push(l => l.sim === 'eSIM'); continue; }
+    if (['pro', 'max', 'mini', 'plus', 'air', 'e', 'se'].includes(s)) { const w = s; P.push(l => words(l.model).includes(w) || (w === 'air' && /air/i.test(l.model))); continue; }
+    const col = t.length >= 3 && QCOL.find(([re]) => re.test(t)); if (col) { const tints = col[1], tt = t; P.push(l => tints.includes(l.tint) || (l.color || '').toLowerCase().includes(tt)); continue; }
+    const tt = t; P.push(l => `${l.title} ${l.model} ${l.color} ${l.label} ${S.cond(l)}`.toLowerCase().includes(tt));
+  }
+  qCache.set(q, P); return P;
+}
+const qTest = (q, l) => qParse(q).every(f => f(l));
+const qFind = q => LIST.filter(l => qTest(q, l)).sort((x, y) => (statusOf(x) === 'sold') - (statusOf(y) === 'sold') || x.order - y.order);
+{
+  const inp = $('[data-csearch]'), list = $('[data-cs-list]');
+  if (inp) {
+    let act = -1, hits = [];
+    const close = () => { list.hidden = true; inp.setAttribute('aria-expanded', 'false'); inp.removeAttribute('aria-activedescendant'); act = -1; };
+    const paint = () => {
+      const q = inp.value.trim(); if (!q) return close();
+      hits = qFind(q); const top = hits.slice(0, 5);
+      list.innerHTML = (top.length ? top.map((l, i) => `<li role="option" id="cs-o${i}" class="cs__o" data-cs-id="${l.id}" aria-selected="false"><span class="cs__img">${l.cat === 'iphone' ? `<img src="assets/img/phones/${l.tint}.webp" alt="" width="560" height="700">` : deviceSVG(l)}</span><span class="cs__t"><b>${esc(S.title(l))}</b> ${esc(l.color || '')}<small class="mono">${l.score != null ? 'стан ' + String(l.score).replace('.', ',') : esc(S.cond(l))}${l.batt != null ? ' · АКБ ' + l.batt + '%' : ''}${statusOf(l) !== 'available' ? ' · ' + STATUS[statusOf(l)].toLowerCase() : ''}</small></span><span class="cs__p">${fmt(l.price)} ₴</span></li>`).join('')
+        : `<li class="cs__none" role="presentation">Нічого не знайшли за «${esc(q)}». Спробуйте «15 pro», «синій», «до 30».</li>`)
+        + (hits.length ? `<li role="option" id="cs-all" class="cs__all" data-cs-all aria-selected="false">Показати всі ${hits.length} ${unitWord(hits.length)}${icon('arrow')}</li>` : '');
+      list.hidden = false; inp.setAttribute('aria-expanded', 'true'); act = -1; inp.removeAttribute('aria-activedescendant');
+    };
+    const apply = () => {
+      const q = inp.value.trim(); close();
+      Object.assign(F, { score: SCORE_MIN, batt: BATT_MIN, pmin: P_MIN, pmax: P_MAX, sealed: false, fav: false, q });
+      ['models', 'colors', 'cats', 'gens', 'vars', 'mems', 'conds', 'sims', 'quick'].forEach(k => F[k].clear()); $('[data-fav-toggle]').setAttribute('aria-pressed', 'false');
+      buildFilters(); renderGrid(); paintPick();
+    };
+    const opts = () => $$('[role=option]', list);
+    const mark = () => opts().forEach((o, i) => { o.setAttribute('aria-selected', i === act); if (i === act) { inp.setAttribute('aria-activedescendant', o.id); const r = o.getBoundingClientRect(), lr = list.getBoundingClientRect(); if (r.bottom > lr.bottom) list.scrollTop += r.bottom - lr.bottom; if (r.top < lr.top) list.scrollTop -= lr.top - r.top; } });
+    inp.addEventListener('input', paint);
+    inp.addEventListener('click', () => { if (inp.value.trim() && list.hidden) paint(); });
+    inp.addEventListener('keydown', e => {
+      const os = opts();
+      if (e.key === 'ArrowDown' && !list.hidden) { act = Math.min(os.length - 1, act + 1); mark(); e.preventDefault(); }
+      else if (e.key === 'ArrowUp' && !list.hidden) { act = Math.max(-1, act - 1); mark(); e.preventDefault(); }
+      else if (e.key === 'Enter') { e.preventDefault(); const o = os[act]; if (o && o.dataset.csId) { close(); openPass(o.dataset.csId); } else apply(); }
+      else if (e.key === 'Escape') { if (!list.hidden) { close(); e.stopPropagation(); } else if (inp.value) { inp.value = ''; if (F.q) apply(); } }
+    });
+    list.addEventListener('mousedown', e => e.preventDefault()); // keep focus in the field
+    list.addEventListener('click', e => { const o = e.target.closest('[role=option]'); if (!o) return; if (o.dataset.csId) { close(); openPass(o.dataset.csId); } else apply(); });
+    inp.addEventListener('blur', () => setTimeout(close, 120));
+    $('[data-cs-form]').addEventListener('submit', e => { e.preventDefault(); apply(); });
+    const ns = $('[data-nav-search]'); if (ns) ns.addEventListener('click', () => { inp.focus({ preventScroll: true }); $('[data-cs-form]').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); });
+  }
+}
+/* active filter chips («15 Pro ×», «АКБ 90%+ ×», «Скинути все») */
+function paintChips() {
+  const box = $('[data-achips]'); if (!box) return;
+  const c = [];
+  if (F.q) c.push([`«${F.q}»`, () => { F.q = ''; const i = $('[data-csearch]'); if (i) i.value = ''; }]);
+  F.cats.forEach(v => c.push([CATS[v], () => F.cats.delete(v)])); F.models.forEach(v => c.push([v.replace('iPhone ', ''), () => { F.models.delete(v); F.colors.clear(); }]));
+  F.colors.forEach(v => c.push([v, () => F.colors.delete(v)])); F.gens.forEach(v => c.push(['iPhone ' + v, () => F.gens.delete(v)])); F.vars.forEach(v => c.push([v, () => F.vars.delete(v)]));
+  F.mems.forEach(v => c.push([memL(v), () => F.mems.delete(v)])); F.conds.forEach(v => c.push([v, () => F.conds.delete(v)])); F.sims.forEach(v => c.push([v === 'Фіз' ? 'Фізична SIM' : 'eSIM', () => F.sims.delete(v)]));
+  if (F.score > SCORE_MIN) c.push([`Стан від ${F.score.toFixed(1).replace('.', ',')}`, () => { F.score = SCORE_MIN; }]);
+  if (F.batt > BATT_MIN) c.push([`АКБ ${F.batt}%+`, () => { F.batt = BATT_MIN; }]);
+  if (F.pmin > P_MIN || F.pmax < P_MAX) c.push([F.pmin > P_MIN ? `${fmt(F.pmin)} – ${fmt(F.pmax)} ₴` : `до ${fmt(F.pmax)} ₴`, () => { F.pmin = P_MIN; F.pmax = P_MAX; }]);
+  if (F.sealed) c.push(['Герметичні', () => { F.sealed = false; }]);
+  F.quick.forEach(k => c.push([QUICK.find(q => q[0] === k)[1], () => F.quick.delete(k)]));
+  if (F.fav) c.push(['Обране', () => { F.fav = false; $('[data-fav-toggle]').setAttribute('aria-pressed', 'false'); }]);
+  paintChips.fns = c.map(x => x[1]);
+  box.innerHTML = c.length ? c.map(([t], i) => `<button type="button" class="achip" data-achip="${i}" aria-label="Прибрати фільтр: ${esc(t)}">${esc(t)}${icon('x')}</button>`).join('') + (c.length > 1 ? `<button type="button" class="linkbtn achips__all" data-achip-all>Скинути все</button>` : '') : '';
+  box.hidden = !c.length;
+}
+$('[data-achips]') && $('[data-achips]').addEventListener('click', e => {
+  const b = e.target.closest('[data-achip],[data-achip-all]'); if (!b) return;
+  const i = b.dataset.achip;
+  if (b.hasAttribute('data-achip-all')) { F.fav = false; $('[data-fav-toggle]').setAttribute('aria-pressed', 'false'); resetFilters(); }
+  else { paintChips.fns[+i](); buildFilters(); renderGrid(); paintPick(); }
+  const n = $('[data-achip]') || $('.cat__count'); if (!n.matches('button')) n.tabIndex = -1; n.focus({ preventScroll: true });
+});
+/* colour dots: the same model + memory in other real colours; tap swaps the card in place */
+function dotsHTML(l) {
+  const sib = LIST.filter(o => o.cat === l.cat && o.model === l.model && o.mem === l.mem && o.color && statusOf(o) !== 'sold');
+  const by = new Map([[l.color, l]]); sib.forEach(o => { if (o.color === l.color) return; const c = by.get(o.color); if (!c || o.price < c.price) by.set(o.color, o); });
+  if (by.size < 2) return '<div class="card__dots" aria-hidden="true"></div>';
+  return `<div class="card__dots" role="group" aria-label="Інші кольори ${esc(S.title(l))}">${[...by.values()].sort((x, y) => x.color.localeCompare(y.color)).map(o => `<button type="button" class="cdot ${o.id === l.id ? 'is-on' : ''}" data-swap="${o.id}" aria-pressed="${o.id === l.id}" style="--c:${SWATCH[o.tint] || '#999'}" title="${esc(o.color)} — ${fmt(o.price)} ₴" aria-label="${esc(o.color)}, ${fmt(o.price)} ₴"></button>`).join('')}<span class="cdots__n mono">${by.size} ${plural(by.size, 'колір', 'кольори', 'кольорів')}</span></div>`;
+}
+$('[data-grid]').addEventListener('click', e => {
+  const b = e.target.closest('[data-swap]'); if (!b || b.classList.contains('is-on')) return;
+  const card = b.closest('.card'), sib = byId(b.dataset.swap); if (!card || !sib) return;
+  const h = card.offsetHeight, t = document.createElement('ul'); t.innerHTML = cardHTML(sib);
+  const nc = t.firstElementChild; nc.style.minHeight = h + 'px'; card.replaceWith(nc); // never shrinks → nothing below moves up
+  const f = nc.querySelector(`[data-swap="${sib.id}"]`); if (f) f.focus({ preventScroll: true });
+});
+const INFO_TILES = [
+  `<li class="itile itile--trade"><p class="itile__k">${icon('swap')}Trade-in</p><h3 class="itile__h">Старий iPhone — у залік нового</h3><p class="itile__p">Оцінимо при вас у магазині: огляд займає близько 15 хвилин. Цифру назвемо після огляду.</p><a class="btn btn--red btn--sm itile__go" href="#trade-in">Розповісти про свій iPhone${icon('arrow')}</a></li>`,
+  `<li class="itile itile--repair"><p class="itile__k">${icon('wrench')}Сервіс</p><h3 class="itile__h">Ремонт і заміна АКБ — запис онлайн</h3><p class="itile__p">Оберіть день і час. Ціну майстер скаже після діагностики — без вашого «так» нічого не робимо.</p><a class="btn btn--red btn--sm itile__go" href="#zapys">Записатися на ремонт${icon('arrow')}</a></li>`,
+];
+/* phone toolbar (sticky inside the catalog): sort · filters · price mode */
+{
+  const tb = $('[data-ctool]');
+  if (tb) {
+    const ss = $('[data-sort]'), cs = $('[data-ct-sort]'); cs.innerHTML = ss.innerHTML;
+    const syncSort = () => { cs.value = ss.value; $('[data-ct-sortv]').textContent = ss.value === 'feed' ? '' : '· ' + ss.selectedOptions[0].textContent.replace('Спочатку ', '').replace('Найкращ', 'найкращ'); };
+    cs.addEventListener('change', () => { ss.value = cs.value; ss.dispatchEvent(new Event('change')); syncSort(); });
+    ss.addEventListener('change', syncSort); syncSort();
+    const fb = $('[data-ct-filters]'); fb.addEventListener('click', () => { $('[data-filters-open]').click(); fb.setAttribute('aria-expanded', 'true'); });
+    new MutationObserver(() => fb.setAttribute('aria-expanded', $('[data-filters]').classList.contains('is-open'))).observe($('[data-filters]'), { attributes: true, attributeFilter: ['class'] });
+    const pm = $('[data-ct-pm]'), syncPm = () => pm.setAttribute('aria-pressed', $('[data-grid]').classList.contains('is-monthly'));
+    pm.addEventListener('click', () => { const mo = !$('[data-grid]').classList.contains('is-monthly'); $(`[data-pm="${mo ? 'mo' : 'full'}"]`).click(); syncPm(); });
+    $('[data-pmode]').addEventListener('click', () => setTimeout(syncPm)); syncPm();
+  }
+}
 
 /* model picker: tiles with real min price + count, a live 3D preview that recolours, colour swatches */
 let pickViewer = null, pickViewerLoading = false;
@@ -544,15 +684,18 @@ function paintPick() {
     $('[data-tiles-prev]').addEventListener('click', () => step(-1)); $('[data-tiles-next]').addEventListener('click', () => step(1));
   }
 }
-function resetFilters() { Object.assign(F, { score: SCORE_MIN, batt: BATT_MIN, pmin: P_MIN, pmax: P_MAX, sealed: false }); ['models', 'colors', 'cats', 'gens', 'vars', 'mems', 'conds', 'sims', 'quick'].forEach(k => F[k].clear()); buildFilters(); renderGrid(); paintPick(); }
+function resetFilters() { Object.assign(F, { score: SCORE_MIN, batt: BATT_MIN, pmin: P_MIN, pmax: P_MAX, sealed: false, q: '' }); if ($('[data-csearch]')) $('[data-csearch]').value = ''; ['models', 'colors', 'cats', 'gens', 'vars', 'mems', 'conds', 'sims', 'quick'].forEach(k => F[k].clear()); buildFilters(); renderGrid(); paintPick(); }
 $('[data-reset]').addEventListener('click', resetFilters);
 $('[data-fav-toggle]').addEventListener('click', e => { F.fav = !F.fav; e.currentTarget.setAttribute('aria-pressed', F.fav); renderGrid(); });
 {
   const fl = $('[data-filters]'), ob = $('[data-filters-open]');
   const sheet = () => getComputedStyle(ob).display !== 'none'; // filters are a bottom sheet only when the button is shown
-  const close = () => { if (!fl.classList.contains('is-open')) return; fl.classList.remove('is-open'); ob.setAttribute('aria-expanded', 'false'); ob.focus({ preventScroll: true }); };
+  const close = () => { if (!fl.classList.contains('is-open')) return; fl.classList.remove('is-open'); ob.setAttribute('aria-expanded', 'false'); const ct = $('[data-ct-filters]'); (ct && ct.offsetParent ? ct : ob).focus({ preventScroll: true }); };
   ob.addEventListener('click', () => { const bd = $('[data-filters-body]', fl); if (bd) bd.scrollTop = 0; fl.scrollTop = 0; fl.classList.add('is-open'); ob.setAttribute('aria-expanded', 'true'); $('.filters__close', fl).focus({ preventScroll: true }); });
   $$('[data-filters-close]').forEach(b => b.addEventListener('click', close));
+  const fitFl = () => { if (sheet() && fl.classList.contains('is-open')) { const vv = window.visualViewport ? visualViewport.height : innerHeight, nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav')) || 58; fl.style.height = Math.round(Math.max(320, vv - nav - 10)) + 'px'; } else fl.style.height = ''; };
+  ob.addEventListener('click', () => requestAnimationFrame(fitFl)); new MutationObserver(fitFl).observe(fl, { attributes: true, attributeFilter: ['class'] });
+  window.visualViewport && visualViewport.addEventListener('resize', fitFl); addEventListener('resize', fitFl);
   fl.addEventListener('keydown', e => { if (!sheet() || !fl.classList.contains('is-open')) return; if (e.key === 'Escape') { close(); e.preventDefault(); } else trapTab(fl, e); });
 }
 $('[data-grid]').addEventListener('click', e => {
@@ -715,7 +858,7 @@ function openPass(id, focusBook) {
   };
 }
 $$('dialog').forEach(d => d.addEventListener('keydown', e => trapTab(d, e)));
-$('[data-pass]').addEventListener('close', () => { if (viewer) { viewer.destroy(); viewer = null; } if (location.hash.startsWith('#t/')) history.replaceState(null, '', '#katalog'); });
+$('[data-pass]').addEventListener('close', () => { if (viewer) { viewer.destroy(); viewer = null; } if (location.hash.startsWith('#t/')) history.replaceState(null, '', location.pathname + location.search); // drop the deep link without leaving an implicit #katalog that would reopen mid-page });
 function routeHash() { const m = location.hash.match(/^#t\/([\w-]+)/); if (m && byId(m[1])) { noSmooth(() => $('#katalog').scrollIntoView()); openPass(m[1]); } } // jump instantly: the scroll lock must record the final position, not a frame of a smooth scroll
 addEventListener('hashchange', routeHash);
 
@@ -791,6 +934,13 @@ $('[data-notify-form]').addEventListener('submit', e => {
       <div class="hp__foot"><button type="button" class="btn btn--red hp__done" data-hp-close>${n ? `Готово · ${n} iPhone` : 'Готово · 0 iPhone — змініть умови'}</button></div>`;
     if (!el.querySelector('[tabindex="0"]')) el.querySelector('[role=option]').tabIndex = 0;
   }
+  function fitSheet() { // definite px height (iOS in-app WebKit collapsed the list when the sheet only had max-height)
+    if (!sheet.open) return;
+    const vv = window.visualViewport ? visualViewport.height : innerHeight, hd = $('.hp__head', sheet), bd = $('.hp__body', sheet), ft = $('.hp__foot', sheet);
+    const ls = $('.hp__list', sheet), nat = (hd ? hd.offsetHeight : 0) + (ls ? ls.offsetHeight + 20 : 300) + (ft ? ft.offsetHeight : 0) + 2;
+    sheet.style.height = Math.round(Math.max(Math.min(nat, vv * 0.88, 760), Math.min(320, vv * 0.88))) + 'px';
+  }
+  window.visualViewport && visualViewport.addEventListener('resize', fitSheet);
   function reveal(o) { // scroll only the list, never the page
     const bd = o.closest('.hp__body'); if (!bd) return; const r = o.getBoundingClientRect(), br = bd.getBoundingClientRect();
     if (r.top < br.top) bd.scrollTop -= br.top - r.top + 8; else if (r.bottom > br.bottom) bd.scrollTop += r.bottom - br.bottom + 8;
@@ -805,14 +955,14 @@ $('[data-notify-form]').addEventListener('submit', e => {
     if (cur) closeHP(false);
     cur = k; trig = trigs[k]; trig.setAttribute('aria-expanded', 'true');
     render();
-    if (MOB.matches) { sheet.showModal(); }
+    if (MOB.matches) { sheet.showModal(); fitSheet(); }
     else { pop.hidden = false; place(); }
     const o = box().querySelector('[role=option][tabindex="0"]'); o.focus({ preventScroll: true }); reveal(o);
   }
   function closeHP(refocus = true) {
     if (!cur) return;
     const t = trig; t.setAttribute('aria-expanded', 'false'); cur = null; trig = null;
-    if (sheet.open) sheet.close(); pop.hidden = true; pop.innerHTML = '';
+    if (sheet.open) sheet.close(); sheet.style.height = ''; pop.hidden = true; pop.innerHTML = '';
     if (refocus) t.focus({ preventScroll: true });
   }
   function choose(o) {
