@@ -10,11 +10,16 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 const icon = (id, cls = 'ic') => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
 const SWATCH = { black: '#2a2a2d', white: '#eceae4', natural: '#bdb6aa', blue: '#33435c', desert: '#cbb092', pink: '#efcfcb', green: '#9fb7a3', purple: '#6b5a73', yellow: '#efe2a2', red: '#b31620', gray: '#5a5a5e', orange: '#dc7a3c', silver: '#dcdde0', burgundy: '#6a1f2b', glacier: '#bcd3e6', ultramarine: '#5b6fd6', sierra: '#a7bdd6' };
 const PHONE = '+380989885588', DIRECT = 'https://ig.me/m/ispayal.ua';
+const PRICE_STEPS = () => { const mx = Math.max(...S.listings().filter(l => l.cat === 'iphone').map(l => +l.price || 0)), all = [15000, 20000, 30000, 40000, 60000, 80000, 100000, 150000, 200000], i = all.findIndex(v => v >= mx); return i < 0 ? all : all.slice(0, i + 1); }; // top step always covers the dearest iPhone
 
 let toastT;
 function toast(msg) { const t = $('[data-toast]'); t.textContent = msg; t.classList.add('is-on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('is-on'), 2800); }
 function rangeFill(el) { const p = (el.value - el.min) / (el.max - el.min) * 100; el.style.setProperty('--p', p + '%'); }
-const phoneOk = v => v.replace(/\D/g, '').length >= 10;
+// Ukrainian numbers: +380 XX XXX XX XX, 380…, 80…, 0XX XXX XX XX or 9 digits without the 0; returns '+380 XX XXX XX XX' or null
+const phoneNorm = v => { if (/[^\d\s()+\-.]/.test(v)) return null; let d = v.replace(/\D/g, ''); if (d.length === 12 && d.startsWith('380')) d = d.slice(3); else if (d.length === 11 && d.startsWith('80')) d = d.slice(2); else if (d.length === 10 && d.startsWith('0')) d = d.slice(1); else if (!(d.length === 9 && d[0] !== '0')) return null; return `+380 ${d.slice(0, 2)} ${d.slice(2, 5)} ${d.slice(5, 7)} ${d.slice(7)}`; };
+const phoneOk = v => !!phoneNorm(v);
+const DEMO_NOTE = '<small class="mono">Це демо: нікуди не надсилається — заявка збережена лише в цьому браузері й видна в /admin/.</small>';
+const PHONE_ERR = 'Перевірте номер: +380 XX XXX XX XX або 0XX XXX XX XX.';
 const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 function trapTab(box, e) { // keep Tab inside an open modal / sheet
   if (e.key !== 'Tab') return;
@@ -72,6 +77,9 @@ const GENS = () => [...new Set(LIST.filter(l => l.cat === 'iphone').map(l => gen
 const VARS = () => ['Базова', 'mini', 'e', 'Plus', 'Pro', 'Pro Max'];
 const condGroup = l => /замовл/i.test(l.label) ? 'Під замовлення' : l.isNew ? 'Новий' : /майже|як нов/i.test(l.label) ? 'Майже новий' : 'б/у';
 
+/* programmatic jump without the global scroll-behavior:smooth (and without relying on behavior:'instant', unknown to older WebKit) */
+function noSmooth(fn) { const st = document.documentElement.style, prev = st.scrollBehavior; st.scrollBehavior = 'auto'; try { fn(); } finally { st.scrollBehavior = prev; } }
+
 /* ---------------- 3D stage ---------------- */
 const stage = $('[data-stage]'), wrap = $('[data-stagewrap]');
 const chapters = { hero: $('.hero'), explode: $('[data-chapter="explode"]'), services: $('[data-chapter="services"]'), book: $('[data-chapter="book"]') };
@@ -81,7 +89,7 @@ const lowPower = (navigator.connection && navigator.connection.saveData) || (nav
 const wantGL = !qs.has('poster') && (qs.has('capture') || qs.has('gl') || (!reduced && !lowPower)) && hasWebGL();
 
 function stageProgress() {
-  const y = scrollY, top = wrap.offsetTop, vh = innerHeight;
+  const y = scrollY, top = wrap.offsetTop, vh = stage.offsetHeight; // pinned scene height (stable px), not innerHeight, which moves with the toolbar
   const k = [[top, 0], [chapters.explode.offsetTop + top, 0.4], [chapters.services.offsetTop + top, 0.66], [chapters.book.offsetTop + top, 0.9], [top + wrap.offsetHeight - vh, 1]];
   if (y <= k[0][0]) return 0;
   for (let i = 1; i < k.length; i++) if (y <= k[i][0]) { const [a, pa] = k[i - 1], [b, pb] = k[i]; return pa + (pb - pa) * ((y - a) / Math.max(1, b - a)); }
@@ -131,7 +139,7 @@ function renderSvc(k) {
   $$('[data-svc]').forEach(b => b.setAttribute('aria-selected', b.dataset.svc === k));
   $('[data-svc-panel]').innerHTML = `<h3>${s.t}</h3><ul>${s.pts.map(p => `<li>${p}</li>`).join('')}</ul>
     <p class="svc__price">${icon('wrench')}Ціну скаже майстер після діагностики</p>
-    <a class="btn btn--red btn--sm" href="#zapys" data-svc-book="${s.s}">Записатися: ${s.t.toLowerCase()}${icon('arrow')}</a>`;
+    <a class="btn btn--red btn--sm" href="#zapys" data-svc-book="${s.s}">Записатися: ${s.t[0].toLowerCase() + s.t.slice(1)}${icon('arrow')}</a>`;
   onStageScroll();
 }
 function pickPart(name, scroll) {
@@ -180,9 +188,9 @@ renderSvc('battery');
     if (!phoneOk(form.phone.value)) bad.push(form.phone);
     $$('input', form).forEach(i => i.removeAttribute('aria-invalid')); bad.forEach(i => i.setAttribute('aria-invalid', 'true'));
     if (!form.time || !form.querySelector('[name=time]:checked')) { err.textContent = 'Оберіть вільну годину.'; err.hidden = false; return; }
-    if (bad.length) { err.textContent = bad[0] === form.phone ? 'Перевірте номер телефону — потрібно 10 цифр.' : 'Заповніть позначені поля.'; err.hidden = false; bad[0].focus(); return; }
-    const r = S.addRequest({ type: 'repair', model: form.model.value.trim(), service: form.service.value, day: form.day.value, time: form.querySelector('[name=time]:checked').value, name: form.name.value.trim(), phone: form.phone.value.trim(), status: 'Записано' });
-    ok.innerHTML = `${icon('check')}<span>Записали: ${esc(r.service)}, ${r.day.split('-').reverse().slice(0, 2).join('.')} о ${r.time}. Майстер підтвердить дзвінком. <small class="mono">Демо: заявка зберігається в цьому браузері й одразу видна в /admin/.</small></span>`;
+    if (bad.length) { err.textContent = bad[0] === form.phone ? PHONE_ERR : 'Заповніть позначені поля.'; err.hidden = false; bad[0].focus(); return; }
+    const r = S.addRequest({ type: 'repair', model: form.model.value.trim(), service: form.service.value, day: form.day.value, time: form.querySelector('[name=time]:checked').value, name: form.name.value.trim(), phone: phoneNorm(form.phone.value), status: 'Записано' });
+    ok.innerHTML = `${icon('check')}<span>Записали: ${esc(r.service)}, ${r.day.split('-').reverse().slice(0, 2).join('.')} о ${r.time}. Майстер підтвердить дзвінком на ${esc(r.phone)}. ${DEMO_NOTE}</span>`;
     ok.hidden = false; paintTimes();
   });
 }
@@ -260,7 +268,7 @@ const lerpKey = (keys, t) => { if (t <= keys[0][0]) return keys[0].slice(1); for
   if (reduced) { tog.setAttribute('aria-pressed', 'true'); tog.textContent = 'Відтворити'; }
   tog.addEventListener('click', () => {
     const p = tog.getAttribute('aria-pressed') !== 'true'; tog.setAttribute('aria-pressed', p); tog.textContent = p ? 'Відтворити' : 'Пауза';
-    if (p) { v.pause(); } else { v.play().catch(() => { }); }
+    if (p) { v.pause(); goStatic(true); } else { v.play().catch(() => { }); } // paused = the end card with «Дивитись у каталозі» stays visible
   });
   // fill the unit line from the real listing
   window.__fillFilmUnit = () => {
@@ -271,7 +279,19 @@ const lerpKey = (keys, t) => { if (t <= keys[0][0]) return keys[0].slice(1); for
 
 /* ---------------- catalog ---------------- */
 const F = { models: new Set(), colors: new Set(), cats: new Set(), gens: new Set(), vars: new Set(), mems: new Set(), conds: new Set(), sims: new Set(), score: 8, batt: 80, pmin: 5000, pmax: 95000, sealed: false, fav: false, sort: 'feed' };
-const SCORE_MIN = 8, BATT_MIN = 80, P_MIN = 5000, P_MAX = 95000;
+const SCORE_MIN = 8, BATT_MIN = 80, P_MIN = 5000, P_MAX = Math.max(20000, Math.ceil(Math.max(...S.listings().map(l => +l.price || 0)) / 5000) * 5000); // slider top = real max, rounded up; at the top = no upper limit
+F.pmax = P_MAX; F.quick = new Set();
+/* quick pills above the results (AND-combined, counted live within the other filters) */
+const QUICK = [
+  ['newbatt', 'Нова батарея', l => !l.isNew && (l.batt === 100 || !!l.battNew || /новий акумулятор/i.test(l.service || ''))],
+  ['sealed', 'Герметичні', l => !!l.sealed],
+  ['u20', 'До 20 000 ₴', l => l.price <= 20000],
+  ['likenew', 'Майже нові 9,8+', l => !l.isNew && l.score != null && l.score >= 9.8],
+  ['new', 'Нові', l => condGroup(l) === 'Новий'],
+];
+const perMonth = l => Math.ceil(l.price / 4); // 4 платежі без % від банку
+const grade = l => l.isNew || l.score == null ? null : l.score >= 9.8 ? ['Як новий', 4] : l.score >= 9.4 ? ['Відмінний', 3] : l.score >= 9 ? ['Хороший', 2] : ['Нормальний', 1];
+const gradeHTML = l => { const g = grade(l); if (!g) return ''; return `<span class="card__grade" title="Стан ${String(l.score).replace('.', ',')} з 10"><svg viewBox="0 0 14 12" aria-hidden="true">${[0, 1, 2, 3].map(i => `<rect x="${i * 3.6}" y="${9 - i * 3}" width="2.6" height="${3 + i * 3}" rx="1" ${i < g[1] ? '' : 'opacity=".25"'}/>`).join('')}</svg>${g[0]}</span>`; };
 let FAV = new Set(JSON.parse(localStorage.getItem('ispayal.fav') || '[]'));
 let CMP = [];
 const saveFav = () => { localStorage.setItem('ispayal.fav', JSON.stringify([...FAV])); $('[data-fav-count]').textContent = FAV.size; };
@@ -298,7 +318,7 @@ function buildFilters() {
     F.score = +sc.value; F.batt = +bt.value;
     let lo = +a.value, hi = +b.value; if (lo > hi - 1000) { if (document.activeElement === a) a.value = lo = hi - 1000; else b.value = hi = lo + 1000; }
     F.pmin = lo; F.pmax = hi;
-    $('[data-o-score]').textContent = F.score <= SCORE_MIN ? 'будь-яка' : F.score.toFixed(1); $('[data-o-batt]').textContent = F.batt <= BATT_MIN ? 'будь-яка' : F.batt + '%';
+    $('[data-o-score]').textContent = F.score <= SCORE_MIN ? 'будь-якої' : F.score.toFixed(1).replace('.', ','); $('[data-o-batt]').textContent = F.batt <= BATT_MIN ? 'будь-якого %' : F.batt + '%';
     const w = $('[data-o-word]'); if (w) w.textContent = F.score <= SCORE_MIN ? '' : F.score >= 9.8 ? '· Як новий' : F.score >= 9.4 ? '· Відмінний' : F.score >= 9 ? '· Хороший' : '· Нормальний';
     const bf = $('[data-batt-fill]'); if (bf) { bf.style.transform = `scaleX(${F.batt <= BATT_MIN ? 0.25 : (F.batt - 60) / 40})`; bf.parentElement.classList.toggle('is-full', F.batt >= 95); }
     $$('[data-hist] i').forEach(i => i.classList.toggle('is-in', +i.dataset.hi >= lo && +i.dataset.lo <= hi));
@@ -323,7 +343,8 @@ function filtered() {
     (!F.cats.size || F.cats.has(l.cat)) && (!F.models.size || F.models.has(l.model)) && (!F.colors.size || F.colors.has(l.color)) &&
     (!F.gens.size || (l.cat === 'iphone' && F.gens.has(gen(l.model)))) && (!F.vars.size || (l.cat === 'iphone' && F.vars.has(variant(l.model)))) &&
     (!F.mems.size || F.mems.has(l.mem)) && (!F.conds.size || F.conds.has(condGroup(l))) && (!F.sims.size || F.sims.has(l.sim)) &&
-    passScore(l) && passBatt(l) && l.price >= F.pmin && l.price <= F.pmax && (!F.sealed || l.sealed) && (!F.fav || FAV.has(l.id)));
+    passScore(l) && passBatt(l) && l.price >= F.pmin && (F.pmax >= P_MAX || l.price <= F.pmax) && (!F.sealed || l.sealed) && (!F.fav || FAV.has(l.id)) &&
+    (!F.quick.size || [...F.quick].every(k => QUICK.find(q => q[0] === k)[2](l))));
   const nz = v => v == null ? -1 : v;
   const s = { feed: (x, y) => x.order - y.order, cheap: (x, y) => x.price - y.price, exp: (x, y) => y.price - x.price, batt: (x, y) => nz(y.batt) - nz(x.batt) || nz(x.cycles) - nz(y.cycles), score: (x, y) => nz(y.score) - nz(x.score) }[F.sort];
   const sr = l => statusOf(l) === 'sold' ? 1 : 0;
@@ -366,7 +387,7 @@ function visual(l, big) {
 }
 const STATUS = { available: 'Є в наявності', reserved: 'Заброньовано', sold: 'Продано' };
 const statusOf = l => STATUS[l.status] ? l.status : 'available';
-function statusHTML(l) { const st = statusOf(l); return `<span class="stat stat--${st}">${STATUS[st]}${st === 'available' ? ' <small>станом на 22.11</small>' : ''}</span>`; }
+function statusHTML(l) { const st = statusOf(l); return `<span class="stat stat--${st}">${STATUS[st]}${st === 'available' ? ` <small>${l.added ? 'додано ' + esc(l.added) : 'станом на 22.11'}</small>` : ''}</span>`; }
 const whatWord = l => l.cat === 'iphone' ? 'цей iPhone' : l.cat === 'watch' ? 'цей Apple Watch' : l.cat === 'airpods' ? 'ці AirPods' : 'цей MacBook';
 function directBtn(l, attr, cls = 'btn btn--red') { return `<a class="${cls} btn--direct" href="${DIRECT}" target="_blank" rel="noopener" ${attr}="${l.id}">${icon('direct')}<span>Написати в Direct про ${whatWord(l)}</span></a>`; }
 function tagHTML(l) {
@@ -392,7 +413,7 @@ function cardHTML(l) {
   }
   const ig = igUrl(l);
   return `<li class="card card--${statusOf(l)}" data-id="${l.id}">
-    <button class="card__vis card__vis--${l.cat}" type="button" data-open="${l.id}" aria-label="Паспорт: ${esc(S.title(l))} ${esc(l.color)}">${visual(l)}${tagHTML(l)}</button>
+    <button class="card__vis card__vis--${l.cat}" type="button" data-open="${l.id}" aria-label="Паспорт: ${esc(S.title(l))} ${esc(l.color)}">${visual(l)}${tagHTML(l)}${gradeHTML(l)}</button>
     <div class="card__icons">
       <button class="iconbtn" type="button" data-fav="${l.id}" aria-pressed="${FAV.has(l.id)}" aria-label="В обране">${icon('heart')}</button>
       <button class="iconbtn" type="button" data-cmp="${l.id}" aria-pressed="${CMP.includes(l.id)}" aria-label="Додати до порівняння">${icon('compare')}</button>
@@ -403,10 +424,10 @@ function cardHTML(l) {
       <p class="card__sub">${l.color ? `<span class="swatch" style="background:${SWATCH[l.tint] || '#999'}"></span>${esc(l.color)}` : ''}${l.sim ? ` · ${l.sim === 'Фіз' ? 'Фіз. SIM' : 'eSIM'}` : ''}</p>
       ${pp}
       <div class="flags">${flags.join('')}</div>
-      <div class="card__foot"><div><p class="price">${fmt(l.price)}<small>₴</small></p>${l.warranty ? `<p class="card__warr">${esc(l.warranty)}</p>` : ''}</div></div>
+      <div class="card__foot"><div><p class="price price--full">${fmt(l.price)}<small>₴</small></p><p class="price price--mo">від ${fmt(perMonth(l))}<small>₴/міс</small></p><p class="price__alt price__alt--mo">або від ${fmt(perMonth(l))} ₴/міс</p><p class="price__alt price__alt--full">повна ціна ${fmt(l.price)} ₴</p>${l.warranty ? `<p class="card__warr">${esc(l.warranty)}</p>` : ''}</div></div>
       <div class="card__cta">${directBtn(l, 'data-direct')}</div>
       <div class="card__acts">
-        <button class="btn btn--line" type="button" data-book="${l.id}" ${statusOf(l) === 'sold' ? 'disabled' : ''}>${statusOf(l) === 'sold' ? 'Продано' : 'Забронювати'}</button>
+        <button class="btn btn--line" type="button" data-book="${l.id}" ${statusOf(l) === 'sold' ? 'disabled' : ''}>${statusOf(l) === 'sold' ? 'Продано' : statusOf(l) === 'reserved' ? 'Стати в чергу' : 'Забронювати'}</button>
         <a class="sq" href="tel:${PHONE}" aria-label="Подзвонити в магазин">${icon('phone')}</a>
       </div>
       <div class="card__links"><button class="card__open" type="button" data-open="${l.id}">Паспорт ${icon('arrow')}</button>${ig ? `<a class="card__ig" href="${ig}" target="_blank" rel="noopener">Пост в Instagram ↗</a>` : ''}</div>
@@ -442,12 +463,22 @@ function renderGrid() {
   });
   tickCount($('[data-count]'), a.length); $('[data-count-word]').textContent = unitWord(a.length);
   $('[data-count-btn]').textContent = a.length ? `Показати ${a.length} ${a.every(l => l.cat === 'iphone') ? 'iPhone' : unitWord(a.length)}` : 'Нічого не знайдено — змініть фільтри';
-  const act = F.models.size + F.colors.size + F.cats.size + F.gens.size + F.vars.size + F.mems.size + F.conds.size + F.sims.size + (F.score > SCORE_MIN) + (F.batt > BATT_MIN) + (F.pmin > P_MIN || F.pmax < P_MAX) + F.sealed;
+  const act = F.models.size + F.colors.size + F.cats.size + F.gens.size + F.vars.size + F.mems.size + F.conds.size + F.sims.size + (F.score > SCORE_MIN) + (F.batt > BATT_MIN) + (F.pmin > P_MIN || F.pmax < P_MAX) + F.sealed + F.quick.size;
   $('[data-active-count]').textContent = act ? act : '';
   const want = F.gens.size === 1 ? `iPhone ${[...F.gens][0]}${F.vars.size === 1 && [...F.vars][0] !== 'Базова' ? ' ' + [...F.vars][0] : ''}${F.mems.size === 1 ? ' ' + [...F.mems][0] : ''}${F.batt > BATT_MIN ? `, АКБ від ${F.batt}%` : ''}` : '';
   if (want) $('[data-notify-want]').value = want;
+  paintQuick();
 }
 $('[data-sort]').addEventListener('change', e => { F.sort = e.target.value; renderGrid(); });
+function paintQuick() {
+  const box = $('[data-qpills]'); if (!box) return;
+  const keep = F.quick; F.quick = new Set(); const base = filtered(); F.quick = keep;
+  box.innerHTML = QUICK.map(([k, t, f]) => { const others = [...F.quick].filter(x => x !== k).map(x => QUICK.find(q => q[0] === x)[2]); const n = base.filter(l => f(l) && others.every(g => g(l))).length;
+    return `<button type="button" class="qpill" data-q="${k}" aria-pressed="${F.quick.has(k)}" ${!n && !F.quick.has(k) ? 'disabled' : ''}>${t} <b>${n}</b></button>`; }).join('');
+}
+$('[data-qpills]') && $('[data-qpills]').addEventListener('click', e => { const b = e.target.closest('[data-q]'); if (!b) return; const k = b.dataset.q; F.quick.has(k) ? F.quick.delete(k) : F.quick.add(k); renderGrid(); const nb = $(`[data-q="${k}"]`); if (nb && document.activeElement === document.body) nb.focus({ preventScroll: true }); });
+$('[data-pmode]') && $('[data-pmode]').addEventListener('click', e => { const b = e.target.closest('[data-pm]'); if (!b) return; const mo = b.dataset.pm === 'mo'; $$('[data-pm]').forEach(x => x.setAttribute('aria-pressed', x === b)); $('[data-grid]').classList.toggle('is-monthly', mo); try { localStorage.setItem('ispayal.pmode', mo ? 'mo' : 'full'); } catch { } });
+if (localStorage.getItem('ispayal.pmode') === 'mo' && $('[data-pmode]')) { $('[data-grid]').classList.add('is-monthly'); $$('[data-pm]').forEach(x => x.setAttribute('aria-pressed', x.dataset.pm === 'mo')); }
 $('[data-grid]').addEventListener('click', e => { if (!e.target.closest('[data-notify-go]')) return; const f = $('[data-notify-form]'); f.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); setTimeout(() => f.want.focus({ preventScroll: true }), reduced ? 0 : 450); });
 
 /* model picker: tiles with real min price + count, a live 3D preview that recolours, colour swatches */
@@ -500,9 +531,9 @@ function paintPick() {
     box.addEventListener('click', e => {
       const t = e.target.closest('.tile'); if (!t) return;
       const m = t.dataset.model, on = F.models.has(m);
-      F.models.clear(); F.colors.clear(); if (!on) { F.models.add(m); F.cats.clear(); F.gens.clear(); F.vars.clear(); }
+      F.models.clear(); F.colors.clear(); if (!on) { F.models.add(m); ['cats', 'gens', 'vars', 'mems', 'conds', 'sims'].forEach(k => F[k].clear()); Object.assign(F, { score: SCORE_MIN, batt: BATT_MIN, pmin: P_MIN, pmax: P_MAX, sealed: false }); } // a tile shows all units of the model («N в наявності»), so earlier search limits are dropped
       buildFilters(); renderGrid(); paintPick();
-      if (!on) t.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+      if (!on) { const bl = box.getBoundingClientRect().left, tl = t.getBoundingClientRect().left; box.scrollTo({ left: box.scrollLeft + tl - bl - (box.clientWidth - t.offsetWidth) / 2, behavior: reduced ? 'auto' : 'smooth' }); } // centre the tile in its row only — scrollIntoView would also scroll the page
     });
     $('[data-swatches]').addEventListener('click', e => {
       const b = e.target.closest('.sw'); if (!b) return;
@@ -513,7 +544,7 @@ function paintPick() {
     $('[data-tiles-prev]').addEventListener('click', () => step(-1)); $('[data-tiles-next]').addEventListener('click', () => step(1));
   }
 }
-function resetFilters() { Object.assign(F, { score: SCORE_MIN, batt: BATT_MIN, pmin: P_MIN, pmax: P_MAX, sealed: false }); ['models', 'colors', 'cats', 'gens', 'vars', 'mems', 'conds', 'sims'].forEach(k => F[k].clear()); buildFilters(); renderGrid(); paintPick(); }
+function resetFilters() { Object.assign(F, { score: SCORE_MIN, batt: BATT_MIN, pmin: P_MIN, pmax: P_MAX, sealed: false }); ['models', 'colors', 'cats', 'gens', 'vars', 'mems', 'conds', 'sims', 'quick'].forEach(k => F[k].clear()); buildFilters(); renderGrid(); paintPick(); }
 $('[data-reset]').addEventListener('click', resetFilters);
 $('[data-fav-toggle]').addEventListener('click', e => { F.fav = !F.fav; e.currentTarget.setAttribute('aria-pressed', F.fav); renderGrid(); });
 {
@@ -533,7 +564,7 @@ $('[data-grid]').addEventListener('click', e => {
   else if (t.dataset.direct) directCopy(byId(t.dataset.direct));
 });
 function directCopy(l) {
-  const link = location.href.split('#')[0] + '#t/' + l.id;
+  const link = (location.origin + location.pathname) + '#t/' + l.id;
   const msg = `Привіт! Цікавить ${S.title(l)}${l.color ? ' ' + l.color : ''} за ${fmt(l.price)} ₴. ${l.code ? 'Пост: ' + igUrl(l) + ' · ' : ''}Паспорт: ${link}. Ще в наявності?`;
   try { navigator.clipboard.writeText(msg).then(() => toast('Повідомлення скопійовано — вставте його в Direct'), () => toast('Відкриваємо Direct')); } catch { toast('Відкриваємо Direct'); }
 }
@@ -558,9 +589,9 @@ $('[data-compare-open]').addEventListener('click', () => {
   const bP = best('price', -1), bS = best('score', 1), bB = best('batt', 1), bC = best('cycles', -1);
   const dash = v => v == null || v === '' ? '<span class="muted">не вказано</span>' : v;
   const row = (h, f, b) => `<tr><th scope="row">${h}</th>${ls.map(l => `<td class="${b && b(l) ? 'is-best' : ''}">${f(l)}</td>`).join('')}</tr>`;
-  d.innerHTML = `<div class="cmp__in"><div class="cmp__head"><h2 class="h3">Порівняння</h2><button class="iconbtn" type="button" data-close aria-label="Закрити">${icon('x')}</button></div>
+  d.innerHTML = `<div class="cmp__in"><div class="cmp__head"><h2 class="h3">Порівняння</h2><button class="iconbtn" type="button" data-close aria-label="Закрити порівняння">${icon('x')}</button></div>${ls.length > 2 ? '<p class="cmp__hint mono">Гортайте таблицю вбік — тут 3 позиції →</p>' : ''}
   <div style="overflow-x:auto"><table><thead><tr><th></th>${ls.map(l => `<td><div class="cmp__vis">${visual(l)}</div><b>${esc(S.title(l))}</b></td>`).join('')}</tr></thead><tbody>
-  ${row('Ціна', l => fmt(l.price) + ' ₴', bP)}${row('Стан', l => dash(l.score != null ? l.score + ' | 10' : null), bS)}${row('АКБ', l => dash(l.batt != null ? l.batt + '%' : null), bB)}${row('Цикли', l => dash(l.cycles), bC)}
+  ${row('Ціна', l => fmt(l.price) + ' ₴', bP)}${row('Стан', l => dash(l.score != null ? String(l.score).replace('.', ',') + ' | 10' : null), bS)}${row('АКБ', l => dash(l.batt != null ? l.batt + '%' : null), bB)}${row('Цикли', l => dash(l.cycles), bC)}
   ${row('Колір', l => dash(esc(l.color)))}${row('SIM', l => dash(l.sim))}${row('Тип', l => esc(S.cond(l)))}${row('Герметичний', l => l.sealed ? 'так, без слідів ремонту' : dash(null))}
   ${row('Обслуговування', l => dash(esc(l.service)))}${row('Примітка', l => dash(esc(l.note)))}${row('Комплект', l => dash(esc(l.kit)))}${row('Бонус', l => dash(esc(l.bonus)))}${row('Гарантія', l => dash(esc(l.warranty)))}
   <tr><th></th>${ls.map(l => `<td><button class="btn btn--red btn--sm" type="button" data-open-from-cmp="${l.id}">Паспорт</button></td>`).join('')}</tr></tbody></table></div>
@@ -612,6 +643,14 @@ function openPass(id, focusBook) {
   if (l.batt != null) dials.push(`<div class="dial">${battGauge(l.batt)}<p class="dial__v" style="margin-top:-96px;margin-bottom:58px">${l.batt}%</p><p class="dial__k">Ємність АКБ</p><p class="dial__s">${cyclesNote(l)}</p></div>`);
   if (!dials.length) dials.push(`<div class="dial dial--wide"><p class="dial__v" style="margin:6px 0 0">${esc(condGroup(l))}</p><p class="dial__k">${l.isNew ? 'Новий пристрій' : 'Стан у пості не вказано'}</p></div>`);
   const isPhone = l.cat === 'iphone';
+  const others = LIST.filter(o => o.id !== l.id && o.model === l.model && o.cat === l.cat).sort((x, y) => (statusOf(x) === 'sold') - (statusOf(y) === 'sold') || x.price - y.price);
+  const diff = o => { const v = o.price - l.price; return v === 0 ? 'та сама ціна' : (v > 0 ? '+' : '−') + fmt(Math.abs(v)) + ' ₴'; };
+  const othersHTML = others.length ? `<div class="others"><h3>Інші екземпляри цієї моделі <small class="mono">${others.length}</small></h3><ul>${others.map(o => `<li><button type="button" class="other ${statusOf(o) === 'sold' ? 'is-sold' : ''}" data-other="${o.id}" aria-label="Відкрити паспорт: ${esc(S.title(o))} ${esc(o.color)}, ${fmt(o.price)} ₴">
+      <span class="other__img">${o.cat === 'iphone' ? `<img src="assets/img/phones/${o.tint}.webp" alt="" width="560" height="700" loading="lazy">` : deviceSVG(o)}</span>
+      <span class="other__t">${esc(S.memL(o.mem) || '')} · ${esc(o.color || '')}</span>
+      <span class="other__m mono">${o.score != null ? 'стан ' + String(o.score).replace('.', ',') : esc(S.cond(o))}${o.batt != null ? ' · АКБ ' + o.batt + '%' : ''}${statusOf(o) !== 'available' ? ' · ' + STATUS[statusOf(o)].toLowerCase() : ''}</span>
+      <span class="other__p"><b>${fmt(o.price)} ₴</b><small class="${o.price < l.price ? 'is-less' : ''}">${diff(o)}</small></span></button></li>`).join('')}</ul></div>` : '';
+  const trust = [l.warranty ? ['shield', /apple/i.test(l.warranty) ? esc(l.warranty) : '90 днів гарантії від iSpayal'] : null, ['check', 'Перевірка при вас у магазині'], ['coins', 'Оплата частинами'], ['swap', 'Trade-in']].filter(Boolean);
   d.innerHTML = `
   <div class="pass__vis pass__vis--${l.cat}">
     <p class="pass__no">ПАСПОРТ · ${esc(l.code || l.id)}</p>
@@ -630,21 +669,23 @@ function openPass(id, focusBook) {
     ${kit.length ? `<div class="kit"><h3>Комплект${l.bonus ? ' і бонус' : ''}</h3><ul>${kit.map(([i, t, b]) => `<li class="${b ? 'is-bonus' : ''}">${icon(i)}<span>${esc(t)}${b ? '<br><small class="mono">бонус*</small>' : ''}</span></li>`).join('')}</ul></div>` : ''}
     <div class="pay"><h3>Оплата${l.warranty ? ' і гарантія' : ''}</h3><div class="pay__chips"><span>USDT</span><span>$</span><span>₴</span><span>€</span><span>Післяплата</span><span>Розстрочка</span></div>
       <p>${l.warranty ? `${icon('shield')} ${esc(l.warranty)}. ` : ''}${l.isNew ? 'Спеціальна пропозиція — діє при визначених умовах оплати. ' : ''}<a href="#rozstrochka" data-to-calc="${l.price}">Порахувати розстрочку</a>${ig ? ` · <a href="${ig}" target="_blank" rel="noopener">Пост в Instagram ↗</a>` : ''}</p></div>
-    <div class="pass__bookwrap" ${statusOf(l) === 'sold' ? 'hidden' : ''}><h3>Забронювати</h3>
+    ${othersHTML}
+    <div class="pass__bookwrap" ${statusOf(l) === 'sold' ? 'hidden' : ''}><h3>${statusOf(l) === 'reserved' ? 'Вже заброньовано — стати в чергу' : 'Забронювати'}</h3>
       <form class="pass__book" data-pass-book novalidate>
         <label class="fld"><span>Імʼя</span><input name="name" autocomplete="given-name" required></label>
         <label class="fld"><span>Телефон</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+380" required></label>
-        <button class="btn btn--red" type="submit">Забронювати</button>
-        <p class="form__err" data-err hidden style="grid-column:1/-1"></p><p class="form__ok" data-ok hidden style="grid-column:1/-1"></p>
+        <button class="btn btn--red" type="submit">${statusOf(l) === 'reserved' ? 'Стати в чергу' : 'Забронювати'}</button>
+        <p class="form__err" role="alert" data-err hidden style="grid-column:1/-1"></p><p class="form__ok" role="status" data-ok hidden style="grid-column:1/-1"></p>
       </form>
     </div>
     <div class="pass__buy">
       <div class="pass__row"><p class="price">${fmt(l.price)}<small>₴</small></p>
         <div class="pass__acts"><a class="sq" href="tel:${PHONE}" aria-label="Подзвонити">${icon('phone')}</a><button class="sq" type="button" data-share aria-label="Скопіювати посилання на цю позицію">${icon('share')}</button></div></div>
+      <ul class="trust">${trust.map(([i, t]) => `<li>${icon(i)}${t}</li>`).join('')}</ul>
       ${directBtn(l, 'data-direct-pass')}
     </div>
   </div>`;
-  d.showModal();
+  if (!d.open) d.showModal();
   if (location.hash !== '#t/' + id) history.replaceState(null, '', '#t/' + id);
   $('.pass__data', d).scrollTop = 0;
   if (focusBook) setTimeout(() => { const n = d.querySelector('[name=name]'); n.scrollIntoView({ block: 'center' }); n.focus({ preventScroll: true }); }, 60); else d.querySelector('[data-close]').focus({ preventScroll: true });
@@ -658,30 +699,34 @@ function openPass(id, focusBook) {
   }
   d.onclick = e => {
     if (e.target === d || e.target.closest('[data-close]')) d.close();
-    if (e.target.closest('[data-share]')) { const u = location.href.split('#')[0] + '#t/' + id; try { navigator.clipboard.writeText(u).then(() => toast('Посилання скопійовано — надішліть у Direct')); } catch { toast(u); } }
+    if (e.target.closest('[data-share]')) { const u = (location.origin + location.pathname) + '#t/' + id; try { navigator.clipboard.writeText(u).then(() => toast('Посилання скопійовано — надішліть у Direct'), () => toast('Не вдалося скопіювати: ' + u)); } catch { toast(u); } }
     if (e.target.closest('[data-direct-pass]')) directCopy(l);
+    const ot = e.target.closest('[data-other]'); if (ot) { if (viewer) { viewer.destroy(); viewer = null; } openPass(ot.dataset.other); return; }
     const c = e.target.closest('[data-to-calc]'); if (c) { e.preventDefault(); setCalcPrice(+c.dataset.toCalc); d.close(); setTimeout(() => { $('#rozstrochka').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' }); $('[data-c-price]').focus({ preventScroll: true }); }, 0); }
   };
   $('[data-pass-book]', d).onsubmit = e => {
     e.preventDefault(); const f = e.target, err = $('[data-err]', f), ok = $('[data-ok]', f);
-    if (!f.name.value.trim() || !phoneOk(f.phone.value)) { err.textContent = !f.name.value.trim() ? 'Як до вас звертатися?' : 'Перевірте номер телефону — потрібно 10 цифр.'; err.hidden = false; (f.name.value.trim() ? f.phone : f.name).setAttribute('aria-invalid', 'true'); return; }
+    f.name.removeAttribute('aria-invalid'); f.phone.removeAttribute('aria-invalid');
+    if (!f.name.value.trim() || !phoneOk(f.phone.value)) { err.textContent = !f.name.value.trim() ? 'Як до вас звертатися?' : PHONE_ERR; err.hidden = false; const bad = f.name.value.trim() ? f.phone : f.name; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
     err.hidden = true;
-    S.addRequest({ type: 'booking', listing: l.id, title: `${S.title(l)}${l.color ? ' ' + l.color : ''}`, price: l.price, name: f.name.value.trim(), phone: f.phone.value.trim() });
-    ok.innerHTML = `${icon('check')}<span>Забронюємо — менеджер напише в Direct або передзвонить. <small class="mono">Демо: заявка вже в /admin/.</small></span>`; ok.hidden = false;
+    const bq = S.addRequest({ type: 'booking', listing: l.id, title: `${S.title(l)}${l.color ? ' ' + l.color : ''}`, price: l.price, name: f.name.value.trim(), phone: phoneNorm(f.phone.value) });
+    ok.innerHTML = statusOf(l) === 'reserved' ? `${icon('check')}<span>Ви в черзі на ${esc(bq.title)}. Якщо поточна бронь зніметься — напишемо в Direct або подзвонимо на ${esc(bq.phone)}. ${DEMO_NOTE}</span>` : `${icon('check')}<span>Заявку на бронь прийнято: ${esc(bq.title)}. Менеджер підтвердить у Direct або дзвінком на ${esc(bq.phone)}. ${DEMO_NOTE}</span>`; ok.hidden = false;
     f.querySelector('button').disabled = true;
   };
 }
 $$('dialog').forEach(d => d.addEventListener('keydown', e => trapTab(d, e)));
 $('[data-pass]').addEventListener('close', () => { if (viewer) { viewer.destroy(); viewer = null; } if (location.hash.startsWith('#t/')) history.replaceState(null, '', '#katalog'); });
-function routeHash() { const m = location.hash.match(/^#t\/([\w-]+)/); if (m && byId(m[1])) { $('#katalog').scrollIntoView(); openPass(m[1]); } }
+function routeHash() { const m = location.hash.match(/^#t\/([\w-]+)/); if (m && byId(m[1])) { noSmooth(() => $('#katalog').scrollIntoView()); openPass(m[1]); } } // jump instantly: the scroll lock must record the final position, not a frame of a smooth scroll
 addEventListener('hashchange', routeHash);
 
 /* notify */
 $('[data-notify-form]').addEventListener('submit', e => {
   e.preventDefault(); const f = e.target, err = $('[data-err]', f), ok = $('[data-ok]', f);
-  if (!f.want.value.trim() || f.contact.value.trim().length < 3) { err.textContent = 'Вкажіть, що чекаєте, і як з вами звʼязатися.'; err.hidden = false; return; }
-  err.hidden = true; S.addRequest({ type: 'notify', want: f.want.value.trim(), contact: f.contact.value.trim() });
-  ok.innerHTML = `${icon('check')}<span>Готово. Напишемо, щойно «${esc(f.want.value.trim())}» буде на вітрині.</span>`; ok.hidden = false; f.reset();
+  const ct = f.contact.value.trim(), ctOk = phoneOk(ct) || /^@?[a-z0-9._]{2,30}$/i.test(ct) && /[a-z]/i.test(ct);
+  f.want.removeAttribute('aria-invalid'); f.contact.removeAttribute('aria-invalid');
+  if (!f.want.value.trim() || !ctOk) { const bad = !f.want.value.trim() ? f.want : f.contact; err.textContent = bad === f.want ? 'Напишіть, який телефон чекаєте.' : 'Вкажіть телефон (+380 XX XXX XX XX) або нік в Instagram (@nick).'; err.hidden = false; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
+  err.hidden = true; S.addRequest({ type: 'notify', status: 'Чекає', want: f.want.value.trim(), contact: phoneNorm(ct) || (ct[0] === '@' ? ct : '@' + ct) });
+  ok.innerHTML = `${icon('check')}<span>Готово. Напишемо, щойно «${esc(f.want.value.trim())}» буде на вітрині. ${DEMO_NOTE}</span>`; ok.hidden = false; f.reset();
 });
 
 /* hero finder (iPhones) */
@@ -690,7 +735,8 @@ $('[data-notify-form]').addEventListener('submit', e => {
   const fill = () => {
     f.model.innerHTML = `<option value="">будь-який iPhone</option>` + MODELS().map(m => `<option ${m === 'iPhone 15 Pro' ? 'selected' : ''}>${m}</option>`).join('');
     f.mem.innerHTML = `<option value="">будь-якій памʼяті</option>` + [...new Set(LIST.filter(l => l.cat === 'iphone').map(l => l.mem))].sort((a, b) => a - b).map(m => `<option value="${m}" ${m === 256 ? 'selected' : ''}>${memL(m)}</option>`).join('');
-    f.batt.value = '85'; f.max.value = '40000';
+    f.batt.innerHTML = [0, 85, 90, 95].map(v => `<option value="${v}">${v ? v + '%+' : 'будь-якого %'}</option>`).join(''); f.batt.value = '85';
+    f.max.innerHTML = `<option value="999999">будь-якої ціни</option>` + PRICE_STEPS().map(v => `<option value="${v}">${fmt(v)} ₴</option>`).join(''); f.max.value = PRICE_STEPS().includes(40000) ? '40000' : '999999';
   };
   const count = () => {
     const n = LIST.filter(l => l.cat === 'iphone' && (!f.model.value || l.model === f.model.value) && (!f.mem.value || l.mem === +f.mem.value) && (+f.batt.value === 0 || l.isNew || (l.batt != null && l.batt >= +f.batt.value)) && l.price <= +f.max.value).length;
@@ -701,14 +747,100 @@ $('[data-notify-form]').addEventListener('submit', e => {
   f.addEventListener('change', count);
   f.addEventListener('submit', e => {
     e.preventDefault();
-    ['cats', 'gens', 'vars', 'mems', 'conds', 'sims'].forEach(k => F[k].clear());
+    ['cats', 'gens', 'vars', 'mems', 'conds', 'sims', 'quick'].forEach(k => F[k].clear());
     F.cats.add('iphone');
     F.models.clear(); F.colors.clear(); if (f.model.value) F.models.add(f.model.value);
     if (f.mem.value) F.mems.add(+f.mem.value);
     F.batt = Math.max(BATT_MIN, +f.batt.value || BATT_MIN); F.pmax = Math.min(P_MAX, +f.max.value); F.pmin = P_MIN; F.score = SCORE_MIN; F.sealed = false; F.fav = false; $('[data-fav-toggle]').setAttribute('aria-pressed', 'false');
     buildFilters(); renderGrid(); paintPick();
     $('#katalog').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    const ch = $('.cat__count'); ch.tabIndex = -1; ch.focus({ preventScroll: true }); // keyboard / screen-reader users land on the result count
   });
+}
+
+/* hero sentence pickers: dark bottom sheet (≤768px) or anchored popover; the native <select>s stay as the no-JS fallback and the source of truth */
+{
+  const f = $('[data-finder]'), sheet = $('[data-hp]'), MOB = matchMedia('(max-width:768px)');
+  const TITLES = { model: 'Оберіть модель', mem: 'Оберіть памʼять', batt: 'АКБ від', max: 'Ціна до' };
+  const NAMES = { model: 'Модель', mem: 'Памʼять', batt: 'АКБ від', max: 'Ціна до' };
+  const phones = () => LIST.filter(l => l.cat === 'iphone');
+  const match = (o = {}) => { const v = k => (k in o ? o[k] : f[k].value); return phones().filter(l => (!v('model') || l.model === v('model')) && (!v('mem') || l.mem === +v('mem')) && (+v('batt') === 0 || l.isNew || (l.batt != null && l.batt >= +v('batt'))) && l.price <= +v('max')).length; };
+  const opts = k => {
+    if (k === 'model') return [{ v: '', t: 'Будь-який iPhone', sub: `${phones().filter(avail).length} в наявності` }, ...MODELS().map(m => { const st = modelStats(m); return { v: m, t: shortModel(m), img: st.tint, sub: `від ${fmt(st.min)} ₴`, n: st.n ? `${st.n} в наявності` : 'під замовлення' }; })];
+    return [...f[k].options].map(o => ({ v: o.value, t: k === 'batt' ? (+o.value ? o.value + '%+' : 'будь-яка') : k === 'max' ? (+o.value >= 999999 ? 'будь-яка' : 'до ' + (+o.value / 1000) + ' тис.') : (o.value ? o.textContent : 'будь-яка'), c: match({ [k]: o.value }) }));
+  };
+  let cur = null, trig = null;
+  const pop = document.createElement('div'); pop.className = 'hp hp--pop'; pop.hidden = true; f.appendChild(pop);
+  const box = () => (MOB.matches ? sheet : pop);
+  const label = k => { const o = f[k].selectedOptions[0]; return o ? o.textContent : ''; };
+  const trigs = {};
+  $$('.finder__sel', f).forEach(lb => {
+    const sel = $('select', lb), k = sel.name;
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'hp-trig'; b.setAttribute('role', 'combobox'); b.setAttribute('aria-haspopup', 'listbox'); b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-controls', 'hp-list'); b.dataset.k = k;
+    sel.tabIndex = -1; sel.setAttribute('aria-hidden', 'true'); lb.classList.add('is-js'); lb.after(b); // the hidden select keeps the form data
+    trigs[k] = b;
+  });
+  const paintTrigs = () => Object.entries(trigs).forEach(([k, b]) => { $('.hp-trig__v', b)?.remove(); b.insertAdjacentHTML('beforeend', `<span class="hp-trig__v">${esc(label(k))}</span>`); b.setAttribute('aria-label', `${NAMES[k]}: ${label(k)}`); });
+  function render() {
+    const k = cur, el = box(), list = opts(k), val = f[k].value, n = match();
+    const isModel = k === 'model';
+    el.innerHTML = `<div class="hp__head"><p class="hp__h" id="hp-h">${TITLES[k]}</p><button type="button" class="hp__x" data-hp-close aria-label="Закрити">${icon('x')}</button></div>
+      <div class="hp__body"><div class="hp__list ${isModel ? 'hp__list--tiles' : 'hp__list--chips'}" role="listbox" id="hp-list" aria-labelledby="hp-h">${list.map((o, i) => `<div role="option" id="hp-o${i}" tabindex="${o.v === val ? 0 : -1}" aria-selected="${o.v === val}" class="hp__o ${isModel ? 'hp__o--tile' : 'hp__o--chip'} ${!isModel && !o.c && o.v !== val ? 'is-zero' : ''}" data-v="${esc(o.v)}">
+        ${isModel ? `<span class="hp__img">${o.img ? `<img src="assets/img/phones/${o.img}.webp" alt="" width="560" height="700" loading="lazy">` : `<b class="hp__all">${icon('phone')}</b>`}</span><span class="hp__t">${o.img ? '<small>iPhone</small>' : ''}${esc(o.t)}</span><span class="hp__p">${esc(o.sub)}</span>${o.n ? `<span class="hp__n">${esc(o.n)}</span>` : ''}` : `<span class="hp__t">${esc(o.t)}</span><span class="hp__c">${o.c} iPhone</span>`}
+        <span class="hp__ok">${icon('check')}</span></div>`).join('')}</div></div>
+      <div class="hp__foot"><button type="button" class="btn btn--red hp__done" data-hp-close>${n ? `Готово · ${n} iPhone` : 'Готово · 0 iPhone — змініть умови'}</button></div>`;
+    if (!el.querySelector('[tabindex="0"]')) el.querySelector('[role=option]').tabIndex = 0;
+  }
+  function reveal(o) { // scroll only the list, never the page
+    const bd = o.closest('.hp__body'); if (!bd) return; const r = o.getBoundingClientRect(), br = bd.getBoundingClientRect();
+    if (r.top < br.top) bd.scrollTop -= br.top - r.top + 8; else if (r.bottom > br.bottom) bd.scrollTop += r.bottom - br.bottom + 8;
+  }
+  function place() {
+    if (MOB.matches || !trig) return;
+    pop.style.maxHeight = Math.max(300, Math.min(620, innerHeight - trig.getBoundingClientRect().bottom - 24)) + 'px';
+    const fr = f.getBoundingClientRect(), tr = trig.getBoundingClientRect(), w = Math.min(cur === 'model' ? 620 : 380, fr.width - 16);
+    pop.style.width = w + 'px'; pop.style.left = Math.max(8, Math.min(tr.left - fr.left - 12, fr.width - w - 8)) + 'px'; pop.style.top = (tr.bottom - fr.top + 10) + 'px';
+  }
+  function openHP(k) {
+    if (cur) closeHP(false);
+    cur = k; trig = trigs[k]; trig.setAttribute('aria-expanded', 'true');
+    render();
+    if (MOB.matches) { sheet.showModal(); }
+    else { pop.hidden = false; place(); }
+    const o = box().querySelector('[role=option][tabindex="0"]'); o.focus({ preventScroll: true }); reveal(o);
+  }
+  function closeHP(refocus = true) {
+    if (!cur) return;
+    const t = trig; t.setAttribute('aria-expanded', 'false'); cur = null; trig = null;
+    if (sheet.open) sheet.close(); pop.hidden = true; pop.innerHTML = '';
+    if (refocus) t.focus({ preventScroll: true });
+  }
+  function choose(o) {
+    const k = cur; f[k].value = o.dataset.v; f.dispatchEvent(new Event('change')); paintTrigs();
+    if (MOB.matches) { const v = o.dataset.v; render(); const n = box().querySelector(`[role=option][data-v="${CSS.escape(v)}"]`); n && n.focus({ preventScroll: true }); }
+    else closeHP();
+  }
+  Object.values(trigs).forEach(b => {
+    b.addEventListener('click', () => (cur === b.dataset.k ? closeHP() : openHP(b.dataset.k)));
+    b.addEventListener('keydown', e => { if (['ArrowDown', 'ArrowUp'].includes(e.key) || (e.altKey && e.key === 'ArrowDown')) { e.preventDefault(); openHP(b.dataset.k); } });
+  });
+  const onClick = e => { const o = e.target.closest('[role=option]'); if (o) return choose(o); if (e.target.closest('[data-hp-close]')) return closeHP(); if (e.target === sheet) closeHP(); };
+  sheet.addEventListener('click', onClick); pop.addEventListener('click', onClick);
+  sheet.addEventListener('cancel', e => { e.preventDefault(); closeHP(); });
+  const onKey = e => {
+    const os = $$('[role=option]', box()), i = os.indexOf(document.activeElement);
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); return closeHP(); }
+    if (i < 0) return;
+    const go = j => { j = Math.max(0, Math.min(os.length - 1, j)); os.forEach((x, n) => x.tabIndex = n === j ? 0 : -1); os[j].focus({ preventScroll: true }); reveal(os[j]); e.preventDefault(); };
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') go(i + 1); else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') go(i - 1); else if (e.key === 'Home') go(0); else if (e.key === 'End') go(os.length - 1);
+    else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(os[i]); }
+  };
+  sheet.addEventListener('keydown', onKey); pop.addEventListener('keydown', onKey);
+  pop.addEventListener('focusout', e => { if (cur && !MOB.matches && !pop.contains(e.relatedTarget) && e.relatedTarget !== trig) closeHP(false); });
+  document.addEventListener('pointerdown', e => { if (cur && !MOB.matches && !pop.contains(e.target) && !Object.values(trigs).some(t => t.contains(e.target))) closeHP(false); });
+  addEventListener('resize', () => { if (!cur) return; if (MOB.matches !== sheet.open) { const k = cur; closeHP(false); openHP(k); } else place(); });
+  f.addEventListener('change', paintTrigs);
+  f.classList.add('finder--js'); paintTrigs();
 }
 
 /* ---------------- check list ---------------- */
@@ -751,8 +883,9 @@ function calc() {
   const price = Math.max(0, +$('[data-c-price]').value || 0), nI = $('[data-c-n]');
   nI.max = bank.max; if (+nI.value > bank.max) nI.value = bank.max; rangeFill(nI);
   const n = +nI.value; $('[data-c-nout]').textContent = n;
-  $('[data-c-sum]').textContent = fmt(Math.ceil(price / n));
-  $('[data-c-note]').textContent = bank.free && n <= bank.free ? `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} без переплати · перший платіж у день покупки` : `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} · без урахування можливої комісії банку`;
+  const bad = price < 3000 || price > 150000; bad ? $('[data-c-price]').setAttribute('aria-invalid', 'true') : $('[data-c-price]').removeAttribute('aria-invalid');
+  $('[data-c-sum]').textContent = bad ? '—' : fmt(Math.ceil(price / n));
+  $('[data-c-note]').textContent = bad ? 'Вкажіть ціну від 3 000 до 150 000 ₴' : bank.free && n <= bank.free ? `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} без переплати · перший платіж у день покупки` : `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} · без урахування можливої комісії банку`;
   $('[data-c-bars]').innerHTML = Array.from({ length: n }, () => '<i></i>').join('');
 }
 {
@@ -784,11 +917,12 @@ function calc() {
   f.target.innerHTML = '<option value="">Ще не вирішив(-ла)</option>' + LIST.filter(l => l.cat === 'iphone').map(l => `<option value="${l.id}">${esc(S.title(l))} ${esc(l.color)} — ${fmt(l.price)} ₴</option>`).join('');
   f.addEventListener('submit', e => {
     e.preventDefault(); const err = $('[data-err]', f), ok = $('[data-ok]', f);
-    if (!f.name.value.trim() || !phoneOk(f.phone.value)) { err.textContent = !f.name.value.trim() ? 'Як до вас звертатися?' : 'Перевірте номер телефону — потрібно 10 цифр.'; err.hidden = false; (f.name.value.trim() ? f.phone : f.name).setAttribute('aria-invalid', 'true'); return; }
+    f.name.removeAttribute('aria-invalid'); f.phone.removeAttribute('aria-invalid');
+    if (!f.name.value.trim() || !phoneOk(f.phone.value)) { err.textContent = !f.name.value.trim() ? 'Як до вас звертатися?' : PHONE_ERR; err.hidden = false; const bad = f.name.value.trim() ? f.phone : f.name; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
     err.hidden = true;
     const t = byId(f.target.value);
-    S.addRequest({ type: 'tradein', model: f.model.value, mem: f.mem.value, look: f.look.value, batt: +f.batt.value, box: f.box.checked, repaired: f.repaired.checked, faceid: f.faceid.checked, target: t ? `${S.title(t)} ${t.color || ''}`.trim() : '', name: f.name.value.trim(), phone: f.phone.value.trim() });
-    ok.innerHTML = `${icon('check')}<span>Отримали. Напишемо або передзвонимо сьогодні в робочі години. Візьміть телефон у магазин — огляд займе близько 15 хвилин.</span>`; ok.hidden = false;
+    S.addRequest({ type: 'tradein', model: f.model.value, mem: f.mem.value, look: f.look.value, batt: +f.batt.value, box: f.box.checked, repaired: f.repaired.checked, faceid: f.faceid.checked, target: t ? `${S.title(t)} ${t.color || ''}`.trim() : '', name: f.name.value.trim(), phone: phoneNorm(f.phone.value) });
+    ok.innerHTML = `${icon('check')}<span>Отримали. Напишемо або передзвонимо сьогодні в робочі години. Візьміть телефон у магазин — огляд займе близько 15 хвилин. ${DEMO_NOTE}</span>`; ok.hidden = false;
   });
 }
 
@@ -803,7 +937,7 @@ function calc() {
   const sync = () => {
     const want = anyOpen(); if (want === on) return; on = want;
     if (want) { y = scrollY; html.classList.add('is-locked'); document.body.style.top = `-${y}px`; }
-    else { html.classList.remove('is-locked'); document.body.style.top = ''; window.scrollTo({ top: y, behavior: 'instant' }); }
+    else { html.classList.remove('is-locked'); document.body.style.top = ''; noSmooth(() => window.scrollTo(0, y)); }
   };
   const mo = new MutationObserver(sync);
   $$('dialog').forEach(d => mo.observe(d, { attributes: true, attributeFilter: ['open'] }));

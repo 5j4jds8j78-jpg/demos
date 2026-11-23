@@ -16,6 +16,8 @@
 <link rel="preload" href="assets/fonts/display-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
+<script>/* stable viewport height: in-app browsers (Instagram, iOS Safari) resize the viewport as their toolbars collapse; ignore height-only changes on touch screens so sections never change height mid-scroll */
+(function(){var d=document.documentElement,w=0,h=0,t=matchMedia('(pointer:coarse)');function s(f){var nw=innerWidth,nh=innerHeight;if(!f&&nw===w&&(t.matches||nh===h))return;w=nw;h=nh;d.style.setProperty('--vh',nh/100+'px')}s(1);addEventListener('resize',function(){s()});addEventListener('orientationchange',function(){setTimeout(function(){s(1)},350)})})();</script>
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
@@ -75,7 +77,7 @@
       <a href="#kontakty">Контакти</a>
     </nav>
     <span class="nav__status" data-open-status><span class="pulse" aria-hidden="true"></span><span data-open-text>Графік роботи</span></span>
-    <a class="btn btn--ghost btn--sm nav__call" href="tel:+380989885588"><svg class="ic"><use href="#i-phone"/></svg><span>098 988 55 88</span></a>
+    <a class="btn btn--ghost btn--sm nav__call" href="tel:+380989885588" aria-label="Подзвонити: 098 988 55 88"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><span>098 988 55 88</span></a>
     <button class="nav__menu" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn><svg class="ic"><use href="#i-menu"/></svg><span class="sr">Меню</span></button>
   </div>
   <div class="menu" id="menu" hidden data-menu>
@@ -169,9 +171,9 @@
             <label class="fld"><span>Імʼя</span><input name="name" required autocomplete="given-name"></label>
             <label class="fld"><span>Телефон</span><input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="+380"></label>
           </div>
-          <p class="form__err" data-err hidden></p>
+          <p class="form__err" role="alert" data-err hidden></p>
           <button class="btn btn--red" type="submit">Записатися на ремонт<svg class="ic"><use href="#i-arrow"/></svg></button>
-          <p class="form__ok" data-ok hidden></p>
+          <p class="form__ok" role="status" data-ok hidden></p>
         </form>
       </div>
     </div>
@@ -200,9 +202,10 @@
         <p class="cue__k"><span class="ln"><span>Реальна позиція з вітрини</span></span></p>
         <p class="film__spec"><span class="ln"><span data-unit-spec>iPhone 15 Pro 256 ГБ · стан 9.9 | 10 · АКБ 91% · 278 циклів</span></span></p>
         <p class="film__warr"><span class="ln"><span>90 днів гарантії від iSPAYAL</span></span></p>
-        <div class="film__acts"><a class="btn btn--red btn--sm" href="#t/Df4qevaMr-N" data-unit-link>Дивитись у каталозі</a><button class="btn btn--ghost btn--sm film__pause" type="button" data-film-toggle hidden aria-pressed="false">Пауза</button></div>
+        <div class="film__acts"><a class="btn btn--red btn--sm" href="#t/Df4qevaMr-N" data-unit-link>Дивитись у каталозі</a></div>
       </div>
     </div>
+    <div class="film__ctl"><button class="btn btn--ghost btn--sm film__pause" type="button" data-film-toggle hidden aria-pressed="false">Пауза</button></div>
   </div>
 </section>
 
@@ -257,6 +260,11 @@
             </div>
           </div>
         </div>
+        <div class="catbar">
+          <div class="seg" role="group" aria-label="Як показувати ціну" data-pmode><button type="button" data-pm="full" aria-pressed="true">Повна ціна</button><button type="button" data-pm="mo" aria-pressed="false">Ціна в місяць</button></div>
+          <p class="catbar__note mono">«в місяць» = 4 платежі без % · умови — у банку</p>
+          <div class="qpills" role="group" aria-label="Швидкі фільтри" data-qpills></div>
+        </div>
         <p class="cat__count" aria-live="polite"><b data-count>0</b> <span data-count-word>позицій</span> під ваші умови</p>
         <ul class="grid" data-grid></ul>
         <div class="notify" data-notify>
@@ -268,7 +276,7 @@
             <label class="fld"><span>Який телефон чекаєте</span><input name="want" required data-notify-want placeholder="iPhone 15 Pro 256, АКБ від 90%"></label>
             <label class="fld"><span>Телефон або нік в Instagram</span><input name="contact" required autocomplete="tel"></label>
             <button class="btn btn--dark" type="submit"><svg class="ic"><use href="#i-bell"/></svg>Повідомити мене</button>
-            <p class="form__err" data-err hidden></p><p class="form__ok" data-ok hidden></p>
+            <p class="form__err" role="alert" data-err hidden></p><p class="form__ok" role="status" data-ok hidden></p>
           </form>
         </div>
       </div>
@@ -326,7 +334,7 @@
         <p class="calc__note" data-c-note></p>
         <div class="calc__bars" data-c-bars aria-hidden="true"></div>
       </div>
-      <p class="calc__disc">Розрахунок орієнтовний. Точні умови — за умовами банку.</p>
+      <p class="calc__disc">Розрахунок орієнтовний. Точні умови — у банку.</p>
     </div>
   </div>
 </section>
@@ -340,7 +348,7 @@
     <form class="trade__form form" data-trade-form novalidate>
       <div class="row2">
         <label class="fld"><span>Ваша модель</span><select name="model" data-t-model></select></label>
-        <label class="fld"><span>Памʼять</span><select name="mem"><option>64</option><option selected>128</option><option>256</option><option>512</option><option>1 ТБ</option></select></label>
+        <label class="fld"><span>Памʼять</span><select name="mem"><option>64 ГБ</option><option selected>128 ГБ</option><option>256 ГБ</option><option>512 ГБ</option><option>1 ТБ</option></select></label>
       </div>
       <fieldset><legend>Як виглядає</legend><div class="chips chips--wrap" data-t-look>
         <label class="chip"><input type="radio" name="look" value="Як новий" checked><span>Як новий</span></label>
@@ -364,9 +372,9 @@
         <label class="fld"><span>Імʼя</span><input name="name" required autocomplete="given-name"></label>
         <label class="fld"><span>Телефон</span><input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="+380"></label>
       </div>
-      <p class="form__err" data-err hidden></p>
+      <p class="form__err" role="alert" data-err hidden></p>
       <button class="btn btn--red" type="submit">Надіслати на оцінку<svg class="ic"><use href="#i-arrow"/></svg></button>
-      <p class="form__ok" data-ok hidden></p>
+      <p class="form__ok" role="status" data-ok hidden></p>
     </form>
   </div>
 </section>
@@ -422,6 +430,7 @@
 
 <dialog class="pass" data-pass aria-labelledby="pass-h"></dialog>
 <dialog class="cmp" data-cmpdlg aria-label="Порівняння телефонів"></dialog>
+<dialog class="hp hp--sheet" data-hp aria-labelledby="hp-h"></dialog>
 <div class="toast" role="status" aria-live="polite" data-toast></div>
 
 <script src="assets/js/store.js"></script>

@@ -58,7 +58,7 @@
       title: `Apple ${model} ${mem >= 1024 ? mem / 1024 + 'TB' : mem + 'GB'} (${color})${sim ? ` (${sim})` : ''}`,
       model, mem, color, tint: fd.get('tint'), sim, label, isNew, score, batt, cycles, battRaw, battNew: battNew || svc.includes('новий акумулятор'),
       kit: fd.get('kit') || '', service: svc.join(' + '), sealed: !!fd.get('sealed'), bonus: fd.getAll('bonus').join(' + ') + (fd.getAll('bonus').length ? '*' : ''),
-      warranty: fd.get('warranty'), price: +fd.get('price') || 0, note: (fd.get('note') || '').trim(), special: isNew, order: -1,
+      warranty: fd.get('warranty'), price: +fd.get('price') || 0, note: (fd.get('note') || '').trim(), special: isNew, order: -1, added: new Date().toLocaleDateString('uk-UA', { day: '2-digit', month: '2-digit' }),
     };
   }
   function preview() {
@@ -106,7 +106,7 @@
     $('[data-stock-n]').textContent = `${L.length} поз.`;
     $('[data-stock]').innerHTML = rows.map(l => `<tr><td><div class="who">${l.cat === 'iphone' ? `<img src="../assets/img/phones/${l.tint}.webp" alt="">` : `<span class="tag">${{ watch: 'Watch', airpods: 'AirPods', mac: 'Mac' }[l.cat]}</span>`}<span><b>${esc(S.title(l))}</b><small>${esc(l.color)}${l.sim ? ' · ' + esc(l.sim) : ''}${l.code ? ` · <a href="https://www.instagram.com/p/${l.code}/" target="_blank" rel="noopener">пост ↗</a>` : ''}</small></span></div></td>
       <td>${l.score ?? '—'}</td><td>${l.batt != null ? l.batt + '%' : '—'}${l.cycles != null ? ` · ${l.cycles}` : ''}</td><td><b>${fmt(l.price)} ₴</b></td><td class="hide-m">${esc(S.cond(l))}</td>
-      <td><div class="acts">${l.cat === 'iphone' ? `<button type="button" data-edit="${l.id}">Редагувати</button>` : ''}<button type="button" data-cap="${l.id}">Підпис</button><select data-lst="${l.id}" aria-label="Статус на сайті">${[['available', 'Є в наявності'], ['reserved', 'Заброньовано'], ['sold', 'Продано']].map(([k, v]) => `<option value="${k}" ${(l.status || 'available') === k ? 'selected' : ''}>${v}</option>`).join('')}</select><button type="button" data-del="${l.id}" aria-label="Прибрати з вітрини">Прибрати</button></div></td></tr>`).join('');
+      <td><div class="acts">${l.cat === 'iphone' ? `<button type="button" data-edit="${l.id}">Редагувати</button>` : ''}<button type="button" data-cap="${l.id}" aria-label="Згенерувати текст посту для Instagram: ${esc(S.title(l))}">Текст посту</button><select data-lst="${l.id}" aria-label="Статус на сайті">${[['available', 'Є в наявності'], ['reserved', 'Заброньовано'], ['sold', 'Продано']].map(([k, v]) => `<option value="${k}" ${(l.status || 'available') === k ? 'selected' : ''}>${v}</option>`).join('')}</select><button type="button" data-del="${l.id}" aria-label="Прибрати з вітрини">Прибрати</button></div></td></tr>`).join('');
   }
   $('[data-stock-q]').addEventListener('input', stock);
   $('[data-stock]').addEventListener('change', e => {
@@ -116,7 +116,7 @@
   });
   $('[data-stock]').addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return; const L = S.listings();
-    if (b.dataset.del) { S.saveListings(L.filter(l => l.id !== b.dataset.del)); toast('Прибрано з вітрини'); stock(); tiles(); return; }
+    if (b.dataset.del) { const l = L.find(x => x.id === b.dataset.del); if (!confirm(`Прибрати з вітрини «${S.title(l)} ${l.color || ''}»? На сайті позиція зникне.`)) return; S.saveListings(L.filter(x => x.id !== b.dataset.del)); toast('Прибрано з вітрини'); stock(); tiles(); return; }
     const id = b.dataset.edit || b.dataset.cap, l = L.find(x => x.id === id); if (!l) return;
     if (b.dataset.cap) { $('[data-caption]').value = S.caption(l); $('[data-copy]').disabled = false; $('#add').scrollIntoView({ behavior: 'smooth' }); return; }
     f.id.value = l.id; f.model.value = l.model; f.mem.value = String(l.mem); f.color.value = l.color; f.tint.value = l.tint;
@@ -138,7 +138,7 @@
   function reqs() {
     const r = S.requests();
     $$('[data-tab]').forEach(b => { b.setAttribute('aria-selected', b.dataset.tab === tab); b.querySelector('b').textContent = r.filter(x => x.type === b.dataset.tab).length; });
-    const head = { booking: ['Коли', 'Клієнт', 'Телефон', 'Сума', 'Статус'], tradein: ['Коли', 'Клієнт', 'Що здає', 'Хоче', 'Статус'], notify: ['Коли', 'Чекає', 'Контакт', '', 'Статус'] }[tab];
+    const head = { booking: ['Коли', 'Клієнт', 'Що бронює', 'Сума', 'Статус'], tradein: ['Коли', 'Клієнт', 'Що здає', 'Хоче', 'Статус'], notify: ['Коли', 'Чекає', 'Контакт', '', 'Статус'] }[tab];
     $('[data-req-head]').innerHTML = `<tr>${head.map(h => `<th>${h}</th>`).join('')}</tr>`;
     const rows = r.filter(x => x.type === tab);
     $('[data-req]').innerHTML = rows.length ? rows.map(x => {
@@ -152,7 +152,10 @@
   $('[data-tabs]').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) { tab = b.dataset.tab; reqs(); } });
   document.addEventListener('change', e => {
     const s = e.target.closest('[data-st]'); if (!s) return;
-    const r = S.requests(), x = r.find(y => y.id === s.dataset.st); if (x) { x.status = s.value; S.saveRequests(r); tiles(); toast('Статус: ' + s.value); }
+    const r = S.requests(), x = r.find(y => y.id === s.dataset.st); if (!x) return; x.status = s.value; S.saveRequests(r); tiles();
+    // a booking drives the unit's badge on the site: confirmed = reserved, sold = sold, cancelled = back in stock
+    const map = { 'Підтверджено': 'reserved', 'Продано': 'sold', 'Скасовано': 'available' }, L = S.listings(), l = x.type === 'booking' && L.find(y => y.id === x.listing);
+    if (l && map[s.value]) { l.status = map[s.value]; S.saveListings(L); stock(); toast(`Статус: ${s.value} · на сайті: ${{ reserved: 'Заброньовано', sold: 'Продано', available: 'Є в наявності' }[l.status]}`); } else toast('Статус: ' + s.value);
   });
 
   /* repair kanban */
