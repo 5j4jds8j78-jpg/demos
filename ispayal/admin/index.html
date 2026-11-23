@@ -59,7 +59,7 @@
         <label class="fld"><span>Комплект</span><select name="kit"><option>коробка + кабель</option><option>коробка ispayal + кабель</option><option>коробка не рідна + кабель</option><option>кабель</option><option value="">не вказувати</option></select></label>
         <fieldset><legend>Обслуговування</legend><div class="chips chips--wrap" data-svc>
           <label class="chip"><input type="checkbox" name="svc" value="новий акумулятор"><span>новий акумулятор</span></label>
-          <label class="chip"><input type="checkbox" name="svc" value="переклей скла"><span>переклей скла</span></label>
+          <label class="chip"><input type="checkbox" name="svc" value="переклеювання скла"><span>переклеювання скла</span></label>
           <label class="chip"><input type="checkbox" name="svc" value="заднє скло"><span>заднє скло</span></label>
           <label class="chip"><input type="checkbox" name="svc" value="ремонт контролера заряджання"><span>контролер заряджання</span></label>
           <label class="chip"><input type="checkbox" name="svc" value="полірування корпусу"><span>полірування</span></label></div></fieldset>
@@ -73,13 +73,13 @@
           <label class="fld"><span>Гарантія</span><select name="warranty"><option>Гарантія 90 днів від iSpayal</option><option>Гарантія 90 днів від iSpayal + Apple</option><option>Гарантія Apple — 1 рік</option></select></label>
           <label class="fld"><span>Ціна, грн</span><input name="price" type="number" min="1000" step="1" value="30999" required inputmode="numeric"></label>
         </div>
-        <p class="form__err" data-err hidden></p>
+        <p class="form__err" role="alert" data-err hidden></p>
         <div class="aform__acts">
           <button class="btn btn--red" type="submit" data-publish>Опублікувати на сайті</button>
           <button class="btn btn--line" type="button" data-gen>Згенерувати текст для Instagram</button>
           <button class="linkbtn" type="button" data-new>Очистити форму</button>
         </div>
-        <p class="form__ok" data-ok hidden></p>
+        <p class="form__ok" role="status" data-ok hidden></p>
       </form>
       <aside class="preview" aria-label="Попередній перегляд">
         <p class="mono muted">Так виглядатиме на сайті</p>

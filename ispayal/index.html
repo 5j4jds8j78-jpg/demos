@@ -3,17 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>iSPAYAL — iPhone з паспортом, ремонт і trade-in у Горішніх Плавнях</title>
+<title>iSPAYAL — iPhone з паспортом, ремонт і Trade-in у Горішніх Плавнях</title>
 <meta name="robots" content="noindex">
 <meta name="description" content="Каталог вживаних і нових iPhone із чесним станом, % АКБ і циклами. Ремонт, Trade-in, розстрочка, 90 днів гарантії. Горішні Плавні, просп. Героїв Дніпра, 36.">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="website">
 <meta property="og:title" content="iSPAYAL — iPhone з паспортом">
 <meta property="og:description" content="Стан x/10, % АКБ і цикли, герметичність, 90 днів гарантії. Продаж, ремонт, Trade-in у Горішніх Плавнях.">
-<meta property="og:image" content="og.jpg">
+<meta property="og:image" content="https://5j4jds8j78-jpg.github.io/demos/ispayal/og.jpg">
+<meta property="og:url" content="https://5j4jds8j78-jpg.github.io/demos/ispayal/">
 <meta property="og:locale" content="uk_UA">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/display-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
@@ -83,7 +85,7 @@
     <span class="nav__status" data-open-status><span class="pulse" aria-hidden="true"></span><span data-open-text>Графік роботи</span></span>
     <button class="nav__search" type="button" aria-label="Пошук у каталозі" data-nav-search><svg class="ic" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button>
     <a class="btn btn--ghost btn--sm nav__call" href="tel:+380989885588" aria-label="Подзвонити: 098 988 55 88"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><span>098 988 55 88</span></a>
-    <button class="nav__menu" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn><svg class="ic"><use href="#i-menu"/></svg><span class="sr">Меню</span></button>
+    <button class="nav__menu" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn><svg aria-hidden="true" class="ic"><use href="#i-menu"/></svg><span class="sr">Меню</span></button>
   </div>
   <div class="menu" id="menu" hidden data-menu>
     <a href="#katalog">Каталог</a><a href="#remont">Ремонт</a><a href="#perevirka">Що перевіряємо</a><a href="#trade-in">Trade-in</a><a href="#rozstrochka">Розстрочка</a><a href="#kontakty">Контакти</a>
@@ -109,24 +111,20 @@
 
   <section class="hero" aria-labelledby="hero-h">
     <div class="wrap hero__in">
-      <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Горішні Плавні · iPhone: продаж, ремонт, trade-in</p>
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Горішні Плавні · iPhone: продаж, ремонт, Trade-in</p>
       <h1 id="hero-h" class="hero__h">Знайдіть свій iPhone <span>за&nbsp;10&nbsp;секунд.</span></h1>
       <p class="hero__lead">Усі iPhone з нашого Instagram — з фільтрами за моделлю, АКБ і ціною. Кожен — конкретний екземпляр із паспортом: стан x/10, % АКБ і цикли, що міняли, чи герметичний. І 90&nbsp;днів гарантії від нас.</p>
       <form class="finder" data-finder aria-label="Швидкий пошук">
-        <span class="finder__t">Шукаю</span>
-        <label class="finder__sel"><span class="sr">Модель</span><select name="model" data-f-model></select></label><button type="button" class="hp-trig" data-k="model" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="hp-list" aria-label="Модель: iPhone 15 Pro"><span class="hp-trig__v">iPhone 15 Pro</span></button>
-        <span class="finder__t">на</span>
-        <label class="finder__sel"><span class="sr">Памʼять</span><select name="mem" data-f-mem></select></label><button type="button" class="hp-trig" data-k="mem" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="hp-list" aria-label="Памʼять: 256 ГБ"><span class="hp-trig__v">256 ГБ</span></button>
-        <span class="finder__t">АКБ від</span>
-        <label class="finder__sel"><span class="sr">Мінімальний % АКБ</span><select name="batt" data-f-batt><option value="0">будь-якого</option><option value="85">85%</option><option value="90">90%</option><option value="95">95%</option><option value="100">100%</option></select></label><button type="button" class="hp-trig" data-k="batt" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="hp-list" aria-label="АКБ від: 85%+"><span class="hp-trig__v">85%+</span></button>
-        <span class="finder__t">ціна</span>
-        <label class="finder__sel"><span class="sr">Максимальна ціна</span><select name="max" data-f-max><option value="999999">будь-якої ціни</option><option value="15000">15 000 ₴</option><option value="20000">20 000 ₴</option><option value="25000">25 000 ₴</option><option value="35000">35 000 ₴</option><option value="40000">40 000 ₴</option><option value="45000">45 000 ₴</option><option value="60000">60 000 ₴</option></select></label><button type="button" class="hp-trig" data-k="max" role="combobox" aria-haspopup="dialog" aria-expanded="false" aria-controls="hp-list" aria-label="Ціна: будь-яка ціна"><span class="hp-trig__v">будь-яка ціна</span></button>
-        <button class="btn btn--red finder__go" type="submit"><span data-f-count>Показати</span><svg class="ic"><use href="#i-arrow"/></svg></button>
+        <span class="finder__grp"><span class="finder__t">Шукаю</span><label class="finder__sel"><span class="sr">Модель</span><select name="model" data-f-model></select></label><button type="button" class="hp-trig" data-k="model" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="hp-list" aria-label="Модель: iPhone 15 Pro"><span class="hp-trig__v">iPhone 15 Pro</span></button></span>
+        <span class="finder__grp"><span class="finder__t">на</span><label class="finder__sel"><span class="sr">Памʼять</span><select name="mem" data-f-mem></select></label><button type="button" class="hp-trig" data-k="mem" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="hp-list" aria-label="Памʼять: 256 ГБ"><span class="hp-trig__v">256 ГБ</span></button></span>
+        <span class="finder__grp"><span class="finder__t">АКБ від</span><label class="finder__sel"><span class="sr">Мінімальний % АКБ</span><select name="batt" data-f-batt><option value="0">будь-якого</option><option value="85">85%</option><option value="90">90%</option><option value="95">95%</option><option value="100">100%</option></select></label><button type="button" class="hp-trig" data-k="batt" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="hp-list" aria-label="АКБ від: 85%+"><span class="hp-trig__v">85%+</span></button></span>
+        <span class="finder__grp"><span class="finder__t">ціна</span><label class="finder__sel"><span class="sr">Максимальна ціна</span><select name="max" data-f-max><option value="999999">будь-якої ціни</option><option value="15000">15 000 ₴</option><option value="20000">20 000 ₴</option><option value="25000">25 000 ₴</option><option value="35000">35 000 ₴</option><option value="40000">40 000 ₴</option><option value="45000">45 000 ₴</option><option value="60000">60 000 ₴</option></select></label><button type="button" class="hp-trig" data-k="max" role="combobox" aria-haspopup="dialog" aria-expanded="false" aria-controls="hp-list" aria-label="Ціна: будь-яка"><span class="hp-trig__v">будь-яка</span></button></span>
+        <button class="btn btn--red finder__go" type="submit"><span data-f-count>Показати</span><svg aria-hidden="true" class="ic"><use href="#i-arrow"/></svg></button>
       </form>
       <div class="hero__facts" role="list">
         <span role="listitem"><b>42,3 тис.</b> у нашому Instagram</span>
         <span role="listitem"><b>90 днів</b> гарантії від iSPAYAL</span>
-        <span role="listitem"><b>до 14 платежів</b> у розстрочку, з них до 11 без % (умови — у банку)</span>
+        <span role="listitem"><b>до 14 платежів</b> (Укрсиб), до&nbsp;11 без&nbsp;% (Sens)</span>
       </div>
       <a class="hero__scroll" href="#remont">Ремонт і сервіс — нижче</a>
     </div>
@@ -148,13 +146,13 @@
       <div class="chapter__card svc">
         <h2 id="svc-h" class="h3">Що ремонтуємо найчастіше</h2>
         <div class="svc__list" role="tablist" aria-label="Послуги сервісу" data-svc-list>
-          <button role="tab" type="button" class="svc__b" data-svc="battery" aria-selected="true"><svg class="ic"><use href="#i-battery"/></svg>Заміна АКБ</button>
-          <button role="tab" type="button" class="svc__b" data-svc="screen" aria-selected="false"><svg class="ic"><use href="#i-glass"/></svg>Переклей скла</button>
-          <button role="tab" type="button" class="svc__b" data-svc="back" aria-selected="false"><svg class="ic"><use href="#i-case"/></svg>Заднє скло</button>
-          <button role="tab" type="button" class="svc__b" data-svc="board" aria-selected="false"><svg class="ic"><use href="#i-chip"/></svg>Контролер заряджання</button>
-          <button role="tab" type="button" class="svc__b" data-svc="frame" aria-selected="false"><svg class="ic"><use href="#i-polish"/></svg>Полірування корпусу</button>
+          <button role="tab" type="button" class="svc__b" data-svc="battery" aria-selected="true" aria-controls="svc-panel" tabindex="0"><svg aria-hidden="true" class="ic"><use href="#i-battery"/></svg>Заміна АКБ</button>
+          <button role="tab" type="button" class="svc__b" data-svc="screen" aria-selected="false" aria-controls="svc-panel" tabindex="-1"><svg aria-hidden="true" class="ic"><use href="#i-glass"/></svg>Переклеювання скла</button>
+          <button role="tab" type="button" class="svc__b" data-svc="back" aria-selected="false" aria-controls="svc-panel" tabindex="-1"><svg aria-hidden="true" class="ic"><use href="#i-case"/></svg>Заднє скло</button>
+          <button role="tab" type="button" class="svc__b" data-svc="board" aria-selected="false" aria-controls="svc-panel" tabindex="-1"><svg aria-hidden="true" class="ic"><use href="#i-chip"/></svg>Контролер заряджання</button>
+          <button role="tab" type="button" class="svc__b" data-svc="frame" aria-selected="false" aria-controls="svc-panel" tabindex="-1"><svg aria-hidden="true" class="ic"><use href="#i-polish"/></svg>Полірування корпусу</button>
         </div>
-        <div class="svc__panel" role="tabpanel" aria-live="polite" data-svc-panel></div>
+        <div class="svc__panel" id="svc-panel" role="tabpanel" aria-live="polite" data-svc-panel></div>
       </div>
     </div>
   </section>
@@ -168,7 +166,7 @@
           <div class="row2">
             <label class="fld"><span>Модель</span><input name="model" required autocomplete="off" placeholder="Напр., iPhone 13 Pro" data-model-input></label>
             <label class="fld"><span>Що зробити</span><select name="service" data-repair-service>
-              <option>Заміна АКБ</option><option>Переклей скла</option><option>Заднє скло</option><option>Контролер заряджання</option><option>Полірування корпусу</option><option>Інше — опишу на місці</option></select></label>
+              <option>Заміна АКБ</option><option>Переклеювання скла</option><option>Заднє скло</option><option>Контролер заряджання</option><option>Полірування корпусу</option><option>Інше — опишу на місці</option></select></label>
           </div>
           <fieldset class="slots"><legend>День</legend><div class="chips" data-days></div></fieldset>
           <fieldset class="slots"><legend>Час</legend><div class="chips chips--time" data-times></div></fieldset>
@@ -177,7 +175,7 @@
             <label class="fld"><span>Телефон</span><input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="+380"></label>
           </div>
           <p class="form__err" role="alert" data-err hidden></p>
-          <button class="btn btn--red" type="submit">Записатися на ремонт<svg class="ic"><use href="#i-arrow"/></svg></button>
+          <button class="btn btn--red" type="submit">Записатися на ремонт<svg aria-hidden="true" class="ic"><use href="#i-arrow"/></svg></button>
           <p class="form__ok" role="status" data-ok hidden></p>
         </form>
       </div>
@@ -205,7 +203,7 @@
       </div>
       <div class="cue film__unit" data-cue="4.6,6.2" data-unit>
         <p class="cue__k"><span class="ln"><span>Реальна позиція з вітрини</span></span></p>
-        <p class="film__spec"><span class="ln"><span data-unit-spec>iPhone 15 Pro 256 ГБ · стан 9.9 | 10 · АКБ 91% · 278 циклів</span></span></p>
+        <p class="film__spec"><span class="ln"><span data-unit-spec>iPhone 15 Pro 256 ГБ · стан 9,9 | 10 · АКБ 91% · 278 циклів</span></span></p>
         <p class="film__warr"><span class="ln"><span>90 днів гарантії від iSPAYAL</span></span></p>
         <div class="film__acts"><a class="btn btn--red btn--sm" href="#t/Df4qevaMr-N" data-unit-link>Дивитись у каталозі</a></div>
       </div>
@@ -219,14 +217,14 @@
     <div class="cat__head">
       <div>
         <h2 id="cat-h" class="h2">iPhone у наявності</h2>
-        <p class="cat__sub">Не «iPhone 15 Pro, стан хороший», а&nbsp;саме цей iPhone: його оцінка, його % АКБ і цикли, що в ньому міняли. Поруч — Apple Watch, AirPods і MacBook. <span class="mono muted">Реальні позиції з Instagram @ispayal.ua станом на 22.11 — у робочій версії оновлюються з адмінки</span></p>
+        <p class="cat__sub">Не «iPhone 15 Pro, стан хороший», а&nbsp;саме цей iPhone: його оцінка, його % АКБ і цикли, що в ньому міняли. Поруч — Apple Watch, AirPods і MacBook. <span class="mono muted">Реальні позиції з Instagram @ispayal.ua станом на 22.11.2026 — у робочій версії оновлюються з адмінки</span></p>
         <p class="pitchnote"><svg class="ic" aria-hidden="true"><use href="#i-cam"/></svg><span>У робочій версії — ваші реальні фото й відео кожного телефону</span></p>
       </div>
       <div class="cat__tools">
-        <button type="button" class="btn btn--line btn--sm" data-fav-toggle aria-pressed="false"><svg class="ic"><use href="#i-heart"/></svg>Обране <b data-fav-count>0</b></button>
+        <button type="button" class="btn btn--line btn--sm" data-fav-toggle aria-pressed="false"><svg aria-hidden="true" class="ic"><use href="#i-heart"/></svg>Обране <b data-fav-count>0</b></button>
         <label class="sort"><span class="sr">Сортування</span><select data-sort>
           <option value="feed">Як у стрічці Instagram</option><option value="cheap">Спочатку дешевші</option><option value="exp">Спочатку дорожчі</option><option value="batt">Найкраща АКБ</option><option value="score">Найкращий стан</option></select></label>
-        <button type="button" class="btn btn--line btn--sm cat__filterbtn" data-filters-open aria-controls="filters" aria-expanded="false"><svg class="ic"><use href="#i-filter"/></svg>Фільтри <b data-active-count></b></button>
+        <button type="button" class="btn btn--line btn--sm cat__filterbtn" data-filters-open aria-controls="filters" aria-expanded="false"><svg aria-hidden="true" class="ic"><use href="#i-filter"/></svg>Фільтри <b data-active-count></b></button>
       </div>
     </div>
 
@@ -245,7 +243,7 @@
     <div class="achips" role="group" aria-label="Активні фільтри" hidden data-achips></div>
     <div class="cat__body">
       <aside class="filters" id="filters" data-filters aria-label="Фільтри">
-        <div class="filters__top"><b>Фільтри</b><button type="button" class="linkbtn" data-reset>Скинути</button><button type="button" class="filters__close" data-filters-close aria-label="Закрити фільтри"><svg class="ic"><use href="#i-x"/></svg></button></div>
+        <div class="filters__top"><b>Фільтри</b><button type="button" class="linkbtn" data-reset>Скинути</button><button type="button" class="filters__close" data-filters-close aria-label="Закрити фільтри"><svg aria-hidden="true" class="ic"><use href="#i-x"/></svg></button></div>
         <div class="filters__body" data-filters-body>
         <fieldset><legend>Категорія</legend><div class="chips chips--wrap" data-fl-cat></div></fieldset>
         <fieldset><legend>Покоління iPhone</legend><div class="chips chips--wrap" data-fl-model></div></fieldset>
@@ -267,7 +265,7 @@
       <div class="cat__main">
         <div class="picker" data-picker>
           <div class="picker__head"><h3 class="picker__t">Оберіть модель iPhone</h3><p class="mono muted picker__sub">ціни й кількість — з реальних позицій</p>
-            <div class="picker__nav"><button type="button" class="sq sq--sm" data-tiles-prev aria-label="Попередні моделі"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button><button type="button" class="sq sq--sm" data-tiles-next aria-label="Наступні моделі"><svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
+            <div class="picker__nav"><button type="button" class="sq sq--sm" data-tiles-prev aria-label="Попередні моделі"><svg aria-hidden="true" class="ic" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button><button type="button" class="sq sq--sm" data-tiles-next aria-label="Наступні моделі"><svg aria-hidden="true" class="ic"><use href="#i-arrow"/></svg></button></div></div>
           <div class="tiles" role="listbox" aria-label="Модель iPhone" data-tiles></div>
           <div class="pick" data-pick hidden>
             <div class="pick__vis" data-pick-vis><img alt="" data-pick-img width="560" height="700"></div>
@@ -294,8 +292,8 @@
           </div>
           <form class="form form--inline" data-notify-form novalidate>
             <label class="fld"><span>Який телефон чекаєте</span><input name="want" required data-notify-want placeholder="iPhone 15 Pro 256, АКБ від 90%"></label>
-            <label class="fld"><span>Телефон або нік в Instagram</span><input name="contact" required autocomplete="tel"></label>
-            <button class="btn btn--dark" type="submit"><svg class="ic"><use href="#i-bell"/></svg>Повідомити мене</button>
+            <label class="fld"><span>Телефон або нік в Instagram</span><input name="contact" required autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="098 123 45 67 або @nick"></label>
+            <button class="btn btn--dark" type="submit"><svg aria-hidden="true" class="ic"><use href="#i-bell"/></svg>Повідомити мене</button>
             <p class="form__err" role="alert" data-err hidden></p><p class="form__ok" role="status" data-ok hidden></p>
           </form>
         </div>
@@ -304,7 +302,7 @@
     </div>
   </div>
   <div class="tray" data-tray hidden>
-    <div class="tray__in"><span class="tray__t"><svg class="ic"><use href="#i-compare"/></svg>Порівняння: <b data-tray-n>0</b>/3</span><div class="tray__items" data-tray-items></div>
+    <div class="tray__in"><span class="tray__t"><svg aria-hidden="true" class="ic"><use href="#i-compare"/></svg><span>Порівняння: <b data-tray-n>0</b>/3</span></span><div class="tray__items" data-tray-items></div>
     <button class="btn btn--red btn--sm" type="button" data-compare-open>Порівняти</button><button class="tray__x" type="button" aria-label="Очистити порівняння" data-compare-clear><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button></div>
   </div>
 </section>
@@ -325,12 +323,12 @@
   <div class="wrap">
     <h2 id="why-h" class="h2">Чому беруть в iSPAYAL, а&nbsp;не «з рук»</h2>
     <ul class="why__grid">
-      <li><svg class="ic ic--lg"><use href="#i-shield"/></svg><h3>90 днів гарантії</h3><p>Від нас на кожен вживаний телефон. На нові — гарантія Apple 1 рік.</p></li>
-      <li><svg class="ic ic--lg"><use href="#i-gift"/></svg><h3>Скло, чохол і блок — у подарунок</h3><p>Бонус до вживаних телефонів: поклеїмо скло одразу в магазині.</p></li>
-      <li><svg class="ic ic--lg"><use href="#i-drop"/></svg><h3>Перевірка на герметичність</h3><p>Позначаємо в паспорті: герметичний і без слідів ремонту — чи ні.</p></li>
-      <li><svg class="ic ic--lg"><use href="#i-battery"/></svg><h3>% АКБ — чесно</h3><p>Пишемо відсоток і кількість циклів. Якщо батарею міняли — так і пишемо.</p></li>
-      <li><svg class="ic ic--lg"><use href="#i-truck"/></svg><h3>Доставка по Україні</h3><p>Післяплатою: оглянули на пошті — тоді платите.</p></li>
-      <li><svg class="ic ic--lg"><use href="#i-coins"/></svg><h3>USDT, $, ₴, €</h3><p>Готівка, картка, крипта або розстрочка від банку — як вам зручно.</p></li>
+      <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-shield"/></svg><h3>90 днів гарантії</h3><p>Від нас на кожен вживаний телефон. На нові — гарантія Apple 1 рік.</p></li>
+      <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-gift"/></svg><h3>Скло, чохол і блок&nbsp;— у подарунок</h3><p>Бонус до вживаних телефонів: поклеїмо скло одразу в магазині.</p></li>
+      <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-drop"/></svg><h3>Перевірка на герметичність</h3><p>Позначаємо в паспорті: герметичний і без слідів ремонту — чи ні.</p></li>
+      <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-battery"/></svg><h3>% АКБ&nbsp;— чесно</h3><p>Пишемо відсоток і кількість циклів. Якщо батарею міняли — так і пишемо.</p></li>
+      <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-truck"/></svg><h3>Доставка по Україні</h3><p>Післяплатою: оглянули на пошті — тоді платите.</p></li>
+      <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-coins"/></svg><h3>USDT, $, ₴, €</h3><p>Готівка, картка, крипта або розстрочка від банку — як вам зручно.</p></li>
     </ul>
   </div>
 </section>
@@ -343,7 +341,7 @@
       <div class="calc__price">
         <label for="c-price">Ціна телефону, ₴</label>
         <div class="calc__pricein"><input id="c-price" type="number" inputmode="numeric" min="3000" max="150000" step="100" value="29999" data-c-price><span>₴</span></div>
-        <input type="range" min="5000" max="95000" step="500" value="29999" aria-label="Ціна, повзунок" data-c-range>
+        <input type="range" min="5000" max="95000" step="100" value="29999" aria-label="Ціна, повзунок" data-c-range>
         <label class="fld fld--compact"><span>або оберіть з вітрини</span><select data-c-pick><option value="">— позиція з каталогу —</option></select></label>
       </div>
     </div>
@@ -351,7 +349,7 @@
       <fieldset class="banks"><legend>Банк</legend><div class="banks__grid" data-banks></div></fieldset>
       <div class="calc__n" data-c-nwrap><label for="c-n">Платежів: <output data-c-nout>14</output></label><input id="c-n" type="range" min="2" max="14" value="14" data-c-n></div>
       <div class="calc__out" aria-live="polite">
-        <p class="calc__sum"><b data-c-sum>7 500</b> ₴ <span>/ міс</span></p>
+        <p class="calc__sum"><b data-c-sum>7 500</b><span class="calc__unit"> ₴ <span>/ міс</span></span><span class="calc__msg" data-c-msg hidden></span></p>
         <p class="calc__note" data-c-note></p>
         <div class="calc__bars" data-c-bars aria-hidden="true"></div>
       </div>
@@ -363,7 +361,7 @@
 <section class="trade" id="trade-in" aria-labelledby="ti-h">
   <div class="wrap trade__in">
     <div class="trade__intro">
-      <h2 id="ti-h" class="h2">Trade-in: старий iPhone — у залік нового</h2>
+      <h2 id="ti-h" class="h2">Trade-in: старий iPhone&nbsp;— у залік нового</h2>
       <p>Розкажіть про свій телефон. Цифру назвемо після огляду — це хвилин 15 у магазині, або швидше в Direct за фото й скріном АКБ.</p>
     </div>
     <form class="trade__form form" data-trade-form novalidate>
@@ -394,7 +392,7 @@
         <label class="fld"><span>Телефон</span><input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="+380"></label>
       </div>
       <p class="form__err" role="alert" data-err hidden></p>
-      <button class="btn btn--red" type="submit">Надіслати на оцінку<svg class="ic"><use href="#i-arrow"/></svg></button>
+      <button class="btn btn--red" type="submit">Надіслати на оцінку<svg aria-hidden="true" class="ic"><use href="#i-arrow"/></svg></button>
       <p class="form__ok" role="status" data-ok hidden></p>
     </form>
   </div>
@@ -402,10 +400,10 @@
 
 <section class="rev" aria-labelledby="rev-h">
   <div class="wrap rev__in">
-    <h2 id="rev-h" class="rev__h">Сотні відгуків — в&nbsp;Instagram, у&nbsp;хайлайтах «Відгуки».</h2>
+    <h2 id="rev-h" class="rev__h">Сотні відгуків&nbsp;— в&nbsp;Instagram, у&nbsp;хайлайтах «Відгуки».</h2>
     <div class="rev__side">
       <p>Ми не переписуємо їх сюди: там вони з іменами, сторіз і фото людей, які забрали телефон. 8 хайлайтів «Відгуки» в Instagram — читайте, гортайте, питайте в Direct.</p>
-      <a class="btn btn--light" href="https://www.instagram.com/ispayal.ua/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ig"/></svg>Відкрити @ispayal.ua</a>
+      <a class="btn btn--light" href="https://www.instagram.com/ispayal.ua/" target="_blank" rel="noopener"><svg aria-hidden="true" class="ic"><use href="#i-ig"/></svg>Відкрити @ispayal.ua</a>
     </div>
   </div>
 </section>
@@ -418,7 +416,7 @@
       <div class="contact__now">
         <p class="contact__status" data-open-big><span class="pulse" aria-hidden="true"></span><span data-open-big-text>Графік роботи</span></p>
         <p>м. Горішні Плавні</p>
-        <a class="btn btn--red" href="https://www.google.com/maps/search/?api=1&amp;query=Горішні+Плавні+просп.+Героїв+Дніпра+36" target="_blank" rel="noopener"><svg class="ic"><use href="#i-pin"/></svg>Прокласти маршрут</a>
+        <a class="btn btn--red" href="https://www.google.com/maps/search/?api=1&amp;query=Горішні+Плавні+просп.+Героїв+Дніпра+36" target="_blank" rel="noopener"><svg aria-hidden="true" class="ic"><use href="#i-pin"/></svg>Прокласти маршрут</a>
       </div>
       <dl class="hours" data-hours>
         <div data-d="1,2,3,4,5"><dt>Пн–Пт</dt><dd>9:00–19:00</dd></div>
@@ -426,9 +424,9 @@
         <div data-d="0"><dt>Неділя</dt><dd>11:00–16:00</dd></div>
       </dl>
       <div class="contact__links">
-        <a class="clink" href="tel:+380989885588"><svg class="ic"><use href="#i-phone"/></svg><span><small>Подзвонити</small>098 988 55 88</span></a>
-        <a class="clink" href="https://ig.me/m/ispayal.ua" target="_blank" rel="noopener"><svg class="ic"><use href="#i-direct"/></svg><span><small>Написати в Direct</small>@ispayal.ua</span></a>
-        <a class="clink" href="https://www.instagram.com/ispayal.ua/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ig"/></svg><span><small>Instagram</small>42,3 тис. підписників</span></a>
+        <a class="clink" href="tel:+380989885588"><svg aria-hidden="true" class="ic"><use href="#i-phone"/></svg><span><small>Подзвонити</small>098 988 55 88</span></a>
+        <a class="clink" href="https://ig.me/m/ispayal.ua" target="_blank" rel="noopener"><svg aria-hidden="true" class="ic"><use href="#i-direct"/></svg><span><small>Написати в Direct</small>@ispayal.ua</span></a>
+        <a class="clink" href="https://www.instagram.com/ispayal.ua/" target="_blank" rel="noopener"><svg aria-hidden="true" class="ic"><use href="#i-ig"/></svg><span><small>Instagram</small>42,3 тис. підписників</span></a>
       </div>
     </div>
   </div>
@@ -444,9 +442,9 @@
 </footer>
 
 <nav class="mbar" aria-label="Швидкі дії">
-  <a href="#katalog"><svg class="ic"><use href="#i-filter"/></svg>Каталог</a>
-  <a href="https://ig.me/m/ispayal.ua" target="_blank" rel="noopener"><svg class="ic"><use href="#i-direct"/></svg>Direct</a>
-  <a href="tel:+380989885588" class="mbar__call"><svg class="ic"><use href="#i-phone"/></svg>Подзвонити</a>
+  <a href="#katalog"><svg aria-hidden="true" class="ic"><use href="#i-filter"/></svg>Каталог</a>
+  <a href="https://ig.me/m/ispayal.ua" target="_blank" rel="noopener"><svg aria-hidden="true" class="ic"><use href="#i-direct"/></svg>Direct</a>
+  <a href="tel:+380989885588" class="mbar__call"><svg aria-hidden="true" class="ic"><use href="#i-phone"/></svg>Подзвонити</a>
 </nav>
 
 <dialog class="pass" data-pass aria-labelledby="pass-h"></dialog>

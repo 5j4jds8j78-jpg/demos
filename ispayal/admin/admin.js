@@ -20,7 +20,7 @@
       { type: 'tradein', model: 'iPhone 12', mem: '128', look: 'Дрібні подряпини', batt: 81, box: true, repaired: false, faceid: true, target: 'iPhone 14 Pro 128 ГБ Silver', name: 'Ігор', phone: '+380 •• ••• •• 03', status: 'Нова', created: iso(40) },
       { type: 'notify', want: 'iPhone 15 Pro Max 256, АКБ від 90%', contact: '@demo.client', status: 'Чекає', created: iso(300) },
       { type: 'repair', model: 'iPhone 13 Pro', service: 'Заміна АКБ', day: today, time: '11:00', name: 'Андрій', phone: '+380 •• ••• •• 77', status: 'В роботі', created: iso(200) },
-      { type: 'repair', model: 'iPhone 11', service: 'Переклей скла', day: today, time: '13:00', name: 'Ірина', phone: '+380 •• ••• •• 58', status: 'Діагностика', created: iso(150) },
+      { type: 'repair', model: 'iPhone 11', service: 'Переклеювання скла', day: today, time: '13:00', name: 'Ірина', phone: '+380 •• ••• •• 58', status: 'Діагностика', created: iso(150) },
       { type: 'repair', model: 'iPhone 14', service: 'Заднє скло', day: today, time: '15:00', name: 'Віктор', phone: '+380 •• ••• •• 21', status: 'Готово', created: iso(400) },
     ].map((r, i) => ({ ...r, id: 'demo' + i, demo: true }));
     S.saveRequests([...S.requests(), ...seed]);
@@ -46,7 +46,7 @@
     const fd = new FormData(f);
     const cond = fd.get('cond'), isNew = cond === 'Новий' || cond === 'Під замовлення';
     const model = fd.get('model').trim(), mem = +fd.get('mem'), color = fd.get('color').trim(), sim = fd.get('sim');
-    const score = isNew ? null : Math.min(10, +fd.get('score') || 0) || null;
+    const score = isNew ? null : Math.min(10, +String(fd.get('score') || '').replace(',', '.') || 0) || null;
     let batt = isNew ? null : (+fd.get('batt') || null), cycles = isNew ? null : (fd.get('cycles') === '' ? null : +fd.get('cycles'));
     const battNew = !!fd.get('battNew');
     const battRaw = batt == null ? '' : (battNew ? `АКБ замінений ${batt}%` : `${batt}%`) + (cycles != null && !(battNew && cycles === 0) ? ` (${cycles} ${cyc(cycles)})` : '');
@@ -83,11 +83,15 @@
   f.addEventListener('change', preview);
   $('[data-gen]').addEventListener('click', () => { $('[data-caption]').value = S.caption(read()); $('[data-copy]').disabled = false; toast('Текст готовий — скопіюйте і вставте в пост'); });
   $('[data-copy]').addEventListener('click', () => { const ta = $('[data-caption]'); ta.select(); try { navigator.clipboard.writeText(ta.value).then(() => toast('Скопійовано')); } catch { document.execCommand('copy'); toast('Скопійовано'); } });
-  $('[data-new]').addEventListener('click', () => { f.reset(); f.id.value = ''; $('[data-publish]').textContent = 'Опублікувати на сайті'; preview(); });
+  $('[data-new]').addEventListener('click', () => { f.reset(); f.id.value = ''; $('[data-err]', f).hidden = true; $('[data-ok]', f).hidden = true; f.score.removeAttribute('aria-invalid'); $('[data-publish]').textContent = 'Опублікувати на сайті'; preview(); });
   f.addEventListener('submit', e => {
     e.preventDefault();
     const err = $('[data-err]', f), ok = $('[data-ok]', f), l = read();
-    if (!l.model || !l.color || l.price < 1000) { err.textContent = 'Потрібні модель, колір і ціна.'; err.hidden = false; return; }
+    const fail = (m, el) => { err.textContent = m; err.hidden = false; ok.hidden = true; if (el) { el.setAttribute('aria-invalid', 'true'); el.focus(); } };
+    f.score.removeAttribute('aria-invalid');
+    const sc = f.score.value.trim().replace(',', '.'), used = !l.isNew;
+    if (used && sc !== '' && !(+sc >= 1 && +sc <= 10)) return fail('Стан — число від 1 до 10, наприклад 9,4.', f.score);
+    if (!l.model || !l.color || l.price < 1000) return fail('Потрібні модель, колір і ціна.');
     err.hidden = true;
     const L = S.listings(), i = L.findIndex(x => x.id === l.id);
     if (i >= 0) { l.code = L[i].code; l.order = L[i].order; l.status = L[i].status; L[i] = l; } else L.unshift(l);
@@ -96,6 +100,8 @@
     const secs = t0 ? Math.round((performance.now() - t0) / 1000) : 0; clearInterval(tick); t0 = 0;
     ok.innerHTML = `${ic('check')}<span>${i >= 0 ? 'Оновлено' : 'Опубліковано'}: ${esc(S.title(l))} ${esc(l.color)}${secs ? ` — за ${secs} с` : ''}. Уже на сайті, підпис для Instagram — праворуч. <a href="../index.html#t/${l.id}" target="_blank" rel="noopener">Відкрити паспорт на сайті</a></span>`;
     ok.hidden = false; $('[data-timer]').textContent = secs ? `Останній телефон додано за ${secs} с` : 'Збережено';
+    // the form now edits the unit it just published: a second press saves changes instead of adding a duplicate
+    f.id.value = l.id; $('[data-publish]').textContent = 'Зберегти зміни';
     stock(); tiles();
   });
 
@@ -105,7 +111,7 @@
     const rows = L.filter(l => (l.title + ' ' + l.model + ' ' + l.color).toLowerCase().includes(q));
     $('[data-stock-n]').textContent = `${L.length} поз.`;
     $('[data-stock]').innerHTML = rows.map(l => `<tr><td><div class="who">${l.cat === 'iphone' ? `<img src="../assets/img/phones/${l.tint}.webp" alt="">` : `<span class="tag">${{ watch: 'Watch', airpods: 'AirPods', mac: 'Mac' }[l.cat]}</span>`}<span><b>${esc(S.title(l))}</b><small>${esc(l.color)}${l.sim ? ' · ' + esc(l.sim) : ''}${l.code ? ` · <a href="https://www.instagram.com/p/${l.code}/" target="_blank" rel="noopener">пост ↗</a>` : ''}</small></span></div></td>
-      <td>${l.score ?? '—'}</td><td>${l.batt != null ? l.batt + '%' : '—'}${l.cycles != null ? ` · ${l.cycles}` : ''}</td><td><b>${fmt(l.price)} ₴</b></td><td class="hide-m">${esc(S.cond(l))}</td>
+      <td>${l.score != null ? String(l.score).replace('.', ',') : '—'}</td><td>${l.batt != null ? l.batt + '%' : '—'}${l.cycles != null ? ` · ${l.cycles}` : ''}</td><td><b>${fmt(l.price)} ₴</b></td><td class="hide-m">${esc(S.cond(l))}</td>
       <td><div class="acts">${l.cat === 'iphone' ? `<button type="button" data-edit="${l.id}">Редагувати</button>` : ''}<button type="button" data-cap="${l.id}" aria-label="Згенерувати текст посту для Instagram: ${esc(S.title(l))}">Текст посту</button><select data-lst="${l.id}" aria-label="Статус на сайті">${[['available', 'Є в наявності'], ['reserved', 'Заброньовано'], ['sold', 'Продано']].map(([k, v]) => `<option value="${k}" ${(l.status || 'available') === k ? 'selected' : ''}>${v}</option>`).join('')}</select><button type="button" data-del="${l.id}" aria-label="Прибрати з вітрини">Прибрати</button></div></td></tr>`).join('');
   }
   $('[data-stock-q]').addEventListener('input', stock);
@@ -124,7 +130,7 @@
     const cg = /замовл/i.test(l.label) ? 'Під замовлення' : l.isNew ? 'Новий' : /майже|як нов/i.test(l.label) ? 'Майже новий' : 'б/у';
     $$('[name=cond]', f).forEach(i => i.checked = i.value === cg);
     f.score.value = l.score ?? ''; f.batt.value = l.batt ?? ''; f.cycles.value = l.cycles ?? ''; f.battNew.checked = /замін/i.test(l.battRaw || ''); f.kit.value = l.kit || '';
-    $$('[name=svc]', f).forEach(i => i.checked = (l.service || '').toLowerCase().includes(i.value.split(' ')[0].toLowerCase()));
+    $$('[name=svc]', f).forEach(i => { const sv = (l.service || '').toLowerCase().replace(/переклей скла/g, 'переклеювання скла'); i.checked = sv.includes(i.value.split(' ')[0].toLowerCase()); });
     f.sealed.checked = !!l.sealed; $$('[name=bonus]', f).forEach(i => i.checked = (l.bonus || '').includes(i.value.split(' ')[0]));
     f.label.value = l.label || ''; f.note.value = l.note || ''; f.warranty.value = l.warranty || f.warranty.value; f.price.value = l.price;
     $('[data-publish]').textContent = 'Зберегти зміни'; preview(); $('#add').scrollIntoView({ behavior: 'smooth' });

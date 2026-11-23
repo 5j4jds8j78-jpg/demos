@@ -10,6 +10,8 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 const icon = (id, cls = 'ic') => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
 const SWATCH = { black: '#2a2a2d', white: '#eceae4', natural: '#bdb6aa', blue: '#33435c', desert: '#cbb092', pink: '#efcfcb', green: '#9fb7a3', purple: '#6b5a73', yellow: '#efe2a2', red: '#b31620', gray: '#5a5a5e', orange: '#dc7a3c', silver: '#dcdde0', burgundy: '#6a1f2b', glacier: '#bcd3e6', ultramarine: '#5b6fd6', sierra: '#a7bdd6' };
 const brand = t => String(t || '').replace(/iSpayal/g, 'iSPAYAL'); // UI spelling; the caption generator keeps the post text
+const cap = t => t ? t[0].toUpperCase() + t.slice(1) : t; // sentence case for list items
+const simL = v => v === 'Фіз' ? 'Фіз.\u00a0SIM' : v; // «Фіз» in the posts = a physical SIM slot
 const battCol = p => p >= 90 ? '#1f9d55' : p >= 85 ? '#d99a00' : '#e0121a';
 const PHONE = '+380989885588', DIRECT = 'https://ig.me/m/ispayal.ua';
 const PRICE_STEPS = () => { const mx = Math.max(...S.listings().filter(l => l.cat === 'iphone').map(l => +l.price || 0)), all = [15000, 20000, 30000, 40000, 60000, 80000, 100000, 150000, 200000], i = all.findIndex(v => v >= mx); return i < 0 ? all : all.slice(0, i + 1); }; // top step always covers the dearest iPhone
@@ -23,6 +25,12 @@ const phoneOk = v => !!phoneNorm(v);
 const DEMO_NOTE = '<small class="mono">Це демо: нікуди не надсилається — заявка збережена лише в цьому браузері й видна в /admin/.</small>';
 const PHONE_ERR = 'Перевірте номер: +380 XX XXX XX XX або 0XX XXX XX XX.';
 const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+// after a successful send: the submit stays disabled until the visitor changes something, so a second tap never sends a duplicate
+function lockUntilEdit(form) {
+  const b = form.querySelector('[type=submit]'); if (!b) return; b.disabled = true;
+  const on = () => { b.disabled = false; form.removeEventListener('input', on); form.removeEventListener('change', on); };
+  form.addEventListener('input', on); form.addEventListener('change', on);
+}
 function trapTab(box, e) { // keep Tab inside an open modal / sheet
   if (e.key !== 'Tab') return;
   const f = [...box.querySelectorAll(FOCUSABLE)].filter(el => el.offsetParent !== null || el === document.activeElement);
@@ -45,7 +53,6 @@ function trapTab(box, e) { // keep Tab inside an open modal / sheet
 
 /* ---------------- open / closed, Europe/Kyiv ---------------- */
 const HOURS = { 0: [11, 16], 1: [9, 19], 2: [9, 19], 3: [9, 19], 4: [9, 19], 5: [9, 19], 6: [9, 15] };
-const DAYN = ['неділю', 'понеділок', 'вівторок', 'середу', 'четвер', 'пʼятницю', 'суботу'];
 function kyivNow() {
   const p = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Kyiv', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date()).map(x => [x.type, x.value]));
   const wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday);
@@ -53,9 +60,10 @@ function kyivNow() {
 }
 function openState() {
   const n = kyivNow(), [o, c] = HOURS[n.wd], t = n.h + n.m / 60;
-  if (t >= o && t < c) { const left = c - t; return { open: true, text: left <= 1 ? `Відчинено, зачиняємось о ${c}:00` : `Відчинено до ${c}:00` }; }
-  if (t < o) return { open: false, text: `Зачинено · відчинимо сьогодні о ${o}:00` };
-  const nd = (n.wd + 1) % 7; return { open: false, text: `Зачинено · відчинимо ${nd === (n.wd + 1) % 7 ? 'завтра' : 'в ' + DAYN[nd]} о ${HOURS[nd][0]}:00` };
+  // when = when we can answer a request: «сьогодні до 19:00» / «сьогодні з 9:00» / «завтра з 11:00» (every day has hours, so the next opening is today or tomorrow)
+  if (t >= o && t < c) { const left = c - t; return { open: true, text: left <= 1 ? `Відчинено, зачиняємось о ${c}:00` : `Відчинено до ${c}:00`, when: `сьогодні до ${c}:00` }; }
+  if (t < o) return { open: false, text: `Зачинено · відчинимо сьогодні о ${o}:00`, when: `сьогодні з ${o}:00` };
+  const nd = (n.wd + 1) % 7; return { open: false, text: `Зачинено · відчинимо завтра о ${HOURS[nd][0]}:00`, when: `завтра з ${HOURS[nd][0]}:00` };
 }
 function paintOpen() {
   const s = openState(), wd = kyivNow().wd;
@@ -132,7 +140,7 @@ if (!wantGL) { const h = $('[data-gl-hint]'); if (h) h.textContent = 'Обері
 /* services */
 const SVC = {
   battery: { t: 'Заміна АКБ', s: 'Заміна АКБ', pts: ['Телефон не доживає до вечора або вимикається на холоді', 'У налаштуваннях низький «Максимальний заряд» чи напис «Сервіс»', 'Після заміни показуємо новий % у налаштуваннях при вас'] },
-  screen: { t: 'Переклей скла', s: 'Переклей скла', pts: ['Скло тріснуло, а зображення і сенсор працюють', 'Міняємо лише скло — оригінальний дисплей залишається', 'Приклади «до / після» — у хайлайті «Переклей скла»'] },
+  screen: { t: 'Переклеювання скла', s: 'Переклеювання скла', pts: ['Скло тріснуло, а зображення і сенсор працюють', 'Міняємо лише скло — оригінальний дисплей залишається', 'Приклади «до / після» — у хайлайті «Переклей скла»'] },
   back: { t: 'Заднє скло', s: 'Заднє скло', pts: ['Тріщина на задній панелі, скло кришиться по краях', 'Замінюємо скло, поки тріщина не пішла далі', 'Ставимо нову проклейку корпусу'] },
   board: { t: 'Контролер заряджання', s: 'Контролер заряджання', pts: ['Не заряджається, заряджається через раз або не бачить кабель', 'Гріється під час зарядки', 'Діагностуємо плату і міняємо мікросхему контролера'] },
   frame: { t: 'Полірування корпусу', s: 'Полірування корпусу', pts: ['Подряпини та потертості на рамці', 'Повертаємо товарний вигляд — для себе чи перед продажем', 'Робимо, поки чекаєте, якщо майстер вільний'] },
@@ -140,7 +148,7 @@ const SVC = {
 let currentSvc = 'battery';
 function renderSvc(k) {
   currentSvc = k; const s = SVC[k];
-  $$('[data-svc]').forEach(b => b.setAttribute('aria-selected', b.dataset.svc === k));
+  $$('[data-svc]').forEach(b => { const on = b.dataset.svc === k; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; }); // roving tabindex: Tab enters the selected tab, arrows move
   $('[data-svc-panel]').innerHTML = `<h3>${s.t}</h3><ul>${s.pts.map(p => `<li>${p}</li>`).join('')}</ul>
     <p class="svc__price">${icon('wrench')}Ціну скаже майстер після діагностики</p>
     <a class="btn btn--red btn--sm" href="#zapys" data-svc-book="${s.s}">Записатися: ${s.t[0].toLowerCase() + s.t.slice(1)}${icon('arrow')}</a>`;
@@ -153,9 +161,18 @@ function pickPart(name, scroll) {
 $('[data-svc-list]').addEventListener('click', e => { const b = e.target.closest('[data-svc]'); if (b) renderSvc(b.dataset.svc); });
 $('[data-svc-list]').addEventListener('keydown', e => {
   const tabs = $$('[data-svc]'), i = tabs.findIndex(t => t.dataset.svc === currentSvc);
-  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; renderSvc(n.dataset.svc); n.focus(); e.preventDefault(); }
+  const j = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? (i + 1) % tabs.length : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? (i + tabs.length - 1) % tabs.length : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : -1;
+  if (j >= 0) { const n = tabs[j]; renderSvc(n.dataset.svc); n.focus({ preventScroll: true }); e.preventDefault(); }
 });
-$('[data-svc-panel]').addEventListener('click', e => { const a = e.target.closest('[data-svc-book]'); if (a) { $('[data-repair-service]').value = a.dataset.svcBook; } });
+$('[data-svc-panel]').addEventListener('click', e => { // «Записатися: …» → the booking form with this service, then the first field gets focus (after the scroll, so it never jumps)
+  const a = e.target.closest('[data-svc-book]'); if (!a) return;
+  e.preventDefault(); $('[data-repair-service]').value = a.dataset.svcBook;
+  const fld = $('[data-repair-form] [name=model]'), go = () => { removeEventListener('scrollend', go); clearTimeout(t); if (document.activeElement !== fld) fld.focus({ preventScroll: true }); };
+  let t = 0;
+  if (reduced) { noSmooth(() => $('#zapys').scrollIntoView({ block: 'start' })); go(); return; }
+  addEventListener('scrollend', go); t = setTimeout(go, 1200); // scrollend is missing in older WebKit
+  $('#zapys').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 renderSvc('battery');
 
 /* repair booking: days + slots from real hours; booked slots come from saved requests */
@@ -186,16 +203,17 @@ renderSvc('battery');
   form.addEventListener('submit', e => {
     e.preventDefault();
     const err = $('[data-err]', form), ok = $('[data-ok]', form); err.hidden = true;
+    const fail = m => { err.textContent = m; err.hidden = false; ok.hidden = true; };
     const bad = [];
     if (!form.model.value.trim()) bad.push(form.model);
     if (!form.name.value.trim()) bad.push(form.name);
     if (!phoneOk(form.phone.value)) bad.push(form.phone);
     $$('input', form).forEach(i => i.removeAttribute('aria-invalid')); bad.forEach(i => i.setAttribute('aria-invalid', 'true'));
-    if (!form.time || !form.querySelector('[name=time]:checked')) { err.textContent = 'Оберіть вільну годину.'; err.hidden = false; return; }
-    if (bad.length) { err.textContent = bad[0] === form.phone ? PHONE_ERR : 'Заповніть позначені поля.'; err.hidden = false; bad[0].focus(); return; }
+    if (!form.time || !form.querySelector('[name=time]:checked')) { fail('Оберіть вільну годину.'); return; }
+    if (bad.length) { fail(bad[0] === form.phone ? PHONE_ERR : 'Заповніть позначені поля.'); bad[0].focus(); return; }
     const r = S.addRequest({ type: 'repair', model: form.model.value.trim(), service: form.service.value, day: form.day.value, time: form.querySelector('[name=time]:checked').value, name: form.name.value.trim(), phone: phoneNorm(form.phone.value), status: 'Записано' });
-    ok.innerHTML = `${icon('check')}<span>Записали: ${esc(r.service)}, ${r.day.split('-').reverse().slice(0, 2).join('.')} о ${r.time}. Майстер підтвердить дзвінком на ${esc(r.phone)}. ${DEMO_NOTE}</span>`;
-    ok.hidden = false; paintTimes();
+    ok.innerHTML = `${icon('check')}<span>Записали: ${esc(r.service)}, ${r.day.split('-').reverse().slice(0, 2).join('.')} о ${r.time}. Майстер передзвонить ${openState().when} на ${esc(r.phone)}, щоб підтвердити. ${DEMO_NOTE}</span>`;
+    ok.hidden = false; paintTimes(); lockUntilEdit(form);
   });
 }
 
@@ -277,7 +295,7 @@ const lerpKey = (keys, t) => { if (t <= keys[0][0]) return keys[0].slice(1); for
   // fill the unit line from the real listing
   window.__fillFilmUnit = () => {
     const l = byId('Df4qevaMr-N'); if (!l) return;
-    $('[data-unit-spec]', sec).textContent = `${l.model} ${memL(l.mem)} · стан ${l.score} | 10 · АКБ ${l.batt}% · ${l.cycles} ${plural(l.cycles, 'цикл', 'цикли', 'циклів')}`;
+    $('[data-unit-spec]', sec).textContent = `${l.model} ${memL(l.mem)} · стан ${String(l.score).replace('.', ',')} | 10 · АКБ ${l.batt}% · ${l.cycles} ${plural(l.cycles, 'цикл', 'цикли', 'циклів')}`;
   };
 }
 
@@ -376,6 +394,7 @@ function battText(l) {
   return 'цикли не вказані';
 }
 /* drawn devices for non-phones (generic, original) */
+const thumbSVG = l => deviceSVG(l).replace(/<text[\s\S]*?<\/text>/g, ''); // thumbnails: no drawn wordmark, so it never leaks into an option's / button's text
 function deviceSVG(l, big) {
   const c = SWATCH[l.tint] || '#bbb', id = 'g' + l.id.replace(/\W/g, '') + (big ? 'b' : '');
   const defs = `<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".25"/></linearGradient></defs>`;
@@ -403,14 +422,14 @@ function visual(l, big) {
 }
 const STATUS = { available: 'Є в наявності', reserved: 'Заброньовано', sold: 'Продано' };
 const statusOf = l => STATUS[l.status] ? l.status : 'available';
-function statusHTML(l) { const st = statusOf(l); return `<span class="stat stat--${st}">${STATUS[st]}${st === 'available' ? ` <small>${l.added ? 'додано ' + esc(l.added) : 'станом на 22.11'}</small>` : ''}</span>`; }
+function statusHTML(l) { const st = statusOf(l); return `<span class="stat stat--${st}">${STATUS[st]}${st === 'available' ? ` <small>${l.added ? 'додано ' + esc(l.added) : 'станом на 22.11.2026'}</small>` : ''}</span>`; }
 const whatWord = l => l.cat === 'iphone' ? 'цей iPhone' : l.cat === 'watch' ? 'цей Apple Watch' : l.cat === 'airpods' ? 'ці AirPods' : 'цей MacBook';
-function directBtn(l, attr, cls = 'btn btn--red') { return `<a class="${cls} btn--direct" href="${DIRECT}" target="_blank" rel="noopener" ${attr}="${l.id}">${icon('direct')}<span>Написати в Direct про ${whatWord(l)}</span></a>`; }
+function directBtn(l, attr, cls = 'btn btn--red') { return `<a class="${cls} btn--direct" href="${DIRECT}" target="_blank" rel="noopener" ${attr}="${l.id}" aria-label="Написати в Direct про ${whatWord(l)}: ${esc(S.title(l))}${l.color ? ' ' + esc(l.color) : ''}">${icon('direct')}<span>Написати в Direct</span></a>`; }
 function tagHTML(l) {
   const g = condGroup(l), cls = g === 'Новий' ? 'card__tag--new' : g === 'Під замовлення' ? 'card__tag--order' : '';
   return `<span class="card__tag ${cls}">${esc(S.cond(l))}</span>`;
 }
-function svcList(l) { return l.service ? l.service.split(/\s*\+\s*/).filter(Boolean) : []; }
+function svcList(l) { return l.service ? l.service.split(/\s*\+\s*/).filter(Boolean).map(x => x.replace(/^(п)ереклей скла/i, '$1ереклеювання скла')) : []; } // site wording; the caption generator keeps the post text
 function cardHTML(l) {
   const flags = [];
   if (l.sealed) flags.push(`<span class="flag flag--ok">${icon('drop')}Герметичний, без слідів ремонту</span>`);
@@ -425,7 +444,7 @@ function cardHTML(l) {
       ${l.batt != null ? `<div class="ring" role="img" aria-label="АКБ ${l.batt}%">${ringSVG(l.batt, 64, 6, battCol(l.batt))}<b>${l.batt}%</b></div>` : ''}
       ${l.batt != null ? `<p class="pp__cyc"><span>АКБ</span><b>${battText(l)}</b></p>` : ''}</div>`;
   } else if (l.isNew) {
-    pp = `<div class="pp pp--new"><p class="pp__k">${l.label && /замовл/i.test(l.label) ? 'Під замовлення' : 'Новий'}</p><p class="pp__newt">${esc(brand(l.warranty) || 'Новий пристрій')}</p></div>`;
+    pp = `<div class="pp pp--new"><p class="pp__k">${l.label && /замовл/i.test(l.label) ? 'Під замовлення' : 'Новий'}</p><p class="pp__newt">${esc(brand(S.warranty(l)) || 'Новий пристрій')}</p></div>`;
   }
   const ig = igUrl(l);
   return `<li class="card card--${statusOf(l)}" data-id="${l.id}">
@@ -438,10 +457,10 @@ function cardHTML(l) {
       ${statusHTML(l)}${BEST.has(l.id) ? `<span class="bestv" title="Найменше ₴ за 1% АКБ серед таких самих моделей у видачі">${icon('battery')}Найкраща ціна за АКБ</span>` : ''}
       <p class="card__mini mono">${l.score != null ? 'стан ' + String(l.score).replace('.', ',') : esc(S.cond(l))}${l.batt != null ? ' · АКБ ' + l.batt + '%' : ''}${l.cycles != null ? ' · ' + l.cycles + ' ' + plural(l.cycles, 'цикл', 'цикли', 'циклів') : ''}</p>
       <h3 class="card__t">${esc(S.title(l)).replace(/ (\d+ [ГТ]Б)$/, ' · $1')}</h3>
-      <p class="card__sub">${l.color ? `<span class="swatch" style="background:${SWATCH[l.tint] || '#999'}"></span>${esc(l.color)}` : ''}${l.sim ? ` · ${l.sim === 'Фіз' ? 'Фіз. SIM' : 'eSIM'}` : ''}</p>
+      <p class="card__sub">${l.color ? `<span class="swatch" style="background:${SWATCH[l.tint] || '#999'}"></span>${esc(l.color)}` : ''}${l.sim ? ` · ${simL(l.sim)}` : ''}</p>
       ${pp}
       <div class="flags">${flags.join('')}</div>
-      <div class="card__foot"><div><p class="price price--full">${fmt(l.price)}<small>₴</small></p><p class="price price--mo">від ${fmt(perMonth(l))}<small>₴/міс</small></p><p class="price__alt price__alt--mo">або від ${fmt(perMonth(l))} ₴/міс</p><p class="price__alt price__alt--full">повна ціна ${fmt(l.price)} ₴</p>${l.warranty ? `<p class="card__warr">${esc(brand(l.warranty))}</p>` : ''}</div></div>
+      <div class="card__foot"><div><p class="price price--full">${fmt(l.price)}<small>₴</small></p><p class="price price--mo">від ${fmt(perMonth(l))}<small>₴/міс</small></p><p class="price__alt price__alt--mo">або від ${fmt(perMonth(l))} ₴/міс</p><p class="price__alt price__alt--full">повна ціна ${fmt(l.price)} ₴</p>${S.warranty(l) ? `<p class="card__warr">${esc(brand(S.warranty(l)))}</p>` : ''}</div></div>
       <div class="card__cta">${directBtn(l, 'data-direct')}</div>
       <div class="card__acts">
         <button class="btn btn--line" type="button" data-book="${l.id}" ${statusOf(l) === 'sold' ? 'disabled' : ''}>${statusOf(l) === 'sold' ? 'Продано' : statusOf(l) === 'reserved' ? 'Стати в чергу' : 'Забронювати'}</button>
@@ -481,7 +500,7 @@ function renderGrid() {
     if (b) { const dx = b.left - r.left, dy = b.top - r.top; if (dx || dy) c.animate([{ transform: `translate(${dx}px,${dy}px)` }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.7,.2,1)' }); }
     else c.animate([{ opacity: 0, transform: 'scale(.96)' }, { opacity: 1, transform: 'none' }], { duration: 320, delay: Math.min(i, 8) * 30, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
   });
-  { const mb = $('[data-more]'); if (mb) { const left = all.length - a.length; mb.hidden = left <= 0; mb.textContent = `Показати ще ${Math.min(PAGE, left)} · показано ${a.length} з ${all.length}`; } }
+  { const mb = $('[data-more]'); if (mb) { const left = all.length - a.length; mb.hidden = left <= 0; mb.innerHTML = `Показати ще ${Math.min(PAGE, left)}<small><span class="more__sep"> · </span>показано ${a.length} з ${all.length}</small>`; } }
   tickCount($('[data-count]'), all.length); $('[data-count-word]').textContent = unitWord(all.length);
   $('[data-count-btn]').textContent = all.length ? `Показати ${all.length} ${all.every(l => l.cat === 'iphone') ? 'iPhone' : unitWord(all.length)}` : 'Нічого не знайдено — змініть фільтри';
   const act = F.models.size + F.colors.size + F.cats.size + F.gens.size + F.vars.size + F.mems.size + F.conds.size + F.sims.size + (F.score > SCORE_MIN) + (F.batt > BATT_MIN) + (F.pmin > P_MIN || F.pmax < P_MAX) + F.sealed + F.quick.size + !!F.q;
@@ -515,9 +534,13 @@ const QCOL = [[/^(син|blue|блакит|голуб|sierra|sky|glacier|уль�
   [/^(зелен|green)/, ['green']], [/^(жовт|желт|yellow)/, ['yellow']], [/^(червон|красн|red)/, ['red']], [/^(помаранч|оранж|orange)/, ['orange']], [/^(сір|сер(?!еб)|gray|grey)/, ['gray']], [/^(бордо|burgundy)/, ['burgundy']]];
 const QSTOP = new Set(['на', 'і', 'й', 'та', 'и', 'з', 'с', 'в', 'у', 'гб', 'gb', 'грн', '₴', 'apple', 'епл', 'эпл']);
 const qCache = new Map();
+// «iphone15» → «iphone 15», «15pro» → «15 pro», «айфон13промакс» → «айфон 13 про макс»: glued tokens split before parsing
+const qNorm = q => q.toLowerCase().replace(/ʼ|'|’/g, '').replace(/(iphone|айфон)(?=\d)/g, '$1 ').replace(/(\d{2})(?=(pro|max|plus|mini|про|макс|плюс|міні))/g, '$1 ').replace(/(pro|про)(?=(max|макс))/g, '$1 ');
+// ranking: a unit whose whole model name is in the query («iphone 15» → iPhone 15) comes before the bigger siblings (15 Pro, 15 Pro Max)
+const qRank = (q, l) => { const t = new Set(['iphone', ...qNorm(q).split(/[\s,;/]+/).map(w => QSYN[w] || w)]); return l.model.toLowerCase().split(/\s+/).every(w => t.has(w)) ? 1 : 0; };
 function qParse(q) {
   if (qCache.has(q)) return qCache.get(q);
-  const raw = q.toLowerCase().replace(/ʼ|'|’/g, '').replace(/(\d)\s*(гб|gb)\b/g, '$1').replace(/(\d)\s*(тб|tb)\b/g, '$1tb').replace(/(\d)\s*(к|k|тис\.?|тыс\.?)(?=\s|$)/g, '$1000').split(/[\s,;/]+/).filter(Boolean);
+  const raw = qNorm(q).replace(/(\d)\s*(гб|gb)\b/g, '$1').replace(/(\d)\s*(тб|tb)\b/g, '$1tb').replace(/(\d)\s*(к|k|тис\.?|тыс\.?)(?=\s|$)/g, '$1000').split(/[\s,;/]+/).filter(Boolean);
   const P = []; let mode = '';
   const words = m => m.toLowerCase().split(/\s+/);
   for (let i = 0; i < raw.length; i++) {
@@ -545,7 +568,7 @@ function qParse(q) {
   qCache.set(q, P); return P;
 }
 const qTest = (q, l) => qParse(q).every(f => f(l));
-const qFind = q => LIST.filter(l => qTest(q, l)).sort((x, y) => (statusOf(x) === 'sold') - (statusOf(y) === 'sold') || x.order - y.order);
+const qFind = q => LIST.filter(l => qTest(q, l)).sort((x, y) => (statusOf(x) === 'sold') - (statusOf(y) === 'sold') || qRank(q, y) - qRank(q, x) || x.order - y.order);
 {
   const inp = $('[data-csearch]'), list = $('[data-cs-list]');
   if (inp) {
@@ -554,7 +577,7 @@ const qFind = q => LIST.filter(l => qTest(q, l)).sort((x, y) => (statusOf(x) ===
     const paint = () => {
       const q = inp.value.trim(); if (!q) return close();
       hits = qFind(q); const top = hits.slice(0, 5);
-      list.innerHTML = (top.length ? top.map((l, i) => `<li role="option" id="cs-o${i}" class="cs__o" data-cs-id="${l.id}" aria-selected="false"><span class="cs__img">${l.cat === 'iphone' ? `<img src="assets/img/phones/${l.tint}.webp" alt="" width="560" height="700">` : deviceSVG(l)}</span><span class="cs__t"><b>${esc(S.title(l))}</b> ${esc(l.color || '')}<small class="mono">${l.score != null ? 'стан ' + String(l.score).replace('.', ',') : esc(S.cond(l))}${l.batt != null ? ' · АКБ ' + l.batt + '%' : ''}${statusOf(l) !== 'available' ? ' · ' + STATUS[statusOf(l)].toLowerCase() : ''}</small></span><span class="cs__p">${fmt(l.price)} ₴</span></li>`).join('')
+      list.innerHTML = (top.length ? top.map((l, i) => `<li role="option" id="cs-o${i}" class="cs__o" data-cs-id="${l.id}" aria-selected="false"><span class="cs__img">${l.cat === 'iphone' ? `<img src="assets/img/phones/${l.tint}.webp" alt="" width="560" height="700">` : thumbSVG(l)}</span><span class="cs__t"><b>${esc(S.title(l))}</b> ${esc(l.color || '')}<small class="mono">${l.score != null ? 'стан ' + String(l.score).replace('.', ',') : esc(S.cond(l))}${l.batt != null ? ' · АКБ ' + l.batt + '%' : ''}${statusOf(l) !== 'available' ? ' · ' + STATUS[statusOf(l)].toLowerCase() : ''}</small></span><span class="cs__p">${fmt(l.price)} ₴</span></li>`).join('')
         : `<li class="cs__none" role="presentation">Нічого не знайшли за «${esc(q)}». Спробуйте «15 pro», «синій», «до 30».</li>`)
         + (hits.length ? `<li role="option" id="cs-all" class="cs__all" data-cs-all aria-selected="false">Показати всі ${hits.length} ${unitWord(hits.length)}${icon('arrow')}</li>` : '');
       list.hidden = false; inp.setAttribute('aria-expanded', 'true'); act = -1; inp.removeAttribute('aria-activedescendant');
@@ -623,8 +646,8 @@ $('[data-grid]').addEventListener('click', e => {
   const f = nc.querySelector(`[data-swap="${sib.id}"]`); if (f) f.focus({ preventScroll: true });
 });
 const INFO_TILES = [
-  `<li class="itile itile--trade"><p class="itile__k">${icon('swap')}Trade-in</p><h3 class="itile__h">Старий iPhone — у залік нового</h3><p class="itile__p">Оцінимо при вас у магазині: огляд займає близько 15 хвилин. Цифру назвемо після огляду.</p><a class="btn btn--red btn--sm itile__go" href="#trade-in">Розповісти про свій iPhone${icon('arrow')}</a></li>`,
-  `<li class="itile itile--repair"><p class="itile__k">${icon('wrench')}Сервіс</p><h3 class="itile__h">Ремонт і заміна АКБ — запис онлайн</h3><p class="itile__p">Оберіть день і час. Ціну майстер скаже після діагностики — без вашого «так» нічого не робимо.</p><a class="btn btn--red btn--sm itile__go" href="#zapys">Записатися на ремонт${icon('arrow')}</a></li>`,
+  `<li class="itile itile--trade"><p class="itile__k">${icon('swap')}Trade-in</p><h3 class="itile__h">Старий iPhone — у залік нового</h3><p class="itile__p">Оцінимо при вас у магазині: огляд займає близько 15 хвилин. Цифру назвемо після огляду.</p><a class="btn btn--red btn--sm itile__go" href="#trade-in">Розповісти про свій iPhone${icon('arrow')}</a></li>`,
+  `<li class="itile itile--repair"><p class="itile__k">${icon('wrench')}Сервіс</p><h3 class="itile__h">Ремонт і заміна АКБ — запис онлайн</h3><p class="itile__p">Оберіть день і час. Ціну майстер скаже після діагностики — без вашого «так» нічого не робимо.</p><a class="btn btn--red btn--sm itile__go" href="#zapys">Записатися на ремонт${icon('arrow')}</a></li>`,
 ];
 /* phone toolbar (sticky inside the catalog): sort · filters · price mode */
 {
@@ -718,7 +741,8 @@ $('[data-fav-toggle]').addEventListener('click', e => { F.fav = !F.fav; e.curren
   const fitFl = () => { if (sheet() && fl.classList.contains('is-open')) { const vv = window.visualViewport ? visualViewport.height : innerHeight, nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav')) || 58; fl.style.height = Math.round(Math.max(320, vv - nav - 10)) + 'px'; } else fl.style.height = ''; };
   ob.addEventListener('click', () => requestAnimationFrame(fitFl)); new MutationObserver(fitFl).observe(fl, { attributes: true, attributeFilter: ['class'] });
   window.visualViewport && visualViewport.addEventListener('resize', fitFl); addEventListener('resize', fitFl);
-  fl.addEventListener('keydown', e => { if (!sheet() || !fl.classList.contains('is-open')) return; if (e.key === 'Escape') { close(); e.preventDefault(); } else trapTab(fl, e); });
+  fl.addEventListener('keydown', e => { if (sheet() && fl.classList.contains('is-open')) trapTab(fl, e); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && sheet() && fl.classList.contains('is-open') && !document.querySelector('dialog[open]')) { close(); e.preventDefault(); } }); // Esc closes the sheet wherever focus is, like the menu and the other sheets
 }
 $('[data-grid]').addEventListener('click', e => {
   const t = e.target.closest('[data-open],[data-fav],[data-cmp],[data-book],[data-direct]'); if (!t) return;
@@ -757,11 +781,12 @@ $('[data-compare-open]').addEventListener('click', () => {
   d.innerHTML = `<div class="cmp__in"><div class="cmp__head"><h2 class="h3">Порівняння</h2><button class="iconbtn" type="button" data-close aria-label="Закрити порівняння">${icon('x')}</button></div>${ls.length > 2 ? '<p class="cmp__hint mono">Гортайте таблицю вбік — тут 3 позиції →</p>' : ''}
   <div style="overflow-x:auto"><table><thead><tr><th></th>${ls.map(l => `<td><div class="cmp__vis">${visual(l)}</div><b>${esc(S.title(l))}</b></td>`).join('')}</tr></thead><tbody>
   ${row('Ціна', l => fmt(l.price) + ' ₴', bP)}${row('Стан', l => dash(l.score != null ? String(l.score).replace('.', ',') + ' | 10' : null), bS)}${row('АКБ', l => dash(l.batt != null ? l.batt + '%' : null), bB)}${row('Цикли', l => dash(l.cycles), bC)}
-  ${row('Колір', l => dash(esc(l.color)))}${row('SIM', l => dash(l.sim))}${row('Тип', l => esc(S.cond(l)))}${row('Герметичний', l => l.sealed ? 'так, без слідів ремонту' : dash(null))}
-  ${row('Обслуговування', l => dash(esc(l.service)))}${row('Примітка', l => dash(esc(l.note)))}${row('Комплект', l => dash(esc(l.kit)))}${row('Бонус', l => dash(esc(l.bonus)))}${row('Гарантія', l => dash(esc(brand(l.warranty))))}
+  ${row('Колір', l => dash(esc(l.color)))}${row('SIM', l => dash(l.sim ? simL(l.sim) : null))}${row('Тип', l => esc(S.cond(l)))}${row('Герметичний', l => l.sealed ? 'так, без слідів ремонту' : dash(null))}
+  ${row('Обслуговування', l => dash(esc(svcList(l).join(' + '))))}${row('Примітка', l => dash(esc(l.note)))}${row('Комплект', l => dash(l.kit ? esc(cap(brand(l.kit.replace(/ispayal/i, 'iSpayal')))) : null))}${row('Бонус', l => dash(esc(l.bonus)))}${row('Гарантія', l => dash(esc(brand(S.warranty(l)))))}
   <tr><th></th>${ls.map(l => `<td><button class="btn btn--red btn--sm" type="button" data-open-from-cmp="${l.id}">Паспорт</button></td>`).join('')}</tr></tbody></table></div>
   <p class="mono muted" style="margin-top:12px">Червоним — найкраще значення серед обраних. «Не вказано» — у пості цього немає.</p></div>`;
   d.showModal();
+  d.onclose = () => { const b = $('[data-compare-open]'); if (!$('[data-pass]').open && b && b.offsetParent) b.focus({ preventScroll: true }); }; // back to «Порівняти»
   d.onclick = e => { if (e.target === d || e.target.closest('[data-close]')) d.close(); const o = e.target.closest('[data-open-from-cmp]'); if (o) { d.close(); openPass(o.dataset.openFromCmp); } };
 });
 
@@ -788,17 +813,18 @@ function cyclesNote(l) {
   if (l.cycles < 700) return b ? `${cw} — звичайне використання, тримає ${b}` : `${cw} — звичайне використання`;
   return b ? `${cw} — батарея вже попрацювала, але тримає ${b}` : `${cw} — батарея вже попрацювала`;
 }
-function openPass(id, focusBook) {
+let passPushed = false, passId = null, backPending = false;
+function openPass(id, focusBook, viaPop) {
   const l = byId(id); if (!l) return;
   const d = $('[data-pass]'), ig = igUrl(l);
   const hist = [];
-  if (l.label) hist.push([l.label, 'Позначка в пості', false]);
+  if (l.label) hist.push([S.label(l), 'Позначка в пості', false]);
   svcList(l).forEach(s => hist.push([s[0].toUpperCase() + s.slice(1), 'Обслуговування', true]));
   if (/замін/i.test(l.battRaw) && !svcList(l).some(s => /акумул/i.test(s))) hist.push(['Акумулятор замінений', l.battRaw, true]);
   if (l.sealed) hist.push(['Герметичний', 'Без слідів ремонту', false]);
   if (l.note) hist.push([l.note, 'Примітка продавця', true]);
   const kit = [];
-  if (/коробк/i.test(l.kit)) kit.push(['box', (l.kit.match(/коробка[^+,]*/i) || ['Коробка'])[0].trim(), false]);
+  if (/коробк/i.test(l.kit)) kit.push(['box', cap(brand((l.kit.match(/коробка[^+,]*/i) || ['Коробка'])[0].trim().replace(/ispayal/i, 'iSpayal'))), false]);
   if (/кабель/i.test(l.kit)) kit.push(['cable', 'Кабель', false]);
   if (/скло/i.test(l.bonus)) kit.push(['glass', 'Захисне скло', true]);
   if (/чохол/i.test(l.bonus)) kit.push(['case', 'Чохол', true]);
@@ -812,11 +838,11 @@ function openPass(id, focusBook) {
   const others = LIST.filter(o => o.id !== l.id && o.model === l.model && o.cat === l.cat).sort((x, y) => (statusOf(x) === 'sold') - (statusOf(y) === 'sold') || x.price - y.price);
   const diff = o => { const v = o.price - l.price; return v === 0 ? 'та сама ціна' : (v > 0 ? '+' : '−') + fmt(Math.abs(v)) + ' ₴'; };
   const othersHTML = others.length ? `<div class="others"><h3>Інші екземпляри цієї моделі <small class="mono">${others.length}</small></h3><ul>${others.map(o => `<li><button type="button" class="other ${statusOf(o) === 'sold' ? 'is-sold' : ''}" data-other="${o.id}" aria-label="Відкрити паспорт: ${esc(S.title(o))} ${esc(o.color)}, ${fmt(o.price)} ₴">
-      <span class="other__img">${o.cat === 'iphone' ? `<img src="assets/img/phones/${o.tint}.webp" alt="" width="560" height="700" loading="lazy">` : deviceSVG(o)}</span>
-      <span class="other__t">${esc(S.memL(o.mem) || '')} · ${esc(o.color || '')}</span>
+      <span class="other__img">${o.cat === 'iphone' ? `<img src="assets/img/phones/${o.tint}.webp" alt="" width="560" height="700" loading="lazy">` : thumbSVG(o)}</span>
+      <span class="other__t">${esc([S.memL(o.mem), o.color].filter(Boolean).join(' · ') || S.title(o))}</span>
       <span class="other__m mono">${o.score != null ? 'стан ' + String(o.score).replace('.', ',') : esc(S.cond(o))}${o.batt != null ? ' · АКБ ' + o.batt + '%' : ''}${statusOf(o) !== 'available' ? ' · ' + STATUS[statusOf(o)].toLowerCase() : ''}</span>
       <span class="other__p"><b>${fmt(o.price)} ₴</b><small class="${o.price < l.price ? 'is-less' : ''}">${diff(o)}</small></span></button></li>`).join('')}</ul></div>` : '';
-  const trust = [l.warranty ? ['shield', /apple/i.test(l.warranty) ? esc(brand(l.warranty)) : '90 днів гарантії від iSPAYAL'] : null, ['check', 'Перевірка при вас у магазині'], ['coins', 'Оплата частинами'], ['swap', 'Trade-in']].filter(Boolean);
+  const warr = S.warranty(l), trust = [warr ? ['shield', esc(brand(warr))] : null, ['check', 'Перевірка при вас у магазині'], ['coins', 'Оплата частинами'], ['swap', 'Trade-in']].filter(Boolean);
   d.innerHTML = `
   <div class="pass__vis pass__vis--${l.cat}">
     <p class="pass__no">ПАСПОРТ · ${esc(l.code || l.id)}</p>
@@ -828,15 +854,15 @@ function openPass(id, focusBook) {
     <p class="pass__eyebrow">${esc(S.cond(l))}${l.isNew ? ' · спеціальна пропозиція' : ''}</p>
     ${statusHTML(l)}
     <h2 class="pass__h" id="pass-h">${esc(S.title(l))}</h2>
-    <p class="pass__sub">${l.color ? `<span class="swatch" style="background:${SWATCH[l.tint]}"></span>${esc(l.color)}` : ''}${l.sim ? ` · SIM: ${esc(l.sim)}` : ''}</p>
+    <p class="pass__sub">${l.color ? `<span class="swatch" style="background:${SWATCH[l.tint]}"></span>${esc(l.color)}` : ''}${l.sim ? ` · ${simL(l.sim)}` : ''}</p>
     <p class="pass__title mono muted">${esc(l.title)}</p>
     <div class="dials ${dials.length === 1 ? 'dials--one' : ''}">${dials.join('')}</div>
     ${hist.length ? `<div class="hist"><h3>Що відомо про цей пристрій</h3><ol>${hist.map(([a, b, s]) => `<li class="${s ? 'is-svc' : ''}">${esc(a)}<small>${esc(b)}</small></li>`).join('')}</ol></div>` : ''}
     ${kit.length ? `<div class="kit"><h3>Комплект${l.bonus ? ' і бонус' : ''}</h3><ul>${kit.map(([i, t, b]) => `<li class="${b ? 'is-bonus' : ''}">${icon(i)}<span>${esc(t)}${b ? '<br><small class="mono">бонус*</small>' : ''}</span></li>`).join('')}</ul></div>` : ''}
-    <div class="pay"><h3>Оплата${l.warranty ? ' і гарантія' : ''}</h3><div class="pay__chips"><span>USDT</span><span>$</span><span>₴</span><span>€</span><span>Післяплата</span><span>Розстрочка</span></div>
-      <p>${l.warranty ? `${icon('shield')} ${esc(brand(l.warranty))}. ` : ''}${l.isNew ? 'Спеціальна пропозиція — діє при визначених умовах оплати. ' : ''}<a href="#rozstrochka" data-to-calc="${l.price}">Порахувати розстрочку</a>${ig ? ` · <a href="${ig}" target="_blank" rel="noopener">Пост в Instagram ↗</a>` : ''}</p></div>
+    <div class="pay"><h3>Оплата${warr ? ' і гарантія' : ''}</h3><div class="pay__chips"><span>USDT</span><span>$</span><span>₴</span><span>€</span><span>Післяплата</span><span>Розстрочка</span></div>
+      <p>${warr ? `${icon('shield')} ${esc(brand(warr))}. ` : ''}${l.isNew ? 'Спеціальна пропозиція — діє при визначених умовах оплати. ' : ''}<a href="#rozstrochka" data-to-calc="${l.price}">Порахувати розстрочку</a>${ig ? ` · <a href="${ig}" target="_blank" rel="noopener">Пост в Instagram ↗</a>` : ''}</p></div>
     ${othersHTML}
-    <div class="pass__bookwrap" ${statusOf(l) === 'sold' ? 'hidden' : ''}><h3>${statusOf(l) === 'reserved' ? 'Вже заброньовано — стати в чергу' : 'Забронювати'}</h3>
+    <div class="pass__bookwrap" ${statusOf(l) === 'sold' ? 'hidden' : ''}><h3>${statusOf(l) === 'reserved' ? 'Вже заброньовано — стати в чергу' : 'Забронювати'}</h3>
       <form class="pass__book" data-pass-book novalidate>
         <label class="fld"><span>Імʼя</span><input name="name" autocomplete="given-name" required></label>
         <label class="fld"><span>Телефон</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+380" required></label>
@@ -851,9 +877,17 @@ function openPass(id, focusBook) {
       ${directBtn(l, 'data-direct-pass')}
     </div>
   </div>`;
-  if (!d.open) d.showModal();
+  const wasOpen = d.open;
+  if (!wasOpen) d.showModal();
   try { const r = JSON.parse(localStorage.getItem('ispayal.recent') || '[]').filter(x => x !== id); r.unshift(id); localStorage.setItem('ispayal.recent', JSON.stringify(r.slice(0, 8))); } catch { }
-  if (location.hash !== '#t/' + id) history.replaceState(null, '', '#t/' + id);
+  // history: opening pushes one #t/<id> entry, so the browser Back button closes the passport instead of leaving the site;
+  // switching to another unit inside the open passport only replaces it; a deep link opened directly pushes nothing
+  passId = id;
+  if (location.hash !== '#t/' + id) {
+    if (wasOpen || viaPop) history.replaceState({ pass: id }, '', '#t/' + id);
+    else { history.pushState({ pass: id }, '', '#t/' + id); passPushed = true; }
+  }
+  if (viaPop) passPushed = true;
   $('.pass__data', d).scrollTop = 0;
   if (focusBook) setTimeout(() => { const n = d.querySelector('[name=name]'); n.scrollIntoView({ block: 'center' }); n.focus({ preventScroll: true }); }, 60); else d.querySelector('[data-close]').focus({ preventScroll: true });
   if (isPhone && wantGL && !qs.has('capture')) {
@@ -874,7 +908,7 @@ function openPass(id, focusBook) {
   $('[data-pass-book]', d).onsubmit = e => {
     e.preventDefault(); const f = e.target, err = $('[data-err]', f), ok = $('[data-ok]', f);
     f.name.removeAttribute('aria-invalid'); f.phone.removeAttribute('aria-invalid');
-    if (!f.name.value.trim() || !phoneOk(f.phone.value)) { err.textContent = !f.name.value.trim() ? 'Як до вас звертатися?' : PHONE_ERR; err.hidden = false; const bad = f.name.value.trim() ? f.phone : f.name; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
+    if (!f.name.value.trim() || !phoneOk(f.phone.value)) { err.textContent = !f.name.value.trim() ? 'Як до вас звертатися?' : PHONE_ERR; err.hidden = false; ok.hidden = true; const bad = f.name.value.trim() ? f.phone : f.name; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
     err.hidden = true;
     const bq = S.addRequest({ type: 'booking', listing: l.id, title: `${S.title(l)}${l.color ? ' ' + l.color : ''}`, price: l.price, name: f.name.value.trim(), phone: phoneNorm(f.phone.value) });
     ok.innerHTML = statusOf(l) === 'reserved' ? `${icon('check')}<span>Ви в черзі на ${esc(bq.title)}. Якщо поточна бронь зніметься — напишемо в Direct або подзвонимо на ${esc(bq.phone)}. ${DEMO_NOTE}</span>` : `${icon('check')}<span>Заявку на бронь прийнято: ${esc(bq.title)}. Менеджер підтвердить у Direct або дзвінком на ${esc(bq.phone)}. ${DEMO_NOTE}</span>`; ok.hidden = false;
@@ -885,11 +919,21 @@ $$('dialog').forEach(d => d.addEventListener('keydown', e => trapTab(d, e)));
 function paintRecent() { // below the grid, so adding it never moves what is on screen
   const box = $('[data-recent]'); if (!box) return; let r = []; try { r = JSON.parse(localStorage.getItem('ispayal.recent') || '[]').map(byId).filter(Boolean); } catch { }
   box.hidden = !r.length; if (!r.length) return;
-  $('[data-recent-list]', box).innerHTML = r.map(l => `<li><button type="button" class="rcard" data-open="${l.id}"><span class="rcard__img">${l.cat === 'iphone' ? `<img src="assets/img/phones/${l.tint}.webp" alt="" width="560" height="700" loading="lazy">` : deviceSVG(l)}</span><span class="rcard__t">${esc(S.title(l))}<small>${esc(l.color || '')}</small></span><b>${fmt(l.price)} ₴</b></button></li>`).join('');
+  $('[data-recent-list]', box).innerHTML = r.map(l => `<li><button type="button" class="rcard" data-open="${l.id}"><span class="rcard__img">${l.cat === 'iphone' ? `<img src="assets/img/phones/${l.tint}.webp" alt="" width="560" height="700" loading="lazy">` : thumbSVG(l)}</span><span class="rcard__t">${esc(S.title(l))}<small>${esc(l.color || '')}</small></span><b>${fmt(l.price)} ₴</b></button></li>`).join('');
 }
 $('[data-recent]') && $('[data-recent]').addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openPass(b.dataset.open); });
-$('[data-pass]').addEventListener('close', () => { paintRecent(); if (viewer) { viewer.destroy(); viewer = null; } if (location.hash.startsWith('#t/')) history.replaceState(null, '', location.pathname + location.search); /* drop the deep link without leaving an implicit #katalog that would reopen mid-page */ });
-function routeHash() { const m = location.hash.match(/^#t\/([\w-]+)/); if (m && byId(m[1])) { noSmooth(() => $('#katalog').scrollIntoView()); openPass(m[1]); } } // jump instantly: the scroll lock must record the final position, not a frame of a smooth scroll
+$('[data-pass]').addEventListener('close', () => {
+  paintRecent(); if (viewer) { viewer.destroy(); viewer = null; } passId = null;
+  if (passPushed) { passPushed = false; if (location.hash.startsWith('#t/')) { backPending = true; history.back(); } } // closed with × / Esc: step back over our own entry
+  else if (location.hash.startsWith('#t/')) history.replaceState(null, '', location.pathname + location.search); /* deep link opened directly: drop it and stay on the page, without an implicit #katalog that would reopen mid-page */
+});
+addEventListener('popstate', () => { // browser Back / Forward while on the page
+  const d = $('[data-pass]'), m = location.hash.match(/^#t\/([\w-]+)/);
+  if (backPending) { backPending = false; if (d.open && passId) { history.replaceState({ pass: passId }, '', '#t/' + passId); passPushed = true; } return; } // our own step back landed; if another passport opened meanwhile, it takes this entry
+  if (m && byId(m[1])) { if (!d.open || passId !== m[1]) openPass(m[1], false, true); }
+  else if (d.open) { passPushed = false; d.close(); } // Back: our entry is already gone, so the close handler must not step back again
+});
+function routeHash() { const m = location.hash.match(/^#t\/([\w-]+)/); if (m && !byId(m[1]) && !$('[data-pass]').open) { history.replaceState(null, '', location.pathname + location.search); return; } /* unknown or sold-and-removed unit: drop the dead link */ if (m && byId(m[1]) && !($('[data-pass]').open && passId === m[1])) { noSmooth(() => $('#katalog').scrollIntoView()); openPass(m[1]); } } // jump instantly: the scroll lock must record the final position, not a frame of a smooth scroll
 addEventListener('hashchange', routeHash);
 
 /* notify */
@@ -897,9 +941,9 @@ $('[data-notify-form]').addEventListener('submit', e => {
   e.preventDefault(); const f = e.target, err = $('[data-err]', f), ok = $('[data-ok]', f);
   const ct = f.contact.value.trim(), ctOk = phoneOk(ct) || /^@?[a-z0-9._]{2,30}$/i.test(ct) && /[a-z]/i.test(ct);
   f.want.removeAttribute('aria-invalid'); f.contact.removeAttribute('aria-invalid');
-  if (!f.want.value.trim() || !ctOk) { const bad = !f.want.value.trim() ? f.want : f.contact; err.textContent = bad === f.want ? 'Напишіть, який телефон чекаєте.' : 'Вкажіть телефон (+380 XX XXX XX XX) або нік в Instagram (@nick).'; err.hidden = false; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
+  if (!f.want.value.trim() || !ctOk) { const bad = !f.want.value.trim() ? f.want : f.contact; err.textContent = bad === f.want ? 'Напишіть, який телефон чекаєте.' : 'Вкажіть телефон (+380 XX XXX XX XX) або нік в Instagram (@nick).'; err.hidden = false; ok.hidden = true; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
   err.hidden = true; S.addRequest({ type: 'notify', status: 'Чекає', want: f.want.value.trim(), contact: phoneNorm(ct) || (ct[0] === '@' ? ct : '@' + ct) });
-  ok.innerHTML = `${icon('check')}<span>Готово. Напишемо, щойно «${esc(f.want.value.trim())}» буде на вітрині. ${DEMO_NOTE}</span>`; ok.hidden = false; f.reset();
+  ok.innerHTML = `${icon('check')}<span>Готово. Напишемо, щойно «${esc(f.want.value.trim())}» буде на вітрині. ${DEMO_NOTE}</span>`; ok.hidden = false; f.reset(); lockUntilEdit(f);
 });
 
 /* hero finder (iPhones) */
@@ -943,7 +987,7 @@ let hpSync = () => { };
   const PR = () => { const p = phones().map(l => l.price); return { min: Math.floor(Math.min(...p) / 1000) * 1000, max: Math.ceil(Math.max(...p) / 1000) * 1000 }; };
   const pOk = (l, lo = HPR.lo, hi = HPR.hi) => l.price >= lo && l.price <= hi;
   const match = (o = {}) => { const v = k => (k in o ? o[k] : f[k].value); return phones().filter(l => (!v('model') || l.model === v('model')) && (!v('mem') || l.mem === +v('mem')) && (+v('batt') === 0 || l.isNew || (l.batt != null && l.batt >= +v('batt'))) && pOk(l, o.lo ?? HPR.lo, o.hi ?? HPR.hi)).length; };
-  const priceLabel = () => { const { lo, hi } = HPR; return !lo && hi === Infinity ? 'будь-яка ціна' : !lo ? `до ${fmt(hi)} ₴` : hi === Infinity ? `від ${fmt(lo)} ₴` : `від ${fmt(lo)} до ${fmt(hi)} ₴`; };
+  const priceLabel = () => { const { lo, hi } = HPR; return !lo && hi === Infinity ? 'будь-яка' : !lo ? `до ${fmt(hi)} ₴` : hi === Infinity ? `від ${fmt(lo)} ₴` : `від ${fmt(lo)} до ${fmt(hi)} ₴`; };
   const opts = k => {
     if (k === 'model') return [{ v: '', t: 'Будь-який iPhone', sub: `${phones().filter(avail).length} в наявності`, g: '' }, ...MODELS().map(m => { const st = modelStats(m); return { v: m, t: shortModel(m), img: st.tint, sub: `від ${fmt(st.min)} ₴`, n: st.n ? `${st.n} в наявності` : 'під замовлення', g: /\de\b/.test(m) ? gen(m) + 'e' : gen(m) }; })];
     return [...f[k].options].map(o => ({ v: o.value, t: k === 'batt' ? (+o.value ? o.value + '%+' : 'будь-яка') : (o.value ? o.textContent : 'будь-яка'), c: match({ [k]: o.value }) }));
@@ -985,8 +1029,12 @@ let hpSync = () => { };
       $$('[data-pre]', R).forEach(c => { const [x, y] = c.dataset.pre.split(','); c.setAttribute('aria-pressed', (+x || 0) === HPR.lo && (y ? +y : Infinity) === HPR.hi); });
       f.dispatchEvent(new Event('hpr')); paintTrigs(); const d = $('.hp__done', box()); if (d) d.textContent = doneText();
     };
-    const fromText = () => { const g = (x, d) => { const v = parseInt(x.value.replace(/\D/g, ''), 10); return isNaN(v) ? d : Math.max(min, Math.min(max, v)); };
-      let a = g(L, HPR.lo || min), b = g(H, HPR.hi === Infinity ? max : HPR.hi); if (a > b) [a, b] = [b, a]; A.value = a; B.value = b; paint([a, b]); };
+    const fromText = e => { // typed amounts are clamped to the real range and to each other — never silently swapped
+      const raw = x => parseInt(x.value.replace(/\D/g, ''), 10), g = (x, d) => { const v = raw(x); return isNaN(v) ? d : Math.max(min, Math.min(max, v)); };
+      let a = g(L, HPR.lo || min), b = g(H, HPR.hi === Infinity ? max : HPR.hi);
+      if (a > b) { if (e && e.target === L) a = b; else b = a; }
+      A.value = a; B.value = b; paint([a, b]);
+      [[L, a], [H, b]].forEach(([x, v]) => { if (!isNaN(raw(x)) && raw(x) !== v) { x.parentElement.classList.remove('is-clamped'); void x.offsetWidth; x.parentElement.classList.add('is-clamped'); setTimeout(() => x.parentElement.classList.remove('is-clamped'), 1200); } }); };
     [A, B].forEach(x => { x.addEventListener('input', () => paint()); x.addEventListener('keydown', e => { if (e.key === 'PageUp' || e.key === 'PageDown') { e.preventDefault(); x.value = +x.value + (e.key === 'PageUp' ? 1000 : -1000); paint(); } }); });
     L.addEventListener('change', fromText); H.addEventListener('change', fromText);
     [L, H].forEach(x => { x.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); x.dispatchEvent(new Event('change')); } }); x.addEventListener('focus', () => x.select()); });
@@ -1002,7 +1050,7 @@ let hpSync = () => { };
     const gens = isModel ? [...new Set(list.map(o => o.g).filter(Boolean))].sort((a, b) => parseFloat(a === 'Air' ? 17.5 : a) - parseFloat(b === 'Air' ? 17.5 : b) || a.length - b.length) : [];
     el.innerHTML = head + (isModel && !MOB.matches ? `<div class="hp__tabs" role="group" aria-label="Перейти до покоління">${['', ...gens].map(g => `<button type="button" class="hp__tab" data-gen="${g}">${g ? (g === 'Air' ? 'Air' : g) : 'Усі'}</button>`).join('')}</div>` : '') +
       `<div class="hp__body"><div class="hp__list ${isModel ? 'hp__list--tiles' : 'hp__list--chips'}" role="listbox" id="hp-list" aria-labelledby="hp-h">${list.map((o, i) => `<div role="option" id="hp-o${i}" tabindex="${o.v === val ? 0 : -1}" aria-selected="${o.v === val}" class="hp__o ${isModel ? 'hp__o--tile' : 'hp__o--chip'} ${!isModel && !o.c && o.v !== val ? 'is-zero' : ''}" data-v="${esc(o.v)}" ${isModel ? `data-g="${o.g}"` : ''}>
-        ${isModel ? `<span class="hp__img">${o.img ? `<img src="assets/img/phones/${o.img}.webp" alt="" width="560" height="700" loading="lazy">` : `<b class="hp__all">${icon('phone')}</b>`}</span><span class="hp__t">${o.img ? '<small>iPhone</small>' : ''}${esc(o.t)}</span><span class="hp__p">${esc(o.sub)}</span>${o.n ? `<span class="hp__n">${esc(o.n)}</span>` : ''}` : `<span class="hp__t">${esc(o.t)}</span><span class="hp__c">${o.c} iPhone</span>`}
+        ${isModel ? `<span class="hp__img">${o.img ? `<img src="assets/img/phones/${o.img}.webp" alt="" width="560" height="700" loading="lazy">` : `<b class="hp__all">${icon('case')}</b>`}</span><span class="hp__t">${o.img ? '<small>iPhone</small>' : ''}${esc(o.t)}</span><span class="hp__p">${esc(o.sub)}</span>${o.n ? `<span class="hp__n">${esc(o.n)}</span>` : ''}` : `<span class="hp__t">${esc(o.t)}</span><span class="hp__c">${o.c} iPhone</span>`}
         <span class="hp__ok">${icon('check')}</span></div>`).join('')}</div></div>` + foot;
     el.dataset.k = k;
     if (!el.querySelector('[role=option][tabindex="0"]')) el.querySelector('[role=option]').tabIndex = 0;
@@ -1024,8 +1072,16 @@ let hpSync = () => { };
     const maxH = Math.round(Math.min(wide ? 720 : 560, H * 0.78)), tr = trig.getBoundingClientRect(), fr = f.getBoundingClientRect();
     pop.style.width = w + 'px'; pop.style.maxHeight = maxH + 'px';
     pop.style.left = Math.round(Math.max(16, Math.min(wide ? fr.left : tr.left - 12, W - w - 16))) + 'px';
-    const h = Math.min(pop.scrollHeight, maxH), below = tr.bottom + 10;
-    pop.style.top = Math.round(below + h <= H - 12 ? below : Math.max(12 + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav')) || 64), H - h - 12)) + 'px';
+    const h = Math.min(pop.scrollHeight, maxH), below = tr.bottom + 10, navB = 12 + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav')) || 64);
+    // never slide over the sentence's own row (the «Показати» button sits there): below it, else above it, else below with a shorter, scrolling panel
+    const roomB = H - 12 - below, roomA = tr.top - 10 - navB;
+    let top;
+    if (h <= roomB) top = below;
+    else if (wide) top = Math.max(navB, H - h - 12); // the model grid closes on a pick, so it may cover the row
+    else if (h <= roomA) top = tr.top - 10 - h;
+    else if (roomB >= 280 || roomB >= roomA) { top = below; pop.style.maxHeight = Math.max(200, roomB) + 'px'; }
+    else { pop.style.maxHeight = roomA + 'px'; top = tr.top - 10 - Math.min(h, roomA); }
+    pop.style.top = Math.round(top) + 'px';
   }
   const cols = () => { const l = $('.hp__list', box()); return l ? getComputedStyle(l).gridTemplateColumns.split(' ').length : 1; };
   function openHP(k) {
@@ -1042,9 +1098,21 @@ let hpSync = () => { };
     if (sheet.open) sheet.close(); sheet.style.height = ''; pop.hidden = true; pop.innerHTML = '';
     if (refocus) t.focus({ preventScroll: true });
   }
+  // a model without the chosen memory / battery would give 0 results: put those back to «будь-яка» and flash them
+  function fixCombo() {
+    const m = f.model.value; if (!m) return null;
+    const units = phones().filter(l => l.model === m), was = [], m0 = +f.mem.value, b0 = +f.batt.value;
+    if (f.mem.value && !units.some(l => l.mem === +f.mem.value)) { f.mem.value = ''; was.push('mem'); }
+    const u2 = units.filter(l => !f.mem.value || l.mem === +f.mem.value);
+    if (+f.batt.value && !u2.some(l => l.isNew || (l.batt != null && l.batt >= +f.batt.value))) { f.batt.value = '0'; was.push('batt'); }
+    if (!was.length) return null;
+    was.forEach(k => { const t = trigs[k]; if (!t) return; t.classList.remove('is-reset'); void t.offsetWidth; t.classList.add('is-reset'); setTimeout(() => t.classList.remove('is-reset'), 1600); });
+    const msg = (was.length > 1 ? `${m} з такими умовами немає — памʼять і АКБ тепер будь-які` : was[0] === 'mem' ? `${m} на ${memL(m0)} немає — памʼять тепер будь-яка` : `${m} з АКБ від ${b0}% немає — АКБ тепер будь-який`);
+    if (!MOB.matches) toast(msg); return msg; // on a phone the sheet stays open and covers the toast: the note goes into the sheet
+  }
   function choose(o) {
-    const k = cur; f[k].value = o.dataset.v; f.dispatchEvent(new Event('change')); paintTrigs();
-    if (MOB.matches) { const v = o.dataset.v; render(); const n = box().querySelector(`[role=option][data-v="${CSS.escape(v)}"]`); n && n.focus({ preventScroll: true }); }
+    const k = cur; f[k].value = o.dataset.v; const note = k === 'model' ? fixCombo() : null; f.dispatchEvent(new Event('change')); paintTrigs();
+    if (MOB.matches) { const v = o.dataset.v; render(); if (note) $('.hp__foot', sheet).insertAdjacentHTML('afterbegin', `<p class="hp__note" role="status">${esc(note)}</p>`); const n = box().querySelector(`[role=option][data-v="${CSS.escape(v)}"]`); n && n.focus({ preventScroll: true }); }
     else closeHP();
   }
   Object.values(trigs).forEach(b => {
@@ -1112,23 +1180,26 @@ const BANKS = [
   { id: 'ukrsib', n: 'Укрсиб', note: 'до 14 платежів — найдовший строк', def: 14, max: 14, free: 0 },
 ];
 let bank = BANKS.find(b => b.id === 'ukrsib');
-function setCalcPrice(v) { const p = $('[data-c-price]'), r = $('[data-c-range]'); p.value = v; r.value = Math.min(95000, Math.max(5000, v)); rangeFill(r); calc(); }
+function setCalcPrice(v, keepPick) { const p = $('[data-c-price]'), r = $('[data-c-range]'), pk = $('[data-c-pick]'); p.value = v; r.value = Math.min(95000, Math.max(5000, v)); rangeFill(r); if (!keepPick) pk.value = [...pk.options].some(o => o.value === String(v)) ? String(v) : ''; calc(); }
 function calc() {
   const price = Math.max(0, +$('[data-c-price]').value || 0), nI = $('[data-c-n]');
   nI.max = bank.max; if (+nI.value > bank.max) nI.value = bank.max; rangeFill(nI);
   const n = +nI.value; $('[data-c-nout]').textContent = n;
-  const bad = price < 3000 || price > 150000; bad ? $('[data-c-price]').setAttribute('aria-invalid', 'true') : $('[data-c-price]').removeAttribute('aria-invalid');
-  $('[data-c-sum]').textContent = bad ? '—' : fmt(Math.ceil(price / n));
-  $('[data-c-note]').textContent = bad ? 'Вкажіть ціну від 3 000 до 150 000 ₴' : bank.free && n <= bank.free ? `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} без переплати · перший платіж у день покупки` : `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} · без урахування можливої комісії банку`;
+  const empty = $('[data-c-price]').value.trim() === '', bad = price < 3000 || price > 150000; bad && !empty ? $('[data-c-price]').setAttribute('aria-invalid', 'true') : $('[data-c-price]').removeAttribute('aria-invalid');
+  const sum = $('[data-c-sum]'), msg = $('[data-c-msg]'), unit = $('.calc__unit');
+  sum.textContent = bad ? '' : fmt(Math.ceil(price / n)); sum.hidden = bad; if (unit) unit.hidden = bad;
+  if (msg) { msg.hidden = !bad; msg.textContent = empty ? 'Введіть ціну — порахуємо платіж' : price > 150000 ? 'Забагато для розстрочки' : 'Замало для розстрочки'; }
+  $('.calc__sum').classList.toggle('is-msg', bad);
+  $('[data-c-note]').textContent = bad ? 'Розстрочка — на суму від 3 000 до 150 000 ₴' : bank.free && n <= bank.free ? `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} без переплати · перший платіж у день покупки` : `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} · без урахування можливої комісії банку`;
   $('[data-c-bars]').innerHTML = Array.from({ length: n }, () => '<i></i>').join('');
 }
 {
   $('[data-banks]').innerHTML = BANKS.map(b => `<label class="bank"><input type="radio" name="bank" value="${b.id}" ${b === bank ? 'checked' : ''}><span><b>${b.n}</b><small>${b.note}</small></span></label>`).join('');
   $('[data-banks]').addEventListener('change', e => { bank = BANKS.find(b => b.id === e.target.value); const nI = $('[data-c-n]'); nI.max = bank.max; nI.value = bank.def; calc(); });
-  $('[data-c-price]').addEventListener('input', e => { const r = $('[data-c-range]'); r.value = Math.min(95000, Math.max(5000, +e.target.value || 0)); rangeFill(r); calc(); });
-  $('[data-c-range]').addEventListener('input', e => { $('[data-c-price]').value = e.target.value; rangeFill(e.target); calc(); });
+  $('[data-c-price]').addEventListener('input', e => { const r = $('[data-c-range]'); $('[data-c-pick]').value = ''; r.value = Math.min(95000, Math.max(5000, +e.target.value || 0)); rangeFill(r); calc(); });
+  $('[data-c-range]').addEventListener('input', e => { $('[data-c-price]').value = e.target.value; $('[data-c-pick]').value = ''; rangeFill(e.target); calc(); });
   $('[data-c-n]').addEventListener('input', calc);
-  $('[data-c-pick]').addEventListener('change', e => { if (e.target.value) setCalcPrice(+e.target.value); });
+  $('[data-c-pick]').addEventListener('change', e => { if (e.target.value) setCalcPrice(+e.target.value, true); });
   rangeFill($('[data-c-range]')); calc();
 }
 
@@ -1152,11 +1223,11 @@ function calc() {
   f.addEventListener('submit', e => {
     e.preventDefault(); const err = $('[data-err]', f), ok = $('[data-ok]', f);
     f.name.removeAttribute('aria-invalid'); f.phone.removeAttribute('aria-invalid');
-    if (!f.name.value.trim() || !phoneOk(f.phone.value)) { err.textContent = !f.name.value.trim() ? 'Як до вас звертатися?' : PHONE_ERR; err.hidden = false; const bad = f.name.value.trim() ? f.phone : f.name; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
+    if (!f.name.value.trim() || !phoneOk(f.phone.value)) { err.textContent = !f.name.value.trim() ? 'Як до вас звертатися?' : PHONE_ERR; err.hidden = false; ok.hidden = true; const bad = f.name.value.trim() ? f.phone : f.name; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
     err.hidden = true;
     const t = byId(f.target.value);
     S.addRequest({ type: 'tradein', model: f.model.value, mem: f.mem.value, look: f.look.value, batt: +f.batt.value, box: f.box.checked, repaired: f.repaired.checked, faceid: f.faceid.checked, target: t ? `${S.title(t)} ${t.color || ''}`.trim() : '', name: f.name.value.trim(), phone: phoneNorm(f.phone.value) });
-    ok.innerHTML = `${icon('check')}<span>Отримали. Напишемо або передзвонимо сьогодні в робочі години. Візьміть телефон у магазин — огляд займе близько 15 хвилин. ${DEMO_NOTE}</span>`; ok.hidden = false;
+    ok.innerHTML = `${icon('check')}<span>Отримали. Напишемо або передзвонимо ${openState().when}. Візьміть телефон у магазин — огляд займе близько 15 хвилин. ${DEMO_NOTE}</span>`; ok.hidden = false; lockUntilEdit(f);
   });
 }
 
@@ -1187,7 +1258,13 @@ function calc() {
 function refreshData() {
   LIST = S.listings();
   buildFilters(); renderGrid(); saveFav(); paintTray(); buildTiles(); paintPick();
-  $('[data-c-pick]').innerHTML = '<option value="">— позиція з каталогу —</option>' + LIST.map(l => `<option value="${l.price}">${esc(S.title(l))}${l.color ? ' ' + esc(l.color) : ''} — ${fmt(l.price)} ₴</option>`).join('');
+  { // calculator pick list: one group per model (iPhones newest last, as in the picker), cheapest first inside
+    const pk = $('[data-c-pick]'), keep = pk.value, CO = { iphone: 0, watch: 1, airpods: 2, mac: 3 }, by = new Map();
+    [...LIST].filter(avail).sort((x, y) => CO[x.cat] - CO[y.cat] || (x.cat === 'iphone' ? famOrder(x.model) - famOrder(y.model) : x.model.localeCompare(y.model)) || x.price - y.price)
+      .forEach(l => { if (!by.has(l.model)) by.set(l.model, []); by.get(l.model).push(l); });
+    pk.innerHTML = '<option value="">— позиція з каталогу —</option>' + [...by].map(([m, ls]) => `<optgroup label="${esc(m)}">${ls.map(l => `<option value="${l.price}">${esc([l.cat === 'iphone' ? memL(l.mem) : '', l.color].filter(Boolean).join(' ') || S.title(l))} — ${fmt(l.price)} ₴</option>`).join('')}</optgroup>`).join('');
+    pk.value = keep;
+  }
 }
 refreshData();
 if (window.__fillFilmUnit) window.__fillFilmUnit();

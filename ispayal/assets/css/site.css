@@ -703,7 +703,7 @@ html.is-locked .mbar,html.is-locked .tray,html.is-typing .mbar,html.is-typing .t
 .battico i{position:absolute;inset:1px;border-radius:1px;background:var(--red);transform-origin:left;transform:scaleX(.25);transition:transform .15s}
 .battico.is-full i{background:#2bb36c}
 .rng--dual{position:relative}
-.hist{display:flex;align-items:flex-end;gap:2px;height:30px;margin:4px 0 -14px;padding:0 10px}
+.hist[data-hist]{display:flex;align-items:flex-end;gap:2px;height:30px;margin:4px 0 -14px;padding:0 10px} /* the filter price histogram; plain .hist is the passport timeline */
 .hist i{flex:1;background:#e3e1db;border-radius:2px 2px 0 0;transition:background .2s}
 .hist i.is-in{background:rgba(255,42,47,.45)}
 .chipb:active,.chip:active span,.btn:active{transform:scale(.96)}
@@ -987,3 +987,43 @@ html.is-locked .nav{background:rgba(10,10,10,.92)}
 @media (max-width:560px){.card .card__t,.card .stat{padding-right:78px}}
 .hp-trig{display:none}.js .hp-trig{display:inline-flex}.js .finder__sel{display:none}
 @media (min-width:861px){.finder__go{min-width:250px}.nav__status{min-width:320px;justify-content:flex-end}}
+/* QA punch list (Nov 23): hero sentence groups, price popover track, calc message, compact phone bits */
+.finder__grp{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;min-width:0;max-width:100%}
+.finder__grp .hp-trig{min-width:0}
+.hp-trig.is-reset{animation:hpReset 1.6s var(--ease)}
+@keyframes hpReset{0%,40%{border-bottom-color:#fff;background:rgba(255,42,47,.22)}100%{background:transparent}}
+.hp__note{margin:0 0 10px;font:500 12.5px/1.35 var(--fm);color:#ffb3b5}
+/* the stage's range-track rule (.stagewrap input[type=range]) outranked the picker's: both tracks got a 50% fill and the upper input hid the lower thumb */
+.stagewrap .pr__dual input[type=range]::-webkit-slider-runnable-track,.pr__dual input[type=range]::-webkit-slider-runnable-track{height:44px;background:transparent}
+.stagewrap .pr__dual input[type=range]::-moz-range-track,.pr__dual input[type=range]::-moz-range-track{background:transparent}
+.pr__dual input[type=range]::-moz-range-progress{background:transparent}
+.pr__dual input[type=range]::-webkit-slider-thumb{margin-top:0;box-shadow:none}
+.pr__f.is-clamped{border-color:var(--red);animation:prClamp .5s var(--ease)}
+@keyframes prClamp{0%,100%{transform:none}30%{transform:translateX(-3px)}60%{transform:translateX(3px)}}
+.calc__sum.is-msg{font:600 clamp(20px,2.2vw,26px)/1.25 var(--fd);letter-spacing:-.01em;color:var(--mute);min-height:clamp(48px,6vw,76px);display:flex;align-items:center}
+.calc__sum [hidden]{display:none}
+.calc__msg{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.hp-trig.is-reset,.pr__f.is-clamped{animation:none}}
+/* tap targets ≥ 40 px on phones */
+@media (max-width:560px){.card .card__icons .iconbtn{width:40px;height:40px}.card .card__t,.card .stat{padding-right:84px}}
+/* 320–360: the catalog toolbar fits (shorter gaps; «Фільтри» is clear without its icon, the sort keeps its arrows) */
+@media (max-width:360px){
+  .ctool{gap:6px;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) auto}
+  .ctool__b{gap:6px;padding:0 10px;font-size:13px}
+  .ctool [data-ct-filters] .ic{display:none}
+  .ctool__pm{padding:0 10px}
+}
+/* phones: the passport's sticky buy bar stays compact — price + Direct, trust facts in one scrolling line */
+@media (max-width:560px){
+  .pass__buy{gap:8px;padding-top:10px}
+  .pass__buy .trust{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;scrollbar-width:none;margin:0 -18px;padding:0 18px;gap:14px}
+  .pass__buy .trust::-webkit-scrollbar{display:none}
+  .pass__buy .trust li{flex:none}
+  .pass__buy .sq{width:40px;height:40px}
+  .pass__buy .btn--direct{min-height:44px;padding:8px 14px}
+}
+/* 320–400: nav buttons keep their 44 px (smaller gaps instead of shrinking) */
+@media (max-width:400px){.nav__in{gap:8px}.nav__search,.nav__call,.nav__menu{flex:none}}
+/* «Показати ще 12 · показано 12 з 47» wraps inside the grid's width instead of overflowing it */
+.more small{font:inherit}
+@media (max-width:560px){.more{width:100%;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:auto;min-height:52px;padding-block:8px;line-height:1.2}.more__sep{display:none}.more small{font:500 12px/1.2 var(--fm);color:var(--mute)}}
