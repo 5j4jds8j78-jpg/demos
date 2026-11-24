@@ -357,8 +357,8 @@ function buildFilters() {
   // dragging a slider used to re-render the grid on every pixel: the list height changed mid-drag and the page jumped.
   // Now: labels update instantly, the grid re-renders at most every 180 ms, and the catalog keeps its height until the thumb is released.
   const main = $('.cat__main'); let rt = 0, rel = 0;
-  const lockH = () => { if (main && !main.style.minHeight) main.style.minHeight = main.offsetHeight + 'px'; clearTimeout(rel); };
-  const freeH = () => { clearTimeout(rel); rel = setTimeout(holdCatalog, 900); };
+  const lockH = () => { catDrag = true; if (main && !main.style.minHeight) main.style.minHeight = main.offsetHeight + 'px'; clearTimeout(rel); };
+  const freeH = () => { clearTimeout(rel); rel = setTimeout(() => { catDrag = false; releaseCatalog(); }, 600); };
   [sc, bt, a, b].forEach(i => {
     i.oninput = () => { paint(); lockH(); clearTimeout(rt); rt = setTimeout(renderGrid, 180); };
     i.onchange = () => { paint(); clearTimeout(rt); renderGrid(); freeH(); };
@@ -514,11 +514,15 @@ function tickCount(el, to) {
 const PAGE = 12, PAGED = matchMedia('(max-width:560px)'); let shown = PAGE, keepPage = false;
 // Keep the catalog at least as tall as the part of it that is on screen: when a filter shrinks the list,
 // the sections below (Trade-in, «Чому беруть») must not slide up under the visitor — that looked like the page jumping.
-function holdCatalog() {
-  const m = $('.cat__main'); if (!m) return;
-  const r = m.getBoundingClientRect();
-  if (r.top < innerHeight && r.bottom > 0) { const need = Math.ceil(innerHeight - r.top); m.style.minHeight = need > 0 ? need + 'px' : ''; }
-  else m.style.minHeight = '';
+let catDrag = false;
+// hold the catalog height only while the grid is being swapped (no momentary collapse), then let it shrink to the real content.
+function holdCatalog() { const m = $('.cat__main'); if (m && !m.style.minHeight) m.style.minHeight = m.offsetHeight + 'px'; }
+function releaseCatalog() {
+  const m = $('.cat__main'); if (!m || catDrag) return;
+  m.style.minHeight = '';
+  // results got short and the grid is now above the screen (the user would look at blank space / the next section): bring the grid back into view
+  const g = $('[data-grid]'), r = g && g.getBoundingClientRect(), nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav')) || 64;
+  if (r && r.bottom < nav + 120) { const top = m.getBoundingClientRect().top + scrollY - nav - 12; scrollTo({ top: Math.max(0, top), behavior: reduced ? 'auto' : 'smooth' }); }
 }
 /* nothing matches: a designed state with a way out (reset), a way forward (notify) and a human (Direct) — never a blank grid */
 function emptyHTML() {
@@ -552,6 +556,7 @@ function renderGrid() {
   const want = F.gens.size === 1 ? `iPhone ${[...F.gens][0]}${F.vars.size === 1 && [...F.vars][0] !== 'Базова' ? ' ' + [...F.vars][0] : ''}${F.mems.size === 1 ? ' ' + [...F.mems][0] : ''}${F.batt > BATT_MIN ? `, АКБ від ${F.batt}%` : ''}` : '';
   if (want) $('[data-notify-want]').value = want;
   paintQuick(); paintChips(); hpSync(); syncPT(); const tb = $('[data-ct-n]'); if (tb) { tb.textContent = act || ''; tb.hidden = !act; }
+  requestAnimationFrame(releaseCatalog);
 }
 $('[data-sort]').addEventListener('change', e => { F.sort = e.target.value; renderGrid(); });
 $('[data-more]') && $('[data-more]').addEventListener('click', () => { const n0 = shown; shown += PAGE; keepPage = true; renderGrid(); const c = $$('[data-grid] .card')[n0]; if (c) $('.card__vis', c).focus({ preventScroll: true }); });
@@ -1310,7 +1315,7 @@ const BANKS = [
   { id: 'ukrsib', n: 'Укрсиб', note: 'до 14 платежів', def: 14, max: 14, free: 0 },
 ];
 let bank = BANKS.find(b => b.id === 'ukrsib');
-function setCalcPrice(v, keepPick) { const p = $('[data-c-price]'), r = $('[data-c-range]'), pk = $('[data-c-pick]'); p.value = v; r.value = Math.min(95000, Math.max(5000, v)); rangeFill(r); if (!keepPick) pk.value = [...pk.options].some(o => o.value === String(v)) ? String(v) : ''; calc(); }
+function setCalcPrice(v, keepPick) { const p = $('[data-c-price]'), r = $('[data-c-range]'), pk = $('[data-c-pick]'); p.value = v; r.value = Math.min(95000, Math.max(5000, v)); rangeFill(r); if (!keepPick) pk.value = [...pk.options].some(o => o.value === String(v)) ? String(v) : ''; calc(); window.__cpPaint && window.__cpPaint(); }
 function calc() {
   const price = Math.max(0, +$('[data-c-price]').value || 0), nI = $('[data-c-n]');
   nI.max = bank.max; if (+nI.value > bank.max) nI.value = bank.max; rangeFill(nI);
@@ -1384,6 +1389,68 @@ function calc() {
   document.addEventListener('focusout', () => setTimeout(() => html.classList.toggle('is-typing', typing(document.activeElement)), 50));
 }
 
+/* calculator: custom catalogue picker (replaces the native <select> UI; the select stays as the value holder) */
+let cpId = '', cpWired = false;
+function cpList() {
+  const CO = { iphone: 0, watch: 1, airpods: 2, mac: 3 };
+  return [...LIST].filter(avail).sort((x, y) => CO[x.cat] - CO[y.cat] || (x.cat === 'iphone' ? famOrder(y.model) - famOrder(x.model) : x.model.localeCompare(y.model)) || x.price - y.price);
+}
+function cpThumb(l) {
+  const u = PH(l)[0];
+  return u ? `<img src="${esc(S.photoSmall(u))}" alt="" loading="lazy" decoding="async">` : `<i class="cp__ph" style="background:${SWATCH[l.tint] || '#bbb'}"></i>`;
+}
+function cpLine(l) { return [l.cat === 'iphone' ? memL(l.mem) : '', l.color].filter(Boolean).join(' · ') || S.title(l); }
+function buildCalcPicker() {
+  const pk = $('[data-c-pick]'); if (!pk) return;
+  let root = $('[data-cp]');
+  if (!root) {
+    root = document.createElement('div'); root.className = 'cp'; root.setAttribute('data-cp', '');
+    root.innerHTML = `<button type="button" class="cp__btn" aria-haspopup="listbox" aria-expanded="false" data-cp-btn></button>
+      <div class="cp__panel" role="dialog" aria-label="Оберіть телефон з вітрини" hidden data-cp-panel>
+        <div class="cp__head"><b>Оберіть з вітрини</b><button type="button" class="cp__x" aria-label="Закрити" data-cp-x>×</button></div>
+        <div class="cp__search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" placeholder="Модель, памʼять, колір…" autocomplete="off" aria-label="Пошук" data-cp-q></div>
+        <div class="cp__list" role="listbox" data-cp-list></div>
+      </div><div class="cp__back" hidden data-cp-back></div>`;
+    pk.closest('label').after(root);
+    pk.closest('label').classList.add('cp-native');
+  }
+  const items = cpList();
+  const groups = new Map(); items.forEach(l => { if (!groups.has(l.model)) groups.set(l.model, []); groups.get(l.model).push(l); });
+  $('[data-cp-list]', root).innerHTML = [...groups].map(([m, ls]) => `<div class="cp__grp" data-cp-grp><p class="cp__gh">${esc(m)}<span>${ls.length}</span></p>${ls.map(l => {
+    const bits = [l.score != null && !l.isNew ? `стан ${String(l.score).replace('.', ',')}` : (l.isNew ? 'новий' : ''), l.batt != null ? `АКБ ${l.batt}%` : ''].filter(Boolean).join(' · ');
+    return `<button type="button" class="cp__it" role="option" aria-selected="false" data-cp-id="${esc(l.id)}" data-cp-price="${l.price}" data-cp-text="${esc((m + ' ' + cpLine(l)).toLowerCase())}">
+      <span class="cp__th">${cpThumb(l)}</span>
+      <span class="cp__tx"><b>${l.color ? `<i class="swatch" style="background:${SWATCH[l.tint] || '#999'}"></i>` : ''}${esc(cpLine(l))}</b><small>${esc(bits)}${l.special ? ' · <em>спецпропозиція</em>' : ''}</small></span>
+      <span class="cp__pr">${fmt(l.price)} ₴</span></button>`; }).join('')}</div>`).join('') || '<p class="cp__empty">Зараз у вітрині порожньо</p>';
+  window.__cpPaint = paintCP;
+  paintCP();
+  if (cpWired) return; cpWired = true;
+  const btn = $('[data-cp-btn]', root), panel = $('[data-cp-panel]', root), back = $('[data-cp-back]', root), q = $('[data-cp-q]', root), list = $('[data-cp-list]', root);
+  const mob = () => matchMedia('(max-width:700px)').matches;
+  const open = () => { if (mob()) { panel.classList.add('cp__panel--sheet'); document.body.append(back, panel); } panel.hidden = false; back.hidden = false; btn.setAttribute('aria-expanded', 'true'); root.classList.add('is-open'); if (matchMedia('(max-width:700px)').matches) document.documentElement.classList.add('cp-lock'); const s = $('[aria-selected="true"]', list); if (s) s.scrollIntoView({ block: 'center' }); if (!matchMedia('(pointer:coarse)').matches) q.focus({ preventScroll: true }); };
+  const close = (refocus) => { panel.hidden = true; back.hidden = true; if (panel.parentNode !== root) { root.append(panel, back); panel.classList.remove('cp__panel--sheet'); } btn.setAttribute('aria-expanded', 'false'); root.classList.remove('is-open'); document.documentElement.classList.remove('cp-lock'); q.value = ''; filt(); if (refocus) btn.focus({ preventScroll: true }); };
+  const filt = () => { const t = q.value.trim().toLowerCase().split(/\s+/).filter(Boolean); $$('[data-cp-grp]', list).forEach(g => { let any = 0; $$('.cp__it', g).forEach(it => { const ok = t.every(w => it.dataset.cpText.includes(w)); it.hidden = !ok; any += ok; }); g.hidden = !any; }); };
+  btn.addEventListener('click', () => panel.hidden ? open() : close());
+  $('[data-cp-x]', root).addEventListener('click', () => close(true));
+  back.addEventListener('click', () => close());
+  q.addEventListener('input', filt);
+  ['[data-c-price]', '[data-c-range]'].forEach(sel => { const el = $(sel); if (el) el.addEventListener('input', () => paintCP()); });
+  list.addEventListener('click', e => { const it = e.target.closest('.cp__it'); if (!it) return; cpId = it.dataset.cpId; pk.value = it.dataset.cpPrice; setCalcPrice(+it.dataset.cpPrice, true); close(true); });
+  document.addEventListener('keydown', e => { if (panel.hidden) return; if (e.key === 'Escape') { close(true); return; }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); const vis = $$('.cp__it', list).filter(i => !i.hidden && !i.closest('[hidden]')); let k = vis.indexOf(document.activeElement); k = e.key === 'ArrowDown' ? Math.min(vis.length - 1, k + 1) : Math.max(0, k - 1); vis[k] && vis[k].focus(); } });
+  document.addEventListener('click', e => { if (!panel.hidden && !root.contains(e.target) && !panel.contains(e.target)) close(); });
+}
+function paintCP() {
+  const root = $('[data-cp]'), pk = $('[data-c-pick]'); if (!root) return;
+  const items = cpList();
+  let l = pk.value ? items.find(x => x.id === cpId && String(x.price) === pk.value) || items.find(x => String(x.price) === pk.value) : null;
+  if (!l) cpId = ''; else cpId = l.id;
+  $$('.cp__it', root).forEach(it => it.setAttribute('aria-selected', String(it.dataset.cpId === cpId)));
+  $('[data-cp-btn]', root).innerHTML = l
+    ? `<span class="cp__th">${cpThumb(l)}</span><span class="cp__tx"><small>З вітрини</small><b>${esc(l.model)}</b><span>${l.color ? `<i class="swatch" style="background:${SWATCH[l.tint] || '#999'}"></i>` : ''}${esc(cpLine(l))}</span></span><span class="cp__pr">${fmt(l.price)} ₴</span><svg class="cp__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>`
+    : `<span class="cp__th cp__th--empty"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="cp__tx"><small>Або оберіть з вітрини</small><b>${items.length} ${plural(items.length, 'позиція', 'позиції', 'позицій')} у наявності</b><span>ціна підставиться сама</span></span><svg class="cp__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>`;
+}
+
 /* ---------------- init ---------------- */
 function refreshData() {
   LIST = S.listings();
@@ -1393,7 +1460,7 @@ function refreshData() {
     [...LIST].filter(avail).sort((x, y) => CO[x.cat] - CO[y.cat] || (x.cat === 'iphone' ? famOrder(x.model) - famOrder(y.model) : x.model.localeCompare(y.model)) || x.price - y.price)
       .forEach(l => { if (!by.has(l.model)) by.set(l.model, []); by.get(l.model).push(l); });
     pk.innerHTML = '<option value="">— позиція з каталогу —</option>' + [...by].map(([m, ls]) => `<optgroup label="${esc(m)}">${ls.map(l => `<option value="${l.price}">${esc([l.cat === 'iphone' ? memL(l.mem) : '', l.color].filter(Boolean).join(' ') || S.title(l))} — ${fmt(l.price)} ₴</option>`).join('')}</optgroup>`).join('');
-    pk.value = keep;
+    pk.value = keep; buildCalcPicker();
   }
 }
 refreshData();
