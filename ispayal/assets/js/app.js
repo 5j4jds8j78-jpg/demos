@@ -120,7 +120,7 @@ async function bootGL() {
   if (!wantGL) return;
   try {
     await document.fonts.load('900 40px "ISP Display"'); await document.fonts.load('500 20px "ISP Mono"'); await document.fonts.load('600 20px "ISP Display"');
-    const mod = await import('./hero3d.js?v=20261124y');
+    const mod = await import('./hero3d.js?v=20261124x');
     const labels = Object.fromEntries($$('[data-part]', stage).map(b => [b.dataset.part, b]));
     gl = mod.start($('[data-gl]'), {
       anchor: $('[data-anchor]'), labels, font: '"ISP Display"', mono: '"ISP Mono"', capture: qs.has('capture'), still: qs.has('capture'),
@@ -355,7 +355,15 @@ function buildFilters() {
     const mx = Math.max(...cnt, 1);
     $('[data-hist]').innerHTML = cnt.map((c, k) => `<i data-lo="${P_MIN + k * step}" data-hi="${P_MIN + (k + 1) * step}" style="height:${c ? 12 + c / mx * 88 : 4}%"></i>`).join('');
   }
-  [sc, bt, a, b].forEach(i => i.oninput = () => { paint(); renderGrid(); });
+  // dragging a slider used to re-render the grid on every pixel: the list height changed mid-drag and the page jumped.
+  // Now: labels update instantly, the grid re-renders at most every 180 ms, and the catalog keeps its height until the thumb is released.
+  const main = $('.cat__main'); let rt = 0, rel = 0;
+  const lockH = () => { if (main && !main.style.minHeight) main.style.minHeight = main.offsetHeight + 'px'; clearTimeout(rel); };
+  const freeH = () => { clearTimeout(rel); rel = setTimeout(() => { if (main) main.style.minHeight = ''; }, 900); };
+  [sc, bt, a, b].forEach(i => {
+    i.oninput = () => { paint(); lockH(); clearTimeout(rt); rt = setTimeout(renderGrid, 180); };
+    i.onchange = () => { paint(); clearTimeout(rt); renderGrid(); freeH(); };
+  });
   $('[data-fl-sealed]').checked = F.sealed; $('[data-fl-sealed]').onchange = e => { F.sealed = e.target.checked; renderGrid(); };
   paint();
 }
@@ -709,7 +717,7 @@ function paintPick() {
   if (pickViewer) pickViewer.setTint(tint);
   else if (wantGL && !pickViewerLoading && !qs.has('capture')) {
     pickViewerLoading = true;
-    import('./hero3d.js?v=20261124y').then(mod => {
+    import('./hero3d.js?v=20261124x').then(mod => {
       const c = document.createElement('canvas'); c.setAttribute('role', 'img'); c.setAttribute('aria-label', 'Узагальнена 3D-модель обраного кольору; можна покрутити'); c.tabIndex = 0;
       $('[data-pick-vis]').appendChild(c);
       pickViewer = mod.startViewer(c, { tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
@@ -898,7 +906,7 @@ function openPass(id, focusBook, viaPop) {
   $('.pass__data', d).scrollTop = 0;
   if (focusBook) setTimeout(() => { const n = d.querySelector('[name=name]'); n.scrollIntoView({ block: 'center' }); n.focus({ preventScroll: true }); }, 60); else d.querySelector('[data-close]').focus({ preventScroll: true });
   if (isPhone && wantGL && !qs.has('capture')) {
-    import('./hero3d.js?v=20261124y').then(mod => {
+    import('./hero3d.js?v=20261124x').then(mod => {
       if (!d.open) return;
       const vis = $('.pass__vis', d), c = document.createElement('canvas'); c.tabIndex = 0; c.setAttribute('aria-label', 'Покрутіть 3D-модель: перетягніть або стрілки'); c.setAttribute('role', 'img');
       vis.appendChild(c); viewer = mod.startViewer(c, { tint: l.tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
