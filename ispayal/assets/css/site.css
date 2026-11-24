@@ -1,4 +1,4 @@
-/* iSPAYAL demo — black, white and one signal red */
+/* iSPAYAL — black, white and one signal red */
 @font-face{font-family:"ISP Display";src:url(../fonts/display-900.woff2) format("woff2");font-weight:900;font-display:swap}
 @font-face{font-family:"ISP Display";src:url(../fonts/display-600.woff2) format("woff2");font-weight:600;font-display:swap}
 @font-face{font-family:"ISP Text";src:url(../fonts/inter-400.woff2) format("woff2");font-weight:400;font-display:swap}
@@ -1076,3 +1076,95 @@ html.is-locked .nav{background:rgba(10,10,10,.92)}
 .rng output{min-width:0}
 .rng [data-o-score]{min-width:3ch}.rng [data-o-batt]{min-width:4ch}
 .rng .condword{min-width:0;font-size:11.5px;overflow:hidden;text-overflow:ellipsis}
+/* ---- real photos of a unit (listing.photos); without photos the 3D render stays ---- */
+.card__vis--photo{background:#e9e7e1}
+.card .card__vis .vis__photo,.card:hover .card__vis .vis__photo{position:absolute;inset:0;left:0;top:0;width:100%;height:100%;object-fit:cover;transform:none;transition:transform .6s var(--ease)}
+@media (hover:hover){.card:hover .card__vis .vis__photo{transform:scale(1.035)}}
+.card__vis--photo .card__tag,.card__vis--photo .card__grade{box-shadow:0 1px 6px rgba(0,0,0,.12)}
+.card__phn{position:absolute;right:8px;bottom:8px;z-index:1;display:inline-flex;align-items:center;gap:4px;padding:4px 7px;border-radius:999px;background:rgba(10,10,10,.62);color:#fff;font:500 11px/1 var(--fm);pointer-events:none}
+.card__phn .ic{width:13px;height:13px}
+.cs__img .th__photo,.other__img .th__photo,.rcard__img .th__photo{position:absolute;inset:0;left:0;top:0;width:100%;height:100%;object-fit:cover;transform:none}
+.cmp__vis .vis__photo{width:100%;max-width:150px;height:120px;object-fit:cover;border-radius:12px;display:block}
+/* passport gallery */
+.pass__vis.has-photos{display:flex;flex-direction:column;min-height:0}
+.has-photos .pass__no{top:14px;left:14px;padding:6px 9px;border-radius:999px;background:rgba(10,10,10,.55);color:#fff;z-index:3}
+.pg__wrap{position:relative;flex:1 1 auto;min-height:0}
+.pg{position:absolute;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;outline:0}
+.pg::-webkit-scrollbar{display:none}
+.pg:focus-visible{box-shadow:inset 0 0 0 3px var(--red)}
+.pg__s{position:relative;flex:0 0 100%;width:100%;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden}
+.pass__vis .pg__img{position:absolute;inset:0;width:100%;height:100%;padding:0;object-fit:contain;background:#0d0d0d;touch-action:pan-x pan-y;user-select:none;-webkit-user-drag:none}
+.pg__s--3d{background:radial-gradient(60% 50% at 50% 55%,rgba(255,42,47,.25),transparent 70%)}
+.pg__nav{position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border-radius:50%;border:0;display:grid;place-items:center;background:rgba(255,255,255,.92);color:var(--ink);cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.25);transition:opacity .2s}
+.pg__nav .ic{width:18px;height:18px}
+.pg__nav--prev{left:14px}.pg__nav--prev .ic{transform:scaleX(-1)}
+.pg__nav--next{right:14px}
+.pg__nav:disabled{opacity:0;pointer-events:none}
+.pg__hint.pass__hint{left:14px;right:auto;bottom:12px;max-width:calc(100% - 28px);padding:6px 10px;border-radius:999px;background:rgba(10,10,10,.55);color:#fff;pointer-events:none;z-index:2}
+.pg__ths{flex:none;display:flex;gap:8px;padding:12px 16px 14px;overflow-x:auto;scrollbar-width:none;position:relative;z-index:1;background:var(--ink)}
+.pg__ths::-webkit-scrollbar{display:none}
+.pg__th{flex:none;width:60px;height:60px;padding:0;border-radius:12px;overflow:hidden;border:2px solid transparent;background:#1c1c1e;cursor:pointer;opacity:.62;transition:opacity .2s,border-color .2s;display:grid;place-items:center;color:#fff}
+.pg__th:hover{opacity:1}
+.pg__th[aria-current="true"]{opacity:1;border-color:#fff}
+.pass__vis .pg__th img{position:static;width:100%;height:100%;padding:0;object-fit:cover}
+.pg__th--3d span{font:600 15px/1 var(--fm);letter-spacing:.02em}
+.pg__th--3d[aria-current="true"]{border-color:var(--red)}
+@media (max-width:860px){
+  .pass.has-photos[open]{grid-template-rows:minmax(220px,44vh) minmax(0,1fr)}
+  .pg__nav{display:none}
+  .pg__ths{justify-content:center;gap:0;padding:4px 8px 6px}
+  .pg__th{width:26px;height:26px;border:0;border-radius:0;background:none;opacity:1}
+  .pg__th img{display:none}
+  .pg__th::before{content:"";display:block;width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.42);transition:width .2s,background .2s}
+  .pg__th[aria-current="true"]::before{width:18px;background:#fff}
+  .pg__th--3d::before{display:none}
+  .pg__th--3d span{font-size:10.5px;color:rgba(255,255,255,.55)}
+  .pg__th--3d[aria-current="true"] span{color:#fff}
+  .pg__hint.pass__hint{bottom:8px;font-size:11px}
+}
+@media (max-height:620px) and (max-width:860px){.pass.has-photos[open]{grid-template-rows:minmax(180px,36vh) minmax(0,1fr)}}
+/* zero results */
+.grid .empty{grid-column:1/-1;display:grid;justify-items:center;gap:0;padding:40px 24px 34px;border-radius:var(--r);border:1px solid var(--line);background:#fff;text-align:center;color:var(--mute)}
+.empty__ic{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#f3f2ee;color:var(--red)}
+.empty__ic .ic{width:24px;height:24px}
+.empty__h{margin-top:16px;font:900 clamp(22px,2.4vw,28px)/1.1 var(--fd);letter-spacing:-.03em;color:var(--ink);text-wrap:balance}
+.empty__p{margin-top:8px;max-width:46ch;font-size:15px;line-height:1.5;text-wrap:pretty}
+.empty__p .ic--in{width:16px;height:16px;vertical-align:-3px;color:var(--red)}
+.empty__acts{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:20px}
+.empty__acts .btn{white-space:nowrap}
+.empty__dm{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:14px;color:var(--ink);text-underline-offset:3px}
+.empty__dm .ic{width:18px;height:18px;color:var(--red)}
+@media (max-width:420px){.grid .empty{padding:30px 16px 26px}.empty__acts{display:grid;width:100%}.empty__acts .btn{width:100%;justify-content:center}}
+.card__vis--photo~.card__icons .iconbtn{background:rgba(255,255,255,.9);box-shadow:0 1px 6px rgba(0,0,0,.12)}
+.stat{white-space:nowrap}
+.spec{display:inline-flex;align-items:center;gap:5px;margin:0 0 8px 8px;padding:4px 8px;border-radius:999px;background:var(--ink);color:#fff;font:500 11px/1.2 var(--fm);white-space:nowrap;vertical-align:top}
+.spec .ic{width:13px;height:13px;color:var(--red)}
+.pp__cyc:empty{display:none}
+@media (max-width:560px){.card .spec{order:0;margin:2px 0 0;align-self:flex-start;font-size:10.5px;padding:3px 7px}}
+/* the notify block's 1fr track grew to the chip rows' max-content (≈1400px) and widened the whole page on phones */
+.notify{grid-template-columns:minmax(0,1fr)}
+.notify>*{min-width:0}
+@media (min-width:861px){.notify{grid-template-columns:minmax(220px,.8fr) minmax(0,1.6fr)}}
+/* calculator: the result area keeps one height whether it shows a sum or a two-line hint, the note keeps two lines → nothing below moves while typing / switching banks */
+.calc__sum{min-height:calc(2 * 1.25 * clamp(20px,2.2vw,26px));display:flex;flex-wrap:wrap;align-items:baseline;align-content:center;column-gap:.12em}
+.calc__sum.is-msg{align-items:center}
+.calc__note{min-height:2.9em;line-height:1.45}
+/* hero price boxes on the narrowest phones: «88 000 ₴» must fit */
+@media (max-width:360px){.pr__f{padding:0 10px;gap:6px}.pr__f input{font-size:16px}.pr__f span{letter-spacing:.02em}}
+.ln{padding-bottom:.16em;margin-bottom:-.16em}
+.calc__sum.is-msg{min-height:calc(2 * 1.25 * clamp(20px,2.2vw,26px))}
+/* shop photos are portrait hand-held shots: a taller photo box and a focus a little above centre keep the phone (and its cameras) in frame */
+.card__vis.card__vis--photo{height:270px}
+.card .card__vis .vis__photo{object-position:50% 40%}
+/* active filters: a fixed one-line row (scrolls sideways), so nothing above the grid changes height */
+.achips{flex-wrap:nowrap;height:40px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;overscroll-behavior-x:contain}
+.achips::-webkit-scrollbar{display:none}
+.achips>*{flex:none}
+.achips__none{display:inline-flex;align-items:center;gap:8px;font:500 13px/1.2 var(--fm);color:var(--mute);white-space:nowrap}
+.achips__none .ic{width:15px;height:15px}
+/* narrow phones: long typed / picked values and placeholders end in «…» instead of being cut; 16px stays (no iOS zoom on focus) */
+.fld input,.csearch input{text-overflow:ellipsis}
+@media (max-width:560px){.notify .fld input{padding:0 10px}}
+/* phone cards: the «Спеціальна пропозиція» badge sits under the title block, clear of the heart / compare buttons */
+@media (max-width:560px){.card .spec{order:4;margin:6px 0 0;white-space:normal;max-width:100%}}
+@media (max-width:560px){.card .card__vis.card__vis--photo{height:140px}}

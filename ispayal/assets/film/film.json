@@ -2,13 +2,13 @@
   "ready": true,
   "_note": "Set ready to true to play. Landscape: film.webm / film.mp4. Add vertical files (e.g. film-9x16.webm/.mp4) to 'portrait' when they exist — empty list = phones use the landscape film.",
   "landscape": [
-    "film.webm",
-    "film.mp4"
+    "film.webm?v=6",
+    "film.mp4?v=6"
   ],
   "portrait": [
-    "film-9x16.webm",
-    "film-9x16.mp4"
+    "film-9x16.webm?v=6",
+    "film-9x16.mp4?v=6"
   ],
-  "poster": "film-poster.jpg",
-  "posterPortrait": "film-poster-9x16.jpg"
+  "poster": "film-poster.jpg?v=6",
+  "posterPortrait": "film-poster-9x16.jpg?v=6"
 }

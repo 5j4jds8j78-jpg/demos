@@ -18,7 +18,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/display-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=20261124w">
+<link rel="stylesheet" href="assets/css/site.css?v=20261124z4">
 <script>document.documentElement.classList.add('js')</script>
 <script>/* stable viewport height: in-app browsers (Instagram, iOS Safari) resize the viewport as their toolbars collapse; ignore height-only changes on touch screens so sections never change height mid-scroll */
 (function(){var d=document.documentElement,w=0,h=0,t=matchMedia('(pointer:coarse)');function s(f){var nw=innerWidth,nh=innerHeight;if(!f&&nw===w&&(t.matches||nh===h))return;w=nw;h=nh;d.style.setProperty('--vh',nh/100+'px')}s(1);addEventListener('resize',function(){s()});addEventListener('orientationchange',function(){setTimeout(function(){s(1)},350)})})();</script>
@@ -134,8 +134,8 @@
     <div class="wrap">
       <div class="chapter__card">
         <p class="eyebrow eyebrow--dark"><span class="dot" aria-hidden="true"></span>Сервісний центр</p>
-        <h2 id="rem-h" class="h2">Майстерня поруч із вітриною.</h2>
-        <p>Сервіс — у тому ж приміщенні, що й магазин. Телефони, які продаємо, проходять через наш стіл, і ваш ремонтуємо там само.</p>
+        <h2 id="rem-h" class="h2">Ремонт там, де купуєте.</h2>
+        <p>Продаж і ремонт Apple — за однією адресою: просп. Героїв Дніпра, 36. Заміна АКБ, переклеювання скла, заднє скло, полірування — запис онлайн нижче.</p>
         <p class="chapter__hint" data-gl-hint>Торкніться деталі на моделі — покажемо, що з нею робимо.</p>
       </div>
     </div>
@@ -217,8 +217,7 @@
     <div class="cat__head">
       <div>
         <h2 id="cat-h" class="h2">iPhone у наявності</h2>
-        <p class="cat__sub">Не «iPhone 15 Pro, стан хороший», а&nbsp;саме цей iPhone: його оцінка, його % АКБ і цикли, що в ньому міняли. Поруч — Apple Watch, AirPods і MacBook. <span class="mono muted">Реальні позиції з Instagram @ispayal.ua станом на 22.11.2026 — у робочій версії оновлюються з адмінки</span></p>
-        <p class="pitchnote"><svg class="ic" aria-hidden="true"><use href="#i-cam"/></svg><span>У робочій версії — ваші реальні фото й відео кожного телефону</span></p>
+        <p class="cat__sub">Не «iPhone 15 Pro, стан хороший», а&nbsp;саме цей iPhone: його оцінка, його % АКБ і цикли, що в ньому міняли. Поруч — Apple Watch. <span class="mono muted">Ті самі позиції, що в&nbsp;нашому Instagram @ispayal.ua · оновлено 24.11.2026</span></p>
       </div>
       <div class="cat__tools">
         <button type="button" class="btn btn--line btn--sm" data-fav-toggle aria-pressed="false"><svg aria-hidden="true" class="ic"><use href="#i-heart"/></svg>Обране <b data-fav-count>0</b></button>
@@ -231,7 +230,7 @@
     <form class="csearch" role="search" data-cs-form>
       <label class="sr" for="cs-in">Пошук у каталозі</label>
       <span class="csearch__ic"><svg class="ic" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span>
-      <input id="cs-in" type="search" autocomplete="off" enterkeyhint="search" placeholder="15 pro 256, синій, airpods, до 30…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cs-list" data-csearch>
+      <input id="cs-in" type="search" autocomplete="off" enterkeyhint="search" placeholder="15 pro 256, синій, до 30…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cs-list" data-csearch>
       <button class="btn btn--dark btn--sm csearch__go" type="submit">Знайти</button>
       <ul class="cs" id="cs-list" role="listbox" aria-label="Знайдені позиції" hidden data-cs-list></ul>
     </form>
@@ -240,7 +239,7 @@
       <button type="button" class="ctool__b" aria-controls="filters" aria-expanded="false" data-ct-filters><svg class="ic" aria-hidden="true"><use href="#i-filter"/></svg>Фільтри <b data-ct-n hidden></b></button>
       <button type="button" class="ctool__b ctool__pm" aria-pressed="false" aria-label="Показувати ціну в місяць" data-ct-pm><span>₴/міс</span></button>
     </div>
-    <div class="achips" role="group" aria-label="Активні фільтри" hidden data-achips></div>
+    <div class="achips" role="group" aria-label="Активні фільтри" data-achips><span class="achips__none"><svg class="ic" aria-hidden="true"><use href="#i-filter"/></svg>Фільтри не обрано — показуємо всі позиції</span></div>
     <div class="cat__body">
       <aside class="filters" id="filters" data-filters aria-label="Фільтри">
         <div class="filters__top"><b>Фільтри</b><button type="button" class="linkbtn" data-reset>Скинути</button><button type="button" class="filters__close" data-filters-close aria-label="Закрити фільтри"><svg aria-hidden="true" class="ic"><use href="#i-x"/></svg></button></div>
@@ -251,8 +250,8 @@
         <fieldset><legend>Памʼять</legend><div class="chips" data-fl-mem></div></fieldset>
         <fieldset><legend>Стан</legend><div class="chips chips--wrap" data-fl-cond></div></fieldset>
         <fieldset><legend>SIM</legend><div class="chips" data-fl-sim></div></fieldset>
-        <div class="rng"><label for="f-score">Оцінка стану від <output data-o-score>8.5</output> <span class="condword" data-o-word></span></label><input id="f-score" type="range" min="8.5" max="10" step="0.1" value="8.5" data-fl-score></div>
-        <div class="rng"><label for="f-batt"><span class="battico" aria-hidden="true"><i data-batt-fill></i></span>АКБ від <output data-o-batt>80%</output></label><input id="f-batt" type="range" min="80" max="100" step="1" value="80" data-fl-batt></div>
+        <div class="rng"><label for="f-score">Оцінка стану від <output data-o-score>будь-якої</output> <span class="condword" data-o-word></span></label><input id="f-score" type="range" min="8" max="10" step="0.1" value="8" data-fl-score></div>
+        <div class="rng"><label for="f-batt"><span class="battico" aria-hidden="true"><i data-batt-fill></i></span>АКБ від <output data-o-batt>будь-якого %</output></label><input id="f-batt" type="range" min="80" max="100" step="1" value="80" data-fl-batt></div>
         <div class="rng rng--dual"><span class="rng__l" id="price-l">Ціна <output data-o-price></output></span>
           <div class="hist" data-hist aria-hidden="true"></div>
           <div class="dual" data-dual><input type="range" aria-label="Ціна від" min="5000" max="80000" step="100" value="5000" data-fl-pmin><input type="range" aria-label="Ціна до" min="5000" max="80000" step="100" value="80000" data-fl-pmax></div>
@@ -279,7 +278,7 @@
         </div>
         <div class="catbar">
           <div class="seg" role="group" aria-label="Як показувати ціну" data-pmode><button type="button" data-pm="full" aria-pressed="true">Повна ціна</button><button type="button" data-pm="mo" aria-pressed="false">Ціна в місяць</button></div>
-          <p class="catbar__note mono">«в місяць» = найдовший строк, 14 платежів (Укрсиб) · умови — у банку</p>
+          <p class="catbar__note mono">«в місяць» = 14 платежів (Укрсиб) · умови — у банку</p>
           <div class="qpills" role="group" aria-label="Швидкі фільтри" data-qpills></div>
         </div>
         <p class="cat__count" aria-live="polite"><b data-count>0</b> <span data-count-word>позицій</span> під ваші умови</p>
@@ -291,8 +290,8 @@
             <p>Оберіть модель і залиште контакт — щойно такий телефон приїде на вітрину, повідомимо до публікації в Instagram.</p>
           </div>
           <form class="form form--inline" data-notify-form novalidate>
-            <fieldset class="ntf__g"><legend>Модель</legend><div class="ntf__row"><label class="chip"><input type="radio" name="nm" value="iPhone 13"><span>13</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 13 Pro"><span>13 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 14"><span>14</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 14 Pro"><span>14 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 14 Pro Max"><span>14 Pro Max</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 15"><span>15</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 15 Pro"><span>15 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 15 Pro Max"><span>15 Pro Max</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 16"><span>16</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 16e"><span>16e</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 16 Pro"><span>16 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 16 Pro Max"><span>16 Pro Max</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 17"><span>17</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 17 Pro"><span>17 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 17 Pro Max"><span>17 Pro Max</span></label><label class="chip"><input type="radio" name="nm" value="iPhone Air"><span>Air</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 18 Pro"><span>18 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 18 Pro Max"><span>18 Pro Max</span></label></div></fieldset><fieldset class="ntf__g"><legend>Памʼять</legend><div class="ntf__row"><label class="chip"><input type="radio" name="nmem" value=""><span>Будь-яка</span></label><label class="chip"><input type="radio" name="nmem" value="128 ГБ"><span>128</span></label><label class="chip"><input type="radio" name="nmem" value="256 ГБ"><span>256</span></label><label class="chip"><input type="radio" name="nmem" value="512 ГБ"><span>512</span></label><label class="chip"><input type="radio" name="nmem" value="1 ТБ"><span>1 ТБ</span></label></div></fieldset><fieldset class="ntf__g"><legend>АКБ</legend><div class="ntf__row"><label class="chip"><input type="radio" name="nbat" value=""><span>Будь-який</span></label><label class="chip"><input type="radio" name="nbat" value="АКБ від 85%"><span>від 85%</span></label><label class="chip"><input type="radio" name="nbat" value="АКБ від 90%"><span>від 90%</span></label><label class="chip"><input type="radio" name="nbat" value="АКБ від 95%"><span>від 95%</span></label></div></fieldset><label class="fld fld--compact"><span>Ваш вибір — можна дописати колір чи бюджет</span><input type="text" name="want" required data-notify-want inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="sentences" enterkeyhint="next" placeholder="Оберіть модель вище або напишіть самі"></label>
-            <label class="fld"><span>Телефон або нік в Instagram</span><input name="contact" required autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="098 123 45 67 або @nick"></label>
+            <fieldset class="ntf__g"><legend>Модель</legend><div class="ntf__row"><label class="chip"><input type="radio" name="nm" value="iPhone 13"><span>13</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 13 Pro"><span>13 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 14"><span>14</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 14 Pro"><span>14 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 14 Pro Max"><span>14 Pro Max</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 15"><span>15</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 15 Pro"><span>15 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 15 Pro Max"><span>15 Pro Max</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 16"><span>16</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 16e"><span>16e</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 16 Pro"><span>16 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 16 Pro Max"><span>16 Pro Max</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 17"><span>17</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 17 Pro"><span>17 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 17 Pro Max"><span>17 Pro Max</span></label><label class="chip"><input type="radio" name="nm" value="iPhone Air"><span>Air</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 18 Pro"><span>18 Pro</span></label><label class="chip"><input type="radio" name="nm" value="iPhone 18 Pro Max"><span>18 Pro Max</span></label></div></fieldset><fieldset class="ntf__g"><legend>Памʼять</legend><div class="ntf__row"><label class="chip"><input type="radio" name="nmem" value=""><span>Будь-яка</span></label><label class="chip"><input type="radio" name="nmem" value="128 ГБ"><span>128</span></label><label class="chip"><input type="radio" name="nmem" value="256 ГБ"><span>256</span></label><label class="chip"><input type="radio" name="nmem" value="512 ГБ"><span>512</span></label><label class="chip"><input type="radio" name="nmem" value="1 ТБ"><span>1 ТБ</span></label></div></fieldset><fieldset class="ntf__g"><legend>АКБ</legend><div class="ntf__row"><label class="chip"><input type="radio" name="nbat" value=""><span>Будь-який</span></label><label class="chip"><input type="radio" name="nbat" value="АКБ від 85%"><span>від 85%</span></label><label class="chip"><input type="radio" name="nbat" value="АКБ від 90%"><span>від 90%</span></label><label class="chip"><input type="radio" name="nbat" value="АКБ від 95%"><span>від 95%</span></label></div></fieldset><label class="fld fld--compact"><span>Ваш вибір — можна дописати колір чи бюджет</span><input type="text" name="want" required data-notify-want inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="sentences" enterkeyhint="next" placeholder="Модель, памʼять, колір…"></label>
+            <label class="fld"><span>Телефон або нік в Instagram</span><input name="contact" required autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="+380… або @нік"></label>
             <button class="btn btn--dark" type="submit"><svg aria-hidden="true" class="ic"><use href="#i-bell"/></svg>Повідомити мене</button>
             <p class="form__err" role="alert" data-err hidden></p><p class="form__ok" role="status" data-ok hidden></p>
           </form>
@@ -313,7 +312,7 @@
       <h2 id="chk-h" class="h2">Що варто перевірити у вживаному iPhone. Ми перевіряємо при&nbsp;вас.</h2>
       <p>Купуєте в нас чи деінде — пройдіться цим списком. У магазині покажемо кожен пункт на телефоні, який берете.</p>
       <div class="check__meter" aria-hidden="true"><span data-check-bar></span></div>
-      <p class="mono muted" data-check-n>Переглянуто 0 з 8</p>
+      <p class="mono muted" data-check-n>Переглянуто 1 з 9</p>
     </div>
     <ol class="check__list" data-check></ol>
   </div>
@@ -324,11 +323,11 @@
     <h2 id="why-h" class="h2">Чому беруть в iSPAYAL, а&nbsp;не «з рук»</h2>
     <ul class="why__grid">
       <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-shield"/></svg><h3>90 днів гарантії</h3><p>Від нас на кожен вживаний телефон. На нові — гарантія Apple 1 рік.</p></li>
-      <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-gift"/></svg><h3>Скло, чохол і блок&nbsp;— у подарунок</h3><p>Бонус до вживаних телефонів: поклеїмо скло одразу в магазині.</p></li>
+      <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-gift"/></svg><h3>Скло, чохол, блок&nbsp;— бонусом</h3><p>До вживаних телефонів — захисне скло, чохол чи блок живлення. Що саме йде з телефоном, написано в його паспорті.</p></li>
       <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-drop"/></svg><h3>Перевірка на герметичність</h3><p>Позначаємо в паспорті: герметичний і без слідів ремонту — чи ні.</p></li>
       <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-battery"/></svg><h3>% АКБ&nbsp;— чесно</h3><p>Пишемо відсоток і кількість циклів. Якщо батарею міняли — так і пишемо.</p></li>
       <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-truck"/></svg><h3>Доставка по Україні</h3><p>Післяплатою: оглянули на пошті — тоді платите.</p></li>
-      <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-coins"/></svg><h3>USDT, $, ₴, €</h3><p>Готівка, картка, крипта або розстрочка від банку — як вам зручно.</p></li>
+      <li><svg aria-hidden="true" class="ic ic--lg"><use href="#i-coins"/></svg><h3>USDT, $, ₴, €</h3><p>Оплата в USDT, доларах, гривнях чи євро, післяплата або розстрочка від банку.</p></li>
     </ul>
   </div>
 </section>
@@ -337,7 +336,7 @@
   <div class="wrap calc__in">
     <div>
       <h2 id="calc-h" class="h2">Розстрочка: скільки на місяць</h2>
-      <p>Оберіть ціну і банк — порахуємо платіж. Оформлюємо в магазині за паспортом і карткою банку.</p>
+      <p>Оберіть ціну і банк — порахуємо платіж. Приват, Моно, ПУМБ, A-Bank — 3–4 платежі без %, до 12 міс за умовами банку; Sens — 11 без %; Укрсиб — до 14 платежів.</p>
       <div class="calc__price">
         <label for="c-price">Ціна телефону, ₴</label>
         <div class="calc__pricein"><input id="c-price" type="number" inputmode="numeric" min="3000" max="150000" step="100" value="29999" data-c-price><span>₴</span></div>
@@ -362,7 +361,7 @@
   <div class="wrap trade__in">
     <div class="trade__intro">
       <h2 id="ti-h" class="h2">Trade-in: старий iPhone&nbsp;— у залік нового</h2>
-      <p>Розкажіть про свій телефон. Цифру назвемо після огляду — це хвилин 15 у магазині, або швидше в Direct за фото й скріном АКБ.</p>
+      <p>Розкажіть про свій телефон. Цифру назвемо після огляду в магазині — або спершу в Direct, за фото й скріном АКБ.</p>
     </div>
     <form class="trade__form form" data-trade-form novalidate>
       <div class="row2">
@@ -382,7 +381,7 @@
       </div>
       <div class="trade__res" aria-live="polite">
         <p class="mono">Орієнтовна оцінка</p>
-        <p class="trade__big">Оцінимо за 15 хв у магазині</p>
+        <p class="trade__big">Оцінимо при вас у магазині</p>
         <ul class="trade__factors" data-t-factors></ul>
         <p class="trade__small">Точна сума — після огляду. Ми не називаємо цифру наосліп, щоб потім не «знижувати» на місці.</p>
       </div>
@@ -400,7 +399,7 @@
 
 <section class="rev" aria-labelledby="rev-h">
   <div class="wrap rev__in">
-    <h2 id="rev-h" class="rev__h">Сотні відгуків&nbsp;— в&nbsp;Instagram, у&nbsp;хайлайтах «Відгуки».</h2>
+    <h2 id="rev-h" class="rev__h">Відгуки клієнтів&nbsp;— в&nbsp;Instagram, у&nbsp;хайлайтах «Відгуки».</h2>
     <div class="rev__side">
       <p>Ми не переписуємо їх сюди: там вони з іменами, сторіз і фото людей, які забрали телефон. 8 хайлайтів «Відгуки» в Instagram — читайте, гортайте, питайте в Direct.</p>
       <a class="btn btn--light" href="https://www.instagram.com/ispayal.ua/" target="_blank" rel="noopener"><svg aria-hidden="true" class="ic"><use href="#i-ig"/></svg>Відкрити @ispayal.ua</a>
@@ -437,7 +436,7 @@
   <div class="wrap foot__in">
     <a class="wm wm--sm" href="#top" aria-label="iSPAYAL — на початок"><span class="wm__i">i</span>SPAYAL<span class="wm__dot" aria-hidden="true"></span></a>
     <p>Продаж, обмін і ремонт Apple · Горішні Плавні, просп. Героїв Дніпра, 36</p>
-    <p class="foot__disc">Демо-версія сайту, підготовлена для ознайомлення. Не є офіційним сайтом iSPAYAL. Apple, iPhone — торгові марки Apple Inc. iSPAYAL не є офіційним представником Apple. Позиції каталогу — реальні оголошення з Instagram @ispayal.ua станом на 22.11.2026; наявність і ціни уточнюйте в Direct. 3D-моделі та зображення пристроїв — узагальнені, створені для демо.</p>
+    <p class="foot__disc">Apple, iPhone, Apple Watch, AirPods, MacBook — торгові марки Apple Inc. iSPAYAL не є офіційним представником Apple. Позиції каталогу — оголошення з Instagram @ispayal.ua станом на 24.11.2026; фото — зняті в магазині; наявність і ціни уточнюйте в Direct. 3D-моделі та малюнки пристроїв — узагальнені, не фото конкретного екземпляра; фото екземпляра позначене в його паспорті.</p>
   </div>
 </footer>
 
@@ -452,7 +451,7 @@
 <dialog class="hp hp--sheet" data-hp aria-labelledby="hp-h"></dialog>
 <div class="toast" role="status" aria-live="polite" data-toast></div>
 
-<script src="assets/js/store.js?v=20261124w"></script>
-<script type="module" src="assets/js/app.js?v=20261124w"></script>
+<script src="assets/js/store.js?v=20261124z4"></script>
+<script type="module" src="assets/js/app.js?v=20261124z4"></script>
 </body>
 </html>

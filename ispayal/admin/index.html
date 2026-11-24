@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>iSPAYAL — панель власника (демо)</title>
-<meta name="description" content="Демо панелі власника: додати телефон за 20 секунд, текст для Instagram, бронювання, Trade-in і черга ремонту.">
+<title>iSPAYAL — панель власника</title>
+<meta name="description" content="Панель власника iSPAYAL: додати телефон, текст для Instagram, бронювання, Trade-in і черга ремонту.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/css/site.css">
-<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="../assets/css/site.css?v=20261124z">
+<link rel="stylesheet" href="admin.css?v=20261124z">
 </head>
 <body class="adm">
 <a class="skip" href="#add">Перейти до форми</a>
 <header class="atop">
   <a class="wm" href="../index.html" aria-label="iSPAYAL — відкрити сайт"><span class="wm__i">i</span>SPAYAL<span class="wm__dot" aria-hidden="true"></span></a>
   <span class="atop__t">Панель власника</span>
-  <span class="badge">Демо-дані</span>
+  <span class="badge" title="Поки немає сервера, дані живуть у цьому браузері">Дані в цьому браузері</span>
   <nav class="atop__nav" aria-label="Розділи панелі"><a href="#add">Додати</a><a href="#stock">Вітрина</a><a href="#req">Заявки</a><a href="#repair">Ремонт</a></nav>
   <a class="btn btn--ghost btn--sm atop__site" href="../index.html#katalog" target="_blank" rel="noopener">Відкрити сайт</a>
 </header>
@@ -70,6 +70,12 @@
           <label class="chip"><input type="checkbox" name="bonus" value="блок живлення"><span>блок живлення</span></label>
         </div>
         <div class="arow">
+          <label class="fld"><span>Код посту Instagram (необовʼязково)</span><input name="code" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="з посилання instagram.com/p/<код>/" data-code></label>
+          <label class="fld"><span>Фото: скільки додано</span><output class="fld__out" data-ph-n>Без фото — на сайті 3D-модель</output></label>
+        </div>
+        <label class="fld"><span>Фото цього екземпляра — посилання, по одному в рядку</span><textarea name="photos" rows="3" autocomplete="off" spellcheck="false" placeholder="assets/photos/&lt;код посту&gt;/1.webp&#10;assets/photos/&lt;код посту&gt;/2.webp" data-photos></textarea>
+          <small class="fld__hint">Перше фото — на картці в каталозі, решта — у галереї паспорта (3D-модель лишається останньою вкладкою). Файли готує скрипт <code>photos_import.py</code>: кладе їх у <code>assets/photos/&lt;код посту&gt;/</code> і сам вписує сюди. Порожньо — показуємо 3D-модель.</small></label>
+        <div class="arow">
           <label class="fld"><span>Гарантія</span><select name="warranty"><option>Гарантія 90 днів від iSpayal</option><option>Гарантія 90 днів від iSpayal + Apple</option><option>Гарантія Apple — 1 рік</option></select></label>
           <label class="fld"><span>Ціна, грн</span><input name="price" type="number" min="1000" step="1" value="30999" required inputmode="numeric"></label>
         </div>
@@ -96,7 +102,7 @@
   <section class="apanel" id="stock" aria-labelledby="stock-h">
     <div class="apanel__head"><h2 id="stock-h" class="h3">Вітрина <span class="mono muted" data-stock-n></span></h2>
       <label class="fld fld--search"><span class="sr">Пошук по вітрині</span><input type="search" placeholder="Пошук: 15 Pro, Blue, 256…" data-stock-q></label>
-      <button class="linkbtn" type="button" data-reset-stock>Повернути демо-вітрину</button></div>
+      <button class="linkbtn" type="button" data-reset-stock>Повернути вітрину з Instagram</button></div>
     <div class="tbl"><table><thead><tr><th>Телефон</th><th>Стан</th><th>АКБ</th><th>Ціна</th><th>Тип</th><th><span class="sr">Дії</span></th></tr></thead><tbody data-stock></tbody></table></div>
   </section>
 
@@ -108,7 +114,7 @@
         <button role="tab" type="button" aria-selected="false" data-tab="notify">Чекають модель <b></b></button>
       </div></div>
     <div class="tbl" role="tabpanel"><table><thead data-req-head></thead><tbody data-req></tbody></table></div>
-    <p class="mono muted anote">Заявки, які ви залишите на сайті в цьому ж браузері, зʼявляються тут одразу. Рядки з позначкою «демо» — приклад.</p>
+    <p class="mono muted anote">Заявки з сайту, залишені в цьому браузері, зʼявляються тут одразу. Спільна база для всіх пристроїв підключається разом із сервером.</p>
   </section>
 
   <section class="apanel" id="repair" aria-labelledby="rep-h">
@@ -116,8 +122,8 @@
     <div class="kanban" data-kanban></div>
   </section>
 
-  <p class="afoot">Демо-панель для ознайомлення. Дані зберігаються лише в цьому браузері (localStorage). У робочій версії — захищений вхід, база даних і сповіщення в Telegram.
-    <button class="linkbtn" type="button" data-reset-all>Скинути всі демо-дані</button></p>
+  <p class="afoot">Поки сервер не підключено, вітрина й заявки зберігаються лише в цьому браузері (localStorage). Вхід за паролем, спільна база й сповіщення підключаються окремо.
+    <button class="linkbtn" type="button" data-reset-all>Очистити дані цього браузера</button></p>
 </main>
 <div class="toast" role="status" aria-live="polite" data-toast></div>
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><defs>
@@ -127,7 +133,7 @@
 <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 12v8.5h14V12M12 8v12.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
 <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </defs></svg>
-<script src="../assets/js/store.js"></script>
-<script src="admin.js"></script>
+<script src="../assets/js/store.js?v=20261124z"></script>
+<script src="admin.js?v=20261124z"></script>
 </body>
 </html>

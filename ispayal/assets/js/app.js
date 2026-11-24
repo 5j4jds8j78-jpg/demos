@@ -1,4 +1,4 @@
-// iSPAYAL demo — site logic (no framework). Data + requests: assets/js/store.js (localStorage, shared with /admin/).
+// iSPAYAL — site logic (no framework). Data + requests: assets/js/store.js (localStorage, shared with /admin/).
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const S = window.ISP;
@@ -22,7 +22,6 @@ function rangeFill(el) { const p = (el.value - el.min) / (el.max - el.min) * 100
 // Ukrainian numbers: +380 XX XXX XX XX, 380…, 80…, 0XX XXX XX XX or 9 digits without the 0; returns '+380 XX XXX XX XX' or null
 const phoneNorm = v => { if (/[^\d\s()+\-.]/.test(v)) return null; let d = v.replace(/\D/g, ''); if (d.length === 12 && d.startsWith('380')) d = d.slice(3); else if (d.length === 11 && d.startsWith('80')) d = d.slice(2); else if (d.length === 10 && d.startsWith('0')) d = d.slice(1); else if (!(d.length === 9 && d[0] !== '0')) return null; return `+380 ${d.slice(0, 2)} ${d.slice(2, 5)} ${d.slice(5, 7)} ${d.slice(7)}`; };
 const phoneOk = v => !!phoneNorm(v);
-const DEMO_NOTE = '<small class="mono">Це демо: нікуди не надсилається — заявка збережена лише в цьому браузері й видна в /admin/.</small>';
 const PHONE_ERR = 'Перевірте номер: +380 XX XXX XX XX або 0XX XXX XX XX.';
 const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 // after a successful send: the submit stays disabled until the visitor changes something, so a second tap never sends a duplicate
@@ -120,7 +119,7 @@ async function bootGL() {
   if (!wantGL) return;
   try {
     await document.fonts.load('900 40px "ISP Display"'); await document.fonts.load('500 20px "ISP Mono"'); await document.fonts.load('600 20px "ISP Display"');
-    const mod = await import('./hero3d.js?v=20261124w');
+    const mod = await import('./hero3d.js?v=20261124v51');
     const labels = Object.fromEntries($$('[data-part]', stage).map(b => [b.dataset.part, b]));
     gl = mod.start($('[data-gl]'), {
       anchor: $('[data-anchor]'), labels, font: '"ISP Display"', mono: '"ISP Mono"', capture: qs.has('capture'), still: qs.has('capture'),
@@ -140,7 +139,7 @@ if (!wantGL) { const h = $('[data-gl-hint]'); if (h) h.textContent = 'Обері
 /* services */
 const SVC = {
   battery: { t: 'Заміна АКБ', s: 'Заміна АКБ', pts: ['Телефон не доживає до вечора або вимикається на холоді', 'У налаштуваннях низький «Максимальний заряд» чи напис «Сервіс»', 'Після заміни показуємо новий % у налаштуваннях при вас'] },
-  screen: { t: 'Переклеювання скла', s: 'Переклеювання скла', pts: ['Скло тріснуло, а зображення і сенсор працюють', 'Міняємо лише скло — оригінальний дисплей залишається', 'Приклади «до / після» — у хайлайті «Переклей скла»'] },
+  screen: { t: 'Переклеювання скла', s: 'Переклеювання скла', pts: ['Скло тріснуло, а зображення і сенсор працюють', 'Міняємо лише скло — оригінальний дисплей залишається', 'Наші роботи — у хайлайті «Переклей скла» в Instagram'] },
   back: { t: 'Заднє скло', s: 'Заднє скло', pts: ['Тріщина на задній панелі, скло кришиться по краях', 'Замінюємо скло, поки тріщина не пішла далі', 'Ставимо нову проклейку корпусу'] },
   board: { t: 'Контролер заряджання', s: 'Контролер заряджання', pts: ['Не заряджається, заряджається через раз або не бачить кабель', 'Гріється під час зарядки', 'Діагностуємо плату і міняємо мікросхему контролера'] },
   frame: { t: 'Полірування корпусу', s: 'Полірування корпусу', pts: ['Подряпини та потертості на рамці', 'Повертаємо товарний вигляд — для себе чи перед продажем', 'Робимо, поки чекаєте, якщо майстер вільний'] },
@@ -212,7 +211,7 @@ renderSvc('battery');
     if (!form.time || !form.querySelector('[name=time]:checked')) { fail('Оберіть вільну годину.'); return; }
     if (bad.length) { fail(bad[0] === form.phone ? PHONE_ERR : 'Заповніть позначені поля.'); bad[0].focus(); return; }
     const r = S.addRequest({ type: 'repair', model: form.model.value.trim(), service: form.service.value, day: form.day.value, time: form.querySelector('[name=time]:checked').value, name: form.name.value.trim(), phone: phoneNorm(form.phone.value), status: 'Записано' });
-    ok.innerHTML = `${icon('check')}<span>Записали: ${esc(r.service)}, ${r.day.split('-').reverse().slice(0, 2).join('.')} о ${r.time}. Майстер передзвонить ${openState().when} на ${esc(r.phone)}, щоб підтвердити. ${DEMO_NOTE}</span>`;
+    ok.innerHTML = `${icon('check')}<span>Записали: ${esc(r.service)}, ${r.day.split('-').reverse().slice(0, 2).join('.')} о ${r.time}. Дякуємо! Майстер зателефонує на ${esc(r.phone)} протягом робочого дня (${openState().when}), щоб підтвердити час.</span>`;
     ok.hidden = false; paintTimes(); lockUntilEdit(form);
   });
 }
@@ -232,7 +231,7 @@ const lerpKey = (keys, t) => { if (t <= keys[0][0]) return keys[0].slice(1); for
   const portrait = matchMedia('(max-aspect-ratio: 1/1)').matches;
   let cands = [], tried = 0, ready = false, started = false, inView = false, loopOn = false, lastAnchor = null;
   const tryNext = () => {
-    while (tried < cands.length) { const f = cands[tried++]; const type = f.endsWith('webm') ? 'video/webm' : 'video/mp4'; if (v.canPlayType(type)) { v.src = 'assets/film/' + f; v.load(); return; } }
+    while (tried < cands.length) { const f = cands[tried++]; const type = f.split('?')[0].endsWith('webm') ? 'video/webm' : 'video/mp4'; if (v.canPlayType(type)) { v.src = 'assets/film/' + f; v.load(); return; } }
   };
   function anchorXY(name) {
     const r = sec.getBoundingClientRect(), vw = v.videoWidth || 16, vh = v.videoHeight || 9;
@@ -311,10 +310,10 @@ const QUICK = [
   ['likenew', 'Майже нові 9,8+', l => !l.isNew && l.score != null && l.score >= 9.8],
   ['new', 'Нові', l => condGroup(l) === 'Новий'],
 ];
-const MAX_N = 14; // найдовший строк: Укрсиб, до 14 платежів
+const MAX_N = 14; // «ціна в місяць» на картках: Укрсиб, до 14 платежів
 const perMonth = l => Math.ceil(l.price / MAX_N);
-const grade = l => l.isNew || l.score == null ? null : l.score >= 9.8 ? ['Як новий', 4] : l.score >= 9.4 ? ['Відмінний', 3] : l.score >= 9 ? ['Хороший', 2] : ['Нормальний', 1];
-const gradeHTML = l => { const g = grade(l); if (!g) return ''; return `<span class="card__grade" title="Стан ${String(l.score).replace('.', ',')} з 10"><svg viewBox="0 0 14 12" aria-hidden="true">${[0, 1, 2, 3].map(i => `<rect x="${i * 3.6}" y="${9 - i * 3}" width="2.6" height="${3 + i * 3}" rx="1" ${i < g[1] ? '' : 'opacity=".25"'}/>`).join('')}</svg>${g[0]}</span>`; };
+const grade = l => l.isNew || l.score == null ? null : l.score >= 9.8 ? ['Ідеальний', 4] : l.score >= 9.4 ? ['Відмінний', 3] : l.score >= 9 ? ['Хороший', 2] : ['Нормальний', 1];
+const gradeHTML = l => { const g = grade(l); if (!g || condGroup(l) === 'Майже новий') return ''; return `<span class="card__grade" title="Стан ${String(l.score).replace('.', ',')} з 10"><svg viewBox="0 0 14 12" aria-hidden="true">${[0, 1, 2, 3].map(i => `<rect x="${i * 3.6}" y="${9 - i * 3}" width="2.6" height="${3 + i * 3}" rx="1" ${i < g[1] ? '' : 'opacity=".25"'}/>`).join('')}</svg>${g[0]}</span>`; };
 let FAV = new Set(JSON.parse(localStorage.getItem('ispayal.fav') || '[]'));
 let CMP = [];
 const saveFav = () => { localStorage.setItem('ispayal.fav', JSON.stringify([...FAV])); $('[data-fav-count]').textContent = FAV.size; };
@@ -342,7 +341,7 @@ function buildFilters() {
     let lo = +a.value, hi = +b.value; if (lo > hi - 1000) { if (document.activeElement === a) a.value = lo = hi - 1000; else b.value = hi = lo + 1000; }
     F.pmin = lo; F.pmax = hi;
     $('[data-o-score]').textContent = F.score <= SCORE_MIN ? 'будь-якої' : F.score.toFixed(1).replace('.', ','); $('[data-o-batt]').textContent = F.batt <= BATT_MIN ? 'будь-якого %' : F.batt + '%';
-    const w = $('[data-o-word]'); if (w) w.textContent = F.score <= SCORE_MIN ? '' : F.score >= 9.8 ? '· Як новий' : F.score >= 9.4 ? '· Відмінний' : F.score >= 9 ? '· Хороший' : '· Нормальний';
+    const w = $('[data-o-word]'); if (w) w.textContent = F.score <= SCORE_MIN ? '' : F.score >= 9.8 ? '· Ідеальний' : F.score >= 9.4 ? '· Відмінний' : F.score >= 9 ? '· Хороший' : '· Нормальний';
     const bf = $('[data-batt-fill]'); if (bf) { bf.style.transform = `scaleX(${F.batt <= BATT_MIN ? 0.25 : (F.batt - 60) / 40})`; bf.parentElement.classList.toggle('is-full', F.batt >= 95); }
     $$('[data-hist] i').forEach(i => i.classList.toggle('is-in', +i.dataset.hi >= lo && +i.dataset.lo <= hi));
     $('[data-o-price]').textContent = `${fmt(lo)} – ${fmt(hi)} ₴`;
@@ -399,7 +398,7 @@ function ringSVG(pct, size = 64, stroke = 6, col = '#ff2a2f') {
 function battText(l) {
   if (l.cycles != null) return `${l.cycles} ${plural(l.cycles, 'цикл', 'цикли', 'циклів')}${/замін/i.test(l.battRaw) ? ' · замінений' : ''}`;
   if (l.battNew) return /замін/i.test(l.battRaw) ? 'замінений' : 'новий акумулятор';
-  return 'цикли не вказані';
+  return ''; // cycles not stated in the post: say nothing rather than show an empty value
 }
 /* drawn devices for non-phones (generic, original) */
 const thumbSVG = l => deviceSVG(l).replace(/<text[\s\S]*?<\/text>/g, ''); // thumbnails: no drawn wordmark, so it never leaks into an option's / button's text
@@ -425,12 +424,32 @@ function deviceSVG(l, big) {
     <rect x="68" y="76" width="70" height="5" rx="2.5" fill="#ff2a2f"/><rect x="68" y="88" width="104" height="4" rx="2" fill="#333"/><rect x="68" y="98" width="88" height="4" rx="2" fill="#333"/>
     <path d="M26 142h208l-10 16H36z" fill="${c}"/><path d="M26 142h208l-10 16H36z" fill="url(#${id})"/><rect x="112" y="142" width="36" height="5" rx="2.5" fill="#000" opacity=".18"/></svg>`;
 }
-function visual(l, big) {
+/* real photos of the unit (listing.photos, see build-ispayal/photos_import.py); without them — the 3D render, never an empty box */
+const BROKEN = new Set(); // photo URLs that failed to load: the render takes their place for the rest of the visit
+const PH = l => S.photos(l).filter(u => !BROKEN.has(u));
+const phAlt = (l, i) => `${S.title(l)}${l.color ? ' ' + l.color : ''} — фото цього екземпляра${i ? ', ' + (i + 1) : ''}`;
+function photoImg(l, cls, { i = 0, eager = false, sizes = '(max-width:560px) 112px, (max-width:1100px) 46vw, 320px', alt } = {}) {
+  const u = PH(l)[i], sm = S.photoSmall(u);
+  return `<img class="${cls}" src="${esc(sm)}"${sm !== u ? ` srcset="${esc(sm)} 800w, ${esc(u)} 1600w" sizes="${sizes}"` : ''} alt="${esc(alt ?? phAlt(l, i))}" loading="${eager ? 'eager' : 'lazy'}" decoding="async" data-ph="${esc(u)}">`;
+}
+function renderVis(l, big) {
   return l.cat === 'iphone' ? `<img src="assets/img/phones/${l.tint}.webp" alt="" width="560" height="700" loading="lazy">` : deviceSVG(l, big);
 }
+function visual(l, big, eager) { return PH(l).length ? photoImg(l, 'vis__photo', { eager }) : renderVis(l, big); }
+const thumbVis = l => PH(l).length ? photoImg(l, 'th__photo', { sizes: '120px', alt: '' }) : l.cat === 'iphone' ? `<img src="assets/img/phones/${l.tint}.webp" alt="" width="560" height="700" loading="lazy">` : thumbSVG(l);
+// a photo that does not load (moved, renamed, offline): swap in the render / drop the slide, so no box is left empty
+document.addEventListener('error', e => {
+  const im = e.target; if (!(im instanceof HTMLImageElement) || !im.dataset.ph) return;
+  BROKEN.add(im.dataset.ph);
+  const card = im.closest('.card'), slide = im.closest('[data-pg]');
+  if (slide) { const d = $('[data-pass]'); if (d.open && passId) gallerySync(true); return; }
+  const l = card ? byId(card.dataset.id) : null;
+  if (card && l) { const vis = im.closest('.card__vis'); if (PH(l).length) im.outerHTML = photoImg(l, 'vis__photo', { eager: true }); else { vis.classList.remove('card__vis--photo'); $('.card__phn', vis)?.remove(); im.outerHTML = renderVis(l); } return; }
+  const box = im.parentElement; if (box) { const id = box.closest('[data-open],[data-other],[data-cs-id]'); const ll = id && byId(id.dataset.open || id.dataset.other || id.dataset.csId); im.outerHTML = ll ? thumbVis(ll) : ''; }
+}, true);
 const STATUS = { available: 'Є в наявності', reserved: 'Заброньовано', sold: 'Продано' };
 const statusOf = l => STATUS[l.status] ? l.status : 'available';
-function statusHTML(l) { const st = statusOf(l); return `<span class="stat stat--${st}">${STATUS[st]}${st === 'available' ? ` <small>${l.added ? 'додано ' + esc(l.added) : 'станом на 22.11.2026'}</small>` : ''}</span>`; }
+function statusHTML(l) { const st = statusOf(l); return `<span class="stat stat--${st}">${STATUS[st]}${st === 'available' ? ` <small>${l.added ? 'додано ' + esc(l.added) : 'на 24.11'}</small>` : ''}</span>`; }
 const whatWord = l => l.cat === 'iphone' ? 'цей iPhone' : l.cat === 'watch' ? 'цей Apple Watch' : l.cat === 'airpods' ? 'ці AirPods' : 'цей MacBook';
 function directBtn(l, attr, cls = 'btn btn--red') { return `<a class="${cls} btn--direct" href="${DIRECT}" target="_blank" rel="noopener" ${attr}="${l.id}" aria-label="Написати в Direct про ${whatWord(l)}: ${esc(S.title(l))}${l.color ? ' ' + esc(l.color) : ''}">${icon('direct')}<span>Написати в Direct</span></a>`; }
 function tagHTML(l) {
@@ -438,7 +457,7 @@ function tagHTML(l) {
   return `<span class="card__tag ${cls}">${esc(S.cond(l))}</span>`;
 }
 function svcList(l) { return l.service ? l.service.split(/\s*\+\s*/).filter(Boolean).map(x => x.replace(/^(п)ереклей скла/i, '$1ереклеювання скла')) : []; } // site wording; the caption generator keeps the post text
-function cardHTML(l) {
+function cardHTML(l, eager) {
   const flags = [];
   if (l.sealed) flags.push(`<span class="flag flag--ok">${icon('drop')}Герметичний, без слідів ремонту</span>`);
   svcList(l).forEach(s => flags.push(`<span class="flag flag--svc">${icon('wrench')}${esc(s)}</span>`));
@@ -450,19 +469,19 @@ function cardHTML(l) {
     pp = `<div class="pp">
       ${l.score != null ? `<div><p class="pp__k">Стан</p><p class="pp__score"><b>${String(l.score).replace('.', ',')}</b><span>| 10</span></p><div class="bar ${hi ? 'is-hi' : ''}"><i style="width:${l.score * 10}%"></i></div></div>` : `<div><p class="pp__k">Стан</p><p class="pp__score"><span>не вказано</span></p></div>`}
       ${l.batt != null ? `<div class="ring" role="img" aria-label="АКБ ${l.batt}%">${ringSVG(l.batt, 64, 6, battCol(l.batt))}<b>${l.batt}%</b></div>` : ''}
-      ${l.batt != null ? `<p class="pp__cyc"><span>АКБ</span><b>${battText(l)}</b></p>` : ''}</div>`;
+      ${l.batt != null && battText(l) ? `<p class="pp__cyc"><span>АКБ</span><b>${battText(l)}</b></p>` : ''}</div>`;
   } else if (l.isNew) {
     pp = `<div class="pp pp--new"><p class="pp__k">${l.label && /замовл/i.test(l.label) ? 'Під замовлення' : 'Новий'}</p><p class="pp__newt">${esc(brand(S.warranty(l)) || 'Новий пристрій')}</p></div>`;
   }
   const ig = igUrl(l);
   return `<li class="card card--${statusOf(l)}" data-id="${l.id}">
-    <button class="card__vis card__vis--${l.cat}" type="button" data-open="${l.id}" aria-label="Паспорт: ${esc(S.title(l))} ${esc(l.color)}">${visual(l)}${tagHTML(l)}${gradeHTML(l)}</button>${dotsHTML(l)}
+    <button class="card__vis card__vis--${l.cat}${PH(l).length ? ' card__vis--photo' : ''}" type="button" data-open="${l.id}" aria-label="Паспорт: ${esc(S.title(l))} ${esc(l.color)}${PH(l).length ? ', ' + PH(l).length + ' фото' : ''}">${visual(l, false, eager)}${tagHTML(l)}${gradeHTML(l)}${PH(l).length > 1 ? `<span class="card__phn" aria-hidden="true">${icon('cam')}${PH(l).length}</span>` : ''}</button>${dotsHTML(l)}
     <div class="card__icons">
       <button class="iconbtn" type="button" data-fav="${l.id}" aria-pressed="${FAV.has(l.id)}" aria-label="В обране">${icon('heart')}</button>
       <button class="iconbtn" type="button" data-cmp="${l.id}" aria-pressed="${CMP.includes(l.id)}" aria-label="Додати до порівняння">${icon('compare')}</button>
     </div>
     <div class="card__body">
-      ${statusHTML(l)}${BEST.has(l.id) ? `<span class="bestv" title="Найменше ₴ за 1% АКБ серед таких самих моделей у видачі">${icon('battery')}Найкраща ціна за АКБ</span>` : ''}
+      ${statusHTML(l)}${l.special ? `<span class="spec" title="Діє при визначених умовах оплати">${icon('gift')}Спеціальна пропозиція</span>` : ''}${BEST.has(l.id) ? `<span class="bestv" title="Найменше ₴ за 1% АКБ серед таких самих моделей у видачі">${icon('battery')}Найкраща ціна за АКБ</span>` : ''}
       <p class="card__mini mono">${l.score != null ? 'стан ' + String(l.score).replace('.', ',') : esc(S.cond(l))}${l.batt != null ? ' · АКБ ' + l.batt + '%' : ''}${l.cycles != null ? ' · ' + l.cycles + ' ' + plural(l.cycles, 'цикл', 'цикли', 'циклів') : ''}</p>
       <h3 class="card__t">${esc(S.title(l)).replace(/ (\d+ [ГТ]Б)$/, ' · $1')}</h3>
       <p class="card__sub">${l.color ? `<span class="swatch" style="background:${SWATCH[l.tint] || '#999'}"></span>${esc(l.color)}` : ''}${l.sim ? ` · ${simL(l.sim)}` : ''}</p>
@@ -501,6 +520,14 @@ function holdCatalog() {
   if (r.top < innerHeight && r.bottom > 0) { const need = Math.ceil(innerHeight - r.top); m.style.minHeight = need > 0 ? need + 'px' : ''; }
   else m.style.minHeight = '';
 }
+/* nothing matches: a designed state with a way out (reset), a way forward (notify) and a human (Direct) — never a blank grid */
+function emptyHTML() {
+  const favOnly = F.fav && !FAV.size;
+  if (favOnly) return `<li class="empty empty--fav"><span class="empty__ic" aria-hidden="true">${icon('heart')}</span><p class="empty__h">В обраному поки нічого</p><p class="empty__p">Натисніть ${icon('heart', 'ic ic--in')} на картці — телефон збережеться тут, навіть якщо закриєте сайт.</p><div class="empty__acts"><button type="button" class="btn btn--red" data-empty-reset>Показати всі позиції</button></div></li>`;
+  return `<li class="empty"><span class="empty__ic" aria-hidden="true">${icon('filter')}</span><p class="empty__h">Під ці умови зараз нічого немає</p><p class="empty__p">Скиньте фільтри — або залиште контакт, і ми напишемо першими, щойно такий телефон зʼявиться, ще до посту в Instagram.</p>
+    <div class="empty__acts"><button type="button" class="btn btn--red" data-empty-reset>${icon('x')}Скинути фільтри</button><button type="button" class="btn btn--line" data-notify-go>${icon('bell')}Повідомити, коли зʼявиться</button></div>
+    <a class="empty__dm" href="${DIRECT}" target="_blank" rel="noopener">${icon('direct')}Підберемо вручну в Direct</a></li>`;
+}
 function renderGrid() {
   holdCatalog();
   const all = filtered(), grid = $('[data-grid]');
@@ -510,7 +537,7 @@ function renderGrid() {
   // FLIP: remember where cards were
   const gr = grid.getBoundingClientRect(), flip = !reduced && gr.bottom > 0 && gr.top < innerHeight && a.length <= 60;
   const before = {}; if (flip) $$('.card', grid).forEach(c => { before[c.dataset.id] = c.getBoundingClientRect(); });
-  grid.innerHTML = a.length ? a.map((l, i) => cardHTML(l) + (i === 5 && a.length > 6 ? INFO_TILES[0] : i === 13 && a.length > 14 ? INFO_TILES[1] : '')).join('') : `<li class="empty"><p class="h3">Такого зараз немає — але може зʼявитися завтра.</p><p style="margin-top:8px">Скажіть, що шукаєте, і ми напишемо першими, ще до посту в Instagram.</p><button type="button" class="btn btn--red" style="margin-top:16px" data-notify-go>${icon('bell')}Повідомити, коли зʼявиться</button></li>`;
+  grid.innerHTML = a.length ? a.map((l, i) => cardHTML(l, i < 4) + (i === 5 && a.length > 6 ? INFO_TILES[0] : i === 13 && a.length > 14 ? INFO_TILES[1] : '')).join('') : emptyHTML();
   if (flip) $$('.card', grid).forEach((c, i) => {
     const b = before[c.dataset.id], r = c.getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
@@ -532,12 +559,13 @@ addEventListener('load', paintRecent);
 function paintQuick() {
   const box = $('[data-qpills]'); if (!box) return;
   const keep = F.quick; F.quick = new Set(); const base = filtered(); F.quick = keep;
-  box.innerHTML = QUICK.map(([k, t, f]) => { const others = [...F.quick].filter(x => x !== k).map(x => QUICK.find(q => q[0] === x)[2]); const n = base.filter(l => f(l) && others.every(g => g(l))).length;
+  box.innerHTML = QUICK.filter(([k, t, f]) => F.quick.has(k) || LIST.some(f)).map(([k, t, f]) => { const others = [...F.quick].filter(x => x !== k).map(x => QUICK.find(q => q[0] === x)[2]); const n = base.filter(l => f(l) && others.every(g => g(l))).length;
     return `<button type="button" class="qpill" data-q="${k}" aria-pressed="${F.quick.has(k)}" ${!n && !F.quick.has(k) ? 'disabled' : ''}>${t} <b>${n}</b></button>`; }).join('');
 }
 $('[data-qpills]') && $('[data-qpills]').addEventListener('click', e => { const b = e.target.closest('[data-q]'); if (!b) return; const k = b.dataset.q; F.quick.has(k) ? F.quick.delete(k) : F.quick.add(k); renderGrid(); const nb = $(`[data-q="${k}"]`); if (nb && document.activeElement === document.body) nb.focus({ preventScroll: true }); });
 $('[data-pmode]') && $('[data-pmode]').addEventListener('click', e => { const b = e.target.closest('[data-pm]'); if (!b) return; const mo = b.dataset.pm === 'mo'; $$('[data-pm]').forEach(x => x.setAttribute('aria-pressed', x === b)); $('[data-grid]').classList.toggle('is-monthly', mo); try { localStorage.setItem('ispayal.pmode', mo ? 'mo' : 'full'); } catch { } });
 if (localStorage.getItem('ispayal.pmode') === 'mo' && $('[data-pmode]')) { $('[data-grid]').classList.add('is-monthly'); $$('[data-pm]').forEach(x => x.setAttribute('aria-pressed', x.dataset.pm === 'mo')); }
+$('[data-grid]').addEventListener('click', e => { if (!e.target.closest('[data-empty-reset]')) return; F.fav = false; $('[data-fav-toggle]').setAttribute('aria-pressed', 'false'); resetFilters(); const c = $('.cat__count'); c.tabIndex = -1; c.focus({ preventScroll: true }); });
 $('[data-grid]').addEventListener('click', e => { if (!e.target.closest('[data-notify-go]')) return; const f = $('[data-notify-form]'); f.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); setTimeout(() => f.want.focus({ preventScroll: true }), reduced ? 0 : 450); });
 
 /* ---- catalog search: UA/RU/EN tokens → predicates («15 про макс 256 синій до 30») ---- */
@@ -594,7 +622,7 @@ const qFind = q => LIST.filter(l => qTest(q, l)).sort((x, y) => (statusOf(x) ===
     const paint = () => {
       const q = inp.value.trim(); if (!q) return close();
       hits = qFind(q); const top = hits.slice(0, 5);
-      list.innerHTML = (top.length ? top.map((l, i) => `<li role="option" id="cs-o${i}" class="cs__o" data-cs-id="${l.id}" aria-selected="false"><span class="cs__img">${l.cat === 'iphone' ? `<img src="assets/img/phones/${l.tint}.webp" alt="" width="560" height="700">` : thumbSVG(l)}</span><span class="cs__t"><b>${esc(S.title(l))}</b> ${esc(l.color || '')}<small class="mono">${l.score != null ? 'стан ' + String(l.score).replace('.', ',') : esc(S.cond(l))}${l.batt != null ? ' · АКБ ' + l.batt + '%' : ''}${statusOf(l) !== 'available' ? ' · ' + STATUS[statusOf(l)].toLowerCase() : ''}</small></span><span class="cs__p">${fmt(l.price)} ₴</span></li>`).join('')
+      list.innerHTML = (top.length ? top.map((l, i) => `<li role="option" id="cs-o${i}" class="cs__o" data-cs-id="${l.id}" aria-selected="false"><span class="cs__img">${thumbVis(l)}</span><span class="cs__t"><b>${esc(S.title(l))}</b> ${esc(l.color || '')}<small class="mono">${l.score != null ? 'стан ' + String(l.score).replace('.', ',') : esc(S.cond(l))}${l.batt != null ? ' · АКБ ' + l.batt + '%' : ''}${statusOf(l) !== 'available' ? ' · ' + STATUS[statusOf(l)].toLowerCase() : ''}</small></span><span class="cs__p">${fmt(l.price)} ₴</span></li>`).join('')
         : `<li class="cs__none" role="presentation">Нічого не знайшли за «${esc(q)}». Спробуйте «15 pro», «синій», «до 30».</li>`)
         + (hits.length ? `<li role="option" id="cs-all" class="cs__all" data-cs-all aria-selected="false">Показати всі ${hits.length} ${unitWord(hits.length)}${icon('arrow')}</li>` : '');
       list.hidden = false; inp.setAttribute('aria-expanded', 'true'); act = -1; inp.removeAttribute('aria-activedescendant');
@@ -638,8 +666,9 @@ function paintChips() {
   F.quick.forEach(k => c.push([QUICK.find(q => q[0] === k)[1], () => F.quick.delete(k)]));
   if (F.fav) c.push(['Обране', () => { F.fav = false; $('[data-fav-toggle]').setAttribute('aria-pressed', 'false'); }]);
   paintChips.fns = c.map(x => x[1]);
-  box.innerHTML = c.length ? c.map(([t], i) => `<button type="button" class="achip" data-achip="${i}" aria-label="Прибрати фільтр: ${esc(t)}">${esc(t)}${icon('x')}</button>`).join('') + (c.length > 1 ? `<button type="button" class="linkbtn achips__all" data-achip-all>Скинути все</button>` : '') : '';
-  box.hidden = !c.length;
+  // the row is always there and one line tall (it scrolls sideways): a row that appeared / grew above the grid pushed the page down 50px on every filter change (iOS has no scroll anchoring)
+  box.innerHTML = c.length ? c.map(([t], i) => `<button type="button" class="achip" data-achip="${i}" aria-label="Прибрати фільтр: ${esc(t)}">${esc(t)}${icon('x')}</button>`).join('') + (c.length > 1 ? `<button type="button" class="linkbtn achips__all" data-achip-all>Скинути все</button>` : '') : `<span class="achips__none">${icon('filter')}Фільтри не обрано — показуємо всі позиції</span>`;
+  box.hidden = false;
 }
 $('[data-achips]') && $('[data-achips]').addEventListener('click', e => {
   const b = e.target.closest('[data-achip],[data-achip-all]'); if (!b) return;
@@ -663,9 +692,9 @@ $('[data-grid]').addEventListener('click', e => {
   const f = nc.querySelector(`[data-swap="${sib.id}"]`); if (f) f.focus({ preventScroll: true });
 });
 const INFO_TILES = [
-  `<li class="itile itile--trade"><p class="itile__k">${icon('swap')}Trade-in</p><h3 class="itile__h">Старий iPhone — у залік нового</h3><p class="itile__p">Оцінимо при вас у магазині: огляд займає близько 15 хвилин. Цифру назвемо після огляду.</p>
+  `<li class="itile itile--trade"><p class="itile__k">${icon('swap')}Trade-in</p><h3 class="itile__h">Старий iPhone — у залік нового</h3><p class="itile__p">Оцінимо при вас у магазині — суму назвемо після огляду, без «знижок» на місці.</p>
     <div class="itile__mid" aria-hidden="true"><svg class="itile__art" viewBox="0 0 220 120"><rect x="18" y="14" width="56" height="96" rx="12" class="a-dim"/><rect x="146" y="10" width="60" height="102" rx="13" class="a-hi"/><circle cx="176" cy="40" r="4" class="a-dot"/><path d="M88 62h44m-10-10 10 10-10 10" class="a-arrow"/></svg></div>
-    <ol class="itile__steps"><li><b>1</b>Приносите свій iPhone</li><li><b>2</b>Огляд ~15 хв при вас</li><li><b>3</b>Сума — в залік нового</li></ol>
+    <ol class="itile__steps"><li><b>1</b>Приносите свій iPhone</li><li><b>2</b>Огляд при вас</li><li><b>3</b>Сума — в залік нового</li></ol>
     <a class="btn btn--red btn--sm itile__go" href="#trade-in">Розповісти про свій iPhone${icon('arrow')}</a></li>`,
   `<li class="itile itile--repair"><p class="itile__k">${icon('wrench')}Сервіс</p><h3 class="itile__h">Ремонт і заміна АКБ — запис онлайн</h3><p class="itile__p">Оберіть день і час. Ціну майстер скаже після діагностики — без вашого «так» нічого не робимо.</p>
     <div class="itile__mid"><div class="itile__ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" class="r-bg"/><circle cx="60" cy="60" r="50" class="r-fg" pathLength="100" stroke-dasharray="79 100"/></svg><span>79%</span></div><p class="itile__note">Ємність АКБ нижче 80% — iPhone сам радить заміну батареї</p></div>
@@ -726,7 +755,7 @@ function paintPick() {
   if (pickViewer) pickViewer.setTint(tint);
   else if (wantGL && !pickViewerLoading && !qs.has('capture')) {
     pickViewerLoading = true;
-    import('./hero3d.js?v=20261124w').then(mod => {
+    import('./hero3d.js?v=20261124v51').then(mod => {
       const c = document.createElement('canvas'); c.setAttribute('role', 'img'); c.setAttribute('aria-label', 'Узагальнена 3D-модель обраного кольору; можна покрутити'); c.tabIndex = 0;
       $('[data-pick-vis]').appendChild(c);
       pickViewer = mod.startViewer(c, { tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
@@ -804,7 +833,7 @@ $('[data-compare-open]').addEventListener('click', () => {
   const row = (h, f, b) => `<tr><th scope="row">${h}</th>${ls.map(l => `<td class="${b && b(l) ? 'is-best' : ''}">${f(l)}</td>`).join('')}</tr>`;
   d.innerHTML = `<div class="cmp__in"><div class="cmp__head"><h2 class="h3">Порівняння</h2><button class="iconbtn" type="button" data-close aria-label="Закрити порівняння">${icon('x')}</button></div>${ls.length > 2 ? '<p class="cmp__hint mono">Гортайте таблицю вбік — тут 3 позиції →</p>' : ''}
   <div style="overflow-x:auto"><table><thead><tr><th></th>${ls.map(l => `<td><div class="cmp__vis">${visual(l)}</div><b>${esc(S.title(l))}</b></td>`).join('')}</tr></thead><tbody>
-  ${row('Ціна', l => fmt(l.price) + ' ₴', bP)}${row('Стан', l => dash(l.score != null ? String(l.score).replace('.', ',') + ' | 10' : null), bS)}${row('АКБ', l => dash(l.batt != null ? l.batt + '%' : null), bB)}${row('Цикли', l => dash(l.cycles), bC)}
+  ${row('Ціна', l => fmt(l.price) + ' ₴', bP)}${row('Стан', l => dash(l.score != null ? String(l.score).replace('.', ',') + ' | 10' : null), bS)}${row('АКБ', l => dash(l.batt != null ? l.batt + '%' : null), bB)}${ls.some(l => l.cycles != null) ? row('Цикли', l => dash(l.cycles), bC) : ''}
   ${row('Колір', l => dash(esc(l.color)))}${row('SIM', l => dash(l.sim ? simL(l.sim) : null))}${row('Тип', l => esc(S.cond(l)))}${row('Герметичний', l => l.sealed ? 'так, без слідів ремонту' : dash(null))}
   ${row('Обслуговування', l => dash(esc(svcList(l).join(' + '))))}${row('Примітка', l => dash(esc(l.note)))}${row('Комплект', l => dash(l.kit ? esc(cap(brand(l.kit.replace(/ispayal/i, 'iSpayal')))) : null))}${row('Бонус', l => dash(esc(l.bonus)))}${row('Гарантія', l => dash(esc(brand(S.warranty(l)))))}
   <tr><th></th>${ls.map(l => `<td><button class="btn btn--red btn--sm" type="button" data-open-from-cmp="${l.id}">Паспорт</button></td>`).join('')}</tr></tbody></table></div>
@@ -831,16 +860,95 @@ function cyclesNote(l) {
   if (l.cycles != null && /замін/i.test(l.battRaw)) return `Акумулятор замінений · ${l.cycles} ${plural(l.cycles, 'цикл', 'цикли', 'циклів')}`;
   if (/замін/i.test(l.battRaw)) return 'Акумулятор замінений';
   if (l.battNew) return 'Новий акумулятор';
-  if (l.cycles == null) return 'Цикли в пості не вказані';
+  if (l.cycles == null) return '';
   const cw = `${l.cycles} ${plural(l.cycles, 'цикл', 'цикли', 'циклів')}`, b = l.batt != null ? l.batt + '%' : '';
   if (l.cycles < 300) return b ? `${cw} — батарея майже не використовувалась, тримає ${b}` : `${cw} — батарея майже не використовувалась`;
   if (l.cycles < 700) return b ? `${cw} — звичайне використання, тримає ${b}` : `${cw} — звичайне використання`;
   return b ? `${cw} — батарея вже попрацювала, але тримає ${b}` : `${cw} — батарея вже попрацювала`;
 }
+/* passport visual: real photos as a swipeable gallery (thumbnails on desktop, dots + swipe on phones, ← → keys) with the 3D model as the last «3D» tab;
+   a unit without photos keeps the 3D render alone */
+let pgIdx = 0, pgRO = null;
+function visHTML(l) {
+  const ph = PH(l), n = ph.length, isPhone = l.cat === 'iphone', name = `${S.title(l)}${l.color ? ' ' + l.color : ''}`;
+  const model = isPhone ? `<img src="assets/img/phones/${l.tint}.webp" alt="${esc(name)}, узагальнена 3D-модель" data-pv-img>` : `<div class="pass__dev">${deviceSVG(l, true)}</div>`;
+  const hint0 = isPhone ? 'Узагальнена 3D-модель у кольорі ' + esc(l.color) : 'Узагальнене зображення';
+  if (!n) return `<div class="pass__vis pass__vis--${l.cat}">
+    <p class="pass__no">ПАСПОРТ · ${esc(l.code || l.id)}</p>
+    ${model}
+    <p class="pass__hint">${isPhone ? icon('360') : ''}<span data-pv-hint>${hint0}</span></p>
+  </div>`;
+  return `<div class="pass__vis pass__vis--${l.cat} has-photos" data-pg>
+    <p class="pass__no">ПАСПОРТ · ${esc(l.code || l.id)}</p>
+    <div class="pg__wrap">
+      <div class="pg" tabindex="0" role="group" aria-roledescription="галерея" aria-label="Фото: ${esc(name)}. Гортайте стрілками" data-pg-track>
+        ${ph.map((u, i) => `<div class="pg__s" role="group" aria-roledescription="слайд" aria-label="Фото ${i + 1} з ${n}" data-pg-slide="${i}">${photoImg(l, 'pg__img', { i, eager: i === 0, sizes: '(max-width:860px) 100vw, 560px' })}</div>`).join('')}
+        <div class="pg__s pg__s--3d" role="group" aria-roledescription="слайд" aria-label="${isPhone ? '3D-модель' : 'Узагальнене зображення'}" data-pg-slide="${n}" data-pg-3d>${model}</div>
+      </div>
+      <button type="button" class="pg__nav pg__nav--prev" data-pg-go="-1" aria-label="Попереднє фото">${icon('arrow')}</button>
+      <button type="button" class="pg__nav pg__nav--next" data-pg-go="1" aria-label="Наступне фото">${icon('arrow')}</button>
+      <p class="pass__hint pg__hint"><span data-pv-hint>Фото цього екземпляра · 1 / ${n}</span></p>
+    </div>
+    <div class="pg__ths" role="group" aria-label="Фото й 3D">
+      ${ph.map((u, i) => `<button type="button" class="pg__th" data-pg-to="${i}" aria-label="Фото ${i + 1} з ${n}" aria-current="${i === 0}">${photoImg(l, '', { i, sizes: '64px', alt: '' })}</button>`).join('')}
+      <button type="button" class="pg__th pg__th--3d" data-pg-to="${n}" aria-label="${isPhone ? '3D-модель' : 'Узагальнене зображення'}" aria-current="false"><span>3D</span></button>
+    </div>
+  </div>`;
+}
+function start3D(d, l, host) {
+  if (l.cat !== 'iphone' || !wantGL || qs.has('capture') || viewer || host.querySelector('canvas')) return;
+  const id = l.id;
+  import('./hero3d.js?v=20261124v51').then(mod => {
+    if (!d.open || passId !== id || viewer || !host.isConnected) return;
+    const c = document.createElement('canvas'); c.tabIndex = 0; c.setAttribute('aria-label', 'Покрутіть 3D-модель: перетягніть або стрілки'); c.setAttribute('role', 'img');
+    host.appendChild(c); viewer = mod.startViewer(c, { tint: l.tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
+    const im = $('[data-pv-img]', host); if (im) im.style.visibility = 'hidden';
+    if (!host.matches('[data-pg-3d]')) $('[data-pv-hint]', d).textContent = 'Покрутіть: тягніть пальцем або мишею';
+    else if (pgIdx === PH(l).length) $('[data-pv-hint]', d).textContent = 'Покрутіть 3D-модель: тягніть пальцем або мишею';
+  }).catch(() => { });
+}
+function wireVis(d, l) {
+  const g = $('[data-pg]', d);
+  d.classList.toggle('has-photos', !!g);
+  d.onkeydown = null;
+  if (!g) { pgIdx = 0; start3D(d, l, $('.pass__vis', d)); return; }
+  const tr = $('[data-pg-track]', g), n = PH(l).length, last = n, hint = $('[data-pv-hint]', g);
+  const paint = i => {
+    pgIdx = i;
+    $$('[data-pg-to]', g).forEach(b => b.setAttribute('aria-current', +b.dataset.pgTo === i));
+    $('[data-pg-go="-1"]', g).disabled = i <= 0; $('[data-pg-go="1"]', g).disabled = i >= last;
+    hint.textContent = i < n ? `Фото цього екземпляра · ${i + 1} / ${n}` : l.cat === 'iphone' ? (viewer ? 'Покрутіть 3D-модель: тягніть пальцем або мишею' : 'Узагальнена 3D-модель у кольорі ' + l.color) : 'Узагальнене зображення';
+    g.classList.toggle('is-3d', i === last);
+    const th = $(`[data-pg-to="${i}"]`, g), box = th.parentElement; // keep the active thumbnail in view: scroll only the thumbnail row, never the page
+    if (th.offsetLeft < box.scrollLeft) box.scrollLeft = th.offsetLeft - 8; else if (th.offsetLeft + th.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = th.offsetLeft + th.offsetWidth - box.clientWidth + 8;
+    if (i === last) { // start the 3D only once the slide has landed: a canvas added mid-scroll makes the browser re-snap back to the previous photo
+      const t0 = performance.now(), wait = () => { if (pgIdx !== last || !tr.isConnected) return; if (Math.abs(tr.scrollLeft - last * tr.clientWidth) < 2 || performance.now() - t0 > 1500) start3D(d, l, $('[data-pg-3d]', g)); else requestAnimationFrame(wait); };
+      requestAnimationFrame(wait);
+    }
+  };
+  const go = (i, instant) => { i = Math.max(0, Math.min(last, i)); tr.scrollTo({ left: i * tr.clientWidth, behavior: reduced || instant ? 'auto' : 'smooth' }); paint(i); };
+  let st = 0;
+  tr.addEventListener('scroll', () => { clearTimeout(st); st = setTimeout(() => { const i = Math.round(tr.scrollLeft / Math.max(1, tr.clientWidth)); if (i !== pgIdx) paint(i); }, 60); }, { passive: true });
+  g.addEventListener('click', e => { const t = e.target.closest('[data-pg-to]'); if (t) return go(+t.dataset.pgTo); const s = e.target.closest('[data-pg-go]'); if (s) go(pgIdx + +s.dataset.pgGo); });
+  d.onkeydown = e => { // ← → anywhere in the passport except fields, the 3D canvas (it turns the model with arrows) and lists
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' || e.altKey || e.metaKey || e.ctrlKey) return;
+    if (e.target.closest('input,select,textarea,canvas,[role=listbox]')) return;
+    e.preventDefault(); go(pgIdx + (e.key === 'ArrowRight' ? 1 : -1));
+  };
+  if (pgRO) pgRO.disconnect(); pgRO = new ResizeObserver(() => { if (tr.isConnected) tr.scrollLeft = pgIdx * tr.clientWidth; }); pgRO.observe(tr); // rotate / resize: stay on the same slide
+  go(Math.min(pgIdx, last), true);
+}
+function gallerySync() { // a photo failed: rebuild the visual without it, on the nearest slide
+  const d = $('[data-pass]'), l = passId && byId(passId), vis = l && $('.pass__vis', d); if (!vis) return;
+  if (viewer) { viewer.destroy(); viewer = null; }
+  const n = PH(l).length; pgIdx = Math.min(pgIdx, n);
+  vis.outerHTML = visHTML(l); wireVis(d, l);
+}
 let passPushed = false, passId = null, backPending = false;
 function openPass(id, focusBook, viaPop) {
   const l = byId(id); if (!l) return;
   const d = $('[data-pass]'), ig = igUrl(l);
+  if (viewer) { viewer.destroy(); viewer = null; } // a passport replaced in place (another unit, Back/Forward) never keeps the old 3D canvas
   const hist = [];
   if (l.label) hist.push([S.label(l), 'Позначка в пості', false]);
   svcList(l).forEach(s => hist.push([s[0].toUpperCase() + s.slice(1), 'Обслуговування', true]));
@@ -855,27 +963,23 @@ function openPass(id, focusBook, viaPop) {
   if (/блок/i.test(l.bonus)) kit.push(['plug', 'Блок живлення', true]);
   const dials = [];
   if (l.score != null) dials.push(`<div class="dial">${gauge(l.score)}<p class="dial__v">${String(l.score).replace('.', ',')}</p><p class="dial__k">Стан, з 10</p></div>`);
-  if (l.batt != null) dials.push(`<div class="dial">${battGauge(l.batt)}<p class="dial__v" style="margin-top:-96px;margin-bottom:58px">${l.batt}%</p><p class="dial__k">Ємність АКБ</p><p class="dial__s">${cyclesNote(l)}</p></div>`);
+  if (l.batt != null) dials.push(`<div class="dial">${battGauge(l.batt)}<p class="dial__v" style="margin-top:-96px;margin-bottom:58px">${l.batt}%</p><p class="dial__k">Ємність АКБ</p>${cyclesNote(l) ? `<p class="dial__s">${cyclesNote(l)}</p>` : ''}</div>`);
   if (!dials.length) dials.push(`<div class="dial dial--wide"><p class="dial__v" style="margin:6px 0 0">${esc(condGroup(l))}</p><p class="dial__k">${l.isNew ? 'Новий пристрій' : 'Стан у пості не вказано'}</p></div>`);
-  if (l.score != null && !l.isNew) { const g = grade(l)[0]; dials.push(`<div class="glegend"><p class="glegend__k">Що означає стан x/10</p><ul>${[['Як новий', '9,8–10'], ['Відмінний', '9,4–9,7'], ['Хороший', '9,0–9,3'], ['Нормальний', 'до 9,0']].map(([t, r]) => `<li class="${t === g ? 'is-on' : ''}"><b>${t}</b><span>${r}</span></li>`).join('')}</ul></div>`); }
+  if (l.score != null && !l.isNew) { const g = grade(l)[0]; dials.push(`<div class="glegend"><p class="glegend__k">Що означає стан x/10</p><ul>${[['Ідеальний', '9,8–10'], ['Відмінний', '9,4–9,7'], ['Хороший', '9,0–9,3'], ['Нормальний', 'до 9,0']].map(([t, r]) => `<li class="${t === g ? 'is-on' : ''}"><b>${t}</b><span>${r}</span></li>`).join('')}</ul></div>`); }
   const isPhone = l.cat === 'iphone';
   const others = LIST.filter(o => o.id !== l.id && o.model === l.model && o.cat === l.cat).sort((x, y) => (statusOf(x) === 'sold') - (statusOf(y) === 'sold') || x.price - y.price);
   const diff = o => { const v = o.price - l.price; return v === 0 ? 'та сама ціна' : (v > 0 ? '+' : '−') + fmt(Math.abs(v)) + ' ₴'; };
   const othersHTML = others.length ? `<div class="others"><h3>Інші екземпляри цієї моделі <small class="mono">${others.length}</small></h3><ul>${others.map(o => `<li><button type="button" class="other ${statusOf(o) === 'sold' ? 'is-sold' : ''}" data-other="${o.id}" aria-label="Відкрити паспорт: ${esc(S.title(o))} ${esc(o.color)}, ${fmt(o.price)} ₴">
-      <span class="other__img">${o.cat === 'iphone' ? `<img src="assets/img/phones/${o.tint}.webp" alt="" width="560" height="700" loading="lazy">` : thumbSVG(o)}</span>
+      <span class="other__img">${thumbVis(o)}</span>
       <span class="other__t">${esc([S.memL(o.mem), o.color].filter(Boolean).join(' · ') || S.title(o))}</span>
       <span class="other__m mono">${o.score != null ? 'стан ' + String(o.score).replace('.', ',') : esc(S.cond(o))}${o.batt != null ? ' · АКБ ' + o.batt + '%' : ''}${statusOf(o) !== 'available' ? ' · ' + STATUS[statusOf(o)].toLowerCase() : ''}</span>
       <span class="other__p"><b>${fmt(o.price)} ₴</b><small class="${o.price < l.price ? 'is-less' : ''}">${diff(o)}</small></span></button></li>`).join('')}</ul></div>` : '';
   const warr = S.warranty(l), trust = [warr ? ['shield', esc(brand(warr))] : null, ['check', 'Перевірка при вас у магазині'], ['coins', 'Оплата частинами'], ['swap', 'Trade-in']].filter(Boolean);
   d.innerHTML = `
-  <div class="pass__vis pass__vis--${l.cat}">
-    <p class="pass__no">ПАСПОРТ · ${esc(l.code || l.id)}</p>
-    ${isPhone ? `<img src="assets/img/phones/${l.tint}.webp" alt="${esc(S.title(l))} ${esc(l.color)}, узагальнена 3D-модель" data-pv-img>` : `<div class="pass__dev">${deviceSVG(l, true)}</div>`}
-    <p class="pass__hint">${isPhone ? icon('360') : ''}<span data-pv-hint>${isPhone ? 'Узагальнена 3D-модель у кольорі ' + esc(l.color) : 'Узагальнене зображення'}</span></p>
-  </div>
+  ${visHTML(l)}
   <div class="pass__data">
     <button class="iconbtn pass__x" type="button" data-close aria-label="Закрити паспорт">${icon('x')}</button>
-    <p class="pass__eyebrow">${esc(S.cond(l))}${l.isNew ? ' · спеціальна пропозиція' : ''}</p>
+    <p class="pass__eyebrow">${esc(S.cond(l))}${l.special ? ' · спеціальна пропозиція' : ''}</p>
     ${statusHTML(l)}
     <h2 class="pass__h" id="pass-h">${esc(S.title(l))}</h2>
     <p class="pass__sub">${l.color ? `<span class="swatch" style="background:${SWATCH[l.tint]}"></span>${esc(l.color)}` : ''}${l.sim ? ` · ${simL(l.sim)}` : ''}</p>
@@ -884,7 +988,7 @@ function openPass(id, focusBook, viaPop) {
     ${hist.length ? `<div class="hist"><h3>Що відомо про цей пристрій</h3><ol>${hist.map(([a, b, s]) => `<li class="${s ? 'is-svc' : ''}">${esc(a)}<small>${esc(b)}</small></li>`).join('')}</ol></div>` : ''}
     ${kit.length ? `<div class="kit"><h3>Комплект${l.bonus ? ' і бонус' : ''}</h3><ul>${kit.map(([i, t, b]) => `<li class="${b ? 'is-bonus' : ''}">${icon(i)}<span>${esc(t)}${b ? '<br><small class="mono">бонус*</small>' : ''}</span></li>`).join('')}</ul></div>` : ''}
     <div class="pay"><h3>Оплата${warr ? ' і гарантія' : ''}</h3><div class="pay__chips"><span>USDT</span><span>$</span><span>₴</span><span>€</span><span>Післяплата</span><span>Розстрочка</span></div>
-      <p>${warr ? `${icon('shield')} ${esc(brand(warr))}. ` : ''}${l.isNew ? 'Спеціальна пропозиція — діє при визначених умовах оплати. ' : ''}<a href="#rozstrochka" data-to-calc="${l.price}">Порахувати розстрочку</a>${ig ? ` · <a href="${ig}" target="_blank" rel="noopener">Пост в Instagram ↗</a>` : ''}</p></div>
+      <p>${warr ? `${icon('shield')} ${esc(brand(warr))}. ` : ''}${l.special ? 'Спеціальна пропозиція — діє при визначених умовах оплати. ' : ''}<a href="#rozstrochka" data-to-calc="${l.price}">Порахувати розстрочку</a>${ig ? ` · <a href="${ig}" target="_blank" rel="noopener">Пост в Instagram ↗</a>` : ''}</p></div>
     ${othersHTML}
     <div class="pass__bookwrap" ${statusOf(l) === 'sold' ? 'hidden' : ''}><h3>${statusOf(l) === 'reserved' ? 'Вже заброньовано — стати в чергу' : 'Забронювати'}</h3>
       <form class="pass__book" data-pass-book novalidate>
@@ -902,6 +1006,7 @@ function openPass(id, focusBook, viaPop) {
     </div>
   </div>`;
   const wasOpen = d.open;
+  pgIdx = 0;
   if (!wasOpen) d.showModal();
   try { const r = JSON.parse(localStorage.getItem('ispayal.recent') || '[]').filter(x => x !== id); r.unshift(id); localStorage.setItem('ispayal.recent', JSON.stringify(r.slice(0, 8))); } catch { }
   // history: opening pushes one #t/<id> entry, so the browser Back button closes the passport instead of leaving the site;
@@ -914,14 +1019,7 @@ function openPass(id, focusBook, viaPop) {
   if (viaPop) passPushed = true;
   $('.pass__data', d).scrollTop = 0;
   if (focusBook) setTimeout(() => { const n = d.querySelector('[name=name]'); n.scrollIntoView({ block: 'center' }); n.focus({ preventScroll: true }); }, 60); else d.querySelector('[data-close]').focus({ preventScroll: true });
-  if (isPhone && wantGL && !qs.has('capture')) {
-    import('./hero3d.js?v=20261124w').then(mod => {
-      if (!d.open) return;
-      const vis = $('.pass__vis', d), c = document.createElement('canvas'); c.tabIndex = 0; c.setAttribute('aria-label', 'Покрутіть 3D-модель: перетягніть або стрілки'); c.setAttribute('role', 'img');
-      vis.appendChild(c); viewer = mod.startViewer(c, { tint: l.tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
-      $('[data-pv-img]', d).style.visibility = 'hidden'; $('[data-pv-hint]', d).textContent = 'Покрутіть: тягніть пальцем або мишею';
-    }).catch(() => { });
-  }
+  wireVis(d, l);
   d.onclick = e => {
     if (e.target === d || e.target.closest('[data-close]')) d.close();
     if (e.target.closest('[data-share]')) { const u = (location.origin + location.pathname) + '#t/' + id; try { navigator.clipboard.writeText(u).then(() => toast('Посилання скопійовано — надішліть у Direct'), () => toast('Не вдалося скопіювати: ' + u)); } catch { toast(u); } }
@@ -935,7 +1033,7 @@ function openPass(id, focusBook, viaPop) {
     if (!f.name.value.trim() || !phoneOk(f.phone.value)) { err.textContent = !f.name.value.trim() ? 'Як до вас звертатися?' : PHONE_ERR; err.hidden = false; ok.hidden = true; const bad = f.name.value.trim() ? f.phone : f.name; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
     err.hidden = true;
     const bq = S.addRequest({ type: 'booking', listing: l.id, title: `${S.title(l)}${l.color ? ' ' + l.color : ''}`, price: l.price, name: f.name.value.trim(), phone: phoneNorm(f.phone.value) });
-    ok.innerHTML = statusOf(l) === 'reserved' ? `${icon('check')}<span>Ви в черзі на ${esc(bq.title)}. Якщо поточна бронь зніметься — напишемо в Direct або подзвонимо на ${esc(bq.phone)}. ${DEMO_NOTE}</span>` : `${icon('check')}<span>Заявку на бронь прийнято: ${esc(bq.title)}. Менеджер підтвердить у Direct або дзвінком на ${esc(bq.phone)}. ${DEMO_NOTE}</span>`; ok.hidden = false;
+    ok.innerHTML = statusOf(l) === 'reserved' ? `${icon('check')}<span>Дякуємо! Ви в черзі на ${esc(bq.title)}. Якщо поточна бронь зніметься — напишемо вам у Direct або зателефонуємо на ${esc(bq.phone)}.</span>` : `${icon('check')}<span>Дякуємо! Бронь на ${esc(bq.title)} прийнято. Ми напишемо вам у Direct або зателефонуємо на ${esc(bq.phone)} протягом робочого дня, щоб підтвердити.</span>`; ok.hidden = false;
     f.querySelector('button').disabled = true;
   };
 }
@@ -943,7 +1041,7 @@ $$('dialog').forEach(d => d.addEventListener('keydown', e => trapTab(d, e)));
 function paintRecent() { // below the grid, so adding it never moves what is on screen
   const box = $('[data-recent]'); if (!box) return; let r = []; try { r = JSON.parse(localStorage.getItem('ispayal.recent') || '[]').map(byId).filter(Boolean); } catch { }
   box.hidden = !r.length; if (!r.length) return;
-  $('[data-recent-list]', box).innerHTML = r.map(l => `<li><button type="button" class="rcard" data-open="${l.id}"><span class="rcard__img">${l.cat === 'iphone' ? `<img src="assets/img/phones/${l.tint}.webp" alt="" width="560" height="700" loading="lazy">` : thumbSVG(l)}</span><span class="rcard__t">${esc(S.title(l))}<small>${esc(l.color || '')}</small></span><b>${fmt(l.price)} ₴</b></button></li>`).join('');
+  $('[data-recent-list]', box).innerHTML = r.map(l => `<li><button type="button" class="rcard" data-open="${l.id}"><span class="rcard__img">${thumbVis(l)}</span><span class="rcard__t">${esc(S.title(l))}<small>${esc(l.color || '')}</small></span><b>${fmt(l.price)} ₴</b></button></li>`).join('');
 }
 $('[data-recent]') && $('[data-recent]').addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openPass(b.dataset.open); });
 $('[data-pass]').addEventListener('close', () => {
@@ -973,7 +1071,7 @@ $('[data-notify-form]').addEventListener('submit', e => {
   f.want.removeAttribute('aria-invalid'); f.contact.removeAttribute('aria-invalid');
   if (!f.want.value.trim() || !ctOk) { const bad = !f.want.value.trim() ? f.want : f.contact; err.textContent = bad === f.want ? 'Оберіть модель або напишіть, яку шукаєте.' : 'Вкажіть телефон (+380 XX XXX XX XX) або нік в Instagram (@nick).'; err.hidden = false; ok.hidden = true; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
   err.hidden = true; S.addRequest({ type: 'notify', status: 'Чекає', want: f.want.value.trim(), contact: phoneNorm(ct) || (ct[0] === '@' ? ct : '@' + ct) });
-  ok.innerHTML = `${icon('check')}<span>Готово. Напишемо, щойно «${esc(f.want.value.trim())}» буде на вітрині. ${DEMO_NOTE}</span>`; ok.hidden = false; f.reset(); lockUntilEdit(f);
+  ok.innerHTML = `${icon('check')}<span>Дякуємо! Щойно «${esc(f.want.value.trim())}» зʼявиться на вітрині — напишемо вам у Direct або зателефонуємо.</span>`; ok.hidden = false; f.reset(); lockUntilEdit(f);
 });
 
 /* hero finder (iPhones) */
@@ -1202,12 +1300,14 @@ let hpSync = () => { };
 
 /* ---------------- installment calculator ---------------- */
 const BANKS = [
-  { id: 'privat', n: 'Приват', note: '4 без %, до 12 платежів', def: 12, max: 12, free: 4 },
-  { id: 'mono', n: 'Моно', note: '4 без %, до 12 платежів', def: 12, max: 12, free: 4 },
-  { id: 'pumb', n: 'ПУМБ', note: '4 без %, до 12 платежів', def: 12, max: 12, free: 4 },
-  { id: 'abank', n: 'A-Bank', note: '4 без %, до 12 платежів', def: 12, max: 12, free: 4 },
-  { id: 'sens', n: 'Sens', note: '11 платежів без %', def: 11, max: 11, free: 11 },
-  { id: 'ukrsib', n: 'Укрсиб', note: 'до 14 платежів — найдовший строк', def: 14, max: 14, free: 0 },
+  // payment_terms from the shop's posts: «Приват / Моно / ПУМБ / Sens / A Bank — 3–4 платежі без %, до 12 міс — за умовами банку»,
+  // «Укрсиб: до 14 платежів», «Sens: 11 платежів без % (до 16 на вигідних умовах)». «3–4 без %»: up to 4 the note says «без %», and at 4 it adds that 3 or 4 is the bank's call — exactly as the source text puts it.
+  { id: 'privat', n: 'Приват', note: '3–4 платежі без %, до 12 міс', def: 4, max: 12, free: 4, freeExact: 3 },
+  { id: 'mono', n: 'Моно', note: '3–4 платежі без %, до 12 міс', def: 4, max: 12, free: 4, freeExact: 3 },
+  { id: 'pumb', n: 'ПУМБ', note: '3–4 платежі без %, до 12 міс', def: 4, max: 12, free: 4, freeExact: 3 },
+  { id: 'abank', n: 'A-Bank', note: '3–4 платежі без %, до 12 міс', def: 4, max: 12, free: 4, freeExact: 3 },
+  { id: 'sens', n: 'Sens', note: '11 без %, до 16 на вигідних умовах', def: 11, max: 16, free: 11 },
+  { id: 'ukrsib', n: 'Укрсиб', note: 'до 14 платежів', def: 14, max: 14, free: 0 },
 ];
 let bank = BANKS.find(b => b.id === 'ukrsib');
 function setCalcPrice(v, keepPick) { const p = $('[data-c-price]'), r = $('[data-c-range]'), pk = $('[data-c-pick]'); p.value = v; r.value = Math.min(95000, Math.max(5000, v)); rangeFill(r); if (!keepPick) pk.value = [...pk.options].some(o => o.value === String(v)) ? String(v) : ''; calc(); }
@@ -1220,7 +1320,7 @@ function calc() {
   sum.textContent = bad ? '' : fmt(Math.ceil(price / n)); sum.hidden = bad; if (unit) unit.hidden = bad;
   if (msg) { msg.hidden = !bad; msg.textContent = empty ? 'Введіть ціну — порахуємо платіж' : price > 150000 ? 'Забагато для розстрочки' : 'Замало для розстрочки'; }
   $('.calc__sum').classList.toggle('is-msg', bad);
-  $('[data-c-note]').textContent = bad ? 'Розстрочка — на суму від 3 000 до 150 000 ₴' : bank.free && n <= bank.free ? `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} без переплати · перший платіж у день покупки` : `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} · без урахування можливої комісії банку`;
+  $('[data-c-note]').textContent = bad ? 'Розстрочка — на суму від 3 000 до 150 000 ₴' : bank.free && n <= bank.free ? (bank.freeExact && n > bank.freeExact ? `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} без % · 3 чи 4 без %, точно скаже банк` : `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} без % · перший платіж у день покупки`) : `${n} ${plural(n, 'платіж', 'платежі', 'платежів')} · ${bank.id === 'sens' && n > 11 ? 'на вигідних умовах Sens' : 'за умовами банку'}, без урахування комісії`;
   $('[data-c-bars]').innerHTML = Array.from({ length: n }, () => '<i></i>').join('');
 }
 {
@@ -1257,7 +1357,7 @@ function calc() {
     err.hidden = true;
     const t = byId(f.target.value);
     S.addRequest({ type: 'tradein', model: f.model.value, mem: f.mem.value, look: f.look.value, batt: +f.batt.value, box: f.box.checked, repaired: f.repaired.checked, faceid: f.faceid.checked, target: t ? `${S.title(t)} ${t.color || ''}`.trim() : '', name: f.name.value.trim(), phone: phoneNorm(f.phone.value) });
-    ok.innerHTML = `${icon('check')}<span>Отримали. Напишемо або передзвонимо ${openState().when}. Візьміть телефон у магазин — огляд займе близько 15 хвилин. ${DEMO_NOTE}</span>`; ok.hidden = false; lockUntilEdit(f);
+    ok.innerHTML = `${icon('check')}<span>Дякуємо! Ми напишемо вам у Direct або зателефонуємо протягом робочого дня (${openState().when}). Остаточну суму назвемо після огляду телефона в магазині.</span>`; ok.hidden = false; lockUntilEdit(f);
   });
 }
 
