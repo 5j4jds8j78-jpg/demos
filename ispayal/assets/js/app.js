@@ -937,11 +937,17 @@ function routeHash() { const m = location.hash.match(/^#t\/([\w-]+)/); if (m && 
 addEventListener('hashchange', routeHash);
 
 /* notify */
+{ // one-tap picker: model / memory / battery chips compose the «want» text
+  const f = $('[data-notify-form]');
+  const compose = () => { const v = n => (f.querySelector(`[name=${n}]:checked`) || {}).value || ''; const m = v('nm'); if (!m) return; f.want.value = [m, v('nmem'), v('nbat')].filter(Boolean).join(', '); f.want.removeAttribute('aria-invalid'); };
+  f.addEventListener('change', e => { if (/^n(m|mem|bat)$/.test(e.target.name)) compose(); });
+  f.addEventListener('reset', () => setTimeout(() => f.querySelectorAll('.ntf__g input').forEach(i => i.checked = false)));
+}
 $('[data-notify-form]').addEventListener('submit', e => {
   e.preventDefault(); const f = e.target, err = $('[data-err]', f), ok = $('[data-ok]', f);
   const ct = f.contact.value.trim(), ctOk = phoneOk(ct) || /^@?[a-z0-9._]{2,30}$/i.test(ct) && /[a-z]/i.test(ct);
   f.want.removeAttribute('aria-invalid'); f.contact.removeAttribute('aria-invalid');
-  if (!f.want.value.trim() || !ctOk) { const bad = !f.want.value.trim() ? f.want : f.contact; err.textContent = bad === f.want ? 'Напишіть, який телефон чекаєте.' : 'Вкажіть телефон (+380 XX XXX XX XX) або нік в Instagram (@nick).'; err.hidden = false; ok.hidden = true; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
+  if (!f.want.value.trim() || !ctOk) { const bad = !f.want.value.trim() ? f.want : f.contact; err.textContent = bad === f.want ? 'Оберіть модель або напишіть, яку шукаєте.' : 'Вкажіть телефон (+380 XX XXX XX XX) або нік в Instagram (@nick).'; err.hidden = false; ok.hidden = true; bad.setAttribute('aria-invalid', 'true'); bad.focus(); return; }
   err.hidden = true; S.addRequest({ type: 'notify', status: 'Чекає', want: f.want.value.trim(), contact: phoneNorm(ct) || (ct[0] === '@' ? ct : '@' + ct) });
   ok.innerHTML = `${icon('check')}<span>Готово. Напишемо, щойно «${esc(f.want.value.trim())}» буде на вітрині. ${DEMO_NOTE}</span>`; ok.hidden = false; f.reset(); lockUntilEdit(f);
 });

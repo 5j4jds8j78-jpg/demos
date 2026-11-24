@@ -1027,3 +1027,12 @@ html.is-locked .nav{background:rgba(10,10,10,.92)}
 /* «Показати ще 12 · показано 12 з 47» wraps inside the grid's width instead of overflowing it */
 .more small{font:inherit}
 @media (max-width:560px){.more{width:100%;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:auto;min-height:52px;padding-block:8px;line-height:1.2}.more__sep{display:none}.more small{font:500 12px/1.2 var(--fm);color:var(--mute)}}
+/* notify: one-tap model picker */
+.ntf__g{border:0;margin:0 0 14px;padding:0;min-width:0}
+.ntf__g legend{font-size:13px;color:var(--mute);margin-bottom:8px;padding:0}
+.ntf__row{display:flex;flex-wrap:wrap;gap:8px}
+.ntf__row .chip span{min-height:40px;padding:0 12px}
+@media (max-width:560px){
+  .ntf__row{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -26px;padding:0 26px 4px;scroll-padding:0 26px}
+  .ntf__row::-webkit-scrollbar{display:none}
+}
