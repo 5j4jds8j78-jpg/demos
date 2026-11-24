@@ -120,7 +120,7 @@ async function bootGL() {
   if (!wantGL) return;
   try {
     await document.fonts.load('900 40px "ISP Display"'); await document.fonts.load('500 20px "ISP Mono"'); await document.fonts.load('600 20px "ISP Display"');
-    const mod = await import('./hero3d.js?v=20261124z');
+    const mod = await import('./hero3d.js?v=20261124y');
     const labels = Object.fromEntries($$('[data-part]', stage).map(b => [b.dataset.part, b]));
     gl = mod.start($('[data-gl]'), {
       anchor: $('[data-anchor]'), labels, font: '"ISP Display"', mono: '"ISP Mono"', capture: qs.has('capture'), still: qs.has('capture'),
@@ -646,8 +646,15 @@ $('[data-grid]').addEventListener('click', e => {
   const f = nc.querySelector(`[data-swap="${sib.id}"]`); if (f) f.focus({ preventScroll: true });
 });
 const INFO_TILES = [
-  `<li class="itile itile--trade"><p class="itile__k">${icon('swap')}Trade-in</p><h3 class="itile__h">Старий iPhone — у залік нового</h3><p class="itile__p">Оцінимо при вас у магазині: огляд займає близько 15 хвилин. Цифру назвемо після огляду.</p><a class="btn btn--red btn--sm itile__go" href="#trade-in">Розповісти про свій iPhone${icon('arrow')}</a></li>`,
-  `<li class="itile itile--repair"><p class="itile__k">${icon('wrench')}Сервіс</p><h3 class="itile__h">Ремонт і заміна АКБ — запис онлайн</h3><p class="itile__p">Оберіть день і час. Ціну майстер скаже після діагностики — без вашого «так» нічого не робимо.</p><a class="btn btn--red btn--sm itile__go" href="#zapys">Записатися на ремонт${icon('arrow')}</a></li>`,
+  `<li class="itile itile--trade"><p class="itile__k">${icon('swap')}Trade-in</p><h3 class="itile__h">Старий iPhone — у залік нового</h3><p class="itile__p">Оцінимо при вас у магазині: огляд займає близько 15 хвилин. Цифру назвемо після огляду.</p>
+    <div class="itile__mid" aria-hidden="true"><svg class="itile__art" viewBox="0 0 220 120"><rect x="18" y="14" width="56" height="96" rx="12" class="a-dim"/><rect x="146" y="10" width="60" height="102" rx="13" class="a-hi"/><circle cx="176" cy="40" r="4" class="a-dot"/><path d="M88 62h44m-10-10 10 10-10 10" class="a-arrow"/></svg></div>
+    <ol class="itile__steps"><li><b>1</b>Приносите свій iPhone</li><li><b>2</b>Огляд ~15 хв при вас</li><li><b>3</b>Сума — в залік нового</li></ol>
+    <a class="btn btn--red btn--sm itile__go" href="#trade-in">Розповісти про свій iPhone${icon('arrow')}</a></li>`,
+  `<li class="itile itile--repair"><p class="itile__k">${icon('wrench')}Сервіс</p><h3 class="itile__h">Ремонт і заміна АКБ — запис онлайн</h3><p class="itile__p">Оберіть день і час. Ціну майстер скаже після діагностики — без вашого «так» нічого не робимо.</p>
+    <div class="itile__mid"><div class="itile__ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" class="r-bg"/><circle cx="60" cy="60" r="50" class="r-fg" pathLength="100" stroke-dasharray="79 100"/></svg><span>79%</span></div><p class="itile__note">Ємність АКБ нижче 80% — iPhone сам радить заміну батареї</p></div>
+    <ul class="itile__list"><li>${icon('battery')}Заміна акумулятора</li><li>${icon('sun')}Переклеювання скла</li><li>${icon('chip')}Діагностика й ремонт</li></ul>
+    <p class="itile__hours">Пн–Пт 9–19 · Сб 9–15 · Нд 11–16</p>
+    <a class="btn btn--red btn--sm itile__go" href="#zapys">Записатися на ремонт${icon('arrow')}</a></li>`,
 ];
 /* phone toolbar (sticky inside the catalog): sort · filters · price mode */
 {
@@ -702,7 +709,7 @@ function paintPick() {
   if (pickViewer) pickViewer.setTint(tint);
   else if (wantGL && !pickViewerLoading && !qs.has('capture')) {
     pickViewerLoading = true;
-    import('./hero3d.js?v=20261124z').then(mod => {
+    import('./hero3d.js?v=20261124y').then(mod => {
       const c = document.createElement('canvas'); c.setAttribute('role', 'img'); c.setAttribute('aria-label', 'Узагальнена 3D-модель обраного кольору; можна покрутити'); c.tabIndex = 0;
       $('[data-pick-vis]').appendChild(c);
       pickViewer = mod.startViewer(c, { tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
@@ -891,7 +898,7 @@ function openPass(id, focusBook, viaPop) {
   $('.pass__data', d).scrollTop = 0;
   if (focusBook) setTimeout(() => { const n = d.querySelector('[name=name]'); n.scrollIntoView({ block: 'center' }); n.focus({ preventScroll: true }); }, 60); else d.querySelector('[data-close]').focus({ preventScroll: true });
   if (isPhone && wantGL && !qs.has('capture')) {
-    import('./hero3d.js?v=20261124z').then(mod => {
+    import('./hero3d.js?v=20261124y').then(mod => {
       if (!d.open) return;
       const vis = $('.pass__vis', d), c = document.createElement('canvas'); c.tabIndex = 0; c.setAttribute('aria-label', 'Покрутіть 3D-модель: перетягніть або стрілки'); c.setAttribute('role', 'img');
       vis.appendChild(c); viewer = mod.startViewer(c, { tint: l.tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
