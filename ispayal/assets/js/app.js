@@ -120,7 +120,7 @@ async function bootGL() {
   if (!wantGL) return;
   try {
     await document.fonts.load('900 40px "ISP Display"'); await document.fonts.load('500 20px "ISP Mono"'); await document.fonts.load('600 20px "ISP Display"');
-    const mod = await import('./hero3d.js');
+    const mod = await import('./hero3d.js?v=20261124z');
     const labels = Object.fromEntries($$('[data-part]', stage).map(b => [b.dataset.part, b]));
     gl = mod.start($('[data-gl]'), {
       anchor: $('[data-anchor]'), labels, font: '"ISP Display"', mono: '"ISP Mono"', capture: qs.has('capture'), still: qs.has('capture'),
@@ -702,7 +702,7 @@ function paintPick() {
   if (pickViewer) pickViewer.setTint(tint);
   else if (wantGL && !pickViewerLoading && !qs.has('capture')) {
     pickViewerLoading = true;
-    import('./hero3d.js').then(mod => {
+    import('./hero3d.js?v=20261124z').then(mod => {
       const c = document.createElement('canvas'); c.setAttribute('role', 'img'); c.setAttribute('aria-label', 'Узагальнена 3D-модель обраного кольору; можна покрутити'); c.tabIndex = 0;
       $('[data-pick-vis]').appendChild(c);
       pickViewer = mod.startViewer(c, { tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
@@ -891,7 +891,7 @@ function openPass(id, focusBook, viaPop) {
   $('.pass__data', d).scrollTop = 0;
   if (focusBook) setTimeout(() => { const n = d.querySelector('[name=name]'); n.scrollIntoView({ block: 'center' }); n.focus({ preventScroll: true }); }, 60); else d.querySelector('[data-close]').focus({ preventScroll: true });
   if (isPhone && wantGL && !qs.has('capture')) {
-    import('./hero3d.js').then(mod => {
+    import('./hero3d.js?v=20261124z').then(mod => {
       if (!d.open) return;
       const vis = $('.pass__vis', d), c = document.createElement('canvas'); c.tabIndex = 0; c.setAttribute('aria-label', 'Покрутіть 3D-модель: перетягніть або стрілки'); c.setAttribute('role', 'img');
       vis.appendChild(c); viewer = mod.startViewer(c, { tint: l.tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
