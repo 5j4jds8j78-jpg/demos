@@ -1227,3 +1227,5 @@ html.is-locked .nav{background:rgba(10,10,10,.92)}
 }
 @media (max-width:560px){.cp__btn .cp__pr{display:none}}
 @media (max-width:360px){.cp__btn .cp__tx b{font-size:14.5px}.cp__btn{gap:10px;padding-right:10px}}
+.cp__panel--float{position:fixed;z-index:2147483001;right:auto}
+.cp__panel--float .cp__list{max-height:none}
