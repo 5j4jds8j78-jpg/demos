@@ -119,7 +119,7 @@ async function bootGL() {
   if (!wantGL) return;
   try {
     await document.fonts.load('900 40px "ISP Display"'); await document.fonts.load('500 20px "ISP Mono"'); await document.fonts.load('600 20px "ISP Display"');
-    const mod = await import('./hero3d.js?v=20261124v51');
+    const mod = await import('./hero3d.js?v=20261125v6');
     const labels = Object.fromEntries($$('[data-part]', stage).map(b => [b.dataset.part, b]));
     gl = mod.start($('[data-gl]'), {
       anchor: $('[data-anchor]'), labels, font: '"ISP Display"', mono: '"ISP Mono"', capture: qs.has('capture'), still: qs.has('capture'),
@@ -760,7 +760,7 @@ function paintPick() {
   if (pickViewer) pickViewer.setTint(tint);
   else if (wantGL && !pickViewerLoading && !qs.has('capture')) {
     pickViewerLoading = true;
-    import('./hero3d.js?v=20261124v51').then(mod => {
+    import('./hero3d.js?v=20261125v6').then(mod => {
       const c = document.createElement('canvas'); c.setAttribute('role', 'img'); c.setAttribute('aria-label', 'Узагальнена 3D-модель обраного кольору; можна покрутити'); c.tabIndex = 0;
       $('[data-pick-vis]').appendChild(c);
       pickViewer = mod.startViewer(c, { tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
@@ -903,7 +903,7 @@ function visHTML(l) {
 function start3D(d, l, host) {
   if (l.cat !== 'iphone' || !wantGL || qs.has('capture') || viewer || host.querySelector('canvas')) return;
   const id = l.id;
-  import('./hero3d.js?v=20261124v51').then(mod => {
+  import('./hero3d.js?v=20261125v6').then(mod => {
     if (!d.open || passId !== id || viewer || !host.isConnected) return;
     const c = document.createElement('canvas'); c.tabIndex = 0; c.setAttribute('aria-label', 'Покрутіть 3D-модель: перетягніть або стрілки'); c.setAttribute('role', 'img');
     host.appendChild(c); viewer = mod.startViewer(c, { tint: l.tint, font: '"ISP Display"', mono: '"ISP Mono"', auto: !reduced });
